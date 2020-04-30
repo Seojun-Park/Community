@@ -11,6 +11,10 @@ type AggregateImage {
   count: Int!
 }
 
+type AggregateNotice {
+  count: Int!
+}
+
 type AggregatePost {
   count: Int!
 }
@@ -488,6 +492,12 @@ type Mutation {
   upsertImage(where: ImageWhereUniqueInput!, create: ImageCreateInput!, update: ImageUpdateInput!): Image!
   deleteImage(where: ImageWhereUniqueInput!): Image
   deleteManyImages(where: ImageWhereInput): BatchPayload!
+  createNotice(data: NoticeCreateInput!): Notice!
+  updateNotice(data: NoticeUpdateInput!, where: NoticeWhereUniqueInput!): Notice
+  updateManyNotices(data: NoticeUpdateManyMutationInput!, where: NoticeWhereInput): BatchPayload!
+  upsertNotice(where: NoticeWhereUniqueInput!, create: NoticeCreateInput!, update: NoticeUpdateInput!): Notice!
+  deleteNotice(where: NoticeWhereUniqueInput!): Notice
+  deleteManyNotices(where: NoticeWhereInput): BatchPayload!
   createPost(data: PostCreateInput!): Post!
   updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post
   updateManyPosts(data: PostUpdateManyMutationInput!, where: PostWhereInput): BatchPayload!
@@ -510,6 +520,148 @@ enum MutationType {
 
 interface Node {
   id: ID!
+}
+
+type Notice {
+  id: ID!
+  title: String!
+  caption: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type NoticeConnection {
+  pageInfo: PageInfo!
+  edges: [NoticeEdge]!
+  aggregate: AggregateNotice!
+}
+
+input NoticeCreateInput {
+  id: ID
+  title: String!
+  caption: String!
+}
+
+type NoticeEdge {
+  node: Notice!
+  cursor: String!
+}
+
+enum NoticeOrderByInput {
+  id_ASC
+  id_DESC
+  title_ASC
+  title_DESC
+  caption_ASC
+  caption_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type NoticePreviousValues {
+  id: ID!
+  title: String!
+  caption: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type NoticeSubscriptionPayload {
+  mutation: MutationType!
+  node: Notice
+  updatedFields: [String!]
+  previousValues: NoticePreviousValues
+}
+
+input NoticeSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: NoticeWhereInput
+  AND: [NoticeSubscriptionWhereInput!]
+  OR: [NoticeSubscriptionWhereInput!]
+  NOT: [NoticeSubscriptionWhereInput!]
+}
+
+input NoticeUpdateInput {
+  title: String
+  caption: String
+}
+
+input NoticeUpdateManyMutationInput {
+  title: String
+  caption: String
+}
+
+input NoticeWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  caption: String
+  caption_not: String
+  caption_in: [String!]
+  caption_not_in: [String!]
+  caption_lt: String
+  caption_lte: String
+  caption_gt: String
+  caption_gte: String
+  caption_contains: String
+  caption_not_contains: String
+  caption_starts_with: String
+  caption_not_starts_with: String
+  caption_ends_with: String
+  caption_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [NoticeWhereInput!]
+  OR: [NoticeWhereInput!]
+  NOT: [NoticeWhereInput!]
+}
+
+input NoticeWhereUniqueInput {
+  id: ID
 }
 
 type PageInfo {
@@ -865,6 +1017,9 @@ type Query {
   image(where: ImageWhereUniqueInput!): Image
   images(where: ImageWhereInput, orderBy: ImageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Image]!
   imagesConnection(where: ImageWhereInput, orderBy: ImageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ImageConnection!
+  notice(where: NoticeWhereUniqueInput!): Notice
+  notices(where: NoticeWhereInput, orderBy: NoticeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Notice]!
+  noticesConnection(where: NoticeWhereInput, orderBy: NoticeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NoticeConnection!
   post(where: PostWhereUniqueInput!): Post
   posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post]!
   postsConnection(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection!
@@ -877,6 +1032,7 @@ type Query {
 type Subscription {
   comment(where: CommentSubscriptionWhereInput): CommentSubscriptionPayload
   image(where: ImageSubscriptionWhereInput): ImageSubscriptionPayload
+  notice(where: NoticeSubscriptionWhereInput): NoticeSubscriptionPayload
   post(where: PostSubscriptionWhereInput): PostSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }

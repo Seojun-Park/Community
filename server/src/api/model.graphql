@@ -23,6 +23,14 @@ type Post {
   updatedAt: String
 }
 
+type Notice {
+  id: ID!
+  title: String!
+  caption: String!
+  createdAt: String
+  updatedAt: String
+}
+
 type Image{
   id: ID!
   url: String!

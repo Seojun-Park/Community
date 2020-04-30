@@ -5,7 +5,7 @@ import {Navbar, Nav, Form, FormControl, Button} from 'react-bootstrap'
 
 
 import clsx from 'clsx';
-import { makeStyles, Drawer, List, Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { makeStyles, Drawer, List, Divider, ListItem, ListItemIcon } from '@material-ui/core';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import { MenuIcon } from './Icon';
@@ -65,22 +65,15 @@ export default () => {
         onKeyDown={toggleDrawer(anchor, false)}
       >
         <List>
-          {['공지사항', '벼룩시장', '내집찾기', '자유게시판'].map((text, index) => (
+          {['Notice', 'Market', 'Immobiler', 'Board'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
+                <Nav.Link href={`/${text}`}>{text}</Nav.Link>
             </ListItem>
+            
           ))}
         </List>
         <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
       </div>
     );
   
@@ -103,12 +96,12 @@ export default () => {
                         </NavCont>
                     </Navi>
                 </Navbar.Brand>
-                <Nav className="mr-auto" activeKey="/home" onSelect={(selectedKey) => alert(`selected ${selectedKey}`)} >
-                <Nav.Link href="#home">Home</Nav.Link>
-                <Nav.Link eventKey="#notice">공지사항</Nav.Link>
-                <Nav.Link href="#market">벼룩시장</Nav.Link>
-                <Nav.Link href="#immobiler">내 집 찾기</Nav.Link>
-                <Nav.Link href="#board">자유게시판</Nav.Link>
+                <Nav className="mr-auto" activeKey="/home" >
+                    <Nav.Link href="#home">Home</Nav.Link>
+                    <Nav.Link href="#notice">공지사항</Nav.Link>
+                    <Nav.Link href="#market">벼룩시장</Nav.Link>
+                    <Nav.Link href="#immobiler">내 집 찾기</Nav.Link>
+                    <Nav.Link href="#board">자유게시판</Nav.Link>
                 </Nav>
                 <Form inline>
                 <FormControl type="text" placeholder="Search" className="mr-sm-2" />

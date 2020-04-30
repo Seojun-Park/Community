@@ -18,6 +18,7 @@ export type Maybe<T> = T | undefined | null;
 export interface Exists {
   comment: (where?: CommentWhereInput) => Promise<boolean>;
   image: (where?: ImageWhereInput) => Promise<boolean>;
+  notice: (where?: NoticeWhereInput) => Promise<boolean>;
   post: (where?: PostWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
 }
@@ -79,6 +80,25 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => ImageConnectionPromise;
+  notice: (where: NoticeWhereUniqueInput) => NoticeNullablePromise;
+  notices: (args?: {
+    where?: NoticeWhereInput;
+    orderBy?: NoticeOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Notice>;
+  noticesConnection: (args?: {
+    where?: NoticeWhereInput;
+    orderBy?: NoticeOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => NoticeConnectionPromise;
   post: (where: PostWhereUniqueInput) => PostNullablePromise;
   posts: (args?: {
     where?: PostWhereInput;
@@ -155,6 +175,22 @@ export interface Prisma {
   }) => ImagePromise;
   deleteImage: (where: ImageWhereUniqueInput) => ImagePromise;
   deleteManyImages: (where?: ImageWhereInput) => BatchPayloadPromise;
+  createNotice: (data: NoticeCreateInput) => NoticePromise;
+  updateNotice: (args: {
+    data: NoticeUpdateInput;
+    where: NoticeWhereUniqueInput;
+  }) => NoticePromise;
+  updateManyNotices: (args: {
+    data: NoticeUpdateManyMutationInput;
+    where?: NoticeWhereInput;
+  }) => BatchPayloadPromise;
+  upsertNotice: (args: {
+    where: NoticeWhereUniqueInput;
+    create: NoticeCreateInput;
+    update: NoticeUpdateInput;
+  }) => NoticePromise;
+  deleteNotice: (where: NoticeWhereUniqueInput) => NoticePromise;
+  deleteManyNotices: (where?: NoticeWhereInput) => BatchPayloadPromise;
   createPost: (data: PostCreateInput) => PostPromise;
   updatePost: (args: {
     data: PostUpdateInput;
@@ -202,6 +238,9 @@ export interface Subscription {
   image: (
     where?: ImageSubscriptionWhereInput
   ) => ImageSubscriptionPayloadSubscription;
+  notice: (
+    where?: NoticeSubscriptionWhereInput
+  ) => NoticeSubscriptionPayloadSubscription;
   post: (
     where?: PostSubscriptionWhereInput
   ) => PostSubscriptionPayloadSubscription;
@@ -245,6 +284,18 @@ export type ImageOrderByInput =
   | "id_DESC"
   | "url_ASC"
   | "url_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type NoticeOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "title_ASC"
+  | "title_DESC"
+  | "caption_ASC"
+  | "caption_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -592,6 +643,74 @@ export interface ImageWhereInput {
 export type ImageWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
+
+export type NoticeWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface NoticeWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  title?: Maybe<String>;
+  title_not?: Maybe<String>;
+  title_in?: Maybe<String[] | String>;
+  title_not_in?: Maybe<String[] | String>;
+  title_lt?: Maybe<String>;
+  title_lte?: Maybe<String>;
+  title_gt?: Maybe<String>;
+  title_gte?: Maybe<String>;
+  title_contains?: Maybe<String>;
+  title_not_contains?: Maybe<String>;
+  title_starts_with?: Maybe<String>;
+  title_not_starts_with?: Maybe<String>;
+  title_ends_with?: Maybe<String>;
+  title_not_ends_with?: Maybe<String>;
+  caption?: Maybe<String>;
+  caption_not?: Maybe<String>;
+  caption_in?: Maybe<String[] | String>;
+  caption_not_in?: Maybe<String[] | String>;
+  caption_lt?: Maybe<String>;
+  caption_lte?: Maybe<String>;
+  caption_gt?: Maybe<String>;
+  caption_gte?: Maybe<String>;
+  caption_contains?: Maybe<String>;
+  caption_not_contains?: Maybe<String>;
+  caption_starts_with?: Maybe<String>;
+  caption_not_starts_with?: Maybe<String>;
+  caption_ends_with?: Maybe<String>;
+  caption_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<NoticeWhereInput[] | NoticeWhereInput>;
+  OR?: Maybe<NoticeWhereInput[] | NoticeWhereInput>;
+  NOT?: Maybe<NoticeWhereInput[] | NoticeWhereInput>;
+}
 
 export type PostWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
@@ -1117,6 +1236,22 @@ export interface ImageUpdateManyMutationInput {
   url?: Maybe<String>;
 }
 
+export interface NoticeCreateInput {
+  id?: Maybe<ID_Input>;
+  title: String;
+  caption: String;
+}
+
+export interface NoticeUpdateInput {
+  title?: Maybe<String>;
+  caption?: Maybe<String>;
+}
+
+export interface NoticeUpdateManyMutationInput {
+  title?: Maybe<String>;
+  caption?: Maybe<String>;
+}
+
 export interface PostCreateInput {
   id?: Maybe<ID_Input>;
   title: String;
@@ -1180,6 +1315,17 @@ export interface ImageSubscriptionWhereInput {
   AND?: Maybe<ImageSubscriptionWhereInput[] | ImageSubscriptionWhereInput>;
   OR?: Maybe<ImageSubscriptionWhereInput[] | ImageSubscriptionWhereInput>;
   NOT?: Maybe<ImageSubscriptionWhereInput[] | ImageSubscriptionWhereInput>;
+}
+
+export interface NoticeSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<NoticeWhereInput>;
+  AND?: Maybe<NoticeSubscriptionWhereInput[] | NoticeSubscriptionWhereInput>;
+  OR?: Maybe<NoticeSubscriptionWhereInput[] | NoticeSubscriptionWhereInput>;
+  NOT?: Maybe<NoticeSubscriptionWhereInput[] | NoticeSubscriptionWhereInput>;
 }
 
 export interface PostSubscriptionWhereInput {
@@ -1588,6 +1734,96 @@ export interface AggregateImageSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
+export interface Notice {
+  id: ID_Output;
+  title: String;
+  caption: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface NoticePromise extends Promise<Notice>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  title: () => Promise<String>;
+  caption: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface NoticeSubscription
+  extends Promise<AsyncIterator<Notice>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  title: () => Promise<AsyncIterator<String>>;
+  caption: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface NoticeNullablePromise
+  extends Promise<Notice | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  title: () => Promise<String>;
+  caption: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface NoticeConnection {
+  pageInfo: PageInfo;
+  edges: NoticeEdge[];
+}
+
+export interface NoticeConnectionPromise
+  extends Promise<NoticeConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<NoticeEdge>>() => T;
+  aggregate: <T = AggregateNoticePromise>() => T;
+}
+
+export interface NoticeConnectionSubscription
+  extends Promise<AsyncIterator<NoticeConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<NoticeEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateNoticeSubscription>() => T;
+}
+
+export interface NoticeEdge {
+  node: Notice;
+  cursor: String;
+}
+
+export interface NoticeEdgePromise extends Promise<NoticeEdge>, Fragmentable {
+  node: <T = NoticePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface NoticeEdgeSubscription
+  extends Promise<AsyncIterator<NoticeEdge>>,
+    Fragmentable {
+  node: <T = NoticeSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateNotice {
+  count: Int;
+}
+
+export interface AggregateNoticePromise
+  extends Promise<AggregateNotice>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateNoticeSubscription
+  extends Promise<AsyncIterator<AggregateNotice>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
 export interface PostConnection {
   pageInfo: PageInfo;
   edges: PostEdge[];
@@ -1812,6 +2048,59 @@ export interface ImagePreviousValuesSubscription
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
+export interface NoticeSubscriptionPayload {
+  mutation: MutationType;
+  node: Notice;
+  updatedFields: String[];
+  previousValues: NoticePreviousValues;
+}
+
+export interface NoticeSubscriptionPayloadPromise
+  extends Promise<NoticeSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = NoticePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = NoticePreviousValuesPromise>() => T;
+}
+
+export interface NoticeSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<NoticeSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = NoticeSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = NoticePreviousValuesSubscription>() => T;
+}
+
+export interface NoticePreviousValues {
+  id: ID_Output;
+  title: String;
+  caption: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface NoticePreviousValuesPromise
+  extends Promise<NoticePreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  title: () => Promise<String>;
+  caption: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface NoticePreviousValuesSubscription
+  extends Promise<AsyncIterator<NoticePreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  title: () => Promise<AsyncIterator<String>>;
+  caption: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
 export interface PostSubscriptionPayload {
   mutation: MutationType;
   node: Post;
@@ -1977,6 +2266,10 @@ export const models: Model[] = [
   },
   {
     name: "Post",
+    embedded: false
+  },
+  {
+    name: "Notice",
     embedded: false
   },
   {
