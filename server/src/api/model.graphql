@@ -1,0 +1,41 @@
+type User {
+  id: ID!
+  avatar: String
+  email: String!
+  firstName: String
+  lastName: String
+  username: String!
+  intro: String
+  posts: [Post!]!
+  loginSecret: String!
+  createdAt: String
+  updatedAt: String
+}
+
+type Post {
+  id: ID!
+  title: String!
+  caption: String!
+  user: User!
+  images: [Image!]!
+  comments: [Comment!]!
+  createdAt: String
+  updatedAt: String
+}
+
+type Image{
+  id: ID!
+  url: String!
+  post: Post!
+  createdAt: String
+  updatedAt: String 
+}
+
+type Comment {
+  id: ID!
+  text: String!
+  user: User!
+  post: Post!
+  createdAt: String
+  updatedAt: String
+}
