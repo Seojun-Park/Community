@@ -17,6 +17,18 @@ var models = [
     embedded: false
   },
   {
+    name: "Market",
+    embedded: false
+  },
+  {
+    name: "Immobiler",
+    embedded: false
+  },
+  {
+    name: "Board",
+    embedded: false
+  },
+  {
     name: "Image",
     embedded: false
   },

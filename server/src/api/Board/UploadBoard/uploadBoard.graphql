@@ -1,0 +1,7 @@
+type Mutation {
+    uploadBoard(
+        title: String!
+        caption: String!
+        username: String
+    ): Board!
+}

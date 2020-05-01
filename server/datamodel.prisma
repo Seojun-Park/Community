@@ -16,17 +16,51 @@ type Post {
   id: ID! @id
   title: String!
   caption: String!
-  comments: [Comment!]!
-  images: [Image!]! @relation(name: "ImagesOfPost", onDelete: CASCADE)
   user: User! @relation(name:"PostsOfUser")
+  notice: [Notice!]
+  markget: [Market!]
+  board: [Board!]
+  immo: [Immobiler!]
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
 
 type Notice {
   id: ID! @id
+  user: User!
   title: String!
   caption: String!
+  comments: [Comment!]
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt 
+}
+
+type Market {
+  id: ID! @id
+  user: User!
+  title: String!
+  caption: String!
+  comments: [Comment!]
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt 
+}
+
+type Immobiler {
+  id: ID! @id
+  user: User!
+  title: String!
+  caption: String!
+  comments: [Comment!]
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt 
+}
+
+type Board {
+  id: ID! @id
+  user: User!
+  title: String!
+  caption: String!
+  comments: [Comment!]
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt 
 }
@@ -34,7 +68,6 @@ type Notice {
 type Image{
   id: ID! @id
   url: String!
-  post: Post! @relation(name: "ImageOfPost")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }

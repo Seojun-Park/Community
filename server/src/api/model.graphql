@@ -17,19 +17,54 @@ type Post {
   title: String!
   caption: String!
   user: User!
-  images: [Image!]!
-  comments: [Comment!]!
+  notice: [Notice!]
+  market: [Market!]
+  board: [Board!]
+  immo: [Immobiler!]
   createdAt: String
   updatedAt: String
 }
 
 type Notice {
   id: ID!
+  user: User!
   title: String!
   caption: String!
+  comments: [Comment!]
   createdAt: String
   updatedAt: String
 }
+
+type Market {
+  id: ID!
+  user: User!
+  title: String!
+  caption: String!
+  comments: [Comment!]
+  createdAt: String
+  updatedAt: String
+}
+
+type Immobiler {
+  id: ID!
+  user: User!
+  title: String!
+  caption: String!
+  comments: [Comment!]
+  createdAt: String
+  updatedAt: String
+}
+
+type Board {
+  id: ID!
+  user: User!
+  title: String!
+  caption: String!
+  comments: [Comment!]
+  createdAt: String
+  updatedAt: String
+}
+
 
 type Image{
   id: ID!
