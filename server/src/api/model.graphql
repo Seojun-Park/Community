@@ -30,6 +30,7 @@ type Notice {
   user: User!
   title: String!
   caption: String!
+  hit: Int
   comments: [Comment!]
   createdAt: String
   updatedAt: String
@@ -40,6 +41,7 @@ type Market {
   user: User!
   title: String!
   caption: String!
+  hit: Int
   comments: [Comment!]
   createdAt: String
   updatedAt: String
@@ -50,6 +52,7 @@ type Immobiler {
   user: User!
   title: String!
   caption: String!
+  hit: Int
   comments: [Comment!]
   createdAt: String
   updatedAt: String
@@ -60,6 +63,7 @@ type Board {
   user: User!
   title: String!
   caption: String!
+  hit: Int
   comments: [Comment!]
   createdAt: String
   updatedAt: String

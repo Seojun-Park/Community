@@ -7,12 +7,14 @@ import { CircularProgress } from '@material-ui/core';
 const BOARD_DATA = gql`
     query showBoard{
         showBoard{
+            id
             title
             caption
             user {
                 id
                 username
             }
+            hit
             createdAt
         }
     }
@@ -22,7 +24,7 @@ export default () => {
     const { data, loading } = useQuery(BOARD_DATA);
     const [currentPage, setCurrentPage] = useState(0);
     const [rowPerPage, setRowPerPage] = useState(10);
-    const [newData, setNewData] = useState([]);
+    const [hit, setHit] = useState(0);
 
     if(loading){
         return <CircularProgress />
@@ -30,26 +32,30 @@ export default () => {
 
     const handleChangePage = (e, newPage) => {
         setCurrentPage(newPage);
-        let slicedData = data.showBoard.slice(
-            newPage * rowPerPage,
-            newPage * rowPerPage + rowPerPage
-            );
-        console.log(slicedData);
-        console.log(currentPage);
-        console.log(newPage);
+    }
+
+    const handleChangeRowPerPage = e => {
+        setRowPerPage(e.target.value);
+    }
+
+    const handleHit = e => {
+        setHit(hit + 1)
+    }
+
+    const handleClick = (id) => {
+        console.log(id)
     }
 
     return (
-        <>
-            <BoardPresenter 
-                data={data}
-                loading={loading}
-                currentPage={currentPage}
-                rowPerPage={rowPerPage}
-                setRowPerPage={setRowPerPage}
-                setCurrentPage={setCurrentPage}
-                onChangePage={handleChangePage}
-                />
-        </>
+        <BoardPresenter 
+            data={data}
+            loading={loading}
+            currentPage={currentPage}
+            rowPerPage={rowPerPage}
+            onChangePage={handleChangePage}
+            onChangeRowPage={handleChangeRowPerPage}
+            hit={hit}
+            handleClick={handleClick}
+            />
     )
 }
