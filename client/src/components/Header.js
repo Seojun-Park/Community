@@ -65,10 +65,10 @@ export default () => {
         onKeyDown={toggleDrawer(anchor, false)}
       >
         <List>
-          {['Notice', 'Market', 'Immobiler', 'Board'].map((text, index) => (
+          {['notice', 'market', 'immobiler', 'board'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <Nav.Link href={`/${text}`}>{text}</Nav.Link>
+                <Nav.Link href={`/#${text}`}>{text}</Nav.Link>
             </ListItem>
             
           ))}

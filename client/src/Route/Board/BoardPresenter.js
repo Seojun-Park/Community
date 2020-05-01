@@ -1,18 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-
-import { Button } from 'react-bootstrap';
-// import Input from '../../components/Input';
-// import WritePost from '../../components/writePost';
-
-import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
-import TableBody from '@material-ui/core/TableBody';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
-import { CircularProgress } from '@material-ui/core';
-
+import {
+    CircularProgress,
+    TableFooter,
+    TablePagination,
+    Table,
+    TableHead,
+    TableBody,
+    TableRow,
+    TableCell
+} from '@material-ui/core';
 
 const Wrapper = styled.div`
     border-radius: 1px solid #fefefe;
@@ -39,31 +36,25 @@ const Erow = styled(TableRow)`
 `;
 
 export default ({
-    onSubmit,
-    title,
-    caption,
-    username,
     data,
     loading
 }) => {
-    console.log(data);
     if(loading){
         return <CircularProgress />
     }
+    console.log(data.showBoard.length);
+
+
     return (
         <Wrapper>
-            <div className="orderTop">
-                <div className="orderTop_back">
-                    <span>image section</span>
-                    <div className="orderTop_text">
+            <div>
+                <div>
+                    <h2>image section</h2>
+                    <div>
                         Notice
                     </div>
                 </div>
             </div>
-
-            {/* <Link to={`/write`}>
-                <Button>write</Button>
-            </Link> */}
             <Container>
                     <Table className="table">
                         <TableHead>
@@ -79,7 +70,7 @@ export default ({
                 {data && data.showBoard ? data.showBoard.map((b, index) => {
                     const trimmedDate = `${b.createdAt}`.substr(0,10);
                     return (
-                            <Erow key={b.id}>
+                            <Erow key={b.id} id={b.id}>
                                 <TableCell >{index}</TableCell>
                                 <TableCell>{b.title}</TableCell>
                                 <TableCell>{b.user.username}</TableCell>
@@ -93,6 +84,23 @@ export default ({
                         }
                         </TableBody>
                     </Table>
+                    <TableFooter>
+                        <TableRow >
+                        <TablePagination
+                            rowsPerPageOptions={[10, 25, 50]}
+                            colSpan={5}
+                            // count={totalBoardData.length}
+                            // rowsPerPage={this.state.rowsPerPage}
+                            // page={this.state.page}
+                            SelectProps={{
+                            inputProps: { 'aria-label': 'Rows per page' },
+                            native: true,
+                            }}
+                            // onChangePage={this.handleChangePage}
+                            // onChangeRowsPerPage={this.handleChangeRowsPerPage}
+                        />
+                        </TableRow>
+                    </TableFooter>
             </Container>
         </Wrapper>
     )

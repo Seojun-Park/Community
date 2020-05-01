@@ -38,12 +38,10 @@ const Wrapper = styled.div`
 export default () => {
     const title = useInput("");
     const caption = useInput("");
-    const username = useInput("");
     const [ uploadBoardMutation ] = useMutation(UPLOAD_BOARD, {
         variables: {
             title: title.value,
             caption: caption.value,
-            username: username.value
         }
     });
 
@@ -69,12 +67,6 @@ export default () => {
 
     return (
         <Wrapper>
-            {/* <form onSubmit={handleChangeValue}>
-                <Input placeholder={"Title"} setValue={title.value} onChange={title.onChange} />
-                <Input placeholder={"caption"} setValue={caption.value} onChange={caption.onChange} />
-                <Button type="submit">submit</Button>
-             </form> */}
-
              <Form onSubmit={handleChangeValue}>
                  <div>
                     <Form.Label>Title</Form.Label>

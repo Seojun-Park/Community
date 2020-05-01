@@ -7,7 +7,7 @@ import Notice from '../Route/Notice'
 import Market from '../Route/Market'
 import Immobiler from '../Route/Immobiler';
 import Board from '../Route/Board';
-import Write from './writePost'
+import Write from './boardWrite'
 
 const LoggedInRoutes = () => (
     <Switch>
