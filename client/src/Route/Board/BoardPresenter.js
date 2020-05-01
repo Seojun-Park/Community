@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import {
-    CircularProgress,
-    TableFooter,
     TablePagination,
+    TableFooter,
+    CircularProgress,
     Table,
     TableHead,
     TableBody,
@@ -37,12 +37,17 @@ const Erow = styled(TableRow)`
 
 export default ({
     data,
-    loading
+    loading,
+    rowPerPage,
+    setRowPerPage,
+    setCurrentPage,
+    currentPage,
+    onChangePage,
 }) => {
     if(loading){
         return <CircularProgress />
     }
-    console.log(data.showBoard.length);
+    console.log(data);
 
 
     return (
@@ -82,25 +87,29 @@ export default ({
                                 <TableCell><CircularProgress /></TableCell>
                             </TableRow>
                         }
+                        <TableRow style={{ height: 50.91 * 1 }}>
+                            <TableCell colSpan={5} />
+                        </TableRow>
                         </TableBody>
                     </Table>
-                    <TableFooter>
+
+                    {/* <TableFooter>
                         <TableRow >
-                        <TablePagination
-                            rowsPerPageOptions={[10, 25, 50]}
-                            colSpan={5}
-                            // count={totalBoardData.length}
-                            // rowsPerPage={this.state.rowsPerPage}
-                            // page={this.state.page}
-                            SelectProps={{
-                            inputProps: { 'aria-label': 'Rows per page' },
-                            native: true,
-                            }}
-                            // onChangePage={this.handleChangePage}
-                            // onChangeRowsPerPage={this.handleChangeRowsPerPage}
-                        />
+                            <TablePagination
+                                colSpan={5}
+                                count={data.showBoard.length}
+                                page={currentPage}
+                                rowsPerPage={rowPerPage}
+                                rowsPerPageOptions={[10, 25, 50]}
+                                SelectProps={{
+                                    inputProps: { 'aria-label': 'Rows per page' },
+                                    native: true,
+                                    }}
+                                onChangePage={onChangePage}
+                                // onChangeRowsPerPage={this.handleChangeRowsPerPage}
+                            />
                         </TableRow>
-                    </TableFooter>
+                    </TableFooter> */}
             </Container>
         </Wrapper>
     )
