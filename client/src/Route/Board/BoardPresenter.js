@@ -70,21 +70,13 @@ export default ({
                     const trimmedDate = `${b.createdAt}`.substr(2,8);
                     return (
                         <Erow   
-                                key={b.id}
-                                onClick={() => handleClick(`${b.id}`)}
-                                // component={Link}
-                                // to={{
-                                //     pathname:"/board/detail",
-                                //     state:{
-                                //         data: b
-                                //     }
-                                // }}
-                        >
-                                <TableCell >{`${totalDataLength - index}`}</TableCell>
-                                <TableCell>{b.title}</TableCell>
-                                <TableCell>{b.user.username}</TableCell>
-                                <TableCell>{trimmedDate}</TableCell>
-                                <TableCell>{hit}</TableCell>
+                            key={b.id}
+                            onClick={() => handleClick(`${b.id}`)}>
+                            <TableCell >{`${totalDataLength - index}`}</TableCell>
+                            <TableCell>{b.title}</TableCell>
+                            <TableCell>{b.user.username}</TableCell>
+                            <TableCell>{trimmedDate}</TableCell>
+                            <TableCell>{hit}</TableCell>
                         </Erow>
                         )})
                         :
