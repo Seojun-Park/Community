@@ -7,6 +7,7 @@ type User {
   username: String! @unique
   intro: String
   posts: [Post!]! @relation(name:"PostsOfUser", onDelete: CASCADE)
+  comments: [Comment!]! @relation(name:"CommentsOfUser", onDelete: CASCADE)
   loginSecret: String
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
@@ -75,7 +76,7 @@ type Image{
 type Comment {
   id: ID! @id
   text: String!
-  user: User!
+  user: User @relation(name:"CommentsOfUser")
   board: Board @relation(name:"CommentOfBoard")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt

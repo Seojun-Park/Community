@@ -64,7 +64,7 @@ type Board {
   title: String!
   caption: String!
   hit: Int
-  comments: [Comment!]!
+  comments: [Comment!]
   createdAt: String
   updatedAt: String
 }
@@ -82,7 +82,7 @@ type Comment {
   id: ID!
   text: String!
   user: User!
-  board: Board!
+  board: Board
   createdAt: String
   updatedAt: String
 }

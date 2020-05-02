@@ -28,7 +28,6 @@ const ADD_COMMENT = gql`
 
 const Wrapper = styled.div`
     margin-top: 50px;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
 `;
@@ -56,6 +55,11 @@ const Comment = styled.form`
     padding: 20px; 
 `;
 
+const CommentContent = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
 export default (data) => {
     const { state } = data.location;
     const text = useInput("")
@@ -71,14 +75,23 @@ export default (data) => {
         const { which } = e;
         if (which === 13){
             e.preventDefault();
-            try{
+            try {
                 const { data: { addBoardComment }} = await addBoardCommentMutation();
-                setSelfComments([...selfComments, ... addBoardComment]);
+                setSelfComments([...selfComments, addBoardComment]);
                 text.setValue("");
-            }catch {
+                toast.success("Comment created :D");
+            } catch {
                 toast.error("Can't create Comment");
             }
         }
+    }
+
+    const handleOnClick = async e => {
+        e.preventDefault();
+        const { data: { addBoardComment }} = await addBoardCommentMutation();
+        setSelfComments([...selfComments, addBoardComment]);
+        text.setValue("");
+        toast.success("Comment created :D");
     }
     console.log(state)
     return (
@@ -91,8 +104,15 @@ export default (data) => {
                 <Typography variant="body1" component="span">{state.caption}</Typography>
             </Container>
             <Comment type="submit">
-                <Input placeholder="Add Comment..." value={text.value} onChange={text.onChange} />
-                <Button type="submit">Submit</Button>
+                <CommentContent>
+                    {selfComments.map(comment => (
+                        <span key={comment.id}>
+                            {comment.text}
+                        </span>
+                    ))}
+                </CommentContent>
+                <Input placeholder="Add Comment..." value={text.value} onChange={text.onChange} onKeyPress={onKeyPress} />
+                <Button type="submit" onClick={handleOnClick}>Submit</Button>
             </Comment>
         </Wrapper>
     )

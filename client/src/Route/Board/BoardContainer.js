@@ -14,13 +14,13 @@ const BOARD_DATA = gql`
                 id
                 username
             }
-            # comments{
-            #     id
-            #     user {
-            #         username
-            #     }
-            #     text
-            # }
+            comments{
+                id
+                user {
+                    username
+                }
+                text
+            }
             hit
             createdAt
         }
@@ -45,9 +45,6 @@ export default () => {
         setRowPerPage(e.target.value);
     }
 
-    // const handleHit = e => {
-    //     setHit(hit + 1)
-    // }
 
     return (
         <BoardPresenter 
