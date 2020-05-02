@@ -60,7 +60,7 @@ type Board {
   user: User!
   title: String!
   caption: String!
-  comments: [Comment!] @relation(name:"CommentsOfBoard", onDelete: CASCADE)
+  comments: [Comment!]! @relation(name:"CommentOfBoard", onDelete: CASCADE)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt 
 }
@@ -76,8 +76,7 @@ type Comment {
   id: ID! @id
   text: String!
   user: User!
-  post: Post
-  board: Board @relation(name:"CommentsOfBoard")
+  board: Board @relation(name:"CommentOfBoard")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }

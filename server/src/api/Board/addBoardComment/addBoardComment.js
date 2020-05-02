@@ -1,6 +1,5 @@
 import { prisma } from "../../../../generated/prisma-client";
 
-
 export default {
     Mutation: {
         addBoardComment: async(_, args, { request, isAuthenticated }) => {

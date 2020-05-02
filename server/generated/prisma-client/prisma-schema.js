@@ -336,7 +336,6 @@ type Comment {
   id: ID!
   text: String!
   user: User!
-  post: Post
   board: Board
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -352,7 +351,6 @@ input CommentCreateInput {
   id: ID
   text: String!
   user: UserCreateOneInput!
-  post: PostCreateOneInput
   board: BoardCreateOneWithoutCommentsInput
 }
 
@@ -370,7 +368,6 @@ input CommentCreateWithoutBoardInput {
   id: ID
   text: String!
   user: UserCreateOneInput!
-  post: PostCreateOneInput
 }
 
 type CommentEdge {
@@ -467,14 +464,12 @@ input CommentSubscriptionWhereInput {
 input CommentUpdateDataInput {
   text: String
   user: UserUpdateOneRequiredInput
-  post: PostUpdateOneInput
   board: BoardUpdateOneWithoutCommentsInput
 }
 
 input CommentUpdateInput {
   text: String
   user: UserUpdateOneRequiredInput
-  post: PostUpdateOneInput
   board: BoardUpdateOneWithoutCommentsInput
 }
 
@@ -518,7 +513,6 @@ input CommentUpdateManyWithWhereNestedInput {
 input CommentUpdateWithoutBoardDataInput {
   text: String
   user: UserUpdateOneRequiredInput
-  post: PostUpdateOneInput
 }
 
 input CommentUpdateWithWhereUniqueNestedInput {
@@ -573,7 +567,6 @@ input CommentWhereInput {
   text_ends_with: String
   text_not_ends_with: String
   user: UserWhereInput
-  post: PostWhereInput
   board: BoardWhereInput
   createdAt: DateTime
   createdAt_not: DateTime
@@ -1611,11 +1604,6 @@ input PostCreateManyWithoutUserInput {
   connect: [PostWhereUniqueInput!]
 }
 
-input PostCreateOneInput {
-  create: PostCreateInput
-  connect: PostWhereUniqueInput
-}
-
 input PostCreateWithoutUserInput {
   id: ID
   title: String!
@@ -1734,16 +1722,6 @@ input PostSubscriptionWhereInput {
   NOT: [PostSubscriptionWhereInput!]
 }
 
-input PostUpdateDataInput {
-  title: String
-  caption: String
-  user: UserUpdateOneRequiredWithoutPostsInput
-  notice: NoticeUpdateManyInput
-  markget: MarketUpdateManyInput
-  board: BoardUpdateManyInput
-  immo: ImmobilerUpdateManyInput
-}
-
 input PostUpdateInput {
   title: String
   caption: String
@@ -1781,15 +1759,6 @@ input PostUpdateManyWithWhereNestedInput {
   data: PostUpdateManyDataInput!
 }
 
-input PostUpdateOneInput {
-  create: PostCreateInput
-  update: PostUpdateDataInput
-  upsert: PostUpsertNestedInput
-  delete: Boolean
-  disconnect: Boolean
-  connect: PostWhereUniqueInput
-}
-
 input PostUpdateWithoutUserDataInput {
   title: String
   caption: String
@@ -1802,11 +1771,6 @@ input PostUpdateWithoutUserDataInput {
 input PostUpdateWithWhereUniqueWithoutUserInput {
   where: PostWhereUniqueInput!
   data: PostUpdateWithoutUserDataInput!
-}
-
-input PostUpsertNestedInput {
-  update: PostUpdateDataInput!
-  create: PostCreateInput!
 }
 
 input PostUpsertWithWhereUniqueWithoutUserInput {

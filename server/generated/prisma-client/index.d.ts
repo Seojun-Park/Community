@@ -794,7 +794,6 @@ export interface CommentWhereInput {
   text_ends_with?: Maybe<String>;
   text_not_ends_with?: Maybe<String>;
   user?: Maybe<UserWhereInput>;
-  post?: Maybe<PostWhereInput>;
   board?: Maybe<BoardWhereInput>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
@@ -1163,40 +1162,19 @@ export interface CommentCreateInput {
   id?: Maybe<ID_Input>;
   text: String;
   user: UserCreateOneInput;
-  post?: Maybe<PostCreateOneInput>;
   board?: Maybe<BoardCreateOneWithoutCommentsInput>;
 }
 
-export interface PostCreateOneInput {
-  create?: Maybe<PostCreateInput>;
-  connect?: Maybe<PostWhereUniqueInput>;
+export interface BoardCreateOneWithoutCommentsInput {
+  create?: Maybe<BoardCreateWithoutCommentsInput>;
+  connect?: Maybe<BoardWhereUniqueInput>;
 }
 
-export interface PostCreateInput {
+export interface BoardCreateWithoutCommentsInput {
   id?: Maybe<ID_Input>;
+  user: UserCreateOneInput;
   title: String;
   caption: String;
-  user: UserCreateOneWithoutPostsInput;
-  notice?: Maybe<NoticeCreateManyInput>;
-  markget?: Maybe<MarketCreateManyInput>;
-  board?: Maybe<BoardCreateManyInput>;
-  immo?: Maybe<ImmobilerCreateManyInput>;
-}
-
-export interface UserCreateOneWithoutPostsInput {
-  create?: Maybe<UserCreateWithoutPostsInput>;
-  connect?: Maybe<UserWhereUniqueInput>;
-}
-
-export interface UserCreateWithoutPostsInput {
-  id?: Maybe<ID_Input>;
-  avatar?: Maybe<String>;
-  email: String;
-  firstName?: Maybe<String>;
-  lastName?: Maybe<String>;
-  username: String;
-  intro?: Maybe<String>;
-  loginSecret?: Maybe<String>;
 }
 
 export interface MarketCreateManyInput {
@@ -1230,18 +1208,6 @@ export interface ImmobilerCreateInput {
   comments?: Maybe<CommentCreateManyInput>;
 }
 
-export interface BoardCreateOneWithoutCommentsInput {
-  create?: Maybe<BoardCreateWithoutCommentsInput>;
-  connect?: Maybe<BoardWhereUniqueInput>;
-}
-
-export interface BoardCreateWithoutCommentsInput {
-  id?: Maybe<ID_Input>;
-  user: UserCreateOneInput;
-  title: String;
-  caption: String;
-}
-
 export interface CommentCreateManyWithoutBoardInput {
   create?: Maybe<
     CommentCreateWithoutBoardInput[] | CommentCreateWithoutBoardInput
@@ -1253,7 +1219,6 @@ export interface CommentCreateWithoutBoardInput {
   id?: Maybe<ID_Input>;
   text: String;
   user: UserCreateOneInput;
-  post?: Maybe<PostCreateOneInput>;
 }
 
 export interface BoardUpdateInput {
@@ -1377,49 +1342,172 @@ export interface CommentUpdateWithWhereUniqueNestedInput {
 export interface CommentUpdateDataInput {
   text?: Maybe<String>;
   user?: Maybe<UserUpdateOneRequiredInput>;
-  post?: Maybe<PostUpdateOneInput>;
   board?: Maybe<BoardUpdateOneWithoutCommentsInput>;
 }
 
-export interface PostUpdateOneInput {
-  create?: Maybe<PostCreateInput>;
-  update?: Maybe<PostUpdateDataInput>;
-  upsert?: Maybe<PostUpsertNestedInput>;
+export interface BoardUpdateOneWithoutCommentsInput {
+  create?: Maybe<BoardCreateWithoutCommentsInput>;
+  update?: Maybe<BoardUpdateWithoutCommentsDataInput>;
+  upsert?: Maybe<BoardUpsertWithoutCommentsInput>;
   delete?: Maybe<Boolean>;
   disconnect?: Maybe<Boolean>;
-  connect?: Maybe<PostWhereUniqueInput>;
+  connect?: Maybe<BoardWhereUniqueInput>;
 }
 
-export interface PostUpdateDataInput {
+export interface BoardUpdateWithoutCommentsDataInput {
+  user?: Maybe<UserUpdateOneRequiredInput>;
   title?: Maybe<String>;
   caption?: Maybe<String>;
-  user?: Maybe<UserUpdateOneRequiredWithoutPostsInput>;
-  notice?: Maybe<NoticeUpdateManyInput>;
-  markget?: Maybe<MarketUpdateManyInput>;
-  board?: Maybe<BoardUpdateManyInput>;
-  immo?: Maybe<ImmobilerUpdateManyInput>;
 }
 
-export interface UserUpdateOneRequiredWithoutPostsInput {
-  create?: Maybe<UserCreateWithoutPostsInput>;
-  update?: Maybe<UserUpdateWithoutPostsDataInput>;
-  upsert?: Maybe<UserUpsertWithoutPostsInput>;
-  connect?: Maybe<UserWhereUniqueInput>;
+export interface BoardUpsertWithoutCommentsInput {
+  update: BoardUpdateWithoutCommentsDataInput;
+  create: BoardCreateWithoutCommentsInput;
 }
 
-export interface UserUpdateWithoutPostsDataInput {
-  avatar?: Maybe<String>;
-  email?: Maybe<String>;
-  firstName?: Maybe<String>;
-  lastName?: Maybe<String>;
-  username?: Maybe<String>;
-  intro?: Maybe<String>;
-  loginSecret?: Maybe<String>;
+export interface CommentUpsertWithWhereUniqueNestedInput {
+  where: CommentWhereUniqueInput;
+  update: CommentUpdateDataInput;
+  create: CommentCreateInput;
 }
 
-export interface UserUpsertWithoutPostsInput {
-  update: UserUpdateWithoutPostsDataInput;
-  create: UserCreateWithoutPostsInput;
+export interface CommentScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  text?: Maybe<String>;
+  text_not?: Maybe<String>;
+  text_in?: Maybe<String[] | String>;
+  text_not_in?: Maybe<String[] | String>;
+  text_lt?: Maybe<String>;
+  text_lte?: Maybe<String>;
+  text_gt?: Maybe<String>;
+  text_gte?: Maybe<String>;
+  text_contains?: Maybe<String>;
+  text_not_contains?: Maybe<String>;
+  text_starts_with?: Maybe<String>;
+  text_not_starts_with?: Maybe<String>;
+  text_ends_with?: Maybe<String>;
+  text_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<CommentScalarWhereInput[] | CommentScalarWhereInput>;
+  OR?: Maybe<CommentScalarWhereInput[] | CommentScalarWhereInput>;
+  NOT?: Maybe<CommentScalarWhereInput[] | CommentScalarWhereInput>;
+}
+
+export interface CommentUpdateManyWithWhereNestedInput {
+  where: CommentScalarWhereInput;
+  data: CommentUpdateManyDataInput;
+}
+
+export interface CommentUpdateManyDataInput {
+  text?: Maybe<String>;
+}
+
+export interface NoticeUpsertWithWhereUniqueNestedInput {
+  where: NoticeWhereUniqueInput;
+  update: NoticeUpdateDataInput;
+  create: NoticeCreateInput;
+}
+
+export interface NoticeScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  title?: Maybe<String>;
+  title_not?: Maybe<String>;
+  title_in?: Maybe<String[] | String>;
+  title_not_in?: Maybe<String[] | String>;
+  title_lt?: Maybe<String>;
+  title_lte?: Maybe<String>;
+  title_gt?: Maybe<String>;
+  title_gte?: Maybe<String>;
+  title_contains?: Maybe<String>;
+  title_not_contains?: Maybe<String>;
+  title_starts_with?: Maybe<String>;
+  title_not_starts_with?: Maybe<String>;
+  title_ends_with?: Maybe<String>;
+  title_not_ends_with?: Maybe<String>;
+  caption?: Maybe<String>;
+  caption_not?: Maybe<String>;
+  caption_in?: Maybe<String[] | String>;
+  caption_not_in?: Maybe<String[] | String>;
+  caption_lt?: Maybe<String>;
+  caption_lte?: Maybe<String>;
+  caption_gt?: Maybe<String>;
+  caption_gte?: Maybe<String>;
+  caption_contains?: Maybe<String>;
+  caption_not_contains?: Maybe<String>;
+  caption_starts_with?: Maybe<String>;
+  caption_not_starts_with?: Maybe<String>;
+  caption_ends_with?: Maybe<String>;
+  caption_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<NoticeScalarWhereInput[] | NoticeScalarWhereInput>;
+  OR?: Maybe<NoticeScalarWhereInput[] | NoticeScalarWhereInput>;
+  NOT?: Maybe<NoticeScalarWhereInput[] | NoticeScalarWhereInput>;
+}
+
+export interface NoticeUpdateManyWithWhereNestedInput {
+  where: NoticeScalarWhereInput;
+  data: NoticeUpdateManyDataInput;
+}
+
+export interface NoticeUpdateManyDataInput {
+  title?: Maybe<String>;
+  caption?: Maybe<String>;
 }
 
 export interface MarketUpdateManyInput {
@@ -1598,72 +1686,12 @@ export interface CommentUpdateWithWhereUniqueWithoutBoardInput {
 export interface CommentUpdateWithoutBoardDataInput {
   text?: Maybe<String>;
   user?: Maybe<UserUpdateOneRequiredInput>;
-  post?: Maybe<PostUpdateOneInput>;
 }
 
 export interface CommentUpsertWithWhereUniqueWithoutBoardInput {
   where: CommentWhereUniqueInput;
   update: CommentUpdateWithoutBoardDataInput;
   create: CommentCreateWithoutBoardInput;
-}
-
-export interface CommentScalarWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  text?: Maybe<String>;
-  text_not?: Maybe<String>;
-  text_in?: Maybe<String[] | String>;
-  text_not_in?: Maybe<String[] | String>;
-  text_lt?: Maybe<String>;
-  text_lte?: Maybe<String>;
-  text_gt?: Maybe<String>;
-  text_gte?: Maybe<String>;
-  text_contains?: Maybe<String>;
-  text_not_contains?: Maybe<String>;
-  text_starts_with?: Maybe<String>;
-  text_not_starts_with?: Maybe<String>;
-  text_ends_with?: Maybe<String>;
-  text_not_ends_with?: Maybe<String>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  AND?: Maybe<CommentScalarWhereInput[] | CommentScalarWhereInput>;
-  OR?: Maybe<CommentScalarWhereInput[] | CommentScalarWhereInput>;
-  NOT?: Maybe<CommentScalarWhereInput[] | CommentScalarWhereInput>;
-}
-
-export interface CommentUpdateManyWithWhereNestedInput {
-  where: CommentScalarWhereInput;
-  data: CommentUpdateManyDataInput;
-}
-
-export interface CommentUpdateManyDataInput {
-  text?: Maybe<String>;
 }
 
 export interface BoardUpsertWithWhereUniqueNestedInput {
@@ -1859,117 +1887,6 @@ export interface ImmobilerUpdateManyDataInput {
   caption?: Maybe<String>;
 }
 
-export interface PostUpsertNestedInput {
-  update: PostUpdateDataInput;
-  create: PostCreateInput;
-}
-
-export interface BoardUpdateOneWithoutCommentsInput {
-  create?: Maybe<BoardCreateWithoutCommentsInput>;
-  update?: Maybe<BoardUpdateWithoutCommentsDataInput>;
-  upsert?: Maybe<BoardUpsertWithoutCommentsInput>;
-  delete?: Maybe<Boolean>;
-  disconnect?: Maybe<Boolean>;
-  connect?: Maybe<BoardWhereUniqueInput>;
-}
-
-export interface BoardUpdateWithoutCommentsDataInput {
-  user?: Maybe<UserUpdateOneRequiredInput>;
-  title?: Maybe<String>;
-  caption?: Maybe<String>;
-}
-
-export interface BoardUpsertWithoutCommentsInput {
-  update: BoardUpdateWithoutCommentsDataInput;
-  create: BoardCreateWithoutCommentsInput;
-}
-
-export interface CommentUpsertWithWhereUniqueNestedInput {
-  where: CommentWhereUniqueInput;
-  update: CommentUpdateDataInput;
-  create: CommentCreateInput;
-}
-
-export interface NoticeUpsertWithWhereUniqueNestedInput {
-  where: NoticeWhereUniqueInput;
-  update: NoticeUpdateDataInput;
-  create: NoticeCreateInput;
-}
-
-export interface NoticeScalarWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  title?: Maybe<String>;
-  title_not?: Maybe<String>;
-  title_in?: Maybe<String[] | String>;
-  title_not_in?: Maybe<String[] | String>;
-  title_lt?: Maybe<String>;
-  title_lte?: Maybe<String>;
-  title_gt?: Maybe<String>;
-  title_gte?: Maybe<String>;
-  title_contains?: Maybe<String>;
-  title_not_contains?: Maybe<String>;
-  title_starts_with?: Maybe<String>;
-  title_not_starts_with?: Maybe<String>;
-  title_ends_with?: Maybe<String>;
-  title_not_ends_with?: Maybe<String>;
-  caption?: Maybe<String>;
-  caption_not?: Maybe<String>;
-  caption_in?: Maybe<String[] | String>;
-  caption_not_in?: Maybe<String[] | String>;
-  caption_lt?: Maybe<String>;
-  caption_lte?: Maybe<String>;
-  caption_gt?: Maybe<String>;
-  caption_gte?: Maybe<String>;
-  caption_contains?: Maybe<String>;
-  caption_not_contains?: Maybe<String>;
-  caption_starts_with?: Maybe<String>;
-  caption_not_starts_with?: Maybe<String>;
-  caption_ends_with?: Maybe<String>;
-  caption_not_ends_with?: Maybe<String>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  AND?: Maybe<NoticeScalarWhereInput[] | NoticeScalarWhereInput>;
-  OR?: Maybe<NoticeScalarWhereInput[] | NoticeScalarWhereInput>;
-  NOT?: Maybe<NoticeScalarWhereInput[] | NoticeScalarWhereInput>;
-}
-
-export interface NoticeUpdateManyWithWhereNestedInput {
-  where: NoticeScalarWhereInput;
-  data: NoticeUpdateManyDataInput;
-}
-
-export interface NoticeUpdateManyDataInput {
-  title?: Maybe<String>;
-  caption?: Maybe<String>;
-}
-
 export interface PostUpsertWithWhereUniqueWithoutUserInput {
   where: PostWhereUniqueInput;
   update: PostUpdateWithoutUserDataInput;
@@ -2063,7 +1980,6 @@ export interface BoardUpdateManyMutationInput {
 export interface CommentUpdateInput {
   text?: Maybe<String>;
   user?: Maybe<UserUpdateOneRequiredInput>;
-  post?: Maybe<PostUpdateOneInput>;
   board?: Maybe<BoardUpdateOneWithoutCommentsInput>;
 }
 
@@ -2120,6 +2036,33 @@ export interface NoticeUpdateManyMutationInput {
   caption?: Maybe<String>;
 }
 
+export interface PostCreateInput {
+  id?: Maybe<ID_Input>;
+  title: String;
+  caption: String;
+  user: UserCreateOneWithoutPostsInput;
+  notice?: Maybe<NoticeCreateManyInput>;
+  markget?: Maybe<MarketCreateManyInput>;
+  board?: Maybe<BoardCreateManyInput>;
+  immo?: Maybe<ImmobilerCreateManyInput>;
+}
+
+export interface UserCreateOneWithoutPostsInput {
+  create?: Maybe<UserCreateWithoutPostsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserCreateWithoutPostsInput {
+  id?: Maybe<ID_Input>;
+  avatar?: Maybe<String>;
+  email: String;
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  username: String;
+  intro?: Maybe<String>;
+  loginSecret?: Maybe<String>;
+}
+
 export interface PostUpdateInput {
   title?: Maybe<String>;
   caption?: Maybe<String>;
@@ -2128,6 +2071,28 @@ export interface PostUpdateInput {
   markget?: Maybe<MarketUpdateManyInput>;
   board?: Maybe<BoardUpdateManyInput>;
   immo?: Maybe<ImmobilerUpdateManyInput>;
+}
+
+export interface UserUpdateOneRequiredWithoutPostsInput {
+  create?: Maybe<UserCreateWithoutPostsInput>;
+  update?: Maybe<UserUpdateWithoutPostsDataInput>;
+  upsert?: Maybe<UserUpsertWithoutPostsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpdateWithoutPostsDataInput {
+  avatar?: Maybe<String>;
+  email?: Maybe<String>;
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  username?: Maybe<String>;
+  intro?: Maybe<String>;
+  loginSecret?: Maybe<String>;
+}
+
+export interface UserUpsertWithoutPostsInput {
+  update: UserUpdateWithoutPostsDataInput;
+  create: UserCreateWithoutPostsInput;
 }
 
 export interface PostUpdateManyMutationInput {
@@ -2627,7 +2592,6 @@ export interface CommentPromise extends Promise<Comment>, Fragmentable {
   id: () => Promise<ID_Output>;
   text: () => Promise<String>;
   user: <T = UserPromise>() => T;
-  post: <T = PostPromise>() => T;
   board: <T = BoardPromise>() => T;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
@@ -2639,7 +2603,6 @@ export interface CommentSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   text: () => Promise<AsyncIterator<String>>;
   user: <T = UserSubscription>() => T;
-  post: <T = PostSubscription>() => T;
   board: <T = BoardSubscription>() => T;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
@@ -2651,7 +2614,6 @@ export interface CommentNullablePromise
   id: () => Promise<ID_Output>;
   text: () => Promise<String>;
   user: <T = UserPromise>() => T;
-  post: <T = PostPromise>() => T;
   board: <T = BoardPromise>() => T;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;

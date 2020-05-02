@@ -79,6 +79,7 @@ export default ({
                                         caption: b.caption,
                                         craetedAt: b.createdAt,
                                         username: b.user.username,
+                                        comments: b.comments
                                     }
                                 }}>{b.title}</Link></TableCell>
                             <TableCell>{b.user.username}</TableCell>
