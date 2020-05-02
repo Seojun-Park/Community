@@ -10,16 +10,16 @@ const BOARD_DATA = gql`
             id
             title
             caption
-            user {
-                id
-                username
-            }
             comments{
                 id
                 user {
                     username
                 }
                 text
+            }
+            user {
+                id
+                username
             }
             hit
             createdAt

@@ -11,8 +11,11 @@ import {
     TableRow,
     TableCell
 } from '@material-ui/core';
+import Button from '../../components/Button';
 
-const Wrapper = styled(Table)``;
+const Wrapper = styled(Table)`
+    margin-top: 20px;
+`;
 
 const Erow = styled(TableRow)`
     :hover {
@@ -21,6 +24,15 @@ const Erow = styled(TableRow)`
         cursor: pointer;
     }
 `;
+
+const Thead = styled(TableHead)`
+`
+
+const Title = styled(TableRow)`
+    /* display: flex; */
+    justify-content: space-between;
+`;
+
 const Head = styled(TableCell)`
     margin-bottom: 20px;
     font-weight: 600;
@@ -51,11 +63,13 @@ export default ({
     console.log(data);
     return (
         <Wrapper>
-            <TableHead>
-                <TableRow>
-                    <Head>Notice</Head>
-                </TableRow>
-            </TableHead>
+            <Thead>
+                <Title>
+                    <Head>Board</Head>
+                    <Head><Button text="Write" /></Head>
+                </Title>
+            </Thead>
+
             <TableHead>
                 <TableRow>
                     <TableCell style={{ width:"5%" }}>#</TableCell>
@@ -68,6 +82,7 @@ export default ({
             <TableBody>
                 {slicedData ? slicedData.map((b, index) => {
                     const trimmedDate = `${b.createdAt}`.substr(2,8);
+                    console.log(b);
                     return (
                         <Erow key={b.id}>
                             <TableCell>{`${totalDataLength - index}`}</TableCell>

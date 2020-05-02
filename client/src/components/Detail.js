@@ -93,7 +93,7 @@ export default (data) => {
         text.setValue("");
         toast.success("Comment created :D");
     }
-    console.log(state)
+    // console.log(state)
     return (
         <Wrapper>
             <Head>
