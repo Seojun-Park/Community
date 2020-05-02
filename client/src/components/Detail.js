@@ -61,7 +61,6 @@ const CommentContent = styled.div`
 `;
 
 export default (data) => {
-    console.log(data)
     const { state } = data.location;
     const text = useInput("")
     const [ addBoardCommentMutation ] = useMutation(ADD_COMMENT, {
@@ -94,7 +93,7 @@ export default (data) => {
         text.setValue("");
         toast.success("Comment created :D");
     }
-    // console.log(state)
+    console.log(state)
     return (
         <Wrapper>
             <Head>
@@ -105,13 +104,26 @@ export default (data) => {
                 <Typography variant="body1" component="span">{state.caption}</Typography>
             </Container>
             <Comment type="submit">
+                <>
+                {state.comments && (
                 <CommentContent>
-                    {selfComments.map(comment => (
+                    {state.comments.map(comment => (
                         <span key={comment.id}>
+                            <FatText text={comment.user.username}/>
                             {comment.text}
                         </span>
                     ))}
+                    {
+                        selfComments.map(comment => (
+                            <span key={comment.id}>
+                                <FatText text={comment.user.username} />
+                                {comment.text}
+                            </span>
+                        ))
+                    }
                 </CommentContent>
+                )}
+                </>
                 <Input placeholder="Add Comment..." value={text.value} onChange={text.onChange} onKeyPress={onKeyPress} />
                 <Button type="submit" onClick={handleOnClick}>Submit</Button>
             </Comment>
