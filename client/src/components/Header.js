@@ -2,8 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import {Navbar, Nav, Form, FormControl, Button} from 'react-bootstrap'
 
-
-
 import clsx from 'clsx';
 import { makeStyles, Drawer, List, Divider, ListItem, ListItemIcon } from '@material-ui/core';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
