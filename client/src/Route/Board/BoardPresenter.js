@@ -66,7 +66,7 @@ export default ({
             <Thead>
                 <Title>
                     <Head>Board</Head>
-                    <Head><Button text="Write" /></Head>
+                    <Head><Link to="board/write"><Button text="Write" /></Link></Head>
                 </Title>
             </Thead>
 

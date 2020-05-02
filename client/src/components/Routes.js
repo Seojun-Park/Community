@@ -17,8 +17,8 @@ const LoggedInRoutes = () => (
         <Route path="/market" component={Market} />
         <Route path="/immobiler" component={Immobiler} />
         <Route path="/board/detail" component={Detail} />
+        <Route path="/board/write" component={Write} />
         <Route path="/board" component={Board} />
-        <Route path="/write" component={Write} />
         <Redirect from="*" to="/" />
     </Switch>
 )
