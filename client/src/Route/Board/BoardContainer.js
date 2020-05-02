@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { gql } from 'apollo-boost';
 import BoardPresenter from './BoardPresenter'
 import { useQuery } from '@apollo/react-hooks';
@@ -39,16 +38,13 @@ export default () => {
         setRowPerPage(e.target.value);
     }
 
-    const handleHit = e => {
-        setHit(hit + 1)
-    }
+    // const handleHit = e => {
+    //     setHit(hit + 1)
+    // }
 
     const handleClick = (id) => {
         console.log(id)
-        return (
-            <Link to="#board/detail" />
-
-        )
+        // window.location.href="#board/detail"
     }
 
     return (

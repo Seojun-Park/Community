@@ -67,13 +67,21 @@ export default ({
             </TableHead>
             <TableBody>
                 {slicedData ? slicedData.map((b, index) => {
+                    console.log(b);
                     const trimmedDate = `${b.createdAt}`.substr(2,8);
                     return (
-                        <Erow   
-                            key={b.id}
-                            onClick={() => handleClick(`${b.id}`)}>
-                            <TableCell >{`${totalDataLength - index}`}</TableCell>
-                            <TableCell>{b.title}</TableCell>
+                        <Erow key={b.id}>
+                            <TableCell>{`${totalDataLength - index}`}</TableCell>
+                            <TableCell><Link to={{
+                                    pathname:"/board/detail",
+                                    state:{
+                                        id: b.id,
+                                        title: b.title,
+                                        caption: b.caption,
+                                        craetedAt: b.createdAt,
+                                        username: b.user.username,
+                                    }
+                                }}>{b.title}</Link></TableCell>
                             <TableCell>{b.user.username}</TableCell>
                             <TableCell>{trimmedDate}</TableCell>
                             <TableCell>{hit}</TableCell>

@@ -8,6 +8,7 @@ import Market from '../Route/Market'
 import Immobiler from '../Route/Immobiler';
 import Board from '../Route/Board';
 import Write from './boardWrite'
+import Detail from './Detail'
 
 const LoggedInRoutes = () => (
     <Switch>
@@ -15,6 +16,7 @@ const LoggedInRoutes = () => (
         <Route path="/notice" component={Notice} />
         <Route path="/market" component={Market} />
         <Route path="/immobiler" component={Immobiler} />
+        <Route path="/board/detail" component={Detail} />
         <Route path="/board" component={Board} />
         <Route path="/write" component={Write} />
         <Redirect from="*" to="/" />
