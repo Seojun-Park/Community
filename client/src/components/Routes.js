@@ -5,7 +5,7 @@ import Auth from './Login'
 import Main from '../Route/MainPage'
 import Notice from '../Route/Notice'
 import Market from '../Route/Market'
-import Immobiler from '../Route/Immobiler';
+import Immobiler from '../Route/Immobiler'
 import Board from '../Route/Board';
 import Write from './boardWrite'
 import Detail from './Detail'

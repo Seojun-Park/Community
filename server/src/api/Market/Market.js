@@ -1,10 +1,9 @@
 import { prisma } from "../../../generated/prisma-client";
 
-
 export default {
-    Board: {
-        user: ({ id }) => prisma.board({ id }).user(),
-        comments: ({ id }) => prisma.board({ id }).comments()
+    Market: {
+        user: ({ id }) => prisma.market({ id }).user(),
+        comments: ({ id }) => prisma.market({ id }).comments
     },
     Comment: {
         user: ({ id }) => prisma.comment({ id }).user(),

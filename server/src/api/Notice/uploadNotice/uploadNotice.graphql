@@ -1,0 +1,7 @@
+type Mutation {
+    uploadNotice(
+        title: String!
+        caption: String!
+        usernae: String!
+    ): Notice!
+}

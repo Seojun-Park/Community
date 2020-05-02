@@ -83,7 +83,6 @@ export default ({
             <TableBody>
                 {slicedData ? slicedData.map((b, index) => {
                     const trimmedDate = `${b.createdAt}`.substr(2,8);
-                    console.log(b);
                     return (
                         <Erow key={b.id}>
                             <TableCell>{`${totalDataLength - index}`}</TableCell>
