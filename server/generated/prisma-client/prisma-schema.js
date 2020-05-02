@@ -60,12 +60,24 @@ input BoardCreateInput {
   user: UserCreateOneInput!
   title: String!
   caption: String!
-  comments: CommentCreateManyInput
+  comments: CommentCreateManyWithoutBoardInput
 }
 
 input BoardCreateManyInput {
   create: [BoardCreateInput!]
   connect: [BoardWhereUniqueInput!]
+}
+
+input BoardCreateOneWithoutCommentsInput {
+  create: BoardCreateWithoutCommentsInput
+  connect: BoardWhereUniqueInput
+}
+
+input BoardCreateWithoutCommentsInput {
+  id: ID
+  user: UserCreateOneInput!
+  title: String!
+  caption: String!
 }
 
 type BoardEdge {
@@ -180,14 +192,14 @@ input BoardUpdateDataInput {
   user: UserUpdateOneRequiredInput
   title: String
   caption: String
-  comments: CommentUpdateManyInput
+  comments: CommentUpdateManyWithoutBoardInput
 }
 
 input BoardUpdateInput {
   user: UserUpdateOneRequiredInput
   title: String
   caption: String
-  comments: CommentUpdateManyInput
+  comments: CommentUpdateManyWithoutBoardInput
 }
 
 input BoardUpdateManyDataInput {
@@ -217,9 +229,29 @@ input BoardUpdateManyWithWhereNestedInput {
   data: BoardUpdateManyDataInput!
 }
 
+input BoardUpdateOneWithoutCommentsInput {
+  create: BoardCreateWithoutCommentsInput
+  update: BoardUpdateWithoutCommentsDataInput
+  upsert: BoardUpsertWithoutCommentsInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: BoardWhereUniqueInput
+}
+
+input BoardUpdateWithoutCommentsDataInput {
+  user: UserUpdateOneRequiredInput
+  title: String
+  caption: String
+}
+
 input BoardUpdateWithWhereUniqueNestedInput {
   where: BoardWhereUniqueInput!
   data: BoardUpdateDataInput!
+}
+
+input BoardUpsertWithoutCommentsInput {
+  update: BoardUpdateWithoutCommentsDataInput!
+  create: BoardCreateWithoutCommentsInput!
 }
 
 input BoardUpsertWithWhereUniqueNestedInput {
@@ -304,7 +336,8 @@ type Comment {
   id: ID!
   text: String!
   user: User!
-  post: Post!
+  post: Post
+  board: Board
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -319,12 +352,25 @@ input CommentCreateInput {
   id: ID
   text: String!
   user: UserCreateOneInput!
-  post: PostCreateOneInput!
+  post: PostCreateOneInput
+  board: BoardCreateOneWithoutCommentsInput
 }
 
 input CommentCreateManyInput {
   create: [CommentCreateInput!]
   connect: [CommentWhereUniqueInput!]
+}
+
+input CommentCreateManyWithoutBoardInput {
+  create: [CommentCreateWithoutBoardInput!]
+  connect: [CommentWhereUniqueInput!]
+}
+
+input CommentCreateWithoutBoardInput {
+  id: ID
+  text: String!
+  user: UserCreateOneInput!
+  post: PostCreateOneInput
 }
 
 type CommentEdge {
@@ -421,13 +467,15 @@ input CommentSubscriptionWhereInput {
 input CommentUpdateDataInput {
   text: String
   user: UserUpdateOneRequiredInput
-  post: PostUpdateOneRequiredInput
+  post: PostUpdateOneInput
+  board: BoardUpdateOneWithoutCommentsInput
 }
 
 input CommentUpdateInput {
   text: String
   user: UserUpdateOneRequiredInput
-  post: PostUpdateOneRequiredInput
+  post: PostUpdateOneInput
+  board: BoardUpdateOneWithoutCommentsInput
 }
 
 input CommentUpdateManyDataInput {
@@ -450,9 +498,27 @@ input CommentUpdateManyMutationInput {
   text: String
 }
 
+input CommentUpdateManyWithoutBoardInput {
+  create: [CommentCreateWithoutBoardInput!]
+  delete: [CommentWhereUniqueInput!]
+  connect: [CommentWhereUniqueInput!]
+  set: [CommentWhereUniqueInput!]
+  disconnect: [CommentWhereUniqueInput!]
+  update: [CommentUpdateWithWhereUniqueWithoutBoardInput!]
+  upsert: [CommentUpsertWithWhereUniqueWithoutBoardInput!]
+  deleteMany: [CommentScalarWhereInput!]
+  updateMany: [CommentUpdateManyWithWhereNestedInput!]
+}
+
 input CommentUpdateManyWithWhereNestedInput {
   where: CommentScalarWhereInput!
   data: CommentUpdateManyDataInput!
+}
+
+input CommentUpdateWithoutBoardDataInput {
+  text: String
+  user: UserUpdateOneRequiredInput
+  post: PostUpdateOneInput
 }
 
 input CommentUpdateWithWhereUniqueNestedInput {
@@ -460,10 +526,21 @@ input CommentUpdateWithWhereUniqueNestedInput {
   data: CommentUpdateDataInput!
 }
 
+input CommentUpdateWithWhereUniqueWithoutBoardInput {
+  where: CommentWhereUniqueInput!
+  data: CommentUpdateWithoutBoardDataInput!
+}
+
 input CommentUpsertWithWhereUniqueNestedInput {
   where: CommentWhereUniqueInput!
   update: CommentUpdateDataInput!
   create: CommentCreateInput!
+}
+
+input CommentUpsertWithWhereUniqueWithoutBoardInput {
+  where: CommentWhereUniqueInput!
+  update: CommentUpdateWithoutBoardDataInput!
+  create: CommentCreateWithoutBoardInput!
 }
 
 input CommentWhereInput {
@@ -497,6 +574,7 @@ input CommentWhereInput {
   text_not_ends_with: String
   user: UserWhereInput
   post: PostWhereInput
+  board: BoardWhereInput
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -1703,10 +1781,12 @@ input PostUpdateManyWithWhereNestedInput {
   data: PostUpdateManyDataInput!
 }
 
-input PostUpdateOneRequiredInput {
+input PostUpdateOneInput {
   create: PostCreateInput
   update: PostUpdateDataInput
   upsert: PostUpsertNestedInput
+  delete: Boolean
+  disconnect: Boolean
   connect: PostWhereUniqueInput
 }
 

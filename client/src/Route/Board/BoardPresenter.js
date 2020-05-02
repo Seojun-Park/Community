@@ -36,7 +36,6 @@ export default ({
     currentPage,
     onChangePage,
     onChangeRowPage,
-    handleClick
 }) => {
     if(loading){
         return <CircularProgress />
@@ -49,6 +48,7 @@ export default ({
         );
     let emptyRow = rowPerPage - slicedData.length;
 
+    console.log(data);
     return (
         <Wrapper>
             <TableHead>
@@ -67,7 +67,6 @@ export default ({
             </TableHead>
             <TableBody>
                 {slicedData ? slicedData.map((b, index) => {
-                    console.log(b);
                     const trimmedDate = `${b.createdAt}`.substr(2,8);
                     return (
                         <Erow key={b.id}>

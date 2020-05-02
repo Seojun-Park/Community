@@ -14,6 +14,13 @@ const BOARD_DATA = gql`
                 id
                 username
             }
+            comments {
+                id
+                user {
+                    username
+                }
+                text
+            }
             hit
             createdAt
         }
@@ -42,11 +49,6 @@ export default () => {
     //     setHit(hit + 1)
     // }
 
-    const handleClick = (id) => {
-        console.log(id)
-        // window.location.href="#board/detail"
-    }
-
     return (
         <BoardPresenter 
             data={data}
@@ -56,7 +58,6 @@ export default () => {
             onChangePage={handleChangePage}
             onChangeRowPage={handleChangeRowPerPage}
             hit={hit}
-            handleClick={handleClick}
             />
     )
 }

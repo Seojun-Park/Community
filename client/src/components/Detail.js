@@ -1,8 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { gql } from 'apollo-boost'
 import styled from 'styled-components';
 import FatText from './FatText';
-import { Typography } from '@material-ui/core';
+import { Typography, Input } from '@material-ui/core';
+import { useMutation } from '@apollo/react-hooks';
+import useInput from './InputTool';
+import { toast } from 'react-toastify';
+import { Button } from 'react-bootstrap';
 
+const ADD_COMMENT = gql`
+    mutation addBoardComment(
+        $text: String!
+        $boardId: String!
+    ){
+        addBoardComment(
+            text:$text
+            boardId: $boardId
+        ){
+            id
+            text
+            user{
+                username
+            }
+        }
+    }
+`;
 
 const Wrapper = styled.div`
     margin-top: 50px;
@@ -26,9 +48,38 @@ const Container = styled.div`
     height: 80%;
 `;
 
+const Comment = styled.form`
+    margin-top: 30px;
+    border-radius: 4px;
+    border: 1px solid #e6e6e6;
+    background-color: white;
+    padding: 20px; 
+`;
+
 export default (data) => {
     const { state } = data.location;
-    console.log(data)
+    const text = useInput("")
+    const [ addBoardCommentMutation ] = useMutation(ADD_COMMENT, {
+        variables: {
+            text: text.value,
+            boardId: state.id
+        }
+    });
+    const [ selfComments, setSelfComments] = useState([]);
+
+    const onKeyPress = async e => {
+        const { which } = e;
+        if (which === 13){
+            e.preventDefault();
+            try{
+                const { data: { addBoardComment }} = await addBoardCommentMutation();
+                setSelfComments([...selfComments, ... addBoardComment]);
+                text.setValue("");
+            }catch {
+                toast.error("Can't create Comment");
+            }
+        }
+    }
     console.log(state)
     return (
         <Wrapper>
@@ -39,6 +90,10 @@ export default (data) => {
             <Container>
                 <Typography variant="body1" component="span">{state.caption}</Typography>
             </Container>
+            <Comment type="submit">
+                <Input placeholder="Add Comment..." value={text.value} onChange={text.onChange} />
+                <Button type="submit">Submit</Button>
+            </Comment>
         </Wrapper>
     )
 }

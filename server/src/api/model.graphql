@@ -82,7 +82,8 @@ type Comment {
   id: ID!
   text: String!
   user: User!
-  post: Post!
+  post: Post
+  board: Board
   createdAt: String
   updatedAt: String
 }

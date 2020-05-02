@@ -1,0 +1,6 @@
+type Mutation {
+    addBoardComment(
+        text: String!
+        boardId: String!        
+    ): Comment!
+}
