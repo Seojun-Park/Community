@@ -2,15 +2,15 @@ import React from 'react';
 import { gql } from 'apollo-boost'
 import { useMutation } from '@apollo/react-hooks';
 import styled from 'styled-components';
-import Input from './Input';
-import useInput from './InputTool';
 
 import { Button } from 'react-bootstrap'
 import Form from 'react-bootstrap/Form'
 import { toast } from 'react-toastify';
+import Input from '../../components/Input';
+import useInput from '../../components/InputTool'
 
-const UPLOAD_BOARD = gql`
-    mutation uploadBoard(
+const UPLOAD_Market = gql`
+    mutation uploadMarket(
         $title: String!
         $caption: String!
         $username: String
@@ -38,7 +38,7 @@ const Wrapper = styled.div`
 export default () => {
     const title = useInput("");
     const caption = useInput("");
-    const [ uploadBoardMutation ] = useMutation(UPLOAD_BOARD, {
+    const [ uploadMarketMutation ] = useMutation(UPLOAD_Market, {
         variables: {
             title: title.value,
             caption: caption.value,
@@ -51,12 +51,12 @@ export default () => {
             caption.value !== "")
             {
             try {
-                const {data : { uploadBoard }} = await uploadBoardMutation();
+                const {data : { uploadBoard }} = await uploadMarketMutation();
                 if (!uploadBoard){
                     toast.error("hum....")
                 } else {
                     toast.success("okay it's done");
-                    window.location.href ="/#/board"
+                    window.location.href ="/#/market"
                 }
             } catch {
                 toast.error("upload fail")

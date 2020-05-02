@@ -7,18 +7,20 @@ import Notice from '../Route/Notice'
 import Market from '../Route/Market'
 import Immobiler from '../Route/Immobiler'
 import Board from '../Route/Board';
-import Write from './boardWrite'
+import BoardWrite from '../Route/Board/boardWrite'
+import MarketWrite from '../Route/Market/marketWrite'
 import Detail from './Detail'
 
 const LoggedInRoutes = () => (
     <Switch>
         <Route exact path="/" component={Main} />
         <Route path="/notice" component={Notice} />
-        <Route path="/market" component={Market} />
         <Route path="/immobiler" component={Immobiler} />
         <Route path="/board/detail" component={Detail} />
-        <Route path="/board/write" component={Write} />
+        <Route path="/board/write" component={BoardWrite} />
         <Route path="/board" component={Board} />
+        <Route path="/market/write" component={MarketWrite} />
+        <Route path="/market" component={Market} />
         <Redirect from="*" to="/" />
     </Switch>
 )

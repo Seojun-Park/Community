@@ -41,7 +41,7 @@ type Market {
   user: User!
   title: String!
   caption: String!
-  comments: [Comment!]
+  comments: [Comment!] @relation(name:"CommentsOfMarket", onDelete: CASCADE)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt 
 }
@@ -78,6 +78,7 @@ type Comment {
   text: String!
   user: User @relation(name:"CommentsOfUser")
   board: Board @relation(name:"CommentsOfBoard")
+  market: Market @relation(name:"CommentsOfMarket")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }

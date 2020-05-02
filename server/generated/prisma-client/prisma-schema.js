@@ -337,6 +337,7 @@ type Comment {
   text: String!
   user: User
   board: Board
+  market: Market
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -352,6 +353,7 @@ input CommentCreateInput {
   text: String!
   user: UserCreateOneWithoutCommentsInput
   board: BoardCreateOneWithoutCommentsInput
+  market: MarketCreateOneWithoutCommentsInput
 }
 
 input CommentCreateManyInput {
@@ -364,6 +366,11 @@ input CommentCreateManyWithoutBoardInput {
   connect: [CommentWhereUniqueInput!]
 }
 
+input CommentCreateManyWithoutMarketInput {
+  create: [CommentCreateWithoutMarketInput!]
+  connect: [CommentWhereUniqueInput!]
+}
+
 input CommentCreateManyWithoutUserInput {
   create: [CommentCreateWithoutUserInput!]
   connect: [CommentWhereUniqueInput!]
@@ -373,12 +380,21 @@ input CommentCreateWithoutBoardInput {
   id: ID
   text: String!
   user: UserCreateOneWithoutCommentsInput
+  market: MarketCreateOneWithoutCommentsInput
+}
+
+input CommentCreateWithoutMarketInput {
+  id: ID
+  text: String!
+  user: UserCreateOneWithoutCommentsInput
+  board: BoardCreateOneWithoutCommentsInput
 }
 
 input CommentCreateWithoutUserInput {
   id: ID
   text: String!
   board: BoardCreateOneWithoutCommentsInput
+  market: MarketCreateOneWithoutCommentsInput
 }
 
 type CommentEdge {
@@ -476,12 +492,14 @@ input CommentUpdateDataInput {
   text: String
   user: UserUpdateOneWithoutCommentsInput
   board: BoardUpdateOneWithoutCommentsInput
+  market: MarketUpdateOneWithoutCommentsInput
 }
 
 input CommentUpdateInput {
   text: String
   user: UserUpdateOneWithoutCommentsInput
   board: BoardUpdateOneWithoutCommentsInput
+  market: MarketUpdateOneWithoutCommentsInput
 }
 
 input CommentUpdateManyDataInput {
@@ -516,6 +534,18 @@ input CommentUpdateManyWithoutBoardInput {
   updateMany: [CommentUpdateManyWithWhereNestedInput!]
 }
 
+input CommentUpdateManyWithoutMarketInput {
+  create: [CommentCreateWithoutMarketInput!]
+  delete: [CommentWhereUniqueInput!]
+  connect: [CommentWhereUniqueInput!]
+  set: [CommentWhereUniqueInput!]
+  disconnect: [CommentWhereUniqueInput!]
+  update: [CommentUpdateWithWhereUniqueWithoutMarketInput!]
+  upsert: [CommentUpsertWithWhereUniqueWithoutMarketInput!]
+  deleteMany: [CommentScalarWhereInput!]
+  updateMany: [CommentUpdateManyWithWhereNestedInput!]
+}
+
 input CommentUpdateManyWithoutUserInput {
   create: [CommentCreateWithoutUserInput!]
   delete: [CommentWhereUniqueInput!]
@@ -536,11 +566,19 @@ input CommentUpdateManyWithWhereNestedInput {
 input CommentUpdateWithoutBoardDataInput {
   text: String
   user: UserUpdateOneWithoutCommentsInput
+  market: MarketUpdateOneWithoutCommentsInput
+}
+
+input CommentUpdateWithoutMarketDataInput {
+  text: String
+  user: UserUpdateOneWithoutCommentsInput
+  board: BoardUpdateOneWithoutCommentsInput
 }
 
 input CommentUpdateWithoutUserDataInput {
   text: String
   board: BoardUpdateOneWithoutCommentsInput
+  market: MarketUpdateOneWithoutCommentsInput
 }
 
 input CommentUpdateWithWhereUniqueNestedInput {
@@ -551,6 +589,11 @@ input CommentUpdateWithWhereUniqueNestedInput {
 input CommentUpdateWithWhereUniqueWithoutBoardInput {
   where: CommentWhereUniqueInput!
   data: CommentUpdateWithoutBoardDataInput!
+}
+
+input CommentUpdateWithWhereUniqueWithoutMarketInput {
+  where: CommentWhereUniqueInput!
+  data: CommentUpdateWithoutMarketDataInput!
 }
 
 input CommentUpdateWithWhereUniqueWithoutUserInput {
@@ -568,6 +611,12 @@ input CommentUpsertWithWhereUniqueWithoutBoardInput {
   where: CommentWhereUniqueInput!
   update: CommentUpdateWithoutBoardDataInput!
   create: CommentCreateWithoutBoardInput!
+}
+
+input CommentUpsertWithWhereUniqueWithoutMarketInput {
+  where: CommentWhereUniqueInput!
+  update: CommentUpdateWithoutMarketDataInput!
+  create: CommentCreateWithoutMarketInput!
 }
 
 input CommentUpsertWithWhereUniqueWithoutUserInput {
@@ -607,6 +656,7 @@ input CommentWhereInput {
   text_not_ends_with: String
   user: UserWhereInput
   board: BoardWhereInput
+  market: MarketWhereInput
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -1039,12 +1089,24 @@ input MarketCreateInput {
   user: UserCreateOneInput!
   title: String!
   caption: String!
-  comments: CommentCreateManyInput
+  comments: CommentCreateManyWithoutMarketInput
 }
 
 input MarketCreateManyInput {
   create: [MarketCreateInput!]
   connect: [MarketWhereUniqueInput!]
+}
+
+input MarketCreateOneWithoutCommentsInput {
+  create: MarketCreateWithoutCommentsInput
+  connect: MarketWhereUniqueInput
+}
+
+input MarketCreateWithoutCommentsInput {
+  id: ID
+  user: UserCreateOneInput!
+  title: String!
+  caption: String!
 }
 
 type MarketEdge {
@@ -1159,14 +1221,14 @@ input MarketUpdateDataInput {
   user: UserUpdateOneRequiredInput
   title: String
   caption: String
-  comments: CommentUpdateManyInput
+  comments: CommentUpdateManyWithoutMarketInput
 }
 
 input MarketUpdateInput {
   user: UserUpdateOneRequiredInput
   title: String
   caption: String
-  comments: CommentUpdateManyInput
+  comments: CommentUpdateManyWithoutMarketInput
 }
 
 input MarketUpdateManyDataInput {
@@ -1196,9 +1258,29 @@ input MarketUpdateManyWithWhereNestedInput {
   data: MarketUpdateManyDataInput!
 }
 
+input MarketUpdateOneWithoutCommentsInput {
+  create: MarketCreateWithoutCommentsInput
+  update: MarketUpdateWithoutCommentsDataInput
+  upsert: MarketUpsertWithoutCommentsInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: MarketWhereUniqueInput
+}
+
+input MarketUpdateWithoutCommentsDataInput {
+  user: UserUpdateOneRequiredInput
+  title: String
+  caption: String
+}
+
 input MarketUpdateWithWhereUniqueNestedInput {
   where: MarketWhereUniqueInput!
   data: MarketUpdateDataInput!
+}
+
+input MarketUpsertWithoutCommentsInput {
+  update: MarketUpdateWithoutCommentsDataInput!
+  create: MarketCreateWithoutCommentsInput!
 }
 
 input MarketUpsertWithWhereUniqueNestedInput {

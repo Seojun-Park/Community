@@ -22,3 +22,38 @@ export const BOARD_DATA = gql`
         }
     }
 `;
+
+export const NOTICE_DATA = gql`
+    query showNotice{
+        showNotice{
+            id
+            title
+            caption
+            hit
+            createdAt
+        }
+    }
+`;
+
+export const MARKET_DATA = gql`
+    query showMarket{
+        showMarket{
+            id
+            title
+            caption
+            hit
+            comments{
+                id
+                text
+                user {
+                    username
+                }
+            }
+            user {
+                id
+                username
+            }
+            createdAt
+        }
+    }
+`
