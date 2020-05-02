@@ -1,13 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row } from 'react-bootstrap'
+import { CircularProgress } from '@material-ui/core';
+import { useQuery } from '@apollo/react-hooks';
+import { BOARD_DATA } from './SharedQueries';
+import FatText from '../components/FatText'
+
 
 
 const Wrapper = styled.div`
-    margin-bottom: 30px;
+    margin-top : 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 `;
 
 const MContainer = styled(Container)`
+    margin-top: 20px;
     background-color: #f2f2f2;
     padding: 20px;
     &:not(:last-child){
@@ -15,30 +24,73 @@ const MContainer = styled(Container)`
     }
 `;
 
-export default () => {
+const ContentRow = styled(Row)`
+    display: flex;
+`;
 
-    return (
-        <Wrapper>
-            <MContainer fluid>
-                <Row>
-                    <Col>공지사항 자리</Col>
-                </Row>
-            </MContainer>
-            <MContainer fluid>
-                <Row>
-                    <Col>벼룩시장 요약</Col>
-                </Row>
-            </MContainer>
-            <MContainer fluid>
-                <Row>
-                    <Col>내집찾기 요약</Col>
-                </Row>
-            </MContainer>
-            <MContainer fluid>
-                <Row>
-                    <Col>광고</Col>
-                </Row>
-            </MContainer>
-        </Wrapper>
-    )
+const Content = styled.div`
+    display: block;
+    width: 20%;
+    margin: 0 auto;
+    &:not(:last-child){
+        margin-right: 30px;
+    }
+`;
+
+export default () => {
+    const { data, loading } = useQuery(BOARD_DATA);
+    if(loading){
+        return <CircularProgress />
+    }
+    else if (!loading) {
+        const { showBoard } = data;
+
+        // Descending 찾기
+        let reverseData = showBoard.reverse()
+        const sliceData = reverseData.slice((showBoard.length + 15) - (showBoard.length));
+        reverseData = sliceData.reverse()
+        console.log(showBoard)
+        console.log(reverseData);
+        return (
+            <Wrapper>
+                <FatText text="Notice" />
+                <MContainer fluid>
+                    <ContentRow>
+                        <Content>공지사항 요약</Content>
+                    </ContentRow>
+                </MContainer>
+
+                <FatText text="Board" />
+                <MContainer fluid>
+                    {showBoard && reverseData.map((b, index) => {
+                        const trimmedDate = `${b.createdAt}`.substr(5,5) + "  " +`${b.createdAt}`.substr(11,5);
+                        return (
+                                <ContentRow key={b.id}>
+                                    <Content>{b.title}</Content>
+                                    <Content>{b.user.username}</Content>
+                                    <Content>{trimmedDate}</Content>
+                                </ContentRow>
+                        )
+                    })}
+                </MContainer>
+                <FatText text="Market" />
+                <MContainer fluid>
+                    <ContentRow>
+                        <Content>벼룩시장 요약</Content>
+                    </ContentRow>
+                </MContainer>
+                <FatText text="Immobiler" />
+                <MContainer fluid>
+                    <ContentRow>
+                        <Content>내집찾기 요약</Content>
+                    </ContentRow>
+                </MContainer>
+                <MContainer fluid>
+                    <ContentRow>
+                        <Content>광고</Content>
+                    </ContentRow>
+                </MContainer>
+            </Wrapper>
+        )
+    }
 }

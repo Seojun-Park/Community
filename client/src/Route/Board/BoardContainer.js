@@ -1,31 +1,8 @@
 import React, { useState } from 'react';
-import { gql } from 'apollo-boost';
 import BoardPresenter from './BoardPresenter'
 import { useQuery } from '@apollo/react-hooks';
 import { CircularProgress } from '@material-ui/core';
-
-const BOARD_DATA = gql`
-    query showBoard{
-        showBoard{
-            id
-            title
-            caption
-            comments{
-                id
-                user {
-                    username
-                }
-                text
-            }
-            user {
-                id
-                username
-            }
-            hit
-            createdAt
-        }
-    }
-`;
+import { BOARD_DATA } from '../SharedQueries';
 
 export default () => {
     const { data, loading } = useQuery(BOARD_DATA);
