@@ -61,6 +61,7 @@ const CommentContent = styled.div`
 `;
 
 export default (data) => {
+    console.log(data)
     const { state } = data.location;
     const text = useInput("")
     const [ addBoardCommentMutation ] = useMutation(ADD_COMMENT, {

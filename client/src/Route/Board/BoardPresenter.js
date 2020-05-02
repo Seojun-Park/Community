@@ -48,6 +48,7 @@ export default ({
     currentPage,
     onChangePage,
     onChangeRowPage,
+    link
 }) => {
     if(loading){
         return <CircularProgress />
@@ -97,6 +98,7 @@ export default ({
                                         comments: b.comments
                                     }
                                 }}>{b.title}</Link></TableCell>
+                            {/* <TableCell><Link to="board/detail"><Button text={b.title} onClick={link} /></Link></TableCell> */}
                             <TableCell>{b.user.username}</TableCell>
                             <TableCell>{trimmedDate}</TableCell>
                             <TableCell>{hit}</TableCell>

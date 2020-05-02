@@ -45,6 +45,11 @@ export default () => {
         setRowPerPage(e.target.value);
     }
 
+    // const LinkButton = ({ history }) => (
+    //     <button onClick={() => { history.push('#/board/detail'); }} >
+    //       Log in
+    //     </button>
+    //   );
 
     return (
         <BoardPresenter 
@@ -55,6 +60,8 @@ export default () => {
             onChangePage={handleChangePage}
             onChangeRowPage={handleChangeRowPerPage}
             hit={hit}
+            setHit={setHit}
+            // link={LinkButton}
             />
     )
 }
