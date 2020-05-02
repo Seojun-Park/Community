@@ -32,6 +32,13 @@ const Content = styled.div`
     display: block;
     width: 20%;
     margin: 0 auto;
+    padding: 5px;
+    &:first{
+        width: 50%;
+    }
+    &:not(:first-child){
+        width: 10%;
+    }
     &:not(:last-child){
         margin-right: 30px;
     }
@@ -49,8 +56,10 @@ export default () => {
         let reverseData = showBoard.reverse()
         const sliceData = reverseData.slice((showBoard.length + 15) - (showBoard.length));
         reverseData = sliceData.reverse()
-        console.log(showBoard)
-        console.log(reverseData);
+
+        // console.log(showBoard)
+        // console.log(reverseData);
+        
         return (
             <Wrapper>
                 <FatText text="Notice" />
