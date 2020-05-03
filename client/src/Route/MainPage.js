@@ -55,6 +55,7 @@ export default () => {
         // Descending 찾기
         let reverseData = showBoard.reverse()
         const sliceData = reverseData.slice((showBoard.length + 15) - (showBoard.length));
+        // const sliceData = reverseData.slice(5, 10);
         reverseData = sliceData.reverse()
 
         // console.log(showBoard)

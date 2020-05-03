@@ -100,6 +100,7 @@ export default () => {
                     <Nav.Link href="#market">벼룩시장</Nav.Link>
                     <Nav.Link href="#immobiler">내 집 찾기</Nav.Link>
                     <Nav.Link href="#board">자유게시판</Nav.Link>
+                    <Nav.Link href="#bike">test</Nav.Link>
                 </Nav>
                 <Form inline>
                 <FormControl type="text" placeholder="Search" className="mr-sm-2" />
