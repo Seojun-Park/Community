@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
 import axios from 'axios'
-import Map from '../Map';
+import GoogleMap from '../Map/Map'
 
 const BikeList = styled.div`
     min-height: 100vh;
@@ -34,7 +34,7 @@ export default () => {
     return (
         <>
             <BikeList>
-                <Map data={dublinBike} />
+                <GoogleMap data={dublinBike} />
             </BikeList>            
         </>
     )
