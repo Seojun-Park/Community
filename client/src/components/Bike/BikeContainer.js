@@ -3,23 +3,19 @@ import styled from 'styled-components'
 import axios from 'axios'
 import GoogleMap from '../Map/Map'
 
+const Wrapper = styled.div`
+    max-height: 100vh;
+    max-width: 100vw;
+`;
+
 const BikeList = styled.div`
-    min-height: 100vh;
-    display: flex;
 `;
 
 export default () => {
     const [ dublinBike, setDublinBike ] = useState([]);
-    // const [ number, setNumber ] = useState(0);
-    // const [ name, setName ] = useState("");
-    // const [ address, setAddress ] = useState("");
-    // const [ lat, setLat ] = useState(0);
-    // const [ lng, setLng ] = useState(0);
     
     const getData = () => {
         const apiUrl = 'data/dublin.json';
-        console.log(apiUrl)
-        
         axios.get(apiUrl).then (data => {
             setDublinBike(data.data.dublinBike);
         }).catch(e => {
@@ -32,11 +28,11 @@ export default () => {
     }, []);
 
     return (
-        <>
+        <Wrapper>
             <BikeList>
                 <GoogleMap data={dublinBike} />
             </BikeList>            
-        </>
+        </Wrapper>
     )
 }
 
