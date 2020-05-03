@@ -55,6 +55,7 @@ export default ({
     firstName,
     lastName,
     email,
+    intro,
     setAction,
     secret,
     onSubmit
@@ -76,6 +77,7 @@ export default ({
                             <Input placeholder={"Last name"} setValue={lastName.value} onChange={lastName.onChange} />
                             <Input placeholder={"Email"} setValue={email.value} onChange={email.onChange} type="email" />
                             <Input placeholder={"Username"} setValue={username.value} onChange={username.onChange} />
+                            <Input placeholder={"Intro"} setValue={intro.value} onChange={intro.onChange} />
                             <Button text={"Sign Up"} />
                         </form>
                     </>
