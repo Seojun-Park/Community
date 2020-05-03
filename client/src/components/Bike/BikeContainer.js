@@ -15,7 +15,6 @@ export default () => {
     // const [ address, setAddress ] = useState("");
     // const [ lat, setLat ] = useState(0);
     // const [ lng, setLng ] = useState(0);
-
     
     const getData = () => {
         const apiUrl = 'data/dublin.json';
@@ -35,14 +34,8 @@ export default () => {
     return (
         <>
             <BikeList>
-                <Map />
-                {/* {!dublinBike ? "nothing" : dublinBike.map(d => (
-                    <div key={d.number}>
-                        {d.name} {d.address} {d.latitude} {d.longitude}
-                    </div>
-                ))} */}
-            </BikeList>
-            
+                <Map data={dublinBike} />
+            </BikeList>            
         </>
     )
 }
