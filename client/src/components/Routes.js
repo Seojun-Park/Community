@@ -11,11 +11,13 @@ import BoardWrite from '../Route/Board/boardWrite'
 import MarketWrite from '../Route/Market/marketWrite'
 import Detail from './Detail'
 import Bike from './Bike'
+import Bus from './Bus'
 
 const LoggedInRoutes = () => (
     <Switch>
         <Route exact path="/" component={Main} />
         <Route path="/bike" component={Bike} />
+        <Route path="/bus" component={Bus} />
         <Route path="/notice" component={Notice} />
         <Route path="/immobiler" component={Immobiler} />
         <Route path="/board/detail" component={Detail} />

@@ -1,13 +1,13 @@
-import React from 'react';
-import styled from 'styled-components';
-import Routes from './Routes';
-import { gql } from 'apollo-boost'
-import { HashRouter as Router } from 'react-router-dom';
-import { useQuery } from '@apollo/react-hooks';
-import { Container } from 'react-bootstrap'
-import { ToastContainer,toast } from 'react-toastify';
-import Header from './Header'
-import Footer from './Footer'
+import React from "react";
+import styled from "styled-components";
+import Routes from "./Routes";
+import { gql } from "apollo-boost";
+import { HashRouter as Router } from "react-router-dom";
+import { useQuery } from "@apollo/react-hooks";
+import { Container } from "react-bootstrap";
+import { ToastContainer, toast } from "react-toastify";
+import Header from "./Header";
+import Footer from "./Footer";
 
 const QUERY = gql`
   {
@@ -20,9 +20,10 @@ const Wrapper = styled(Container)`
   width: 100%;
 `;
 
-
 export default () => {
-  const { data: { isLoggedIn }} = useQuery(QUERY);
+  const {
+    data: { isLoggedIn }
+  } = useQuery(QUERY);
   return (
     <>
       <Router>
@@ -36,5 +37,5 @@ export default () => {
       </Router>
       <ToastContainer position={toast.POSITION.BOTTOM_LEFT} />
     </>
-  )
-}
+  );
+};
