@@ -1,97 +1,80 @@
-import React, { useEffect, useState } from "react";
-import { GOOGLE_KEY, MAP_TOKEN } from "../../key";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import ReactMapGL, {
-  NavigationControl,
-  FlyToInterpolator,
-  Marker,
-  Popup
-} from "react-map-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
-import _ from "lodash";
-// import Map from "./busMap";
+import useInput from "../InputTool";
+import Input from "../Input";
+import { toast } from "react-toastify";
+import Button from '../Button'
+import { GOOGLE_KEY } from '../../key'
 
-const Wrapper = styled.div`
-  height: 100vh;
-`;
 
-const StyledMap = styled(ReactMapGL)`
-  /* max-height: 500px;
-      max-width: 500px; */
-  background-size: cover;
-`;
+const url = `json?origin=Dublin&destination=Rathmine=transit&departure_time=now&key=${GOOGLE_KEY}`;
+const Wrapper = styled.div``;
 
-// const url = `cgi-bin/rtpi/busstopinformation?stopid&stopname&format=json`;
-const testUrl = `json?origin=Disneyland&destination=Universal+Studios+Hollywood&mode=transit&departure_time=now&key=${GOOGLE_KEY}`;
-
-// const mode = ["transit"];
-// const departure_time = ["now"];
 
 export default () => {
-  const [busData, setBusData] = useState([]);
-  // const [finalData, setFinalData] = useState({
-  //   address: "",
-  //   lat: 0,
-  //   lng: 0,
-  //   route: {},
-  //   stopId: {}
-  // });
+  const [action, setAction] = useState("off");
+  const [origin, setOrigin] = useState("");
+  const [destination, setDestination] = useState("");
+  const from = useInput("");
+  const to = useInput("");
 
-  const [viewport, setViewport] = useState({
-    latitude: 53.347614,
-    longitude: -6.259293,
-    width: "30vw",
-    height: "60vh",
-    zoom: 12
-  });
-  const [lat, setLat] = useState(0);
-  const [lng, setLng] = useState(0);
-  const [selectedStation, setSelectedStation] = useState(null);
+  let [curLat, setCurLat] = useState(0);
+  let [curLng, setCurLng] = useState(0);
 
-  const callApi = async () => {
-    await fetch(testUrl)
-      .then(data => data.json())
-      .then(json => setBusData(json));
-    // .catch(e => {
-    //   console.log(e);
-    // });
+  const onSubmit = async e => {
+    e.preventDefault();
+    console.log(from);
+    if (action === "off") {
+      if (from.value === "" && to !== "") {
+        // ask permition for current position && setOrigin(from.value)
+        setDestination(to.value);
+        setAction("on");
+      } else if (to === "") {
+        toast.error("to field is required");
+      } else if (from.value !== "" && to !== "") {
+        setOrigin(from.value);
+        setDestination(to.value);
+      }
+    }
   };
 
-  useEffect(() => {
-    callApi();
-    const mapResizeEvent = _.throttle(() => {
-      setViewport(
-        Object.assign(
-          {},
-          {
-            ...viewport,
-            width: `${window.innerWidth}px`,
-            height: `${window.innerHeight}px`
-          }
-        )
-      );
-    }, 2000);
-    window.addEventListener("resize", mapResizeEvent);
+  // useEffect(() => {
+  //   if(action === "on"){
+  //     getLocation();
+  //   }
+  // });
 
-    return () => {
-      window.removeEventListener("resize", mapResizeEvent);
-    };
-  }, [viewport]);
+  // window.onload = getLocation;
+  // const getLocation = () => {
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition(
+  //       p => {
+  //         setCurLat(p.coords.latitude);
+  //         setCurLng(p.coords.longitude)
+  //       },
+  //       e => {
+  //         console.log("에러가 발생햇드아.....");
+  //       }
+  //     );
+  //   } else {
+  //     console.log("no geolocation");
+  //   }
+  // };
 
-  console.log(busData);
+  // console.log(from.value);
+  console.log(curLat, curLng)
+
 
   return (
     <Wrapper>
-      <StyledMap
-        {...viewport}
-        mapboxApiAccessToken={MAP_TOKEN}
-        transitionDuration={400}
-        transitionInterpolator={new FlyToInterpolator()}
-        mapStyle="mapbox://styles/mapbox/streets-v9"
-        onViewStateChange={viewport => {
-          setViewport(viewport);
-        }}
-      ></StyledMap>
+      <form onSubmit={onSubmit}>
+        <Input
+          placeholder={"From"}
+          setValue={from.value}
+          onChange={from.onChange}
+        />
+        <Input placeholder={"To"} setValue={to.value} onChange={to.onChange} />
+      </form>
     </Wrapper>
   );
 };

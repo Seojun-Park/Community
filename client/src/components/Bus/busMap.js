@@ -33,6 +33,9 @@ const Button = styled.button`
 const MAP_TOKEN =
   "pk.eyJ1IjoiamlucGFyazEyMyIsImEiOiJjazlyZ2xvODYwdTI1M21ydGtpOGs5N2lhIn0.Lcyu5KuC3pd0dzXlIJ-LSw";
 
+  const testUrl = `json?origin=Dublin&destination=Rathmine=transit&departure_time=now&key=${GOOGLE_KEY}`;
+
+
 export default props => {
   const data = props.data;
   const [viewport, setViewport] = useState({
