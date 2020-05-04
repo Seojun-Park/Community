@@ -5,10 +5,11 @@ import ReactMapGL, {
   Marker,
   Popup
 } from 'react-map-gl'
-import styled from 'styled-components'
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { MarkerIcon } from '../Icon'
 import _ from 'lodash'
+import { MarkerIcon } from '../Icon'
+import styled from 'styled-components'
+import { MAP_TOKEN } from '../../key'
 
 
 
@@ -34,12 +35,12 @@ const Button = styled.button`
   }
 `;
 
-const MAP_TOKEN = 'pk.eyJ1IjoiamlucGFyazEyMyIsImEiOiJjazlyZ2xvODYwdTI1M21ydGtpOGs5N2lhIn0.Lcyu5KuC3pd0dzXlIJ-LSw'
+// const MAP_TOKEN = 'pk.eyJ1IjoiamlucGFyazEyMyIsImEiOiJjazlyZ2xvODYwdTI1M21ydGtpOGs5N2lhIn0.Lcyu5KuC3pd0dzXlIJ-LSw'
 
 export default (props) => {
 
   const data = props.data;
-  // console.log(data);
+  console.log(data);
   const [ viewport, setViewport ] = useState({
     latitude :53.347614,
     longitude : -6.259293,
