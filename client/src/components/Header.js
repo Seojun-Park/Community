@@ -101,7 +101,7 @@ export default () => {
                     <Nav.Link href="#immobiler">내 집 찾기</Nav.Link>
                     <Nav.Link href="#board">자유게시판</Nav.Link>
                     <Nav.Link href="#bike">자전거 위치</Nav.Link>
-                    <Nav.Link href="#bus">버스</Nav.Link>  
+                    <Nav.Link href="#direction">경로찾기</Nav.Link>  
                 </Nav>
                 <Form inline>
                 <FormControl type="text" placeholder="Search" className="mr-sm-2" />
