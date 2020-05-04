@@ -1,0 +1,31 @@
+import React from "react";
+import styled from "styled-components";
+import { Map, Marker } from "google-maps-react";
+
+const Wrapper = styled.div`
+`;
+
+const MapContainer = styled.div`
+  position: relative;
+  background-size: cover;
+`;
+
+export default () => {
+  const mapStyles = {
+    width: "500px",
+    height: "500px"
+  };
+  return (
+    <Wrapper>
+      <MapContainer>
+        <Map
+          google={window.google}
+          style={mapStyles}
+          zoom={14}
+          initialCenter={{ lat: 53.347614, lng: -6.259293 }}
+        />
+        <Marker position={{lat: 53.347614, lng: -6.259293}} />
+      </MapContainer>
+    </Wrapper>
+  );
+};
