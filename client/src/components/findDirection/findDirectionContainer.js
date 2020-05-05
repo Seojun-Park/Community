@@ -1,57 +1,45 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-
-import ReactMapGL, { NavigationControl, Marker } from "react-map-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
+import React, { useState } from "react";
+import ReactMapGL, { SVGOverlay } from "react-map-gl";
+// import { fromJS } from 'immutable'
 import { MAP_TOKEN } from "../../key";
-import { debounce } from "@material-ui/core";
-import { MarkerIcon } from "../Icon";
-
-const Wrapper = styled.div``;
-
-const NaviControl = styled.div`
-  position: absolute;
-`;
 
 export default () => {
   const [viewport, setViewport] = useState({
-    latitude: 53.347614,
-    longitude: -6.259293,
-    width: "30vw",
-    height: "60vh",
-    zoom: 12
+    width: 400,
+    height: 400,
+    latitude: 37.7577,
+    longitude: -122.4376,
+    zoom: 8
   });
 
-  useEffect(() => {
-    const resizeEventListener = window.addEventListener(
-      "resize",
-      debounce(() => {
-        setViewport({
-          ...viewport,
-          width: window.innerWidth,
-          height: window.innerHeight
-        });
-      }, 200)
-    );
-    return () => {
-      window.removeEventListener("resize", resizeEventListener);
-    };
-  }, []);
+  const redraw = ({ project }) => {
+    const [cx, cy] = project([-122.4, 37.7]);
+    return <circle cx={cx} cy={cy} r={4} fill="blue" />;
+  };
+
+  const goToNYC = () => {
+    const viewport = { ...viewport, longitude: -74.1, latitude: 40.7 };
+    setViewport(viewport);
+  };
+
+  const onViewportChange = viewport => {
+    if (viewport.longitude > 0) {
+      viewport.longitude = 0;
+    }
+    setViewport(viewport);
+  };
+
   return (
-    <Wrapper>
+    <>
+      <button onClick={goToNYC}>NYC</button>
       <ReactMapGL
         {...viewport}
         mapboxApiAccessToken={MAP_TOKEN}
         mapStyle="mapbox://styles/mapbox/light-v10"
-        onViewportChange={setViewport}
+        onViewportChange={onViewportChange}
       >
-        <NaviControl>
-          <NavigationControl />
-        </NaviControl>
-        <Marker latitude={53.347614} longitude={-6.259293}>
-          <MarkerIcon />
-        </Marker>
+        <SVGOverlay redraw={redraw} />
       </ReactMapGL>
-    </Wrapper>
+    </>
   );
 };
