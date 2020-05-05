@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { GOOGLE_KEY } from "../../key";
 
-
-
 class GoogleMap extends Component {
   constructor(props) {
     super(props);
@@ -24,15 +22,15 @@ class GoogleMap extends Component {
     new window.google.maps.Map(this.googleMapRef.current, {
       zoom: 16,
       center: {
-        lat: 43.642567,
-        lng: -79.387054
+        lat: 53.347614,
+        lng: -6.259293
       },
       disableDefaultUI: true
     });
 
   createMarker = () =>
     new window.google.maps.Marker({
-      position: { lat: 43.642567, lng: -79.387054 },
+      position: { lat: 53.347614, lng: -6.259293 },
       map: this.googleMap
     });
 
