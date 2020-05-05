@@ -51,6 +51,7 @@
     "lodash": "^4.17.15",
     "lodash.throttle": "^4.1.1",
     "mapbox-gl": "^1.10.0",
+    "mapbox-gl-geocoder": "^2.0.1",
     "papaparse": "^5.2.0",
     "prop-types": "^15.7.2",
     "react-autosize-textarea": "^7.0.0",
