@@ -100,4 +100,94 @@ export default () => {
 
 
 
-nextViewport => setViewport(nextViewport)
+
+import React, { useState } from "react";
+import ReactMapGL, { SVGOverlay, NavigationControl } from "react-map-gl";
+import { Editor, DrawPolygonMode } from 'react-map-gl-draw'
+// import { fromJS } from 'immutable'
+import { MAP_TOKEN } from "../../key";
+
+
+export default () => {
+  const [viewport, setViewport] = useState({
+    width: 400,
+    height: 400,
+    latitude: 37.7577,
+    longitude: -122.4376,
+    zoom: 8
+  });
+
+  const redraw = ({ project }) => {
+    const [cx, cy] = project([-122.4, 37.7]);
+    return <circle cx={cx} cy={cy} r={4} fill="blue" />;
+  };
+
+  const goToNYC = () => {
+    const viewport = { ...viewport, longitude: -74.1, latitude: 40.7 };
+    setViewport(viewport);
+  };
+
+  return (
+    <>
+      <button onClick={goToNYC}>NYC</button>
+      <ReactMapGL
+        {...viewport}
+        mapboxApiAccessToken={MAP_TOKEN}
+        mapStyle="mapbox://styles/mapbox/light-v10"
+        onViewportChange={nextViewport => setViewport(nextViewport)}
+      >
+        <NavigationControl />
+        <SVGOverlay redraw={redraw} />
+      </ReactMapGL>
+    </>
+  );
+};
+
+
+// Normal Map
+
+// import React,{ useState } from 'react'
+// import MapGL, {GeolocateControl } from 'react-map-gl'
+// import { MAP_TOKEN } from '../../key'
+// import 'mapbox-gl/dist/mapbox-gl.css'
+
+// const TOKEN= MAP_TOKEN
+
+// const geolocateStyle = {
+//   float: 'left',
+//   margin: '50px',
+//   padding: '10px'
+// };
+
+// const Map = () => {
+
+//   const [viewport, setViewPort ] = useState({
+//     width: "80%",
+//     height: 500,
+//     latitude: 0,
+//     longitude: 0,
+//     zoom: 3
+//   })
+
+//   const _onViewportChange = viewport => setViewPort({...viewport, transitionDuration: 3000 })
+
+//   return (
+//     <div style={{ margin: '0 auto'}}>
+//       <h1 style={{textAlign: 'center', fontSize: '25px', fontWeight: 'bolder' }}>GeoLocator: Click To Find Your Location or click <a href="/search">here</a> to search for a location</h1>
+//       <MapGL
+//         {...viewport}
+//         mapboxApiAccessToken={TOKEN}
+//         mapStyle="mapbox://styles/mapbox/light-v10"
+//         onViewportChange={_onViewportChange}
+//       >
+//         <GeolocateControl
+//           style={geolocateStyle}
+//           positionOptions={{enableHighAccuracy: true}}
+//           trackUserLocation={true}
+//         />
+//       </MapGL>
+//     </div>
+//   )
+// }
+
+// export default Map
