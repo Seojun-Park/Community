@@ -191,3 +191,320 @@ export default () => {
 // }
 
 // export default Map
+
+
+
+
+
+// import React, { useState, useEffect } from 'react';
+// import ReactMapGL, {
+//   NavigationControl,
+//   FlyToInterpolator,
+//   Marker,
+//   Popup
+// } from 'react-map-gl'
+// import 'mapbox-gl/dist/mapbox-gl.css';
+// import _ from 'lodash'
+// import { MarkerIcon } from '../Icon'
+// import styled from 'styled-components'
+// import { MAP_TOKEN } from '../../key'
+
+// const Wrapper = styled.div`
+
+// `;
+
+// const StyledMap = styled(ReactMapGL)`
+//       /* max-height: 500px;
+//       max-width: 500px; */
+//       background-size: cover;
+// `;
+
+// const NaviControl = styled.div`
+//       position: absolute;
+// `;
+
+// const Button = styled.button`
+//   background: none;
+//   border: none;
+//   :focus{
+//     outline: transparent;
+//   }
+// `;
+
+// // const MAP_TOKEN = 'pk.eyJ1IjoiamlucGFyazEyMyIsImEiOiJjazlyZ2xvODYwdTI1M21ydGtpOGs5N2lhIn0.Lcyu5KuC3pd0dzXlIJ-LSw'
+
+// export default (props) => {
+
+//   const data = props.data;
+//   console.log(data);
+//   const [ viewport, setViewport ] = useState({
+//     latitude :53.347614,
+//     longitude : -6.259293,
+//     width: '30vw',
+//     height:'60vh',
+//     zoom: 12
+//   });
+//   const [ lat, setLat ] = useState(0);
+//   const [ lng, setLng ] = useState(0);
+//   const [ selectedStation, setSelectedStation ] = useState(null);
+
+//   useEffect(() => {
+//     const mapResizeEvent = _.throttle(()=> {
+//       setViewport(Object.assign({}, {
+//         ...viewport,
+//         width: `${window.innerWidth}px`,
+//         height: `${window.innerHeight}px`
+//       }));
+//     }, 2000);
+//     window.addEventListener('resize', mapResizeEvent);
+
+//     return () => {
+//       window.removeEventListener('resize', mapResizeEvent);
+//     }
+//   }, [ viewport ]);
+
+//   return (
+//     <Wrapper>
+//       <StyledMap
+//         {...viewport}
+//         mapboxApiAccessToken={MAP_TOKEN}
+//         transitionDuration={400}
+//         transitionInterpolator={new FlyToInterpolator()}
+//         mapStyle="mapbox://styles/mapbox/streets-v9"
+//         onViewportChange={(viewport) => {
+//           setViewport(viewport);
+//         }}>
+//           <NaviControl>
+//             <NavigationControl />
+//           </NaviControl>
+//           {data && data.map((d, index) => (
+//             <Marker
+//               key={index}
+//               latitude={d.latitude}
+//               longitude={d.longitude}
+//               >
+//                 <Button onClick={()=> {
+//                   setSelectedStation(d.address)
+//                   setLat(d.latitude)
+//                   setLng(d.longitude)
+//                 }}
+//                   ><MarkerIcon /></Button>
+//             </Marker>
+//             ))
+//             }
+//             {selectedStation && (
+//               <Popup
+//                 offsetLeft={10}
+//                 latitude={lat}
+//                 longitude={lng}
+//                 onClose={() => {
+//                   setSelectedStation(null)
+//                   setLat(0)
+//                   setLng(0)
+//                 }}
+//                 >
+//                   <div>{selectedStation}</div>
+//               </Popup>
+//             )}
+//         </StyledMap>
+//     </Wrapper>
+//   )
+// }
+
+
+
+
+
+
+import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
+import React, { Component } from "react";
+import styled from "styled-components";
+import ReactMapGL, {
+  GeolocateControl,
+  Marker
+} from "react-map-gl";
+import Geocoder from "react-map-gl-geocoder";
+import { MAP_TOKEN } from "../../key";
+import { MarkerIcon } from "../Icon";
+
+const Wrapper = styled.div``;
+
+const Content = styled.div``;
+
+const geolocateStyle = {
+  float: "left",
+  margin: "60px 30px",
+  padding: "10px"
+};
+
+export default class DirectionMap extends Component {
+  state = {
+    viewport: {
+      latitude: 40.725086,
+      longitude: -73.97736,
+      zoom: 12
+    },
+    userLocation: {}
+  };
+
+  mapRef = React.createRef();
+  handleViewPortChange = viewport => {
+    this.setState({
+      viewport: { ...this.state.viewport, ...viewport }
+    });
+  };
+
+  setUserLocation = () => {
+    navigator.geolocation.getCurrentPosition(p => {
+      let setUserLocation = {
+        lat: p.coords.latitude,
+        long: p.coords.longitude
+      };
+      let newViewPort = {
+        width: " 70vw",
+        height: "100vh",
+        latitude: p.coords.latitude,
+        longitude: p.coords.longitude,
+        zoom: 12
+      };
+      this.setState({
+        viewport: newViewPort,
+        userLocation: setUserLocation
+      });
+    });
+  };
+
+  render() {
+    return (
+      <Wrapper>
+        {/* <Content>
+          <button onClick={this.setUserLocation}>My location</button>
+        </Content> */}
+        <Content>
+          <ReactMapGL
+            ref={this.mapRef}
+            {...this.state.viewport}
+            width="70vw"
+            height="100vh"
+            onViewportChange={viewport => this.setState({ viewport })}
+            mapStyle="mapbox://styles/mapbox/light-v10"
+            mapboxApiAccessToken={MAP_TOKEN}
+          >
+            {/* {Object.keys(this.state.userLocation).length !== 0 ? (
+              <Marker
+                latitude={this.state.viewport.latitude}
+                longitude={this.state.viewport.longitude}
+              >
+                <MarkerIcon />
+              </Marker>
+            ) : (
+              <span>empty</span>
+            )} */}
+            <Geocoder
+              position="top-left"
+              mapRef={this.mapRef}
+              mapboxApiAccessToken={MAP_TOKEN}
+            />
+            <GeolocateControl
+              style={geolocateStyle}
+              positionOptions={{ enableHighAccuracy: true }}
+              trackUserLocation={true}
+            />
+          </ReactMapGL>
+        </Content>
+      </Wrapper>
+    );
+  }
+}
+
+
+
+
+import "mapbox-gl/dist/mapbox-gl.css";
+import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
+import React, { Component } from "react";
+import MapGL, { GeolocateControl } from "react-map-gl";
+import DeckGL, { GeoJsonLayer } from "deck.gl";
+import Geocoder from "react-map-gl-geocoder";
+import { MAP_TOKEN } from "../../key";
+
+const token = MAP_TOKEN;
+
+const geolocateStyle = {
+  float: "right",
+  margin: "50px",
+  padding: "10px"
+};
+class SearchableMap extends Component {
+  state = {
+    viewport: {
+      latitude: 53.347614,
+      longitude: -6.259293,
+      zoom: 12
+    },
+    searchResultLayer: null
+  };
+
+  mapRef = React.createRef();
+
+  handleViewportChange = viewport => {
+    this.setState({
+      viewport: { ...this.state.viewport, ...viewport }
+    });
+  };
+  // if you are happy with Geocoder default settings, you can just use handleViewportChange directly
+  handleGeocoderViewportChange = viewport => {
+    const geocoderDefaultOverrides = { transitionDuration: 1000 };
+
+    return this.handleViewportChange({
+      ...viewport,
+      ...geocoderDefaultOverrides
+    });
+  };
+
+  handleOnResult = event => {
+    this.setState({
+      searchResultLayer: new GeoJsonLayer({
+        id: "search-result",
+        data: event.result.geometry,
+        getFillColor: [255, 0, 0, 128],
+        getRadius: 1000,
+        pointRadiusMinPixels: 10,
+        pointRadiusMaxPixels: 10
+      })
+    });
+  };
+
+  render() {
+    const { viewport, searchResultLayer } = this.state;
+    return (
+      <div style={{ height: "100vh" }}>
+        <MapGL
+          ref={this.mapRef}
+          {...viewport}
+          mapStyle="mapbox://styles/mapbox/streets-v9"
+          width="70%"
+          height="80%"
+          onViewportChange={this.handleViewportChange}
+          mapboxApiAccessToken={token}
+        >
+          <Geocoder
+            mapRef={this.mapRef}
+            onResult={this.handleOnResult}
+            onViewportChange={this.handleGeocoderViewportChange}
+            mapboxApiAccessToken={token}
+            position="top-left"
+          />
+          <GeolocateControl
+            style={geolocateStyle}
+            positionOptions={{ enableHighAccuracy: true }}
+            trackUserLocation={true}
+          />
+        </MapGL>
+        <DeckGL {...viewport} layers={[searchResultLayer]} />
+      </div>
+    );
+  }
+}
+
+export default SearchableMap;

@@ -7,7 +7,6 @@ import { useQuery } from "@apollo/react-hooks";
 import { Container } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import Header from "./Header";
-import Footer from "./Footer";
 
 const QUERY = gql`
   {
