@@ -1,21 +1,22 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useDebounce } from "../DebounceHook";
+import axios from "axios";
 import Input from "../Input";
 import Button from "../Button";
 
+import BusOption from "./busOptions";
+
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import ReactMapGL, { GeolocateControl, Marker } from "react-map-gl";
-import Geocoder from "react-map-gl-geocoder";
 import { MAP_TOKEN } from "../../key";
-import { MarkerIcon } from "../Icon";
+import { MarkerIcon, BikeIcon } from "../Icon";
+import busSorting from "./BusSorting";
 
 import {
   Radio,
   RadioGroup,
   FormControlLabel,
-  FormControl,
-  FormLabel
+  FormControl
 } from "@material-ui/core";
 
 const Wrapper = styled.div`
@@ -51,7 +52,9 @@ const Row = styled.div`
   }
 `;
 
-const Lists = styled.ul``;
+const Lists = styled.ul`
+  padding: 20px;
+`;
 
 const List = styled.li``;
 
@@ -64,49 +67,72 @@ const geolocateStyle = {
 };
 
 export default () => {
+  const [getNum, setGetNum] = useState({
+    route: 0,
+    stopid: 0
+  });
   const [busStop, setBusStop] = useState([]);
-  const [timeStamp, setTimeStamp] = useState("");
+  const [dublinBike, setDublinBike] = useState([]);
+  const [action, setAction] = useState("none");
   const [viewport, setViewport] = useState({
     latitude: 53.347614,
     longitude: -6.259293,
     zoom: 12
   });
-  const [curLocation, setCurLocation] = useState({});
 
-  const setUserLocation = () => {
-    navigator.geolocation.getCurrentPosition(p => {
-      let setUserLocation = {
-        lat: p.coords.latitude,
-        long: p.coords.longitude
-      };
-      let newViewPort = {
-        latitude: p.coords.latitude,
-        longitude: p.coords.longitude,
-        zoom: 12
-      };
-      setCurLocation(setUserLocation);
-      setViewport(newViewPort);
-    });
+//   버스 api 쿼리문 만들어야함 stopid=[number] || route=[number] ...etc
+  const handleOnChange = e => {
+    if (e.target.value === "Bus") {
+      setAction("Bus");
+      //   const url = `cgi-bin/rtpi/busstopinformation?format=json`;
+      //   const url = `cgi-bin/rtpi/routelistinformation? ?format=json`;
+      //   fetch(url, {
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       Accept: "application/json"
+      //     }
+      //   })
+      //     .then(data => data.json())
+      //     .then(json => setBusStop(json.results))
+    } else if (e.target.value === "Bike") {
+      setAction("Bike");
+      const apiUrl = "data/dublin.json";
+      axios
+        .get(apiUrl)
+        .then(data => {
+          setDublinBike(data.data.dublinBike);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    } else if (e.target.value === "Luas") {
+      setAction("Luas");
+    } else {
+      setAction("none");
+    }
   };
 
-  const getAPI = () => {
-    const url = `cgi-bin/rtpi/busstopinformation?format=json`;
-    fetch(url, {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
+  const handleOnSubmit = (data, flag) => {
+      if (flag === "route"){
+          setGetNum({
+              route: data,
+              stop: 0
+          })
+      }else if (flag === "stop"){
+          setGetNum({
+              route:0,
+              stop: data
+          })
       }
-    })
-      .then(data => data.json())
-      .then(json => {
-        setBusStop(json.results);
-        setTimeStamp(json.timestamp);
-      });
   };
+  //   console.log(dublinBike);
+  //   console.log(busStop);
 
-  useDebounce(getAPI, 3000);
+  // if (busStop){
+  //     busSorting(busStop)
+  // }
 
-  console.log(busStop);
+  // console.log(routeStopData.data);
   return (
     <Wrapper>
       <Container>
@@ -120,18 +146,28 @@ export default () => {
             mapStyle="mapbox://styles/mapbox/light-v10"
             mapboxApiAccessToken={MAP_TOKEN}
           >
-            {/* {busStop &&
-              busStop.map(d => {
-                return (
+            {/* {(action === "Bike" &&
+              dublinBike &&
+              dublinBike.map(bike => (
+                <Marker
+                  key={bike.number}
+                  latitude={bike.latitude}
+                  longitude={bike.longitude}
+                >
+                  <BikeIcon />
+                </Marker>
+              ))) ||
+              (action === "Bus" &&
+                busStop &&
+                busStop.map(bus => (
                   <Marker
-                    key={d.stopid}
-                    latitude={Number(d.latitude)}
-                    longitude={Number(d.longitude)}
+                    key={bus.stopid}
+                    latitude={Number(bus.latitude)}
+                    longitude={Number(bus.longitude)}
                   >
                     <MarkerIcon />
                   </Marker>
-                );
-              })} */}
+            )))} */}
             <GeolocateControl
               style={geolocateStyle}
               positionOptions={{ enableHighAccuracy: true }}
@@ -141,42 +177,45 @@ export default () => {
         </Col>
         <Col>
           <Row>
-            <div>{timeStamp}</div>
-            <form>
+            {/* <form>
               <Input placeholder="text" />
               <Button text="search" />
-            </form>
+            </form> */}
+
             <FormControl component="fieldset">
               <RadioGroup
                 row
                 aria-label="position"
                 name="position"
-                defaultValue="bus"
+                defaultValue=""
               >
                 <FormControlLabel
-                  value="bus"
+                  value="Bus"
                   control={<Radio color="primary" />}
                   label="Bus"
-                  labelPlacement="bus"
+                  labelPlacement="bottom"
+                  onChange={handleOnChange}
                 />
                 <FormControlLabel
-                  value="luas"
+                  value="Luas"
                   control={<Radio color="primary" />}
                   label="Luas"
-                  labelPlacement="luas"
+                  labelPlacement="bottom"
                 />
                 <FormControlLabel
-                  value="bike"
+                  value="Bike"
                   control={<Radio color="primary" />}
                   label="Bike"
-                  labelPlacement="bike"
+                  labelPlacement="bottom"
+                  onChange={handleOnChange}
                 />
               </RadioGroup>
             </FormControl>
+            {action === "Bus" && <BusOption onSubmit={handleOnSubmit} />}
           </Row>
           <Row>
             <Lists>
-              <List></List>
+              <List>something will be on here</List>
             </Lists>
           </Row>
         </Col>
