@@ -18,3 +18,5 @@
   padding: 6px;
   font-weight: bold;
 }
+
+.map { position: absolute; width: 100%; }

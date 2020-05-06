@@ -12,5 +12,5 @@
 ### Functional parts
 
 - [ ] Trasportation onGoing
-- [ ] Route onGoing
+- [ ] Route onGoing (only for App)
 - [ ] Reservation ongoing
