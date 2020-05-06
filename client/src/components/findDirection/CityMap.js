@@ -2,18 +2,26 @@ import React, { useState, useEffect } from "react";
 import { CITY_KEY } from "../../key";
 
 export default () => {
-  const [ data, setData ] = useState([]);
-  const getData = () => {
-    const url = `https://developer.citymapper.com/api/1/traveltime/?startcoord=51.525246%2C0.084672&endcoord=51.559098%2C0.074503&time=2014-11-06T19%3A00%3A02-0500&time_type=arrival&key=${CITY_KEY}`;
-    fetch(url)
-      .then(data => data.json())
-      .then(json => console.log(json));
+  const [data, setData] = useState([]);
+
+  const params = {
+    points: [
+      {
+        coord: ["40.1", "-73.0"],
+        id: "test1"
+      },
+      {
+        coord: ["37.784", "-122.402"]
+      },
+      {
+        coord: ["41.84", "-73"],
+        id: "test2"
+      },
+      {
+        id: "test3"
+      }
+    ]
   };
-
-  useEffect(() => {
-    getData();
-  })
-
 
   return <div>lala</div>;
 };

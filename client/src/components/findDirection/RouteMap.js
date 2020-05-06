@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { GOOGLE_KEY, MAP_TOKEN } from "../../key";
 import MapboxDirections from "@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions";
 import "@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css";
-import MapboxGeocoder from "mapbox-gl-geocoder";
 import { customData } from "./dummy";
 
 mapboxgl.accessToken = MAP_TOKEN;
@@ -29,12 +28,12 @@ export default class RouteMap extends Component {
 
   }
 
-  getRouteData = (e) => {
-    const url = `json?origin=Disneyland&destination=Universal+Studios+Hollywood&key=${GOOGLE_KEY}`;
-    fetch(url)
-      .then(data => data.json())
-      .then(json => console.log(json));
-  };
+  // getRouteData = (e) => {
+  //   const url = `json?origin=Disneyland&destination=Universal+Studios+Hollywood&key=${GOOGLE_KEY}`;
+  //   fetch(url)
+  //     .then(data => data.json())
+  //     .then(json => console.log(json));
+  // };
 
   componentDidMount() {
     function forwardGeocoder(query) {
@@ -76,14 +75,6 @@ export default class RouteMap extends Component {
       profile: "mapbox/cycling",
       placeholderOrigin: "From",
       placeholderDestination: "Choose Destination"
-      // geocoder:     map.addControl(
-      //   new MapboxGeocoder({
-      //   accessToken: mapboxgl.accessToken,
-      //   localGeocoder: forwardGeocoder,
-      //   zoom: 14,
-      //   placeholder: 'Enter search e.g. Lincoln Park',
-      //   mapboxgl: mapboxgl
-      //   }))
     });
     map.addControl(directions);
   }
@@ -97,9 +88,6 @@ export default class RouteMap extends Component {
             {this.state.zoom}
           </div>
         </div>
-        <button style={{ padding: "50px" }} onClick={this.getRouteData}>
-          test :D
-        </button>
         <Container
           ref={el => (this.mapContainer = el)}
           className="mapContainer"
