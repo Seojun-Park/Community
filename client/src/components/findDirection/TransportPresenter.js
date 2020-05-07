@@ -62,22 +62,12 @@ const geolocateStyle = {
   padding: "10px"
 };
 
-export default ({
-  getNum,
-  busStop,
-  dublinBike,
-  action,
-  route,
-  stopId,
-  onChange,
-  onSubmit
-}) => {
+export default () => {
   const [viewport, setViewport] = useState({
     latitude: 53.347614,
     longitude: -6.259293,
     zoom: 12
-  });
-
+  })
   return (
     <Wrapper>
       <Container>
@@ -112,7 +102,6 @@ export default ({
                   control={<Radio color="primary" />}
                   label="Bus"
                   labelPlacement="bottom"
-                  onChange={onChange}
                 />
                 <FormControlLabel
                   value="Luas"
@@ -125,46 +114,9 @@ export default ({
                   control={<Radio color="primary" />}
                   label="Bike"
                   labelPlacement="bottom"
-                  onChange={onChange}
                 />
               </RadioGroup>
             </FormControl>
-            {console.log(action) && console.log(dublinBike)}
-            {/* {action === "Bike" &&
-              dublinBike &&
-              dublinBike.map(bike => (
-                <Marker
-                  key={bike.number}
-                  latitude={bike.latitude}
-                  longitude={bike.longitude}
-                >
-                  <BikeIcon />
-                </Marker>
-              ))} */}
-            {/* {(action === "Bike" &&
-              dublinBike &&
-              dublinBike.map(bike => (
-                <Marker
-                  key={bike.number}
-                  latitude={bike.latitude}
-                  longitude={bike.longitude}
-                >
-                  <BikeIcon />
-                </Marker>
-              ))) ||
-              (action === "Bus" &&
-                getNum &&
-                getNum.flag == "route" &&
-                busStop && 
-                busStop.map(bus => (
-                  <Marker
-                    key={bus.stops.stopid}
-                    latitude={Number(bus.stops.latitude)}
-                    longitude={Number(bus.stops.longitude)}
-                  >
-                    <MarkerIcon />
-                  </Marker>
-                )))} */}
           </Row>
           <Row>
             <Lists>

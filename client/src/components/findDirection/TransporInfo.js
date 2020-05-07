@@ -6,7 +6,7 @@ import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import ReactMapGL, { GeolocateControl, Marker } from "react-map-gl";
 import { MAP_TOKEN } from "../../key";
 import { MarkerIcon, BikeIcon } from "../Icon";
-import useInput from "../InputTool";
+// import useInput from "../InputTool";
 
 import {
   Radio,
@@ -77,8 +77,8 @@ export default () => {
     zoom: 12
   });
 
-  const route = useInput("");
-  const stopId = useInput("");
+  // const route = useInput("");
+  // const stopId = useInput("");
 
   const handleOnChange = e => {
     if (e.target.value === "Bus") {
@@ -139,7 +139,6 @@ export default () => {
     }
   };
 
-  console.log(busStop);
   return (
     <Wrapper>
       <Container>
@@ -181,40 +180,6 @@ export default () => {
                 </div>
               )
               ))}
-
-            {/* {(action === "Bike" &&
-              dublinBike &&
-              dublinBike.map(bike => (
-                <Marker
-                  key={bike.number}
-                  latitude={bike.latitude}
-                  longitude={bike.longitude}
-                >
-                  <BikeIcon />
-                </Marker>
-              ))) ||
-              (action === "Bus" &&
-                getNum &&
-                getNum.flag === "route" &&
-                busStop && 
-                busStop.map(bus => (
-                  <Marker
-                    key={bus.stops.stopid}
-                    latitude={Number(bus.stops.latitude)}
-                    longitude={Number(bus.stops.longitude)}
-                  >
-                    <MarkerIcon />
-                  </Marker>
-                ))) || (action === "Bus" && getNum && getNum.flag === "stop" && busStop && busStop.map(stop => (
-                  <Marker
-                    key={stop.stopid}
-                    latitude={stop.latitude}
-                    longitude={stop.longitude}
-                  >
-                    <MarkerIcon />
-                  </Marker>
-                )))
-                } */}
             <GeolocateControl
               style={geolocateStyle}
               positionOptions={{ enableHighAccuracy: true }}
