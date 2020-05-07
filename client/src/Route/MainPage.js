@@ -6,8 +6,6 @@ import { useQuery } from '@apollo/react-hooks';
 import { BOARD_DATA } from './SharedQueries';
 import FatText from '../components/FatText'
 
-
-
 const Wrapper = styled.div`
     margin-top : 50px;
     display: flex;
@@ -57,9 +55,6 @@ export default () => {
         const sliceData = reverseData.slice((showBoard.length + 15) - (showBoard.length));
         // const sliceData = reverseData.slice(5, 10);
         reverseData = sliceData.reverse()
-
-        // console.log(showBoard)
-        // console.log(reverseData);
         
         return (
             <Wrapper>
