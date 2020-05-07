@@ -69,7 +69,8 @@ const geolocateStyle = {
 export default () => {
   const [getNum, setGetNum] = useState({
     route: 0,
-    stopid: 0
+    stopid: 0,
+    flag: ""
   });
   const [busStop, setBusStop] = useState([]);
   const [dublinBike, setDublinBike] = useState([]);
@@ -80,22 +81,35 @@ export default () => {
     zoom: 12
   });
 
-//   버스 api 쿼리문 만들어야함 stopid=[number] || route=[number] ...etc
-// 루트로 선택 시 스테이션 위치 보여주고 클릭하면 스테이션 정보를 가져와보자 ㅇㅋㅇㅋ
+  //   버스 api 쿼리문 만들어야함 stopid=[number] || route=[number] ...etc
+  // 루트로 선택 시 스테이션 위치 보여주고 클릭하면 스테이션 정보를 가져와보자 ㅇㅋㅇㅋ
 
   const handleOnChange = e => {
     if (e.target.value === "Bus") {
       setAction("Bus");
-      //   const url = `cgi-bin/rtpi/busstopinformation?format=json`;
-      //   const url = `cgi-bin/rtpi/routelistinformation? ?format=json`;
-      //   fetch(url, {
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //       Accept: "application/json"
-      //     }
-      //   })
-      //     .then(data => data.json())
-      //     .then(json => setBusStop(json.results))
+      console.log(getNum);
+      if (getNum && getNum.flag === "route") {
+        const url = `cgi-bin/rtpi/routeinformation?routeid=${getNum.route}&operator=bac&format=json`;
+        // const url = `cgi-bin/rtpi/realtimebusinformation?routeid=${getNum.route}?format=json`;
+        fetch(url, {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+          }
+        })
+          .then(data => data.json())
+          .then(json => setBusStop(json.results));
+      } else if (getNum && getNum.flag === "stop") {
+        const url = `cgi-bin/rtpi/realtimebusinformation?stopid=${getNum.stopid}&format=json`;
+        fetch(url, {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+          }
+        })
+          .then(data => data.json())
+          .then(json => setBusStop(json.results));
+      }
     } else if (e.target.value === "Bike") {
       setAction("Bike");
       const apiUrl = "data/dublin.json";
@@ -115,26 +129,22 @@ export default () => {
   };
 
   const handleOnSubmit = (data, flag) => {
-      if (flag === "route"){
-          setGetNum({
-              route: data,
-              stop: 0
-          })
-      }else if (flag === "stop"){
-          setGetNum({
-              route:0,
-              stop: data
-          })
-      }
+    if (flag === "route") {
+      setGetNum({
+        route: data,
+        stopid: 0,
+        flag: flag
+      });
+    } else if (flag === "stop") {
+      setGetNum({
+        route: 0,
+        stopid: data,
+        flag: flag
+      });
+    }
   };
-  //   console.log(dublinBike);
-  //   console.log(busStop);
 
-  // if (busStop){
-  //     busSorting(busStop)
-  // }
-
-  // console.log(routeStopData.data);
+  console.log(busStop);
   return (
     <Wrapper>
       <Container>
@@ -160,16 +170,18 @@ export default () => {
                 </Marker>
               ))) ||
               (action === "Bus" &&
-                busStop &&
+                getNum &&
+                getNum.flag == "route" &&
+                busStop && 
                 busStop.map(bus => (
                   <Marker
-                    key={bus.stopid}
-                    latitude={Number(bus.latitude)}
-                    longitude={Number(bus.longitude)}
+                    key={bus.stops.stopid}
+                    latitude={Number(bus.stops.latitude)}
+                    longitude={Number(bus.stops.longitude)}
                   >
                     <MarkerIcon />
                   </Marker>
-            )))} */}
+                )))} */}
             <GeolocateControl
               style={geolocateStyle}
               positionOptions={{ enableHighAccuracy: true }}
@@ -179,11 +191,6 @@ export default () => {
         </Col>
         <Col>
           <Row>
-            {/* <form>
-              <Input placeholder="text" />
-              <Button text="search" />
-            </form> */}
-
             <FormControl component="fieldset">
               <RadioGroup
                 row
@@ -217,7 +224,25 @@ export default () => {
           </Row>
           <Row>
             <Lists>
-              <List>something will be on here</List>
+              {action === "Bus" &&
+                getNum &&
+                getNum.flag === "route" &&
+                busStop &&
+                busStop.map((d, index) => (
+                  <List key={index}>
+                    from: {d.origin} to: {d.destination}
+                  </List>
+                ))
+                }
+
+                {action === "Bus" &&
+                getNum && getNum.flag === "stop" && busStop && busStop.map((d, index) => (
+                  <List key={index}>
+                    Bus#: {d.route} Destination: {d.destination} OnTime: {d.duetime === "Due" ? "Due" : `${d.duetime} mins`} 
+                    {console.log(d)}
+                  </List>
+                ))
+              }
             </Lists>
           </Row>
         </Col>

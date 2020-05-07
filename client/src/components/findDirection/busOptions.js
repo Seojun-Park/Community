@@ -34,10 +34,14 @@ export default submitData => {
       routeNumber = route.value;
       submitData.onSubmit(routeNumber, "route");
       route.setValue("")
+      setAction("none")
+      setSearchFlag("off")
     } else if (searchFlag === "stopOn") {
       stopNumber = stopId.value;
       submitData.onSubmit(stopNumber, "stop");
       stopId.setValue("")
+      setAction("none")
+      setSearchFlag("off")
     }
   };
 
