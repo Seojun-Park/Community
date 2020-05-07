@@ -10,13 +10,11 @@ import Board from '../Route/Board';
 import BoardWrite from '../Route/Board/boardWrite'
 import MarketWrite from '../Route/Market/marketWrite'
 import Detail from './Detail'
-import Bike from './Bike'
 import Direction from './findDirection'
 
 const LoggedInRoutes = () => (
     <Switch>
         <Route exact path="/" component={Main} />
-        <Route path="/bike" component={Bike} />
         <Route path="/direction" component={Direction} />
         <Route path="/notice" component={Notice} />
         <Route path="/immobiler" component={Immobiler} />

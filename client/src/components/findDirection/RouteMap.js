@@ -10,6 +10,7 @@ mapboxgl.accessToken = MAP_TOKEN;
 const Wrapper = styled.div`
   min-height: 100vh;
   margin-top: 15px;
+  width: 1100px;
 `;
 
 const Container = styled.div`

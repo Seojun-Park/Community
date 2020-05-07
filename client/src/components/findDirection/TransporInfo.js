@@ -1,16 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import Input from "../Input";
-import Button from "../Button";
-
 import BusOption from "./busOptions";
-
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import ReactMapGL, { GeolocateControl, Marker } from "react-map-gl";
 import { MAP_TOKEN } from "../../key";
 import { MarkerIcon, BikeIcon } from "../Icon";
-import busSorting from "./BusSorting";
+import useInput from "../InputTool";
 
 import {
   Radio,
@@ -26,7 +22,7 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
-  width: 900px;
+  width: 100%;
   height: 100vh;
   margin: 0 auto;
   background-color: #f2f2f2;
@@ -81,8 +77,8 @@ export default () => {
     zoom: 12
   });
 
-  //   버스 api 쿼리문 만들어야함 stopid=[number] || route=[number] ...etc
-  // 루트로 선택 시 스테이션 위치 보여주고 클릭하면 스테이션 정보를 가져와보자 ㅇㅋㅇㅋ
+  const route = useInput("");
+  const stopId = useInput("");
 
   const handleOnChange = e => {
     if (e.target.value === "Bus") {
@@ -90,7 +86,6 @@ export default () => {
       console.log(getNum);
       if (getNum && getNum.flag === "route") {
         const url = `cgi-bin/rtpi/routeinformation?routeid=${getNum.route}&operator=bac&format=json`;
-        // const url = `cgi-bin/rtpi/realtimebusinformation?routeid=${getNum.route}?format=json`;
         fetch(url, {
           headers: {
             "Content-Type": "application/json",
@@ -158,6 +153,35 @@ export default () => {
             mapStyle="mapbox://styles/mapbox/light-v10"
             mapboxApiAccessToken={MAP_TOKEN}
           >
+            {(action === "Bike" &&
+              dublinBike &&
+              dublinBike.map(bike => (
+                <Marker
+                  key={bike.number}
+                  latitude={bike.latitude}
+                  longitude={bike.longitude}
+                >
+                  <BikeIcon />
+                </Marker>
+              ))) || (action === "Bus" &&
+              getNum &&
+              getNum.flag === "route" &&
+              busStop && 
+              busStop.map((bus, index) => (
+                <div key={index}>
+                  {bus.stops.map((b, index) => 
+                    <Marker
+                      key={index}
+                      latitude={Number(b.latitude)}
+                      longitude={Number(b.longitude)}
+                      >
+                        <MarkerIcon />
+                      </Marker>
+                  )}
+                </div>
+              )
+              ))}
+
             {/* {(action === "Bike" &&
               dublinBike &&
               dublinBike.map(bike => (
@@ -171,7 +195,7 @@ export default () => {
               ))) ||
               (action === "Bus" &&
                 getNum &&
-                getNum.flag == "route" &&
+                getNum.flag === "route" &&
                 busStop && 
                 busStop.map(bus => (
                   <Marker
@@ -181,7 +205,16 @@ export default () => {
                   >
                     <MarkerIcon />
                   </Marker>
-                )))} */}
+                ))) || (action === "Bus" && getNum && getNum.flag === "stop" && busStop && busStop.map(stop => (
+                  <Marker
+                    key={stop.stopid}
+                    latitude={stop.latitude}
+                    longitude={stop.longitude}
+                  >
+                    <MarkerIcon />
+                  </Marker>
+                )))
+                } */}
             <GeolocateControl
               style={geolocateStyle}
               positionOptions={{ enableHighAccuracy: true }}
@@ -239,7 +272,6 @@ export default () => {
                 getNum && getNum.flag === "stop" && busStop && busStop.map((d, index) => (
                   <List key={index}>
                     Bus#: {d.route} Destination: {d.destination} OnTime: {d.duetime === "Due" ? "Due" : `${d.duetime} mins`} 
-                    {console.log(d)}
                   </List>
                 ))
               }
