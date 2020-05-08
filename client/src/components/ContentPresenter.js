@@ -122,6 +122,7 @@ export default ({
     emptyRow = rowPerPage - slicedData.length;
   }
 
+  console.log(data);
   return (
     <Wrapper>
       <Head>

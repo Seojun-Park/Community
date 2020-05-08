@@ -122,6 +122,7 @@ export default () => {
       setAction("none");
     }
   };
+  console.log(busStop);
 
   const handleOnSubmit = (data, flag) => {
     if (flag === "route") {

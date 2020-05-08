@@ -70,9 +70,9 @@ export const UPLOAD_BOARD = gql`
   }
 `;
 
-export const MARKET_BOARD = gql`
+export const UPLOAD_MARKET = gql`
   mutation uploadMarket($title: String!, $caption: String!, $username: String) {
-    uploadBoard(title: $title, caption: $caption, username: $username) {
+    uploadMarket(title: $title, caption: $caption, username: $username) {
       user {
         id
         username
