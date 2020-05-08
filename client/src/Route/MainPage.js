@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { Container, Row } from "react-bootstrap";
 import { CircularProgress } from "@material-ui/core";
 import { useQuery } from "@apollo/react-hooks";
 import { BOARD_DATA } from "./SharedQueries";
@@ -32,42 +31,62 @@ const TopSlider = styled.div`
   }
 `;
 
-const MContainer = styled(Container)`
-  margin-top: 20px;
-  background-color: #f2f2f2;
-  padding: 20px;
+const Contents = styled.div`
+  background-color: #2ecc71;
+  width: 250px;
+  height: 200px;
+  opacity: 0.5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
   &:not(:last-child) {
-    margin-bottom: 20px;
+      margin: 10px;
+      margin: 10px auto;
+  }
+  @media screen and (min-width: 769px) {
+    width: 935px;
   }
 `;
 
-const Contents = styled.div`
-  background-color: #2ecc71;
-  opacity: 0.5;
-  &:not(:last-child) {
-    margin: 10px;
-  }
+const ContentRow = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
   @media screen and (min-width: 769px) {
   }
 `;
 
-const ContentRow = styled(Row)`
+const Content = styled.div`
   display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  height: auto;
+  padding: 3px;
+  @media screen and (min-width: 769px) {
+  }
 `;
 
-const Content = styled.div`
-  display: block;
-  width: 20%;
-  margin: 0 auto;
-  padding: 5px;
-  &:first {
-    width: 50%;
-  }
-  &:not(:first-child) {
-    width: 10%;
-  }
-  &:not(:last-child) {
-    margin-right: 30px;
+const Typo = styled.div`
+  font-size: 5px;
+  &:first-child {
+      width: 40%;
+      margin-top: 5px;
+    }
+    &:last-child {
+      width: 20%;
+    }
+
+  @media screen and (min-width: 769px) {
+    font-size: 12px;
+    &:first-child {
+      width: 60%;
+    }
+    &:last-child {
+      width: 20%;
+    }
   }
 `;
 
@@ -83,7 +102,6 @@ export default () => {
     const sliceData = reverseData.slice(
       showBoard.length + 15 - showBoard.length
     );
-    // const sliceData = reverseData.slice(5, 10);
     reverseData = sliceData.reverse();
 
     return (
@@ -130,41 +148,39 @@ export default () => {
             <Content>공지사항 요약</Content>
           </ContentRow>
         </Contents>
-
-        <FatText text="Board" />
-        <MContainer fluid>
-          {showBoard &&
-            reverseData.map((b, index) => {
-              const trimmedDate =
-                `${b.createdAt}`.substr(5, 5) +
-                "  " +
-                `${b.createdAt}`.substr(11, 5);
-              return (
-                <ContentRow key={b.id}>
-                  <Content>{b.title}</Content>
-                  <Content>{b.user.username}</Content>
-                  <Content>{trimmedDate}</Content>
-                </ContentRow>
-              );
-            })}
-        </MContainer>
-        <FatText text="Market" />
-        <MContainer fluid>
+        <Contents>
+          <FatText text="Board" />
           <ContentRow>
-            <Content>벼룩시장 요약</Content>
+            {showBoard &&
+              reverseData.map((b, index) => {
+                const trimmedDate =
+                  `${b.createdAt}`.substr(5, 5) +
+                  "  " +
+                  `${b.createdAt}`.substr(11,-1);
+                return (
+                  <Content key={index}>
+                    <Typo>
+                      {index} {b.title}
+                    </Typo>
+                    <Typo>{b.user.username}</Typo>
+                    <Typo>{trimmedDate}</Typo>
+                  </Content>
+                );
+              })}
           </ContentRow>
-        </MContainer>
-        <FatText text="Immobiler" />
-        <MContainer fluid>
+        </Contents>
+        <Contents>
+          <FatText text="Market" />
           <ContentRow>
-            <Content>내집찾기 요약</Content>
+            <Content>마켓</Content>
           </ContentRow>
-        </MContainer>
-        <MContainer fluid>
+        </Contents>
+        <Contents>
+          <FatText text="News" />
           <ContentRow>
-            <Content>광고</Content>
+            <Content>뉴스</Content>
           </ContentRow>
-        </MContainer>
+        </Contents>
       </Wrapper>
     );
   }
