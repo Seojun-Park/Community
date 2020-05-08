@@ -7,7 +7,6 @@ import { BOARD_DATA } from "./SharedQueries";
 import FatText from "../components/FatText";
 import Carousel from "react-bootstrap/Carousel";
 
-
 // 슬라이더는 추후 더 구상해 볼것
 
 const Wrapper = styled.div`
@@ -17,9 +16,6 @@ const Wrapper = styled.div`
   justify-content: space-around;
   @media screen and (min-width: 769px) {
     margin-top: 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
   }
 `;
 
@@ -42,6 +38,16 @@ const MContainer = styled(Container)`
   padding: 20px;
   &:not(:last-child) {
     margin-bottom: 20px;
+  }
+`;
+
+const Contents = styled.div`
+  background-color: #2ecc71;
+  opacity: 0.5;
+  &:not(:last-child) {
+    margin: 10px;
+  }
+  @media screen and (min-width: 769px) {
   }
 `;
 
@@ -113,19 +119,17 @@ export default () => {
               />
 
               <Carousel.Caption>
-                <p>
-                add some description
-                </p>
+                <p>add some description</p>
               </Carousel.Caption>
             </Carousel.Item>
           </Carousel>
         </TopSlider>
-        <FatText text="Notice" />
-        <MContainer fluid>
+        <Contents>
+          <FatText text="Notice" />
           <ContentRow>
             <Content>공지사항 요약</Content>
           </ContentRow>
-        </MContainer>
+        </Contents>
 
         <FatText text="Board" />
         <MContainer fluid>
