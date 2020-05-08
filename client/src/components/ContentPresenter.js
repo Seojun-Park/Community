@@ -167,24 +167,7 @@ export default ({
                       <Link to={`${action}/${b.id}`}>
                       {b.title}
                       </Link>
-
-                      {/* <Link
-                        to={{
-                          pathname: "/board/detail",
-                          state: {
-                            id: b.id,
-                            title: b.title,
-                            caption: b.caption,
-                            craetedAt: b.createdAt,
-                            username: b.user.username,
-                            comments: b.comments
-                          }
-                        }}
-                      >
-                        {b.title}
-                      </Link> */}
                     </MidCell>
-                    {/* <TableCell><Link to="board/detail"><Button text={b.title} onClick={link} /></Link></TableCell> */}
                     <MidCell>{b.user.username}</MidCell>
                     <MidCell>{trimmedDate}</MidCell>
                     <MidCell>{hit}</MidCell>

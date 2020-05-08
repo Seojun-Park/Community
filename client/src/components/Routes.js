@@ -20,6 +20,7 @@ const LoggedInRoutes = () => (
         <Route path="/board/:id" exact component={Detail} />
         <Route path="/board/write" component={Write} />
         <Route path="/board" component={Board} />
+        <Route path="/market/:id" exact component={Detail} />
         <Route path="/market/write" component={Write} />
         <Route path="/market" component={Market} />
         <Redirect from="*" to="/" />

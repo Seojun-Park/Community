@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { withRouter } from "react-router-dom";
 import useInput from "./InputTool";
-import { useMutation } from "@apollo/react-hooks";
-import { ADD_BOARD_COMMENT, ADD_MARKET_COMMENT } from "../SharedQueries";
+import { useMutation, useQuery } from "@apollo/react-hooks";
+import {
+  ADD_BOARD_COMMENT,
+  ADD_MARKET_COMMENT,
+  SEE_BOARD_DETAIL,
+  SEE_MARKET_DETAIL
+} from "../SharedQueries";
 import { toast } from "react-toastify";
 
 const Wrapper = styled.div`
@@ -12,7 +18,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const Container = styled.form`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -57,7 +63,7 @@ const TextArea = styled.textarea`
   height: 100px;
   /* border: none; */
   resize: none;
-`
+`;
 
 const Button = styled.button`
   padding: 5px;
@@ -66,7 +72,7 @@ const Button = styled.button`
   border: none;
   color: #ecf0f1;
   font-weight: 600;
-  background-color:#27ae60;
+  background-color: #27ae60;
   opacity: 0.8;
   border-radius: 3px;
   :hover {
@@ -75,10 +81,9 @@ const Button = styled.button`
   }
 `;
 
-export default data => {
-  const path = data.location.pathname.split("/");
-  const [action, setAction] = useState("");
-  const [id, setId] = useState("");
+export default withRouter(({ match }) => {
+  const id = match.params.id;
+  const action = match.path.split("/")[1];
   const text = useInput("");
   const [addBoardCommentMutation] = useMutation(ADD_BOARD_COMMENT, {
     variables: {
@@ -86,7 +91,6 @@ export default data => {
       boardId: id
     }
   });
-
   const [addMarketCommentMutation] = useMutation(ADD_MARKET_COMMENT, {
     variables: {
       text: text.value,
@@ -94,12 +98,28 @@ export default data => {
     }
   });
   const [selfComments, setSelfComments] = useState([]);
+  let data = {};
 
+  if (action === "board") {
+    const seeBoardDetail = useQuery(SEE_BOARD_DETAIL, {
+      variables: {
+        id: id
+      }
+    });
+    data = seeBoardDetail.data;
+  } else if (action === "market") {
+    const seeMarketDetail = useQuery(SEE_MARKET_DETAIL, {
+      variables: {
+        id
+      }
+    });
+    data = seeMarketDetail.data;
+  }
+
+  console.log(id);
   if (data) {
-    useEffect(() => {
-      setAction(path[1]);
-      setId(path[2]);
-    }, [path]);
+    console.log(data);
+    console.log(data.seeMarketDetail);
   }
 
   const onKeyPress = async e => {
@@ -138,65 +158,84 @@ export default data => {
   //   toast.success("Comment created :D");
   // };
 
-  console.log(action, id);
   return (
     <Wrapper>
+      {action === "market" && data && data.seeMarketDetail && (
+        <Container>
+          <Head>
+            <Title>
+              {data.seeMarketDetail.title} {data.seeMarketDetail.createdAt}
+            </Title>
+          </Head>
+          <Body>{data.seeMarketDetail.caption}</Body>
+        </Container>
+      )}
+      {action === "board" && data && data.seeBoardDetail && (
+        <Container>
+          <Head>
+            <Title>
+              {data.seeBoardDetail.title} {data.seeBoardDetail.createdAt}
+            </Title>
+          </Head>
+          <Body>{data.seeBoardDetail.caption}</Body>
+        </Container>
+      )}
     </Wrapper>
   );
-};
+});
 
-//   const handleOnClick = async e => {
-//     e.preventDefault();
-//     const {
-//       data: { addBoardComment }
-//     } = await addBoardCommentMutation();
-//     setSelfComments([...selfComments, addBoardComment]);
-//     text.setValue("");
-//     toast.success("Comment created :D");
-//   };
-//   console.log(state);
-//   return (
-//     <Wrapper>
-//       <Head>
-//         <FatText text="제목" />
-//         <Typography variant="h4" component="span">
-//           {state.title}
-//         </Typography>
-//       </Head>
-//       <Container>
-//         <Typography variant="body1" component="span">
-//           {state.caption}
-//         </Typography>
-//       </Container>
-//       <Comment type="submit">
-//         <>
-//           {state.comments && (
-//             <CommentContent>
-//               {state.comments.map(comment => (
-//                 <span key={comment.id}>
-//                   <FatText text={comment.user.username} />
-//                   {comment.text}
-//                 </span>
-//               ))}
-//               {selfComments.map(comment => (
-//                 <span key={comment.id}>
-//                   <FatText text={comment.user.username} />
-//                   {comment.text}
-//                 </span>
-//               ))}
-//             </CommentContent>
-//           )}
-//         </>
-//         <Input
-//           placeholder="Add Comment..."
-//           value={text.value}
-//           onChange={text.onChange}
-//           onKeyPress={onKeyPress}
-//         />
-//         <Button type="submit" onClick={handleOnClick}>
-//           Submit
-//         </Button>
-//       </Comment>
-//     </Wrapper>
-//   );
-// };
+// //   const handleOnClick = async e => {
+// //     e.preventDefault();
+// //     const {
+// //       data: { addBoardComment }
+// //     } = await addBoardCommentMutation();
+// //     setSelfComments([...selfComments, addBoardComment]);
+// //     text.setValue("");
+// //     toast.success("Comment created :D");
+// //   };
+// //   console.log(state);
+// //   return (
+// //     <Wrapper>
+// //       <Head>
+// //         <FatText text="제목" />
+// //         <Typography variant="h4" component="span">
+// //           {state.title}
+// //         </Typography>
+// //       </Head>
+// //       <Container>
+// //         <Typography variant="body1" component="span">
+// //           {state.caption}
+// //         </Typography>
+// //       </Container>
+// //       <Comment type="submit">
+// //         <>
+// //           {state.comments && (
+// //             <CommentContent>
+// //               {state.comments.map(comment => (
+// //                 <span key={comment.id}>
+// //                   <FatText text={comment.user.username} />
+// //                   {comment.text}
+// //                 </span>
+// //               ))}
+// //               {selfComments.map(comment => (
+// //                 <span key={comment.id}>
+// //                   <FatText text={comment.user.username} />
+// //                   {comment.text}
+// //                 </span>
+// //               ))}
+// //             </CommentContent>
+// //           )}
+// //         </>
+// //         <Input
+// //           placeholder="Add Comment..."
+// //           value={text.value}
+// //           onChange={text.onChange}
+// //           onKeyPress={onKeyPress}
+// //         />
+// //         <Button type="submit" onClick={handleOnClick}>
+// //           Submit
+// //         </Button>
+// //       </Comment>
+// //     </Wrapper>
+// //   );
+// // };

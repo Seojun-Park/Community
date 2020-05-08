@@ -1,5 +1,5 @@
 type Query {
-    seeDetail(
+    seeBoardDetail(
         id: String!
     ): Board!
 }

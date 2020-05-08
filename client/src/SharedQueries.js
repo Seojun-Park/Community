@@ -58,6 +58,46 @@ export const MARKET_DATA = gql`
   }
 `;
 
+export const SEE_BOARD_DETAIL = gql`
+  query seeBoardDetail($id:String!) {
+    seeBoardDetail(id: $id){
+      id
+      title
+      caption
+      createdAt
+      hit
+      comments{
+        id
+        text
+        user{
+          username
+        }
+        createdAt
+      }
+    }
+  }
+`
+
+export const SEE_MARKET_DETAIL = gql`
+  query seeMarketDetail($id:String!) {
+    seeMarketDetail(id:$id){
+      id
+      title
+      caption
+      createdAt
+      hit
+      comments{
+        id
+        text
+        user{
+          username
+        }
+        createdAt
+      }
+    }
+  }
+`
+
 export const UPLOAD_BOARD = gql`
   mutation uploadBoard($title: String!, $caption: String!, $username: String) {
     uploadBoard(title: $title, caption: $caption, username: $username) {
