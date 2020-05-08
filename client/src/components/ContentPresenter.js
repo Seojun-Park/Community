@@ -1,9 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import Button from "./Button";
 import { CircularProgress, TablePagination } from "@material-ui/core";
-
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -73,6 +71,19 @@ const MidCell = styled.th`
   }
 `;
 
+const Button = styled.button`
+  padding: 8px;
+  color: white;
+  border: none;
+  background-color: #2ecc71;
+  border-radius: 3px;
+  font-size: 10pt;
+  :hover {
+    background-color: #16a085;
+    transition: 0.2s linear;
+  }
+`;
+
 const TableFooter = styled.tfoot``;
 
 const FRow = styled.tr``;
@@ -86,7 +97,6 @@ export default ({
   currentPage,
   onChangePage,
   onChangeRowPage,
-  link
 }) => {
   if (loading) {
     return <CircularProgress />;
@@ -130,7 +140,7 @@ export default ({
         <HeadContainer>
           <HeadCol>
             <Link to={`${action}/write`}>
-              test
+              <Button>Add</Button>
             </Link>
           </HeadCol>
         </HeadContainer>
@@ -154,7 +164,11 @@ export default ({
                   <Row>
                     <MidCell>{`${totalDataLength - index}`}</MidCell>
                     <MidCell>
-                      <Link
+                      <Link to={`${action}/${b.id}`}>
+                      {b.title}
+                      </Link>
+
+                      {/* <Link
                         to={{
                           pathname: "/board/detail",
                           state: {
@@ -168,7 +182,7 @@ export default ({
                         }}
                       >
                         {b.title}
-                      </Link>
+                      </Link> */}
                     </MidCell>
                     {/* <TableCell><Link to="board/detail"><Button text={b.title} onClick={link} /></Link></TableCell> */}
                     <MidCell>{b.user.username}</MidCell>

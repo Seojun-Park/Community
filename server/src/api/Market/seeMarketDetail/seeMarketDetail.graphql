@@ -1,0 +1,5 @@
+type Query {
+    seeMarketDetail(
+        id: String!
+    ): Market!
+}

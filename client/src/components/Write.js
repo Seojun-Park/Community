@@ -54,6 +54,12 @@ const Title = styled.span`
   }
 `;
 
+const TextArea = styled.textarea`
+  height: 100px;
+  /* border: none; */
+  resize: none;
+`
+
 const Button = styled.button`
   padding: 5px;
   width: 80px;
@@ -72,7 +78,6 @@ const Button = styled.button`
 
 export default data => {
   const path = data.match.path.split("/")[1];
-  console.log(path);
   const title = useInput("");
   const caption = useInput("");
   const [uploadBoardMutation] = useMutation(UPLOAD_BOARD, {
@@ -117,6 +122,7 @@ export default data => {
     }
   };
 
+
   return (
     <Wrapper>
       <Container onSubmit={handleChangeValue}>
@@ -130,12 +136,12 @@ export default data => {
         </Head>
         <Body>
           <Title>Textarea</Title>
-          <Input
+          {/* <Input
             placeholder={"caption"}
             setValue={caption.value}
             onChange={caption.onChange}
-          />
-          <textarea/>
+          /> */}
+          <TextArea setValue ={caption.value} onChange={caption.onChange} />
         </Body>
         <Button type="submit">submit</Button>
       </Container>

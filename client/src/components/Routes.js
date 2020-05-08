@@ -8,7 +8,6 @@ import Market from '../Route/Market'
 import News from '../Route/News'
 import Board from '../Route/Board';
 import Write from './Write'
-import MarketWrite from '../Route/Market/marketWrite'
 import Detail from './Detail'
 import Direction from './findDirection'
 
@@ -18,7 +17,7 @@ const LoggedInRoutes = () => (
         <Route path="/direction" component={Direction} />
         <Route path="/notice" component={Notice} />
         <Route path="/news" component={News} />
-        <Route path="/board/detail" component={Detail} />
+        <Route path="/board/:id" exact component={Detail} />
         <Route path="/board/write" component={Write} />
         <Route path="/board" component={Board} />
         <Route path="/market/write" component={Write} />

@@ -81,3 +81,27 @@ export const UPLOAD_MARKET = gql`
     }
   }
 `;
+
+export const ADD_BOARD_COMMENT = gql`
+  mutation addBoardComment($text: String!, $boardId: String!) {
+    addBoardComment(text: $text, boardId: $boardId) {
+      id
+      text
+      user {
+        username
+      }
+    }
+  }
+`;
+
+export const ADD_MARKET_COMMENT = gql`
+  mutation addMarketComment($text: String!, $marketId: String!) {
+    addMarketComment(text: $text, marketId: $marketId) {
+      id
+      text
+      user {
+        username
+      }
+    }
+  }
+`;
