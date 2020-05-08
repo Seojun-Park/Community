@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Button from "./Button";
 import { CircularProgress, TablePagination } from "@material-ui/core";
 
+
 const Wrapper = styled.div`
   height: 100vh;
   margin-top: 3px;
@@ -14,9 +15,24 @@ const Wrapper = styled.div`
   }
 `;
 
-const Head = styled.div`
+const Head = styled.header`
   font-size: 14pt;
   font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const Title = styled.span``;
+
+const HeadContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const HeadCol = styled.div`
+  &:not(:last-child) {
+    margin-right: 15px;
+  }
 `;
 
 const Content = styled.table`
@@ -76,12 +92,11 @@ export default ({
     return <CircularProgress />;
   }
 
-  console.log(action);
   let totalDataLength;
   let slicedData;
   let emptyRow;
 
-  if (action === "BOARD") {
+  if (action === "board") {
     totalDataLength = data.showBoard.length;
 
     slicedData = data.showBoard.slice(
@@ -89,7 +104,7 @@ export default ({
       currentPage * rowPerPage + rowPerPage
     );
     emptyRow = rowPerPage - slicedData.length;
-  } else if (action === "MARKET") {
+  } else if (action === "market") {
     totalDataLength = data.showMarket.length;
 
     slicedData = data.showMarket.slice(
@@ -97,7 +112,7 @@ export default ({
       currentPage * rowPerPage + rowPerPage
     );
     emptyRow = rowPerPage - slicedData.length;
-  } else if (action === "NOTICE") {
+  } else if (action === "notice") {
     totalDataLength = data.showNotice.length;
 
     slicedData = data.showNotice.slice(
@@ -107,10 +122,18 @@ export default ({
     emptyRow = rowPerPage - slicedData.length;
   }
 
-  console.log(data);
   return (
     <Wrapper>
-      <Head>{action}</Head>
+      <Head>
+        <Title>{action}</Title>
+        <HeadContainer>
+          <HeadCol>
+            <Link to={`${action}/write`}>
+              test
+            </Link>
+          </HeadCol>
+        </HeadContainer>
+      </Head>
       <Content>
         <TableHead>
           <RowTop>

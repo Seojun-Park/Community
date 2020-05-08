@@ -7,7 +7,7 @@ import Notice from '../Route/Notice'
 import Market from '../Route/Market'
 import News from '../Route/News'
 import Board from '../Route/Board';
-import BoardWrite from '../Route/Board/boardWrite'
+import Write from './Write'
 import MarketWrite from '../Route/Market/marketWrite'
 import Detail from './Detail'
 import Direction from './findDirection'
@@ -19,9 +19,9 @@ const LoggedInRoutes = () => (
         <Route path="/notice" component={Notice} />
         <Route path="/news" component={News} />
         <Route path="/board/detail" component={Detail} />
-        <Route path="/board/write" component={BoardWrite} />
+        <Route path="/board/write" component={Write} />
         <Route path="/board" component={Board} />
-        <Route path="/market/write" component={MarketWrite} />
+        <Route path="/market/write" component={Write} />
         <Route path="/market" component={Market} />
         <Redirect from="*" to="/" />
     </Switch>

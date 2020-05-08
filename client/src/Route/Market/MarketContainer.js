@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { CircularProgress } from '@material-ui/core';
-import { MARKET_DATA } from '../SharedQueries';
+import { MARKET_DATA } from '../../SharedQueries';
 import ContentPresenter from '../../components/ContentPresenter'
 
 export default () => {
@@ -25,7 +25,7 @@ export default () => {
     return (
         <ContentPresenter
             data={data}
-            action="MARKET"
+            action="market"
             loading={loading}
             currentPage={currentPage}
             rowPerPage={rowPerPage}

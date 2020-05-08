@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { CircularProgress } from "@material-ui/core";
 import { useQuery } from "@apollo/react-hooks";
-import { BOARD_DATA } from "./SharedQueries";
+import { BOARD_DATA } from "../SharedQueries";
 import FatText from "../components/FatText";
 import Carousel from "react-bootstrap/Carousel";
 
