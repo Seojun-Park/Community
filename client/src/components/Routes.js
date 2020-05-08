@@ -17,11 +17,11 @@ const LoggedInRoutes = () => (
         <Route path="/direction" component={Direction} />
         <Route path="/notice" component={Notice} />
         <Route path="/news" component={News} />
-        <Route path="/board/:id" exact component={Detail} />
         <Route path="/board/write" component={Write} />
+        <Route path="/board/:id" exact component={Detail} />
         <Route path="/board" component={Board} />
-        <Route path="/market/:id" exact component={Detail} />
         <Route path="/market/write" component={Write} />
+        <Route path="/market/:id" exact component={Detail} />
         <Route path="/market" component={Market} />
         <Redirect from="*" to="/" />
     </Switch>

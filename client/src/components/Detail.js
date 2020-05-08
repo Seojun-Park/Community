@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { withRouter } from "react-router-dom";
 import useInput from "./InputTool";
+import Input from "./Input";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import {
   ADD_BOARD_COMMENT,
@@ -24,18 +25,20 @@ const Container = styled.div`
   margin: 0 auto;
   background-color: #ecf0f1;
   width: 300px;
-  height: 500px;
+  min-height: 500px;
   padding: 20px 30px;
   @media screen and (min-width: 769px) {
     width: 800px;
-    height: 80vh;
+    min-height: 80vh;
     padding: 30px 70px;
   }
 `;
 
 const Head = styled.div`
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #2c3e50;
   &:first-child {
     margin-bottom: 15px;
   }
@@ -43,30 +46,55 @@ const Head = styled.div`
   }
 `;
 
+const Title = styled.span`
+  margin-bottom: 10px;
+  font-weight: 800;
+  font-size: 14px;
+  @media screen and (min-width: 769px) {
+  }
+`;
+
+const CreatedAt = styled.span`
+  font-weight: 400;
+  font-size: 5px;
+`;
+
 const Body = styled.div`
   display: flex;
   flex-direction: column;
-  &:not(:last-child) {
-    margin-bottom: 15px;
-  }
-  @media screen and (min-width: 769px) {
-  }
-`;
-
-const Title = styled.span`
+  font-size: 12px;
+  padding-left: 10px;
   margin-bottom: 20px;
+  min-height: 300px;
   @media screen and (min-width: 769px) {
   }
 `;
 
-const TextArea = styled.textarea`
-  height: 100px;
-  /* border: none; */
-  resize: none;
+const Comments = styled.form`
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+  border-top: 1px solid #95a5a6;
+`;
+
+const Comment = styled.span`
+  margin-top: 8px;
+  &:not(:last-child) {
+    margin-bottom: 8px;
+  }
+`;
+
+const Tools = styled.div`
+  display: flex;
+`;
+
+const Textarea = styled(Input)`
+  margin-right: 8px;
 `;
 
 const Button = styled.button`
-  padding: 5px;
+  padding: 3px;
   width: 80px;
   height: 35px;
   border: none;
@@ -116,12 +144,6 @@ export default withRouter(({ match }) => {
     data = seeMarketDetail.data;
   }
 
-  console.log(id);
-  if (data) {
-    console.log(data);
-    console.log(data.seeMarketDetail);
-  }
-
   const onKeyPress = async e => {
     const { which } = e;
     if (which === 13) {
@@ -148,94 +170,92 @@ export default withRouter(({ match }) => {
     }
   };
 
-  // const handleOnClick = async e => {
-  //   e.preventDefault();
-  //   const {
-  //     data: { addBoardComment }
-  //   } = await addBoardCommentMutation();
-  //   setSelfComments([...selfComments, addBoardComment]);
-  //   text.setValue("");
-  //   toast.success("Comment created :D");
-  // };
+  const handleOnClick = async e => {
+    e.preventDefault();
+    if (action === "board") {
+      const {
+        data: { addBoardComment }
+      } = await addBoardCommentMutation();
+      setSelfComments([...selfComments, addBoardComment]);
+      text.setValue("");
+      toast.success("Comment created :D");
+    } else if (action === "market") {
+      const {
+        data: { addMarketComment }
+      } = await addMarketCommentMutation();
+      setSelfComments([...selfComments, addMarketComment]);
+      text.setValue("");
+      toast.success("Comment created :D");
+    }
+  };
 
   return (
     <Wrapper>
       {action === "market" && data && data.seeMarketDetail && (
         <Container>
           <Head>
-            <Title>
-              {data.seeMarketDetail.title} {data.seeMarketDetail.createdAt}
-            </Title>
+            <Title>{data.seeMarketDetail.title}</Title>
+            <CreatedAt>
+              {`${data.seeMarketDetail.createdAt}`.substr(0, 10)}
+            </CreatedAt>
           </Head>
           <Body>{data.seeMarketDetail.caption}</Body>
+          <Comments type="submit">
+            {data.seeBoardDetail.comments &&
+              data.seeBoardDetail.comments.map(c => {
+                console.log(c);
+                return (
+                  <Comment key={c.id}>
+                    <span>{c.text}</span>
+                  </Comment>
+                );
+              })}
+            <Input placeholder="Add Comment..." />
+            <Button type="submit" onClick={handleOnClick}>
+              submit
+            </Button>
+          </Comments>
         </Container>
       )}
       {action === "board" && data && data.seeBoardDetail && (
         <Container>
           <Head>
-            <Title>
-              {data.seeBoardDetail.title} {data.seeBoardDetail.createdAt}
-            </Title>
+            <Title>{data.seeBoardDetail.title}</Title>
+            <CreatedAt>
+              {`${data.seeBoardDetail.createdAt}`.substr(0, 10)}
+            </CreatedAt>
           </Head>
           <Body>{data.seeBoardDetail.caption}</Body>
+          <Comments type="submit">
+            {data.seeBoardDetail.comments &&
+              data.seeBoardDetail.comments.map(c => {
+                console.log(c);
+                return (
+                  <Comment key={c.id}>
+                    {c.user.username} : {c.text}
+                  </Comment>
+                );
+              })}
+            {selfComments &&
+              selfComments.map(c => (
+                <Comment key={c.id}>
+                  {c.user.username} : {c.text}
+                </Comment>
+              ))}
+            <Tools>
+              <Textarea
+                placeholder="Add Comment..."
+                value={text.value}
+                onChange={text.onChange}
+                onKeyPress={onKeyPress}
+              />
+              <Button type="submit" onClick={handleOnClick}>
+                submit
+              </Button>
+            </Tools>
+          </Comments>
         </Container>
       )}
     </Wrapper>
   );
 });
-
-// //   const handleOnClick = async e => {
-// //     e.preventDefault();
-// //     const {
-// //       data: { addBoardComment }
-// //     } = await addBoardCommentMutation();
-// //     setSelfComments([...selfComments, addBoardComment]);
-// //     text.setValue("");
-// //     toast.success("Comment created :D");
-// //   };
-// //   console.log(state);
-// //   return (
-// //     <Wrapper>
-// //       <Head>
-// //         <FatText text="제목" />
-// //         <Typography variant="h4" component="span">
-// //           {state.title}
-// //         </Typography>
-// //       </Head>
-// //       <Container>
-// //         <Typography variant="body1" component="span">
-// //           {state.caption}
-// //         </Typography>
-// //       </Container>
-// //       <Comment type="submit">
-// //         <>
-// //           {state.comments && (
-// //             <CommentContent>
-// //               {state.comments.map(comment => (
-// //                 <span key={comment.id}>
-// //                   <FatText text={comment.user.username} />
-// //                   {comment.text}
-// //                 </span>
-// //               ))}
-// //               {selfComments.map(comment => (
-// //                 <span key={comment.id}>
-// //                   <FatText text={comment.user.username} />
-// //                   {comment.text}
-// //                 </span>
-// //               ))}
-// //             </CommentContent>
-// //           )}
-// //         </>
-// //         <Input
-// //           placeholder="Add Comment..."
-// //           value={text.value}
-// //           onChange={text.onChange}
-// //           onKeyPress={onKeyPress}
-// //         />
-// //         <Button type="submit" onClick={handleOnClick}>
-// //           Submit
-// //         </Button>
-// //       </Comment>
-// //     </Wrapper>
-// //   );
-// // };
