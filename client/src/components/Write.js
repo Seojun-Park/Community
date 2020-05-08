@@ -17,7 +17,14 @@ const Container = styled.form`
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+  background-color: #ecf0f1;
+  width: 300px;
+  height: 500px;
+  padding: 20px 30px;
   @media screen and (min-width: 769px) {
+    width: 800px;
+    height: 80vh;
+    padding: 30px 70px;
   }
 `;
 
@@ -42,8 +49,24 @@ const Body = styled.div`
 `;
 
 const Title = styled.span`
-  margin-right: 20px;
+  margin-bottom: 20px;
   @media screen and (min-width: 769px) {
+  }
+`;
+
+const Button = styled.button`
+  padding: 5px;
+  width: 80px;
+  height: 35px;
+  border: none;
+  color: #ecf0f1;
+  font-weight: 600;
+  background-color:#27ae60;
+  opacity: 0.8;
+  border-radius: 3px;
+  :hover {
+    background-color: #16a085;
+    transition: 0.2s linear;
   }
 `;
 
@@ -112,8 +135,9 @@ export default data => {
             setValue={caption.value}
             onChange={caption.onChange}
           />
+          <textarea/>
         </Body>
-        <button type="submit">submit</button>
+        <Button type="submit">submit</Button>
       </Container>
     </Wrapper>
   );
