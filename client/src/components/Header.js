@@ -5,15 +5,13 @@ import Input from "../components/Input";
 import { SearchIcon } from "../components/Icon";
 
 const Wrapper = styled.header`
-  @media screen and (max-width: 768px) {
-    width: 100%;
-    border: 0;
-    margin-bottom: 20px;
-    background-color: #1abc9c;
-    border-bottom: 1px solid #f2f2f2;
-    display: flex;
-    justify-content: center;
-  }
+  width: 100%;
+  border: 0;
+  margin-bottom: 20px;
+  background-color: #1abc9c;
+  border-bottom: 1px solid #f2f2f2;
+  display: flex;
+  justify-content: center;
 
   @media screen and (min-width: 769px) {
     width: 100%;
@@ -30,12 +28,10 @@ const Wrapper = styled.header`
 `;
 
 const Header = styled.div`
-  @media screen and (max-width: 768px) {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-  }
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   @media screen and (min-width: 769px) {
     width: 100%;
     max-width: 1100px;
@@ -46,23 +42,22 @@ const Header = styled.div`
 `;
 
 const HeaderRow = styled.div`
-  @media screen and (max-width: 768px) {
-    width: 100%;
-    text-align: center;
-    &:first-child {
-      margin: 0 auto;
-      padding: 50px;
-      overflow: hidden;
-    }
-    &:last-child {
-      display: flex;
-      flex-direction: row;
-      border-top: 2px solid #2c3e50;
-      padding-top: 10px;
-      justify-content: space-between;
-      padding-left: 15px;
-    }
+  width: 100%;
+  text-align: center;
+  &:first-child {
+    margin: 0 auto;
+    padding: 50px;
+    overflow: hidden;
   }
+  &:last-child {
+    display: flex;
+    flex-direction: row;
+    border-top: 2px solid #2c3e50;
+    padding-top: 10px;
+    padding-left: 15px;
+    justify-content: center;
+  }
+
   @media screen and (min-width: 769px) {
     width: 1100px;
     text-align: center;
@@ -92,31 +87,30 @@ const HeaderCol = styled.div`
 `;
 
 const MenuBlock = styled.div`
-  @media screen and (max-width: 768px) {
-    background-color: #2ecc71;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 60px;
-    padding: 5px;
-    font-size: 10px;
-    margin-bottom: 5px;
-    &:not(:last-child) {
-      margin-right: 5px;
-    }
-    a {
-      color: #ecf0f1;
-      font-weight: 400;
-      text-decoration: none;
-    }
-    &:hover {
-      background-color: #16a085;
-      transition: 0.2s linear;
-    }
+  background-color: #2ecc71;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  padding: 5px 0;
+  font-size: 10px;
+  margin-bottom: 5px;
+  &:not(:last-child) {
+    margin-right: 5px;
   }
+  a {
+    color: #ecf0f1;
+    font-weight: 400;
+    text-decoration: none;
+  }
+  &:hover {
+    background-color: #16a085;
+    transition: 0.2s linear;
+  }
+
   @media screen and (min-width: 769px) {
     background-color: #2ecc71;
-    width: 90px;
+    width: 100px;
     padding: 10px;
     &:not(:last-child) {
       margin-right: 15px;
@@ -125,6 +119,7 @@ const MenuBlock = styled.div`
       color: #ecf0f1;
       font-weight: 400;
       text-decoration: none;
+      font-size: 12pt;
     }
     &:hover {
       background-color: #16a085;
@@ -143,7 +138,7 @@ const SearchInput = styled(Input)`
     height: auto;
     border-radius: 3px;
     text-align: center;
-    width: 120%;
+    width: 140%;
     overflow: hidden;
     &::placeholder {
       opacity: 0.8;
