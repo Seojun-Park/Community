@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Button from "./Button";
 import { CircularProgress, TablePagination } from "@material-ui/core";
-import Pagination from "react-bootstrap/Pagination";
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -42,6 +41,7 @@ const TopCell = styled.th`
 const TableBody = styled.tbody``;
 
 const Row = styled.tr`
+  border-bottom: 1px solid #bdc3c7;
   :hover {
     background-color: #bdc3c7;
     transition: 0.2s linear;
@@ -81,7 +81,7 @@ export default ({
   let slicedData;
   let emptyRow;
 
-  if (action === "board") {
+  if (action === "BOARD") {
     totalDataLength = data.showBoard.length;
 
     slicedData = data.showBoard.slice(
@@ -89,10 +89,18 @@ export default ({
       currentPage * rowPerPage + rowPerPage
     );
     emptyRow = rowPerPage - slicedData.length;
-  } else if (action === "market") {
+  } else if (action === "MARKET") {
     totalDataLength = data.showMarket.length;
 
     slicedData = data.showMarket.slice(
+      currentPage * rowPerPage,
+      currentPage * rowPerPage + rowPerPage
+    );
+    emptyRow = rowPerPage - slicedData.length;
+  } else if (action === "NOTICE") {
+    totalDataLength = data.showNotice.length;
+
+    slicedData = data.showNotice.slice(
       currentPage * rowPerPage,
       currentPage * rowPerPage + rowPerPage
     );
@@ -102,7 +110,7 @@ export default ({
   console.log(data);
   return (
     <Wrapper>
-      <Head>lala</Head>
+      <Head>{action}</Head>
       <Content>
         <TableHead>
           <RowTop>
@@ -152,19 +160,19 @@ export default ({
         </TableBody>
         <TableFooter>
           <FRow>
-              <TablePagination
-                colSpan={5}
-                count={totalDataLength}
-                page={currentPage}
-                rowsPerPage={rowPerPage}
-                rowsPerPageOptions={[10, 25, 50]}
-                SelectProps={{
-                  inputProps: { "aria-label": "Rows per page" },
-                  native: true
-                }}
-                onChangePage={onChangePage}
-                onChangeRowsPerPage={onChangeRowPage}
-              />
+            <TablePagination
+              colSpan={5}
+              count={totalDataLength}
+              page={currentPage}
+              rowsPerPage={rowPerPage}
+              rowsPerPageOptions={[10, 25, 50]}
+              SelectProps={{
+                inputProps: { "aria-label": "Rows per page" },
+                native: true
+              }}
+              onChangePage={onChangePage}
+              onChangeRowsPerPage={onChangeRowPage}
+            />
           </FRow>
         </TableFooter>
       </Content>

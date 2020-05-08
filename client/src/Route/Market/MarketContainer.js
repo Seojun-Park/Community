@@ -25,7 +25,7 @@ export default () => {
     return (
         <ContentPresenter
             data={data}
-            action="market"
+            action="MARKET"
             loading={loading}
             currentPage={currentPage}
             rowPerPage={rowPerPage}

@@ -5,7 +5,7 @@ import Auth from './Login'
 import Main from '../Route/MainPage'
 import Notice from '../Route/Notice'
 import Market from '../Route/Market'
-import Immobiler from '../Route/Immobiler'
+import News from '../Route/News'
 import Board from '../Route/Board';
 import BoardWrite from '../Route/Board/boardWrite'
 import MarketWrite from '../Route/Market/marketWrite'
@@ -17,7 +17,7 @@ const LoggedInRoutes = () => (
         <Route exact path="/" component={Main} />
         <Route path="/direction" component={Direction} />
         <Route path="/notice" component={Notice} />
-        <Route path="/immobiler" component={Immobiler} />
+        <Route path="/news" component={News} />
         <Route path="/board/detail" component={Detail} />
         <Route path="/board/write" component={BoardWrite} />
         <Route path="/board" component={Board} />

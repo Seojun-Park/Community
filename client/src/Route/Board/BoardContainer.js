@@ -30,7 +30,7 @@ export default () => {
 
   return (
     <ContentPresenter
-      action="board"
+      action="BOARD"
       data={data}
       loading={loading}
       currentPage={currentPage}

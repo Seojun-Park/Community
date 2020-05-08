@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import NoticePresenter from './NoticePresenter'
+import ContentPresenter from '../../components/ContentPresenter'
 import { useQuery } from '@apollo/react-hooks';
 import { CircularProgress } from '@material-ui/core';
 import { NOTICE_DATA } from '../SharedQueries';
@@ -25,8 +25,9 @@ export default () => {
     }
 
     return (
-        <NoticePresenter 
+        <ContentPresenter 
             data={data}
+            action="NOTICE"
             loading={loading}
             currentPage={currentPage}
             rowPerPage={rowPerPage}

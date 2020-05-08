@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Input from "../components/Input";
-import { SearchIcon } from "../components/Icon";
+// import { SearchIcon } from "../components/Icon";
 
 const Wrapper = styled.header`
   width: 100%;
@@ -138,7 +138,7 @@ export default () => {
               <Link to="/notice">공지사항</Link>
             </MenuBlock>
             <MenuBlock>
-              <Link to="/">뉴스</Link>
+              <Link to="/news">뉴스</Link>
             </MenuBlock>
             <MenuBlock>
               <Link to="/market">벼룩시장</Link>
