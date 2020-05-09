@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { withRouter } from "react-router-dom";
 import useInput from "./InputTool";
@@ -201,8 +201,8 @@ export default withRouter(({ match }) => {
           </Head>
           <Body>{data.seeMarketDetail.caption}</Body>
           <Comments type="submit">
-            {data.seeBoardDetail.comments &&
-              data.seeBoardDetail.comments.map(c => {
+            {data.seeMarketDetail.comments &&
+              data.seeMarketDetail.comments.map(c => {
                 console.log(c);
                 return (
                   <Comment key={c.id}>
