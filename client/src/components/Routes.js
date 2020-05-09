@@ -10,6 +10,7 @@ import Board from '../Route/Board';
 import Write from './Write'
 import Detail from './Detail'
 import Direction from './findDirection'
+import MeetUp from '../Route/MeetUp'
 
 const LoggedInRoutes = () => (
     <Switch>
@@ -23,6 +24,7 @@ const LoggedInRoutes = () => (
         <Route path="/market/write" component={Write} />
         <Route path="/market/:id" exact component={Detail} />
         <Route path="/market" component={Market} />
+        <Route path="/meetup" component={MeetUp} />
         <Redirect from="*" to="/" />
     </Switch>
 )

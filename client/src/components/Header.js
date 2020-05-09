@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Input from "../components/Input";
-// import { SearchIcon } from "../components/Icon";
+import Menu from '../components/Menu'
 
 const Wrapper = styled.header`
   width: 100%;
@@ -138,13 +138,10 @@ export default () => {
               <Link to="/notice">공지사항</Link>
             </MenuBlock>
             <MenuBlock>
-              <Link to="/news">뉴스</Link>
+              <Menu data="test" />
             </MenuBlock>
             <MenuBlock>
-              <Link to="/market">벼룩시장</Link>
-            </MenuBlock>
-            <MenuBlock>
-              <Link to="/board">자유게시판</Link>
+              <Link to="/meetup">모임</Link>
             </MenuBlock>
             <MenuBlock>
               <Link to="/direction">경로찾기</Link>
@@ -152,9 +149,6 @@ export default () => {
           </HeaderCol>
           <HeaderCol>
             <SearchInput placeholder="Search" />
-            {/* <Link to="/">
-              <SearchIcon size="30" />
-            </Link> */}
           </HeaderCol>
         </HeaderRow>
       </Header>
