@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import styled from "styled-components";
 import { toast } from "react-toastify";
 import Input from "./Input";
 import useInput from "./InputTool";
-import Upload from './Upload.jsx'
 import { UPLOAD_BOARD, UPLOAD_MARKET } from "../SharedQueries";
+import { storage } from "../firebase";
 
 const Wrapper = styled.div`
   display: flex;
@@ -57,9 +57,9 @@ const Title = styled.span`
 
 const TextArea = styled.textarea`
   height: 100px;
-  /* border: none; */
   resize: none;
-`
+  border-radius: 3px;
+`;
 
 const Button = styled.button`
   padding: 5px;
@@ -68,7 +68,7 @@ const Button = styled.button`
   border: none;
   color: #ecf0f1;
   font-weight: 600;
-  background-color:#27ae60;
+  background-color: #27ae60;
   opacity: 0.8;
   border-radius: 3px;
   :hover {
@@ -78,6 +78,7 @@ const Button = styled.button`
 `;
 
 export default data => {
+  // console.log(data);
   const path = data.match.path.split("/")[1];
   const title = useInput("");
   const caption = useInput("");
@@ -93,6 +94,17 @@ export default data => {
       caption: caption.value
     }
   });
+
+  const [content, setContent] = useState({
+    image: null,
+    url: "",
+    progress: 0
+  });
+  const handleChange = e => {
+    if (e.target.files[0]) {
+      setContent({ image: e.target.files[0] });
+    }
+  };
 
   const handleChangeValue = async e => {
     e.preventDefault();
@@ -123,13 +135,40 @@ export default data => {
     }
   };
 
+  const handleUpload = () => {
+    const uploadTask = storage
+      .ref(`${path}/${title.value}`)
+      .put(content.image);
+    uploadTask.on(
+      "state_changed",
+      snapshot => {
+        //progress
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        setContent({ progress });
+      },
+      error => {
+        console.log(error);
+      },
+      () => {
+        storage
+          .ref(`${path}`)
+          .child(content.image.name)
+          .getDownloadURL()
+          .then(url => {
+            setContent({ url });
+          });
+      }
+    );
+  };
 
   return (
     <Wrapper>
       <Container onSubmit={handleChangeValue}>
         <Head>
           <Title>Title</Title>
-          <Upload action={path}/>
+          <input type="file" onChange={handleChange} />
           <Input
             placeholder={"Title"}
             setValue={title.value}
@@ -138,14 +177,9 @@ export default data => {
         </Head>
         <Body>
           <Title>Textarea</Title>
-          {/* <Input
-            placeholder={"caption"}
-            setValue={caption.value}
-            onChange={caption.onChange}
-          /> */}
-          <TextArea setValue ={caption.value} onChange={caption.onChange} />
+          <TextArea setValue={caption.value} onChange={caption.onChange} />
         </Body>
-        <Button type="submit">submit</Button>
+        <Button type="submit" onClick={handleUpload}>submit</Button>
       </Container>
     </Wrapper>
   );
