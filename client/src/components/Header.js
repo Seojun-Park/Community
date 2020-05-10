@@ -146,9 +146,6 @@ export default () => {
             <MenuBlock>
               <Link to="/direction">경로찾기</Link>
             </MenuBlock>
-            <MenuBlock>
-              <Link to="/test">test</Link>
-            </MenuBlock>
           </HeaderCol>
           <HeaderCol>
             <SearchInput placeholder="Search" />

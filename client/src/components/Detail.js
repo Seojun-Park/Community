@@ -11,11 +11,11 @@ import {
   SEE_MARKET_DETAIL
 } from "../SharedQueries";
 import { toast } from "react-toastify";
-import Upload from "./Upload.jsx";
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  border-radius: 3px;
   @media screen and (min-width: 769px) {
   }
 `;
@@ -190,9 +190,9 @@ export default withRouter(({ match }) => {
     }
   };
 
+  console.log(data);
   return (
     <Wrapper>
-      <Upload action={action} id={id} />
       {action === "market" && data && data.seeMarketDetail && (
         <Container>
           <Head>
@@ -205,17 +205,30 @@ export default withRouter(({ match }) => {
           <Comments type="submit">
             {data.seeMarketDetail.comments &&
               data.seeMarketDetail.comments.map(c => {
-                console.log(c);
+                // console.log(c);
                 return (
                   <Comment key={c.id}>
-                    <span>{c.text}</span>
+                    {c.user.username} : {c.text}
                   </Comment>
                 );
               })}
-            <Input placeholder="Add Comment..." />
-            <Button type="submit" onClick={handleOnClick}>
-              submit
-            </Button>
+            {selfComments &&
+              selfComments.map(c => (
+                <Comment key={c.id}>
+                  {c.user.username} : {c.text}
+                </Comment>
+              ))}
+            <Tools>
+              <Textarea
+                placeholder="Add Comment..."
+                value={text.value}
+                onChange={text.onChange}
+                onKeyPress={onKeyPress}
+              />
+              <Button type="submit" onClick={handleOnClick}>
+                submit
+              </Button>
+            </Tools>
           </Comments>
         </Container>
       )}

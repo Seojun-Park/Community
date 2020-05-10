@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { toast } from "react-toastify";
 import Input from "./Input";
 import useInput from "./InputTool";
+import Upload from './Upload.jsx'
 import { UPLOAD_BOARD, UPLOAD_MARKET } from "../SharedQueries";
 
 const Wrapper = styled.div`
@@ -128,6 +129,7 @@ export default data => {
       <Container onSubmit={handleChangeValue}>
         <Head>
           <Title>Title</Title>
+          <Upload action={path}/>
           <Input
             placeholder={"Title"}
             setValue={title.value}

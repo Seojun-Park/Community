@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { storage } from "../firebase";
-import { CircularProgress } from "@material-ui/core";
 
 const Wrapper = styled.div`
-height: 50vh;
+  /* height: 50vh; */
 `;
 
 const Container = styled.div`
@@ -41,7 +40,7 @@ const Button = styled.button`
   z-index: 0;
 `;
 
-export default (data) => {
+export default data => {
   console.log(data);
   const [content, setContent] = useState({
     image: null,
@@ -58,32 +57,32 @@ export default (data) => {
     console.log(content.image);
     console.log(data);
     // if (data.action === "board") {
-      const uploadTask = storage
-        .ref(`${data.action}/${content.image.name}`)
-        .put(content.image);
-      uploadTask.on(
-        "state_changed",
-        snapshot => {
-          //progress
-          const progress = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          );
-          setContent({ progress });
-        },
-        error => {
-          console.log(error);
-        },
-        () => {
-          console.log(content.image.name);
-          storage
-            .ref(`${data.action}`)
-            .child(content.image.name)
-            .getDownloadURL()
-            .then(url => {
-              setContent({ url });
-            });
-        }
-      );
+    const uploadTask = storage
+      .ref(`${data.action}/${content.image.name}`)
+      .put(content.image);
+    uploadTask.on(
+      "state_changed",
+      snapshot => {
+        //progress
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        setContent({ progress });
+      },
+      error => {
+        console.log(error);
+      },
+      () => {
+        console.log(content.image.name);
+        storage
+          .ref(`${data.action}`)
+          .child(content.image.name)
+          .getDownloadURL()
+          .then(url => {
+            setContent({ url });
+          });
+      }
+    );
   };
 
   return (
@@ -91,7 +90,6 @@ export default (data) => {
       <Container>
         <progress value={content.progress} max="100" />
         <br />
-        <img src={content.url} alt="test" />
         <Input type="file" onChange={handleChange} />
         <Button onClick={handleUpload}>upload</Button>
         <br />

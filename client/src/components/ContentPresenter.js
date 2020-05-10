@@ -38,7 +38,9 @@ const Content = styled.table`
 `;
 
 const TableHead = styled.thead`
-  border-bottom: 1px solid #95a5a6;
+  border-bottom: 1.5px solid #2c3e50;
+  border-top : 1.5px solid #2c3e50;
+  background-color: #ecf0f1;
 `;
 
 const RowTop = styled.tr``;
@@ -148,17 +150,17 @@ export default ({
       <Content>
         <TableHead>
           <RowTop>
-            <TopCell style={{ width: "5%" }}>#</TopCell>
+            <TopCell style={{ width: "3%" }}>#</TopCell>
             <TopCell style={{ width: "50%" }}>제목</TopCell>
-            <TopCell style={{ width: "15%" }}>작성자</TopCell>
-            <TopCell style={{ width: "15%" }}>작성일</TopCell>
-            <TopCell style={{ width: "15%" }}>조회수</TopCell>
+            <TopCell style={{ width: "20%" }}>작성자</TopCell>
+            <TopCell style={{ width: "20%" }}>작성일</TopCell>
+            <TopCell style={{ width: "3%" }}>Hit</TopCell>
           </RowTop>
         </TableHead>
         <TableBody>
           {slicedData &&
             slicedData.map((b, index) => {
-              const trimmedDate = `${b.createdAt}`.substr(2, 8);
+              const trimmedDate = `${b.createdAt}`.substr(5, 5);
               return (
                 <React.Fragment key={index}>
                   <Row>
