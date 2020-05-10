@@ -96,7 +96,7 @@ export default ({
   rowPerPage,
   currentPage,
   onChangePage,
-  onChangeRowPage,
+  onChangeRowPage
 }) => {
   if (loading) {
     return <CircularProgress />;
@@ -164,9 +164,7 @@ export default ({
                   <Row>
                     <MidCell>{`${totalDataLength - index}`}</MidCell>
                     <MidCell>
-                      <Link to={`${action}/${b.id}`}>
-                      {b.title}
-                      </Link>
+                      <Link to={`${action}/${b.id}`}>{b.title}</Link>
                     </MidCell>
                     <MidCell>{b.user.username}</MidCell>
                     <MidCell>{trimmedDate}</MidCell>

@@ -11,6 +11,7 @@ import {
   SEE_MARKET_DETAIL
 } from "../SharedQueries";
 import { toast } from "react-toastify";
+import Upload from "./Upload.jsx";
 
 const Wrapper = styled.div`
   display: flex;
@@ -191,6 +192,7 @@ export default withRouter(({ match }) => {
 
   return (
     <Wrapper>
+      <Upload action={action} id={id} />
       {action === "market" && data && data.seeMarketDetail && (
         <Container>
           <Head>

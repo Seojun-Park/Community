@@ -3,10 +3,11 @@ import styled from "styled-components";
 import { storage } from "../firebase";
 import { CircularProgress } from "@material-ui/core";
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+height: 50vh;
+`;
 
 const Container = styled.div`
-  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,13 +16,14 @@ const Container = styled.div`
 
 const Input = styled.input`
   position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
+  /* width: 1px; */
+  /* height: 1px; */
+  /* padding: 0; */
+  /* margin: -1px; */
+  /* overflow: hidden; */
+  /* clip: rect(0, 0, 0, 0); */
+  /* border: 0; */
+  /* z-index: 1; */
 `;
 
 const Button = styled.button`
@@ -36,9 +38,11 @@ const Button = styled.button`
   border: 1px solid #ebebeb;
   border-bottom-color: #e2e2e2;
   border-radius: 0.25em;
+  z-index: 0;
 `;
 
-export default () => {
+export default (data) => {
+  console.log(data);
   const [content, setContent] = useState({
     image: null,
     url: "",
@@ -52,42 +56,42 @@ export default () => {
 
   const handleUpload = () => {
     console.log(content.image);
-    const uploadTask = storage
-      .ref(`images/${content.image.name}`)
-      .put(content.image);
-    uploadTask.on(
-      "state_changed",
-      snapshot => {
-        //progress
-        const progress = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-        setContent({ progress });
-      },
-      error => {
-        console.log(error);
-      },
-      () => {
-        console.log(content.image.name);
-        storage
-          .ref("images")
-          .child(content.image.name)
-          .getDownloadURL()
-          .then(url => {
-            setContent({ url });
-          });
-      }
-    );
+    console.log(data);
+    // if (data.action === "board") {
+      const uploadTask = storage
+        .ref(`${data.action}/${content.image.name}`)
+        .put(content.image);
+      uploadTask.on(
+        "state_changed",
+        snapshot => {
+          //progress
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          setContent({ progress });
+        },
+        error => {
+          console.log(error);
+        },
+        () => {
+          console.log(content.image.name);
+          storage
+            .ref(`${data.action}`)
+            .child(content.image.name)
+            .getDownloadURL()
+            .then(url => {
+              setContent({ url });
+            });
+        }
+      );
   };
 
-  console.log(content, content.image, content.url);
   return (
     <Wrapper>
       <Container>
-        {content.progress !== 0 && (
-          <CircularProgress value={content.progress} />
-        )}
+        <progress value={content.progress} max="100" />
         <br />
+        <img src={content.url} alt="test" />
         <Input type="file" onChange={handleChange} />
         <Button onClick={handleUpload}>upload</Button>
         <br />
