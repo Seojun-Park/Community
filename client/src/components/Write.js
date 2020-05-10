@@ -50,9 +50,18 @@ const Body = styled.div`
 `;
 
 const Title = styled.span`
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   @media screen and (min-width: 769px) {
   }
+`;
+
+const InputField = styled.div`
+  margin: 10px;
+`;
+
+const InputBox = styled.input`
+  opacity: 1;
+  width: 100%;
 `;
 
 const TextArea = styled.textarea`
@@ -100,6 +109,7 @@ export default data => {
     url: "",
     progress: 0
   });
+
   const handleChange = e => {
     if (e.target.files[0]) {
       setContent({ image: e.target.files[0] });
@@ -136,50 +146,57 @@ export default data => {
   };
 
   const handleUpload = () => {
-    const uploadTask = storage
-      .ref(`${path}/${title.value}`)
-      .put(content.image);
-    uploadTask.on(
-      "state_changed",
-      snapshot => {
-        //progress
-        const progress = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-        setContent({ progress });
-      },
-      error => {
-        console.log(error);
-      },
-      () => {
-        storage
-          .ref(`${path}`)
-          .child(content.image.name)
-          .getDownloadURL()
-          .then(url => {
-            setContent({ url });
-          });
-      }
-    );
+    if (content.image !== null) {
+      const uploadTask = storage
+        .ref(`${path}/${title.value}`)
+        .put(content.image);
+      uploadTask.on(
+        "state_changed",
+        snapshot => {
+          //progress
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          setContent({ progress });
+        },
+        error => {
+          console.log(error);
+        },
+        () => {
+          storage
+            .ref(`${path}`)
+            .child(content.image.name)
+            .getDownloadURL()
+            .then(url => {
+              setContent({ url });
+            });
+        }
+      );
+    }
   };
+  console.log(content)
 
   return (
     <Wrapper>
       <Container onSubmit={handleChangeValue}>
         <Head>
           <Title>Title</Title>
-          <input type="file" onChange={handleChange} />
           <Input
             placeholder={"Title"}
             setValue={title.value}
             onChange={title.onChange}
           />
         </Head>
+        <InputField>
+          <InputBox type="file" onChange={handleChange} />
+        </InputField>
         <Body>
           <Title>Textarea</Title>
           <TextArea setValue={caption.value} onChange={caption.onChange} />
         </Body>
-        <Button type="submit" onClick={handleUpload}>submit</Button>
+        <Button type="submit" onClick={handleUpload}>
+          submit
+        </Button>
       </Container>
     </Wrapper>
   );
