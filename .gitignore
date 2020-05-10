@@ -106,5 +106,3 @@ dist
 *.yml
 key.js
 proxy note
-firebase
-firebase/index.js
