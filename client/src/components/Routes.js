@@ -11,7 +11,7 @@ import Write from './Write'
 import Detail from './Detail'
 import Direction from './findDirection'
 import MeetUp from '../Route/MeetUp'
-import Text from '../Route/text'
+import Text from '../Route/text.jsx'
 
 const LoggedInRoutes = () => (
     <Switch>
