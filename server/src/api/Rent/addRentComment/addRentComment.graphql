@@ -1,0 +1,6 @@
+type Mutation {
+    addRentComment(
+        text: String!,
+        rentId: String!
+    ): Comment!
+}

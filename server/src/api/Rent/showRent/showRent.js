@@ -2,9 +2,9 @@ import { prisma } from "../../../../generated/prisma-client";
 
 export default {
   Query: {
-    showBoard: async (_, __) => {
+    showRent: async (_, __) => {
       try {
-        return await prisma.boards({
+        return await prisma.rents({
           orderBy: "createdAt_DESC"
         });
       } catch (e) {

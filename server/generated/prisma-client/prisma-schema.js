@@ -15,10 +15,6 @@ type AggregateImage {
   count: Int!
 }
 
-type AggregateImmobiler {
-  count: Int!
-}
-
 type AggregateMarket {
   count: Int!
 }
@@ -28,6 +24,10 @@ type AggregateNotice {
 }
 
 type AggregatePost {
+  count: Int!
+}
+
+type AggregateRent {
   count: Int!
 }
 
@@ -338,6 +338,7 @@ type Comment {
   user: User
   board: Board
   market: Market
+  rent: Rent
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -354,6 +355,7 @@ input CommentCreateInput {
   user: UserCreateOneWithoutCommentsInput
   board: BoardCreateOneWithoutCommentsInput
   market: MarketCreateOneWithoutCommentsInput
+  rent: RentCreateOneWithoutCommentsInput
 }
 
 input CommentCreateManyInput {
@@ -371,6 +373,11 @@ input CommentCreateManyWithoutMarketInput {
   connect: [CommentWhereUniqueInput!]
 }
 
+input CommentCreateManyWithoutRentInput {
+  create: [CommentCreateWithoutRentInput!]
+  connect: [CommentWhereUniqueInput!]
+}
+
 input CommentCreateManyWithoutUserInput {
   create: [CommentCreateWithoutUserInput!]
   connect: [CommentWhereUniqueInput!]
@@ -381,6 +388,7 @@ input CommentCreateWithoutBoardInput {
   text: String!
   user: UserCreateOneWithoutCommentsInput
   market: MarketCreateOneWithoutCommentsInput
+  rent: RentCreateOneWithoutCommentsInput
 }
 
 input CommentCreateWithoutMarketInput {
@@ -388,6 +396,15 @@ input CommentCreateWithoutMarketInput {
   text: String!
   user: UserCreateOneWithoutCommentsInput
   board: BoardCreateOneWithoutCommentsInput
+  rent: RentCreateOneWithoutCommentsInput
+}
+
+input CommentCreateWithoutRentInput {
+  id: ID
+  text: String!
+  user: UserCreateOneWithoutCommentsInput
+  board: BoardCreateOneWithoutCommentsInput
+  market: MarketCreateOneWithoutCommentsInput
 }
 
 input CommentCreateWithoutUserInput {
@@ -395,6 +412,7 @@ input CommentCreateWithoutUserInput {
   text: String!
   board: BoardCreateOneWithoutCommentsInput
   market: MarketCreateOneWithoutCommentsInput
+  rent: RentCreateOneWithoutCommentsInput
 }
 
 type CommentEdge {
@@ -493,6 +511,7 @@ input CommentUpdateDataInput {
   user: UserUpdateOneWithoutCommentsInput
   board: BoardUpdateOneWithoutCommentsInput
   market: MarketUpdateOneWithoutCommentsInput
+  rent: RentUpdateOneWithoutCommentsInput
 }
 
 input CommentUpdateInput {
@@ -500,6 +519,7 @@ input CommentUpdateInput {
   user: UserUpdateOneWithoutCommentsInput
   board: BoardUpdateOneWithoutCommentsInput
   market: MarketUpdateOneWithoutCommentsInput
+  rent: RentUpdateOneWithoutCommentsInput
 }
 
 input CommentUpdateManyDataInput {
@@ -546,6 +566,18 @@ input CommentUpdateManyWithoutMarketInput {
   updateMany: [CommentUpdateManyWithWhereNestedInput!]
 }
 
+input CommentUpdateManyWithoutRentInput {
+  create: [CommentCreateWithoutRentInput!]
+  delete: [CommentWhereUniqueInput!]
+  connect: [CommentWhereUniqueInput!]
+  set: [CommentWhereUniqueInput!]
+  disconnect: [CommentWhereUniqueInput!]
+  update: [CommentUpdateWithWhereUniqueWithoutRentInput!]
+  upsert: [CommentUpsertWithWhereUniqueWithoutRentInput!]
+  deleteMany: [CommentScalarWhereInput!]
+  updateMany: [CommentUpdateManyWithWhereNestedInput!]
+}
+
 input CommentUpdateManyWithoutUserInput {
   create: [CommentCreateWithoutUserInput!]
   delete: [CommentWhereUniqueInput!]
@@ -567,18 +599,28 @@ input CommentUpdateWithoutBoardDataInput {
   text: String
   user: UserUpdateOneWithoutCommentsInput
   market: MarketUpdateOneWithoutCommentsInput
+  rent: RentUpdateOneWithoutCommentsInput
 }
 
 input CommentUpdateWithoutMarketDataInput {
   text: String
   user: UserUpdateOneWithoutCommentsInput
   board: BoardUpdateOneWithoutCommentsInput
+  rent: RentUpdateOneWithoutCommentsInput
+}
+
+input CommentUpdateWithoutRentDataInput {
+  text: String
+  user: UserUpdateOneWithoutCommentsInput
+  board: BoardUpdateOneWithoutCommentsInput
+  market: MarketUpdateOneWithoutCommentsInput
 }
 
 input CommentUpdateWithoutUserDataInput {
   text: String
   board: BoardUpdateOneWithoutCommentsInput
   market: MarketUpdateOneWithoutCommentsInput
+  rent: RentUpdateOneWithoutCommentsInput
 }
 
 input CommentUpdateWithWhereUniqueNestedInput {
@@ -594,6 +636,11 @@ input CommentUpdateWithWhereUniqueWithoutBoardInput {
 input CommentUpdateWithWhereUniqueWithoutMarketInput {
   where: CommentWhereUniqueInput!
   data: CommentUpdateWithoutMarketDataInput!
+}
+
+input CommentUpdateWithWhereUniqueWithoutRentInput {
+  where: CommentWhereUniqueInput!
+  data: CommentUpdateWithoutRentDataInput!
 }
 
 input CommentUpdateWithWhereUniqueWithoutUserInput {
@@ -617,6 +664,12 @@ input CommentUpsertWithWhereUniqueWithoutMarketInput {
   where: CommentWhereUniqueInput!
   update: CommentUpdateWithoutMarketDataInput!
   create: CommentCreateWithoutMarketInput!
+}
+
+input CommentUpsertWithWhereUniqueWithoutRentInput {
+  where: CommentWhereUniqueInput!
+  update: CommentUpdateWithoutRentDataInput!
+  create: CommentCreateWithoutRentInput!
 }
 
 input CommentUpsertWithWhereUniqueWithoutUserInput {
@@ -657,6 +710,7 @@ input CommentWhereInput {
   user: UserWhereInput
   board: BoardWhereInput
   market: MarketWhereInput
+  rent: RentWhereInput
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -802,267 +856,6 @@ input ImageWhereInput {
 }
 
 input ImageWhereUniqueInput {
-  id: ID
-}
-
-type Immobiler {
-  id: ID!
-  user: User!
-  title: String!
-  caption: String!
-  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
-  createdAt: DateTime!
-  updatedAt: DateTime!
-}
-
-type ImmobilerConnection {
-  pageInfo: PageInfo!
-  edges: [ImmobilerEdge]!
-  aggregate: AggregateImmobiler!
-}
-
-input ImmobilerCreateInput {
-  id: ID
-  user: UserCreateOneInput!
-  title: String!
-  caption: String!
-  comments: CommentCreateManyInput
-}
-
-input ImmobilerCreateManyInput {
-  create: [ImmobilerCreateInput!]
-  connect: [ImmobilerWhereUniqueInput!]
-}
-
-type ImmobilerEdge {
-  node: Immobiler!
-  cursor: String!
-}
-
-enum ImmobilerOrderByInput {
-  id_ASC
-  id_DESC
-  title_ASC
-  title_DESC
-  caption_ASC
-  caption_DESC
-  createdAt_ASC
-  createdAt_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-}
-
-type ImmobilerPreviousValues {
-  id: ID!
-  title: String!
-  caption: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-}
-
-input ImmobilerScalarWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  title: String
-  title_not: String
-  title_in: [String!]
-  title_not_in: [String!]
-  title_lt: String
-  title_lte: String
-  title_gt: String
-  title_gte: String
-  title_contains: String
-  title_not_contains: String
-  title_starts_with: String
-  title_not_starts_with: String
-  title_ends_with: String
-  title_not_ends_with: String
-  caption: String
-  caption_not: String
-  caption_in: [String!]
-  caption_not_in: [String!]
-  caption_lt: String
-  caption_lte: String
-  caption_gt: String
-  caption_gte: String
-  caption_contains: String
-  caption_not_contains: String
-  caption_starts_with: String
-  caption_not_starts_with: String
-  caption_ends_with: String
-  caption_not_ends_with: String
-  createdAt: DateTime
-  createdAt_not: DateTime
-  createdAt_in: [DateTime!]
-  createdAt_not_in: [DateTime!]
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
-  updatedAt: DateTime
-  updatedAt_not: DateTime
-  updatedAt_in: [DateTime!]
-  updatedAt_not_in: [DateTime!]
-  updatedAt_lt: DateTime
-  updatedAt_lte: DateTime
-  updatedAt_gt: DateTime
-  updatedAt_gte: DateTime
-  AND: [ImmobilerScalarWhereInput!]
-  OR: [ImmobilerScalarWhereInput!]
-  NOT: [ImmobilerScalarWhereInput!]
-}
-
-type ImmobilerSubscriptionPayload {
-  mutation: MutationType!
-  node: Immobiler
-  updatedFields: [String!]
-  previousValues: ImmobilerPreviousValues
-}
-
-input ImmobilerSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: ImmobilerWhereInput
-  AND: [ImmobilerSubscriptionWhereInput!]
-  OR: [ImmobilerSubscriptionWhereInput!]
-  NOT: [ImmobilerSubscriptionWhereInput!]
-}
-
-input ImmobilerUpdateDataInput {
-  user: UserUpdateOneRequiredInput
-  title: String
-  caption: String
-  comments: CommentUpdateManyInput
-}
-
-input ImmobilerUpdateInput {
-  user: UserUpdateOneRequiredInput
-  title: String
-  caption: String
-  comments: CommentUpdateManyInput
-}
-
-input ImmobilerUpdateManyDataInput {
-  title: String
-  caption: String
-}
-
-input ImmobilerUpdateManyInput {
-  create: [ImmobilerCreateInput!]
-  update: [ImmobilerUpdateWithWhereUniqueNestedInput!]
-  upsert: [ImmobilerUpsertWithWhereUniqueNestedInput!]
-  delete: [ImmobilerWhereUniqueInput!]
-  connect: [ImmobilerWhereUniqueInput!]
-  set: [ImmobilerWhereUniqueInput!]
-  disconnect: [ImmobilerWhereUniqueInput!]
-  deleteMany: [ImmobilerScalarWhereInput!]
-  updateMany: [ImmobilerUpdateManyWithWhereNestedInput!]
-}
-
-input ImmobilerUpdateManyMutationInput {
-  title: String
-  caption: String
-}
-
-input ImmobilerUpdateManyWithWhereNestedInput {
-  where: ImmobilerScalarWhereInput!
-  data: ImmobilerUpdateManyDataInput!
-}
-
-input ImmobilerUpdateWithWhereUniqueNestedInput {
-  where: ImmobilerWhereUniqueInput!
-  data: ImmobilerUpdateDataInput!
-}
-
-input ImmobilerUpsertWithWhereUniqueNestedInput {
-  where: ImmobilerWhereUniqueInput!
-  update: ImmobilerUpdateDataInput!
-  create: ImmobilerCreateInput!
-}
-
-input ImmobilerWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  user: UserWhereInput
-  title: String
-  title_not: String
-  title_in: [String!]
-  title_not_in: [String!]
-  title_lt: String
-  title_lte: String
-  title_gt: String
-  title_gte: String
-  title_contains: String
-  title_not_contains: String
-  title_starts_with: String
-  title_not_starts_with: String
-  title_ends_with: String
-  title_not_ends_with: String
-  caption: String
-  caption_not: String
-  caption_in: [String!]
-  caption_not_in: [String!]
-  caption_lt: String
-  caption_lte: String
-  caption_gt: String
-  caption_gte: String
-  caption_contains: String
-  caption_not_contains: String
-  caption_starts_with: String
-  caption_not_starts_with: String
-  caption_ends_with: String
-  caption_not_ends_with: String
-  comments_every: CommentWhereInput
-  comments_some: CommentWhereInput
-  comments_none: CommentWhereInput
-  createdAt: DateTime
-  createdAt_not: DateTime
-  createdAt_in: [DateTime!]
-  createdAt_not_in: [DateTime!]
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
-  updatedAt: DateTime
-  updatedAt_not: DateTime
-  updatedAt_in: [DateTime!]
-  updatedAt_not_in: [DateTime!]
-  updatedAt_lt: DateTime
-  updatedAt_lte: DateTime
-  updatedAt_gt: DateTime
-  updatedAt_gte: DateTime
-  AND: [ImmobilerWhereInput!]
-  OR: [ImmobilerWhereInput!]
-  NOT: [ImmobilerWhereInput!]
-}
-
-input ImmobilerWhereUniqueInput {
   id: ID
 }
 
@@ -1380,12 +1173,6 @@ type Mutation {
   upsertImage(where: ImageWhereUniqueInput!, create: ImageCreateInput!, update: ImageUpdateInput!): Image!
   deleteImage(where: ImageWhereUniqueInput!): Image
   deleteManyImages(where: ImageWhereInput): BatchPayload!
-  createImmobiler(data: ImmobilerCreateInput!): Immobiler!
-  updateImmobiler(data: ImmobilerUpdateInput!, where: ImmobilerWhereUniqueInput!): Immobiler
-  updateManyImmobilers(data: ImmobilerUpdateManyMutationInput!, where: ImmobilerWhereInput): BatchPayload!
-  upsertImmobiler(where: ImmobilerWhereUniqueInput!, create: ImmobilerCreateInput!, update: ImmobilerUpdateInput!): Immobiler!
-  deleteImmobiler(where: ImmobilerWhereUniqueInput!): Immobiler
-  deleteManyImmobilers(where: ImmobilerWhereInput): BatchPayload!
   createMarket(data: MarketCreateInput!): Market!
   updateMarket(data: MarketUpdateInput!, where: MarketWhereUniqueInput!): Market
   updateManyMarkets(data: MarketUpdateManyMutationInput!, where: MarketWhereInput): BatchPayload!
@@ -1404,6 +1191,12 @@ type Mutation {
   upsertPost(where: PostWhereUniqueInput!, create: PostCreateInput!, update: PostUpdateInput!): Post!
   deletePost(where: PostWhereUniqueInput!): Post
   deleteManyPosts(where: PostWhereInput): BatchPayload!
+  createRent(data: RentCreateInput!): Rent!
+  updateRent(data: RentUpdateInput!, where: RentWhereUniqueInput!): Rent
+  updateManyRents(data: RentUpdateManyMutationInput!, where: RentWhereInput): BatchPayload!
+  upsertRent(where: RentWhereUniqueInput!, create: RentCreateInput!, update: RentUpdateInput!): Rent!
+  deleteRent(where: RentWhereUniqueInput!): Rent
+  deleteManyRents(where: RentWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -1698,7 +1491,7 @@ type Post {
   notice(where: NoticeWhereInput, orderBy: NoticeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Notice!]
   markget(where: MarketWhereInput, orderBy: MarketOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Market!]
   board(where: BoardWhereInput, orderBy: BoardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Board!]
-  immo(where: ImmobilerWhereInput, orderBy: ImmobilerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Immobiler!]
+  immo(where: RentWhereInput, orderBy: RentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Rent!]
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -1717,7 +1510,7 @@ input PostCreateInput {
   notice: NoticeCreateManyInput
   markget: MarketCreateManyInput
   board: BoardCreateManyInput
-  immo: ImmobilerCreateManyInput
+  immo: RentCreateManyInput
 }
 
 input PostCreateManyWithoutUserInput {
@@ -1732,7 +1525,7 @@ input PostCreateWithoutUserInput {
   notice: NoticeCreateManyInput
   markget: MarketCreateManyInput
   board: BoardCreateManyInput
-  immo: ImmobilerCreateManyInput
+  immo: RentCreateManyInput
 }
 
 type PostEdge {
@@ -1850,7 +1643,7 @@ input PostUpdateInput {
   notice: NoticeUpdateManyInput
   markget: MarketUpdateManyInput
   board: BoardUpdateManyInput
-  immo: ImmobilerUpdateManyInput
+  immo: RentUpdateManyInput
 }
 
 input PostUpdateManyDataInput {
@@ -1886,7 +1679,7 @@ input PostUpdateWithoutUserDataInput {
   notice: NoticeUpdateManyInput
   markget: MarketUpdateManyInput
   board: BoardUpdateManyInput
-  immo: ImmobilerUpdateManyInput
+  immo: RentUpdateManyInput
 }
 
 input PostUpdateWithWhereUniqueWithoutUserInput {
@@ -1953,9 +1746,9 @@ input PostWhereInput {
   board_every: BoardWhereInput
   board_some: BoardWhereInput
   board_none: BoardWhereInput
-  immo_every: ImmobilerWhereInput
-  immo_some: ImmobilerWhereInput
-  immo_none: ImmobilerWhereInput
+  immo_every: RentWhereInput
+  immo_some: RentWhereInput
+  immo_none: RentWhereInput
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -1991,9 +1784,6 @@ type Query {
   image(where: ImageWhereUniqueInput!): Image
   images(where: ImageWhereInput, orderBy: ImageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Image]!
   imagesConnection(where: ImageWhereInput, orderBy: ImageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ImageConnection!
-  immobiler(where: ImmobilerWhereUniqueInput!): Immobiler
-  immobilers(where: ImmobilerWhereInput, orderBy: ImmobilerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Immobiler]!
-  immobilersConnection(where: ImmobilerWhereInput, orderBy: ImmobilerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ImmobilerConnection!
   market(where: MarketWhereUniqueInput!): Market
   markets(where: MarketWhereInput, orderBy: MarketOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Market]!
   marketsConnection(where: MarketWhereInput, orderBy: MarketOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MarketConnection!
@@ -2003,20 +1793,316 @@ type Query {
   post(where: PostWhereUniqueInput!): Post
   posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post]!
   postsConnection(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection!
+  rent(where: RentWhereUniqueInput!): Rent
+  rents(where: RentWhereInput, orderBy: RentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Rent]!
+  rentsConnection(where: RentWhereInput, orderBy: RentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RentConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   node(id: ID!): Node
 }
 
+type Rent {
+  id: ID!
+  user: User!
+  title: String!
+  caption: String!
+  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type RentConnection {
+  pageInfo: PageInfo!
+  edges: [RentEdge]!
+  aggregate: AggregateRent!
+}
+
+input RentCreateInput {
+  id: ID
+  user: UserCreateOneInput!
+  title: String!
+  caption: String!
+  comments: CommentCreateManyWithoutRentInput
+}
+
+input RentCreateManyInput {
+  create: [RentCreateInput!]
+  connect: [RentWhereUniqueInput!]
+}
+
+input RentCreateOneWithoutCommentsInput {
+  create: RentCreateWithoutCommentsInput
+  connect: RentWhereUniqueInput
+}
+
+input RentCreateWithoutCommentsInput {
+  id: ID
+  user: UserCreateOneInput!
+  title: String!
+  caption: String!
+}
+
+type RentEdge {
+  node: Rent!
+  cursor: String!
+}
+
+enum RentOrderByInput {
+  id_ASC
+  id_DESC
+  title_ASC
+  title_DESC
+  caption_ASC
+  caption_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type RentPreviousValues {
+  id: ID!
+  title: String!
+  caption: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input RentScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  caption: String
+  caption_not: String
+  caption_in: [String!]
+  caption_not_in: [String!]
+  caption_lt: String
+  caption_lte: String
+  caption_gt: String
+  caption_gte: String
+  caption_contains: String
+  caption_not_contains: String
+  caption_starts_with: String
+  caption_not_starts_with: String
+  caption_ends_with: String
+  caption_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [RentScalarWhereInput!]
+  OR: [RentScalarWhereInput!]
+  NOT: [RentScalarWhereInput!]
+}
+
+type RentSubscriptionPayload {
+  mutation: MutationType!
+  node: Rent
+  updatedFields: [String!]
+  previousValues: RentPreviousValues
+}
+
+input RentSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: RentWhereInput
+  AND: [RentSubscriptionWhereInput!]
+  OR: [RentSubscriptionWhereInput!]
+  NOT: [RentSubscriptionWhereInput!]
+}
+
+input RentUpdateDataInput {
+  user: UserUpdateOneRequiredInput
+  title: String
+  caption: String
+  comments: CommentUpdateManyWithoutRentInput
+}
+
+input RentUpdateInput {
+  user: UserUpdateOneRequiredInput
+  title: String
+  caption: String
+  comments: CommentUpdateManyWithoutRentInput
+}
+
+input RentUpdateManyDataInput {
+  title: String
+  caption: String
+}
+
+input RentUpdateManyInput {
+  create: [RentCreateInput!]
+  update: [RentUpdateWithWhereUniqueNestedInput!]
+  upsert: [RentUpsertWithWhereUniqueNestedInput!]
+  delete: [RentWhereUniqueInput!]
+  connect: [RentWhereUniqueInput!]
+  set: [RentWhereUniqueInput!]
+  disconnect: [RentWhereUniqueInput!]
+  deleteMany: [RentScalarWhereInput!]
+  updateMany: [RentUpdateManyWithWhereNestedInput!]
+}
+
+input RentUpdateManyMutationInput {
+  title: String
+  caption: String
+}
+
+input RentUpdateManyWithWhereNestedInput {
+  where: RentScalarWhereInput!
+  data: RentUpdateManyDataInput!
+}
+
+input RentUpdateOneWithoutCommentsInput {
+  create: RentCreateWithoutCommentsInput
+  update: RentUpdateWithoutCommentsDataInput
+  upsert: RentUpsertWithoutCommentsInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: RentWhereUniqueInput
+}
+
+input RentUpdateWithoutCommentsDataInput {
+  user: UserUpdateOneRequiredInput
+  title: String
+  caption: String
+}
+
+input RentUpdateWithWhereUniqueNestedInput {
+  where: RentWhereUniqueInput!
+  data: RentUpdateDataInput!
+}
+
+input RentUpsertWithoutCommentsInput {
+  update: RentUpdateWithoutCommentsDataInput!
+  create: RentCreateWithoutCommentsInput!
+}
+
+input RentUpsertWithWhereUniqueNestedInput {
+  where: RentWhereUniqueInput!
+  update: RentUpdateDataInput!
+  create: RentCreateInput!
+}
+
+input RentWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  user: UserWhereInput
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  caption: String
+  caption_not: String
+  caption_in: [String!]
+  caption_not_in: [String!]
+  caption_lt: String
+  caption_lte: String
+  caption_gt: String
+  caption_gte: String
+  caption_contains: String
+  caption_not_contains: String
+  caption_starts_with: String
+  caption_not_starts_with: String
+  caption_ends_with: String
+  caption_not_ends_with: String
+  comments_every: CommentWhereInput
+  comments_some: CommentWhereInput
+  comments_none: CommentWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [RentWhereInput!]
+  OR: [RentWhereInput!]
+  NOT: [RentWhereInput!]
+}
+
+input RentWhereUniqueInput {
+  id: ID
+}
+
 type Subscription {
   board(where: BoardSubscriptionWhereInput): BoardSubscriptionPayload
   comment(where: CommentSubscriptionWhereInput): CommentSubscriptionPayload
   image(where: ImageSubscriptionWhereInput): ImageSubscriptionPayload
-  immobiler(where: ImmobilerSubscriptionWhereInput): ImmobilerSubscriptionPayload
   market(where: MarketSubscriptionWhereInput): MarketSubscriptionPayload
   notice(where: NoticeSubscriptionWhereInput): NoticeSubscriptionPayload
   post(where: PostSubscriptionWhereInput): PostSubscriptionPayload
+  rent(where: RentSubscriptionWhereInput): RentSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 

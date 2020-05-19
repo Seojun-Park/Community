@@ -21,7 +21,7 @@ var models = [
     embedded: false
   },
   {
-    name: "Immobiler",
+    name: "Rent",
     embedded: false
   },
   {

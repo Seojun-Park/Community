@@ -21,7 +21,7 @@ type Post {
   notice: [Notice!]
   markget: [Market!]
   board: [Board!]
-  immo: [Immobiler!]
+  immo: [Rent!]
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
@@ -46,12 +46,12 @@ type Market {
   updatedAt: DateTime! @updatedAt 
 }
 
-type Immobiler {
+type Rent {
   id: ID! @id
   user: User!
   title: String!
   caption: String!
-  comments: [Comment!]
+  comments: [Comment!] @relation(name:"CommentsOfRent", onDelete: CASCADE)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt 
 }
@@ -79,6 +79,7 @@ type Comment {
   user: User @relation(name:"CommentsOfUser")
   board: Board @relation(name:"CommentsOfBoard")
   market: Market @relation(name:"CommentsOfMarket")
+  rent: Rent @relation(name:"CommentsOfRent")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
