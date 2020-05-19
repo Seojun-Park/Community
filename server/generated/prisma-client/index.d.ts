@@ -535,9 +535,9 @@ export interface PostWhereInput {
   board_every?: Maybe<BoardWhereInput>;
   board_some?: Maybe<BoardWhereInput>;
   board_none?: Maybe<BoardWhereInput>;
-  immo_every?: Maybe<RentWhereInput>;
-  immo_some?: Maybe<RentWhereInput>;
-  immo_none?: Maybe<RentWhereInput>;
+  rent_every?: Maybe<RentWhereInput>;
+  rent_some?: Maybe<RentWhereInput>;
+  rent_none?: Maybe<RentWhereInput>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -1143,7 +1143,7 @@ export interface PostCreateWithoutUserInput {
   notice?: Maybe<NoticeCreateManyInput>;
   markget?: Maybe<MarketCreateManyInput>;
   board?: Maybe<BoardCreateManyInput>;
-  immo?: Maybe<RentCreateManyInput>;
+  rent?: Maybe<RentCreateManyInput>;
 }
 
 export interface NoticeCreateManyInput {
@@ -1374,7 +1374,7 @@ export interface PostUpdateWithoutUserDataInput {
   notice?: Maybe<NoticeUpdateManyInput>;
   markget?: Maybe<MarketUpdateManyInput>;
   board?: Maybe<BoardUpdateManyInput>;
-  immo?: Maybe<RentUpdateManyInput>;
+  rent?: Maybe<RentUpdateManyInput>;
 }
 
 export interface NoticeUpdateManyInput {
@@ -2322,7 +2322,7 @@ export interface PostCreateInput {
   notice?: Maybe<NoticeCreateManyInput>;
   markget?: Maybe<MarketCreateManyInput>;
   board?: Maybe<BoardCreateManyInput>;
-  immo?: Maybe<RentCreateManyInput>;
+  rent?: Maybe<RentCreateManyInput>;
 }
 
 export interface UserCreateOneWithoutPostsInput {
@@ -2349,7 +2349,7 @@ export interface PostUpdateInput {
   notice?: Maybe<NoticeUpdateManyInput>;
   markget?: Maybe<MarketUpdateManyInput>;
   board?: Maybe<BoardUpdateManyInput>;
-  immo?: Maybe<RentUpdateManyInput>;
+  rent?: Maybe<RentUpdateManyInput>;
 }
 
 export interface UserUpdateOneRequiredWithoutPostsInput {
@@ -2722,7 +2722,7 @@ export interface PostPromise extends Promise<Post>, Fragmentable {
     first?: Int;
     last?: Int;
   }) => T;
-  immo: <T = FragmentableArray<Rent>>(args?: {
+  rent: <T = FragmentableArray<Rent>>(args?: {
     where?: RentWhereInput;
     orderBy?: RentOrderByInput;
     skip?: Int;
@@ -2769,7 +2769,7 @@ export interface PostSubscription
     first?: Int;
     last?: Int;
   }) => T;
-  immo: <T = Promise<AsyncIterator<RentSubscription>>>(args?: {
+  rent: <T = Promise<AsyncIterator<RentSubscription>>>(args?: {
     where?: RentWhereInput;
     orderBy?: RentOrderByInput;
     skip?: Int;
@@ -2816,7 +2816,7 @@ export interface PostNullablePromise
     first?: Int;
     last?: Int;
   }) => T;
-  immo: <T = FragmentableArray<Rent>>(args?: {
+  rent: <T = FragmentableArray<Rent>>(args?: {
     where?: RentWhereInput;
     orderBy?: RentOrderByInput;
     skip?: Int;

@@ -1491,7 +1491,7 @@ type Post {
   notice(where: NoticeWhereInput, orderBy: NoticeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Notice!]
   markget(where: MarketWhereInput, orderBy: MarketOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Market!]
   board(where: BoardWhereInput, orderBy: BoardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Board!]
-  immo(where: RentWhereInput, orderBy: RentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Rent!]
+  rent(where: RentWhereInput, orderBy: RentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Rent!]
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -1510,7 +1510,7 @@ input PostCreateInput {
   notice: NoticeCreateManyInput
   markget: MarketCreateManyInput
   board: BoardCreateManyInput
-  immo: RentCreateManyInput
+  rent: RentCreateManyInput
 }
 
 input PostCreateManyWithoutUserInput {
@@ -1525,7 +1525,7 @@ input PostCreateWithoutUserInput {
   notice: NoticeCreateManyInput
   markget: MarketCreateManyInput
   board: BoardCreateManyInput
-  immo: RentCreateManyInput
+  rent: RentCreateManyInput
 }
 
 type PostEdge {
@@ -1643,7 +1643,7 @@ input PostUpdateInput {
   notice: NoticeUpdateManyInput
   markget: MarketUpdateManyInput
   board: BoardUpdateManyInput
-  immo: RentUpdateManyInput
+  rent: RentUpdateManyInput
 }
 
 input PostUpdateManyDataInput {
@@ -1679,7 +1679,7 @@ input PostUpdateWithoutUserDataInput {
   notice: NoticeUpdateManyInput
   markget: MarketUpdateManyInput
   board: BoardUpdateManyInput
-  immo: RentUpdateManyInput
+  rent: RentUpdateManyInput
 }
 
 input PostUpdateWithWhereUniqueWithoutUserInput {
@@ -1746,9 +1746,9 @@ input PostWhereInput {
   board_every: BoardWhereInput
   board_some: BoardWhereInput
   board_none: BoardWhereInput
-  immo_every: RentWhereInput
-  immo_some: RentWhereInput
-  immo_none: RentWhereInput
+  rent_every: RentWhereInput
+  rent_some: RentWhereInput
+  rent_none: RentWhereInput
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]

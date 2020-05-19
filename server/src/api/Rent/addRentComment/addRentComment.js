@@ -16,7 +16,8 @@ export default {
           connect: {
             id: rentId
           }
-        }
+        },
+        text
       });
       return comment;
     }

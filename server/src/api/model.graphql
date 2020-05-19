@@ -20,7 +20,7 @@ type Post {
   notice: [Notice!]
   market: [Market!]
   board: [Board!]
-  immo: [Rent!]
+  rent: [Rent!]
   createdAt: String
   updatedAt: String
 }

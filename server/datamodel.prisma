@@ -21,7 +21,7 @@ type Post {
   notice: [Notice!]
   markget: [Market!]
   board: [Board!]
-  immo: [Rent!]
+  rent: [Rent!]
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
