@@ -2,11 +2,11 @@ import { prisma } from "../../../generated/prisma-client";
 
 export default {
     Market: {
-        user: ({ id }) => prisma.market({ id }).user(),
-        comments: ({ id }) => prisma.market({ id }).comments()
+        user: parent => prisma.market({ id: parent.id }).user(),
+        comments: parent => prisma.market({ id: parent.id }).comments()
     },
     Comment: {
-        user: ({ id }) => prisma.comment({ id }).user(),
-        market: ({ id }) => prisma.comment({ id }).market()
+        user: parent => prisma.comment({ id: parent.id }).user(),
+        market: parent => prisma.comment({ id: parent.id }).market()
     }
 }

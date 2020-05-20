@@ -57,7 +57,7 @@ type BoardConnection {
 
 input BoardCreateInput {
   id: ID
-  user: UserCreateOneInput!
+  user: UserCreateOneWithoutBoardsInput!
   title: String!
   caption: String!
   comments: CommentCreateManyWithoutBoardInput
@@ -68,6 +68,11 @@ input BoardCreateManyInput {
   connect: [BoardWhereUniqueInput!]
 }
 
+input BoardCreateManyWithoutUserInput {
+  create: [BoardCreateWithoutUserInput!]
+  connect: [BoardWhereUniqueInput!]
+}
+
 input BoardCreateOneWithoutCommentsInput {
   create: BoardCreateWithoutCommentsInput
   connect: BoardWhereUniqueInput
@@ -75,9 +80,16 @@ input BoardCreateOneWithoutCommentsInput {
 
 input BoardCreateWithoutCommentsInput {
   id: ID
-  user: UserCreateOneInput!
+  user: UserCreateOneWithoutBoardsInput!
   title: String!
   caption: String!
+}
+
+input BoardCreateWithoutUserInput {
+  id: ID
+  title: String!
+  caption: String!
+  comments: CommentCreateManyWithoutBoardInput
 }
 
 type BoardEdge {
@@ -189,14 +201,14 @@ input BoardSubscriptionWhereInput {
 }
 
 input BoardUpdateDataInput {
-  user: UserUpdateOneRequiredInput
+  user: UserUpdateOneRequiredWithoutBoardsInput
   title: String
   caption: String
   comments: CommentUpdateManyWithoutBoardInput
 }
 
 input BoardUpdateInput {
-  user: UserUpdateOneRequiredInput
+  user: UserUpdateOneRequiredWithoutBoardsInput
   title: String
   caption: String
   comments: CommentUpdateManyWithoutBoardInput
@@ -224,6 +236,18 @@ input BoardUpdateManyMutationInput {
   caption: String
 }
 
+input BoardUpdateManyWithoutUserInput {
+  create: [BoardCreateWithoutUserInput!]
+  delete: [BoardWhereUniqueInput!]
+  connect: [BoardWhereUniqueInput!]
+  set: [BoardWhereUniqueInput!]
+  disconnect: [BoardWhereUniqueInput!]
+  update: [BoardUpdateWithWhereUniqueWithoutUserInput!]
+  upsert: [BoardUpsertWithWhereUniqueWithoutUserInput!]
+  deleteMany: [BoardScalarWhereInput!]
+  updateMany: [BoardUpdateManyWithWhereNestedInput!]
+}
+
 input BoardUpdateManyWithWhereNestedInput {
   where: BoardScalarWhereInput!
   data: BoardUpdateManyDataInput!
@@ -239,14 +263,25 @@ input BoardUpdateOneWithoutCommentsInput {
 }
 
 input BoardUpdateWithoutCommentsDataInput {
-  user: UserUpdateOneRequiredInput
+  user: UserUpdateOneRequiredWithoutBoardsInput
   title: String
   caption: String
+}
+
+input BoardUpdateWithoutUserDataInput {
+  title: String
+  caption: String
+  comments: CommentUpdateManyWithoutBoardInput
 }
 
 input BoardUpdateWithWhereUniqueNestedInput {
   where: BoardWhereUniqueInput!
   data: BoardUpdateDataInput!
+}
+
+input BoardUpdateWithWhereUniqueWithoutUserInput {
+  where: BoardWhereUniqueInput!
+  data: BoardUpdateWithoutUserDataInput!
 }
 
 input BoardUpsertWithoutCommentsInput {
@@ -258,6 +293,12 @@ input BoardUpsertWithWhereUniqueNestedInput {
   where: BoardWhereUniqueInput!
   update: BoardUpdateDataInput!
   create: BoardCreateInput!
+}
+
+input BoardUpsertWithWhereUniqueWithoutUserInput {
+  where: BoardWhereUniqueInput!
+  update: BoardUpdateWithoutUserDataInput!
+  create: BoardCreateWithoutUserInput!
 }
 
 input BoardWhereInput {
@@ -879,7 +920,7 @@ type MarketConnection {
 
 input MarketCreateInput {
   id: ID
-  user: UserCreateOneInput!
+  user: UserCreateOneWithoutMarketsInput!
   title: String!
   caption: String!
   comments: CommentCreateManyWithoutMarketInput
@@ -890,6 +931,11 @@ input MarketCreateManyInput {
   connect: [MarketWhereUniqueInput!]
 }
 
+input MarketCreateManyWithoutUserInput {
+  create: [MarketCreateWithoutUserInput!]
+  connect: [MarketWhereUniqueInput!]
+}
+
 input MarketCreateOneWithoutCommentsInput {
   create: MarketCreateWithoutCommentsInput
   connect: MarketWhereUniqueInput
@@ -897,9 +943,16 @@ input MarketCreateOneWithoutCommentsInput {
 
 input MarketCreateWithoutCommentsInput {
   id: ID
-  user: UserCreateOneInput!
+  user: UserCreateOneWithoutMarketsInput!
   title: String!
   caption: String!
+}
+
+input MarketCreateWithoutUserInput {
+  id: ID
+  title: String!
+  caption: String!
+  comments: CommentCreateManyWithoutMarketInput
 }
 
 type MarketEdge {
@@ -1011,14 +1064,14 @@ input MarketSubscriptionWhereInput {
 }
 
 input MarketUpdateDataInput {
-  user: UserUpdateOneRequiredInput
+  user: UserUpdateOneRequiredWithoutMarketsInput
   title: String
   caption: String
   comments: CommentUpdateManyWithoutMarketInput
 }
 
 input MarketUpdateInput {
-  user: UserUpdateOneRequiredInput
+  user: UserUpdateOneRequiredWithoutMarketsInput
   title: String
   caption: String
   comments: CommentUpdateManyWithoutMarketInput
@@ -1046,6 +1099,18 @@ input MarketUpdateManyMutationInput {
   caption: String
 }
 
+input MarketUpdateManyWithoutUserInput {
+  create: [MarketCreateWithoutUserInput!]
+  delete: [MarketWhereUniqueInput!]
+  connect: [MarketWhereUniqueInput!]
+  set: [MarketWhereUniqueInput!]
+  disconnect: [MarketWhereUniqueInput!]
+  update: [MarketUpdateWithWhereUniqueWithoutUserInput!]
+  upsert: [MarketUpsertWithWhereUniqueWithoutUserInput!]
+  deleteMany: [MarketScalarWhereInput!]
+  updateMany: [MarketUpdateManyWithWhereNestedInput!]
+}
+
 input MarketUpdateManyWithWhereNestedInput {
   where: MarketScalarWhereInput!
   data: MarketUpdateManyDataInput!
@@ -1061,14 +1126,25 @@ input MarketUpdateOneWithoutCommentsInput {
 }
 
 input MarketUpdateWithoutCommentsDataInput {
-  user: UserUpdateOneRequiredInput
+  user: UserUpdateOneRequiredWithoutMarketsInput
   title: String
   caption: String
+}
+
+input MarketUpdateWithoutUserDataInput {
+  title: String
+  caption: String
+  comments: CommentUpdateManyWithoutMarketInput
 }
 
 input MarketUpdateWithWhereUniqueNestedInput {
   where: MarketWhereUniqueInput!
   data: MarketUpdateDataInput!
+}
+
+input MarketUpdateWithWhereUniqueWithoutUserInput {
+  where: MarketWhereUniqueInput!
+  data: MarketUpdateWithoutUserDataInput!
 }
 
 input MarketUpsertWithoutCommentsInput {
@@ -1080,6 +1156,12 @@ input MarketUpsertWithWhereUniqueNestedInput {
   where: MarketWhereUniqueInput!
   update: MarketUpdateDataInput!
   create: MarketCreateInput!
+}
+
+input MarketUpsertWithWhereUniqueWithoutUserInput {
+  where: MarketWhereUniqueInput!
+  update: MarketUpdateWithoutUserDataInput!
+  create: MarketCreateWithoutUserInput!
 }
 
 input MarketWhereInput {
@@ -1187,7 +1269,6 @@ type Mutation {
   deleteManyNotices(where: NoticeWhereInput): BatchPayload!
   createPost(data: PostCreateInput!): Post!
   updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post
-  updateManyPosts(data: PostUpdateManyMutationInput!, where: PostWhereInput): BatchPayload!
   upsertPost(where: PostWhereUniqueInput!, create: PostCreateInput!, update: PostUpdateInput!): Post!
   deletePost(where: PostWhereUniqueInput!): Post
   deleteManyPosts(where: PostWhereInput): BatchPayload!
@@ -1485,13 +1566,11 @@ type PageInfo {
 
 type Post {
   id: ID!
-  title: String!
-  caption: String!
   user: User!
-  notice(where: NoticeWhereInput, orderBy: NoticeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Notice!]
-  markget(where: MarketWhereInput, orderBy: MarketOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Market!]
-  board(where: BoardWhereInput, orderBy: BoardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Board!]
-  rent(where: RentWhereInput, orderBy: RentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Rent!]
+  notices(where: NoticeWhereInput, orderBy: NoticeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Notice!]
+  markgets(where: MarketWhereInput, orderBy: MarketOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Market!]
+  boards(where: BoardWhereInput, orderBy: BoardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Board!]
+  rents(where: RentWhereInput, orderBy: RentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Rent!]
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -1504,13 +1583,11 @@ type PostConnection {
 
 input PostCreateInput {
   id: ID
-  title: String!
-  caption: String!
   user: UserCreateOneWithoutPostsInput!
-  notice: NoticeCreateManyInput
-  markget: MarketCreateManyInput
-  board: BoardCreateManyInput
-  rent: RentCreateManyInput
+  notices: NoticeCreateManyInput
+  markgets: MarketCreateManyInput
+  boards: BoardCreateManyInput
+  rents: RentCreateManyInput
 }
 
 input PostCreateManyWithoutUserInput {
@@ -1520,12 +1597,10 @@ input PostCreateManyWithoutUserInput {
 
 input PostCreateWithoutUserInput {
   id: ID
-  title: String!
-  caption: String!
-  notice: NoticeCreateManyInput
-  markget: MarketCreateManyInput
-  board: BoardCreateManyInput
-  rent: RentCreateManyInput
+  notices: NoticeCreateManyInput
+  markgets: MarketCreateManyInput
+  boards: BoardCreateManyInput
+  rents: RentCreateManyInput
 }
 
 type PostEdge {
@@ -1536,10 +1611,6 @@ type PostEdge {
 enum PostOrderByInput {
   id_ASC
   id_DESC
-  title_ASC
-  title_DESC
-  caption_ASC
-  caption_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -1548,8 +1619,6 @@ enum PostOrderByInput {
 
 type PostPreviousValues {
   id: ID!
-  title: String!
-  caption: String!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -1569,34 +1638,6 @@ input PostScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  title: String
-  title_not: String
-  title_in: [String!]
-  title_not_in: [String!]
-  title_lt: String
-  title_lte: String
-  title_gt: String
-  title_gte: String
-  title_contains: String
-  title_not_contains: String
-  title_starts_with: String
-  title_not_starts_with: String
-  title_ends_with: String
-  title_not_ends_with: String
-  caption: String
-  caption_not: String
-  caption_in: [String!]
-  caption_not_in: [String!]
-  caption_lt: String
-  caption_lte: String
-  caption_gt: String
-  caption_gte: String
-  caption_contains: String
-  caption_not_contains: String
-  caption_starts_with: String
-  caption_not_starts_with: String
-  caption_ends_with: String
-  caption_not_ends_with: String
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -1637,23 +1678,11 @@ input PostSubscriptionWhereInput {
 }
 
 input PostUpdateInput {
-  title: String
-  caption: String
   user: UserUpdateOneRequiredWithoutPostsInput
-  notice: NoticeUpdateManyInput
-  markget: MarketUpdateManyInput
-  board: BoardUpdateManyInput
-  rent: RentUpdateManyInput
-}
-
-input PostUpdateManyDataInput {
-  title: String
-  caption: String
-}
-
-input PostUpdateManyMutationInput {
-  title: String
-  caption: String
+  notices: NoticeUpdateManyInput
+  markgets: MarketUpdateManyInput
+  boards: BoardUpdateManyInput
+  rents: RentUpdateManyInput
 }
 
 input PostUpdateManyWithoutUserInput {
@@ -1665,21 +1694,13 @@ input PostUpdateManyWithoutUserInput {
   update: [PostUpdateWithWhereUniqueWithoutUserInput!]
   upsert: [PostUpsertWithWhereUniqueWithoutUserInput!]
   deleteMany: [PostScalarWhereInput!]
-  updateMany: [PostUpdateManyWithWhereNestedInput!]
-}
-
-input PostUpdateManyWithWhereNestedInput {
-  where: PostScalarWhereInput!
-  data: PostUpdateManyDataInput!
 }
 
 input PostUpdateWithoutUserDataInput {
-  title: String
-  caption: String
-  notice: NoticeUpdateManyInput
-  markget: MarketUpdateManyInput
-  board: BoardUpdateManyInput
-  rent: RentUpdateManyInput
+  notices: NoticeUpdateManyInput
+  markgets: MarketUpdateManyInput
+  boards: BoardUpdateManyInput
+  rents: RentUpdateManyInput
 }
 
 input PostUpdateWithWhereUniqueWithoutUserInput {
@@ -1708,47 +1729,19 @@ input PostWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  title: String
-  title_not: String
-  title_in: [String!]
-  title_not_in: [String!]
-  title_lt: String
-  title_lte: String
-  title_gt: String
-  title_gte: String
-  title_contains: String
-  title_not_contains: String
-  title_starts_with: String
-  title_not_starts_with: String
-  title_ends_with: String
-  title_not_ends_with: String
-  caption: String
-  caption_not: String
-  caption_in: [String!]
-  caption_not_in: [String!]
-  caption_lt: String
-  caption_lte: String
-  caption_gt: String
-  caption_gte: String
-  caption_contains: String
-  caption_not_contains: String
-  caption_starts_with: String
-  caption_not_starts_with: String
-  caption_ends_with: String
-  caption_not_ends_with: String
   user: UserWhereInput
-  notice_every: NoticeWhereInput
-  notice_some: NoticeWhereInput
-  notice_none: NoticeWhereInput
-  markget_every: MarketWhereInput
-  markget_some: MarketWhereInput
-  markget_none: MarketWhereInput
-  board_every: BoardWhereInput
-  board_some: BoardWhereInput
-  board_none: BoardWhereInput
-  rent_every: RentWhereInput
-  rent_some: RentWhereInput
-  rent_none: RentWhereInput
+  notices_every: NoticeWhereInput
+  notices_some: NoticeWhereInput
+  notices_none: NoticeWhereInput
+  markgets_every: MarketWhereInput
+  markgets_some: MarketWhereInput
+  markgets_none: MarketWhereInput
+  boards_every: BoardWhereInput
+  boards_some: BoardWhereInput
+  boards_none: BoardWhereInput
+  rents_every: RentWhereInput
+  rents_some: RentWhereInput
+  rents_none: RentWhereInput
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -1820,7 +1813,7 @@ type RentConnection {
 
 input RentCreateInput {
   id: ID
-  user: UserCreateOneInput!
+  user: UserCreateOneWithoutRentsInput!
   title: String!
   caption: String!
   comments: CommentCreateManyWithoutRentInput
@@ -1831,6 +1824,11 @@ input RentCreateManyInput {
   connect: [RentWhereUniqueInput!]
 }
 
+input RentCreateManyWithoutUserInput {
+  create: [RentCreateWithoutUserInput!]
+  connect: [RentWhereUniqueInput!]
+}
+
 input RentCreateOneWithoutCommentsInput {
   create: RentCreateWithoutCommentsInput
   connect: RentWhereUniqueInput
@@ -1838,9 +1836,16 @@ input RentCreateOneWithoutCommentsInput {
 
 input RentCreateWithoutCommentsInput {
   id: ID
-  user: UserCreateOneInput!
+  user: UserCreateOneWithoutRentsInput!
   title: String!
   caption: String!
+}
+
+input RentCreateWithoutUserInput {
+  id: ID
+  title: String!
+  caption: String!
+  comments: CommentCreateManyWithoutRentInput
 }
 
 type RentEdge {
@@ -1952,14 +1957,14 @@ input RentSubscriptionWhereInput {
 }
 
 input RentUpdateDataInput {
-  user: UserUpdateOneRequiredInput
+  user: UserUpdateOneRequiredWithoutRentsInput
   title: String
   caption: String
   comments: CommentUpdateManyWithoutRentInput
 }
 
 input RentUpdateInput {
-  user: UserUpdateOneRequiredInput
+  user: UserUpdateOneRequiredWithoutRentsInput
   title: String
   caption: String
   comments: CommentUpdateManyWithoutRentInput
@@ -1987,6 +1992,18 @@ input RentUpdateManyMutationInput {
   caption: String
 }
 
+input RentUpdateManyWithoutUserInput {
+  create: [RentCreateWithoutUserInput!]
+  delete: [RentWhereUniqueInput!]
+  connect: [RentWhereUniqueInput!]
+  set: [RentWhereUniqueInput!]
+  disconnect: [RentWhereUniqueInput!]
+  update: [RentUpdateWithWhereUniqueWithoutUserInput!]
+  upsert: [RentUpsertWithWhereUniqueWithoutUserInput!]
+  deleteMany: [RentScalarWhereInput!]
+  updateMany: [RentUpdateManyWithWhereNestedInput!]
+}
+
 input RentUpdateManyWithWhereNestedInput {
   where: RentScalarWhereInput!
   data: RentUpdateManyDataInput!
@@ -2002,14 +2019,25 @@ input RentUpdateOneWithoutCommentsInput {
 }
 
 input RentUpdateWithoutCommentsDataInput {
-  user: UserUpdateOneRequiredInput
+  user: UserUpdateOneRequiredWithoutRentsInput
   title: String
   caption: String
+}
+
+input RentUpdateWithoutUserDataInput {
+  title: String
+  caption: String
+  comments: CommentUpdateManyWithoutRentInput
 }
 
 input RentUpdateWithWhereUniqueNestedInput {
   where: RentWhereUniqueInput!
   data: RentUpdateDataInput!
+}
+
+input RentUpdateWithWhereUniqueWithoutUserInput {
+  where: RentWhereUniqueInput!
+  data: RentUpdateWithoutUserDataInput!
 }
 
 input RentUpsertWithoutCommentsInput {
@@ -2021,6 +2049,12 @@ input RentUpsertWithWhereUniqueNestedInput {
   where: RentWhereUniqueInput!
   update: RentUpdateDataInput!
   create: RentCreateInput!
+}
+
+input RentUpsertWithWhereUniqueWithoutUserInput {
+  where: RentWhereUniqueInput!
+  update: RentUpdateWithoutUserDataInput!
+  create: RentCreateWithoutUserInput!
 }
 
 input RentWhereInput {
@@ -2115,6 +2149,9 @@ type User {
   username: String!
   intro: String
   posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
+  boards(where: BoardWhereInput, orderBy: BoardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Board!]
+  markets(where: MarketWhereInput, orderBy: MarketOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Market!]
+  rents(where: RentWhereInput, orderBy: RentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Rent!]
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
   loginSecret: String
   createdAt: DateTime!
@@ -2136,6 +2173,9 @@ input UserCreateInput {
   username: String!
   intro: String
   posts: PostCreateManyWithoutUserInput
+  boards: BoardCreateManyWithoutUserInput
+  markets: MarketCreateManyWithoutUserInput
+  rents: RentCreateManyWithoutUserInput
   comments: CommentCreateManyWithoutUserInput
   loginSecret: String
 }
@@ -2145,14 +2185,44 @@ input UserCreateOneInput {
   connect: UserWhereUniqueInput
 }
 
+input UserCreateOneWithoutBoardsInput {
+  create: UserCreateWithoutBoardsInput
+  connect: UserWhereUniqueInput
+}
+
 input UserCreateOneWithoutCommentsInput {
   create: UserCreateWithoutCommentsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutMarketsInput {
+  create: UserCreateWithoutMarketsInput
   connect: UserWhereUniqueInput
 }
 
 input UserCreateOneWithoutPostsInput {
   create: UserCreateWithoutPostsInput
   connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutRentsInput {
+  create: UserCreateWithoutRentsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutBoardsInput {
+  id: ID
+  avatar: String
+  email: String!
+  firstName: String
+  lastName: String
+  username: String!
+  intro: String
+  posts: PostCreateManyWithoutUserInput
+  markets: MarketCreateManyWithoutUserInput
+  rents: RentCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
+  loginSecret: String
 }
 
 input UserCreateWithoutCommentsInput {
@@ -2164,6 +2234,24 @@ input UserCreateWithoutCommentsInput {
   username: String!
   intro: String
   posts: PostCreateManyWithoutUserInput
+  boards: BoardCreateManyWithoutUserInput
+  markets: MarketCreateManyWithoutUserInput
+  rents: RentCreateManyWithoutUserInput
+  loginSecret: String
+}
+
+input UserCreateWithoutMarketsInput {
+  id: ID
+  avatar: String
+  email: String!
+  firstName: String
+  lastName: String
+  username: String!
+  intro: String
+  posts: PostCreateManyWithoutUserInput
+  boards: BoardCreateManyWithoutUserInput
+  rents: RentCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
   loginSecret: String
 }
 
@@ -2175,6 +2263,24 @@ input UserCreateWithoutPostsInput {
   lastName: String
   username: String!
   intro: String
+  boards: BoardCreateManyWithoutUserInput
+  markets: MarketCreateManyWithoutUserInput
+  rents: RentCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
+  loginSecret: String
+}
+
+input UserCreateWithoutRentsInput {
+  id: ID
+  avatar: String
+  email: String!
+  firstName: String
+  lastName: String
+  username: String!
+  intro: String
+  posts: PostCreateManyWithoutUserInput
+  boards: BoardCreateManyWithoutUserInput
+  markets: MarketCreateManyWithoutUserInput
   comments: CommentCreateManyWithoutUserInput
   loginSecret: String
 }
@@ -2246,6 +2352,9 @@ input UserUpdateDataInput {
   username: String
   intro: String
   posts: PostUpdateManyWithoutUserInput
+  boards: BoardUpdateManyWithoutUserInput
+  markets: MarketUpdateManyWithoutUserInput
+  rents: RentUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
   loginSecret: String
 }
@@ -2258,6 +2367,9 @@ input UserUpdateInput {
   username: String
   intro: String
   posts: PostUpdateManyWithoutUserInput
+  boards: BoardUpdateManyWithoutUserInput
+  markets: MarketUpdateManyWithoutUserInput
+  rents: RentUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
   loginSecret: String
 }
@@ -2279,10 +2391,31 @@ input UserUpdateOneRequiredInput {
   connect: UserWhereUniqueInput
 }
 
+input UserUpdateOneRequiredWithoutBoardsInput {
+  create: UserCreateWithoutBoardsInput
+  update: UserUpdateWithoutBoardsDataInput
+  upsert: UserUpsertWithoutBoardsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdateOneRequiredWithoutMarketsInput {
+  create: UserCreateWithoutMarketsInput
+  update: UserUpdateWithoutMarketsDataInput
+  upsert: UserUpsertWithoutMarketsInput
+  connect: UserWhereUniqueInput
+}
+
 input UserUpdateOneRequiredWithoutPostsInput {
   create: UserCreateWithoutPostsInput
   update: UserUpdateWithoutPostsDataInput
   upsert: UserUpsertWithoutPostsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdateOneRequiredWithoutRentsInput {
+  create: UserCreateWithoutRentsInput
+  update: UserUpdateWithoutRentsDataInput
+  upsert: UserUpsertWithoutRentsInput
   connect: UserWhereUniqueInput
 }
 
@@ -2295,6 +2428,20 @@ input UserUpdateOneWithoutCommentsInput {
   connect: UserWhereUniqueInput
 }
 
+input UserUpdateWithoutBoardsDataInput {
+  avatar: String
+  email: String
+  firstName: String
+  lastName: String
+  username: String
+  intro: String
+  posts: PostUpdateManyWithoutUserInput
+  markets: MarketUpdateManyWithoutUserInput
+  rents: RentUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
+  loginSecret: String
+}
+
 input UserUpdateWithoutCommentsDataInput {
   avatar: String
   email: String
@@ -2303,6 +2450,23 @@ input UserUpdateWithoutCommentsDataInput {
   username: String
   intro: String
   posts: PostUpdateManyWithoutUserInput
+  boards: BoardUpdateManyWithoutUserInput
+  markets: MarketUpdateManyWithoutUserInput
+  rents: RentUpdateManyWithoutUserInput
+  loginSecret: String
+}
+
+input UserUpdateWithoutMarketsDataInput {
+  avatar: String
+  email: String
+  firstName: String
+  lastName: String
+  username: String
+  intro: String
+  posts: PostUpdateManyWithoutUserInput
+  boards: BoardUpdateManyWithoutUserInput
+  rents: RentUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
   loginSecret: String
 }
 
@@ -2313,6 +2477,23 @@ input UserUpdateWithoutPostsDataInput {
   lastName: String
   username: String
   intro: String
+  boards: BoardUpdateManyWithoutUserInput
+  markets: MarketUpdateManyWithoutUserInput
+  rents: RentUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
+  loginSecret: String
+}
+
+input UserUpdateWithoutRentsDataInput {
+  avatar: String
+  email: String
+  firstName: String
+  lastName: String
+  username: String
+  intro: String
+  posts: PostUpdateManyWithoutUserInput
+  boards: BoardUpdateManyWithoutUserInput
+  markets: MarketUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
   loginSecret: String
 }
@@ -2322,14 +2503,29 @@ input UserUpsertNestedInput {
   create: UserCreateInput!
 }
 
+input UserUpsertWithoutBoardsInput {
+  update: UserUpdateWithoutBoardsDataInput!
+  create: UserCreateWithoutBoardsInput!
+}
+
 input UserUpsertWithoutCommentsInput {
   update: UserUpdateWithoutCommentsDataInput!
   create: UserCreateWithoutCommentsInput!
 }
 
+input UserUpsertWithoutMarketsInput {
+  update: UserUpdateWithoutMarketsDataInput!
+  create: UserCreateWithoutMarketsInput!
+}
+
 input UserUpsertWithoutPostsInput {
   update: UserUpdateWithoutPostsDataInput!
   create: UserCreateWithoutPostsInput!
+}
+
+input UserUpsertWithoutRentsInput {
+  update: UserUpdateWithoutRentsDataInput!
+  create: UserCreateWithoutRentsInput!
 }
 
 input UserWhereInput {
@@ -2434,6 +2630,15 @@ input UserWhereInput {
   posts_every: PostWhereInput
   posts_some: PostWhereInput
   posts_none: PostWhereInput
+  boards_every: BoardWhereInput
+  boards_some: BoardWhereInput
+  boards_none: BoardWhereInput
+  markets_every: MarketWhereInput
+  markets_some: MarketWhereInput
+  markets_none: MarketWhereInput
+  rents_every: RentWhereInput
+  rents_some: RentWhereInput
+  rents_none: RentWhereInput
   comments_every: CommentWhereInput
   comments_some: CommentWhereInput
   comments_none: CommentWhereInput

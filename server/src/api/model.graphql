@@ -7,6 +7,9 @@ type User {
   username: String!
   intro: String
   posts: [Post!]!
+  boards: [Board!]!
+  markets: [Market!]!
+  rents: [Rent!]!
   loginSecret: String!
   createdAt: String
   updatedAt: String

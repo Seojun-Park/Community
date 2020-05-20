@@ -7,6 +7,9 @@ type User {
   username: String! @unique
   intro: String
   posts: [Post!]! @relation(name:"PostsOfUser", onDelete: CASCADE)
+  boards:[Board!]! @relation(name:"BoardsOfUser", onDelete: CASCADE)
+  markets:[Market!]! @relation(name:"MarketsOfUser", onDelete: CASCADE)
+  rents:[Rent!]! @relation(name:"RentsOfUser", onDelete: CASCADE)
   comments: [Comment!]! @relation(name:"CommentsOfUser", onDelete: CASCADE)
   loginSecret: String
   createdAt: DateTime! @createdAt
@@ -15,13 +18,11 @@ type User {
 
 type Post {
   id: ID! @id
-  title: String!
-  caption: String!
   user: User! @relation(name:"PostsOfUser")
-  notice: [Notice!]
-  markget: [Market!]
-  board: [Board!]
-  rent: [Rent!]
+  notices: [Notice!]
+  markgets: [Market!]
+  boards: [Board!]
+  rents: [Rent!]
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
@@ -38,7 +39,7 @@ type Notice {
 
 type Market {
   id: ID! @id
-  user: User!
+  user: User! @relation(name:"MarketsOfUser")
   title: String!
   caption: String!
   comments: [Comment!] @relation(name:"CommentsOfMarket", onDelete: CASCADE)
@@ -48,7 +49,7 @@ type Market {
 
 type Rent {
   id: ID! @id
-  user: User!
+  user: User! @relation(name:"RentsOfUser")
   title: String!
   caption: String!
   comments: [Comment!] @relation(name:"CommentsOfRent", onDelete: CASCADE)
@@ -58,7 +59,7 @@ type Rent {
 
 type Board {
   id: ID! @id
-  user: User!
+  user: User! @relation(name:"BoardsOfUser")
   title: String!
   caption: String!
   comments: [Comment!]! @relation(name:"CommentsOfBoard", onDelete: CASCADE)
