@@ -1,0 +1,5 @@
+type Query {
+    searchBoard(
+        term: String!
+    ):[Board!]!
+}

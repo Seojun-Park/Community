@@ -1,0 +1,3 @@
+type Query {
+  searchMarket(term: String!): [Market!]!
+}
