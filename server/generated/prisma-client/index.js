@@ -35,6 +35,14 @@ var models = [
   {
     name: "Comment",
     embedded: false
+  },
+  {
+    name: "Room",
+    embedded: false
+  },
+  {
+    name: "Message",
+    embedded: false
   }
 ];
 exports.Prisma = prisma_lib_1.makePrismaClientClass({

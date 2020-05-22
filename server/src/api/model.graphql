@@ -10,6 +10,7 @@ type User {
   boards: [Board!]!
   markets: [Market!]!
   rents: [Rent!]!
+  rooms: [Room!]
   loginSecret: String!
   createdAt: String
   updatedAt: String
@@ -88,6 +89,24 @@ type Comment {
   board: Board!
   market: Market!
   rent: Rent!
+  createdAt: String
+  updatedAt: String
+}
+
+type Room {
+  id: ID!
+  participants: [User!]!
+  messages: [Message!]!
+  createdAt: String
+  updatedAt: String
+}
+
+type Message {
+  id: ID!
+  text: String!
+  from: User!
+  to: User!
+  room: Room!
   createdAt: String
   updatedAt: String
 }

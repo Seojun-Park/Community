@@ -19,6 +19,10 @@ type AggregateMarket {
   count: Int!
 }
 
+type AggregateMessage {
+  count: Int!
+}
+
 type AggregateNotice {
   count: Int!
 }
@@ -28,6 +32,10 @@ type AggregatePost {
 }
 
 type AggregateRent {
+  count: Int!
+}
+
+type AggregateRoom {
   count: Int!
 }
 
@@ -1236,6 +1244,239 @@ input MarketWhereUniqueInput {
   id: ID
 }
 
+type Message {
+  id: ID!
+  text: String!
+  from: User!
+  to: User!
+  room: Room!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type MessageConnection {
+  pageInfo: PageInfo!
+  edges: [MessageEdge]!
+  aggregate: AggregateMessage!
+}
+
+input MessageCreateInput {
+  id: ID
+  text: String!
+  from: UserCreateOneInput!
+  to: UserCreateOneInput!
+  room: RoomCreateOneWithoutMessagesInput!
+}
+
+input MessageCreateManyWithoutRoomInput {
+  create: [MessageCreateWithoutRoomInput!]
+  connect: [MessageWhereUniqueInput!]
+}
+
+input MessageCreateWithoutRoomInput {
+  id: ID
+  text: String!
+  from: UserCreateOneInput!
+  to: UserCreateOneInput!
+}
+
+type MessageEdge {
+  node: Message!
+  cursor: String!
+}
+
+enum MessageOrderByInput {
+  id_ASC
+  id_DESC
+  text_ASC
+  text_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type MessagePreviousValues {
+  id: ID!
+  text: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input MessageScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  text: String
+  text_not: String
+  text_in: [String!]
+  text_not_in: [String!]
+  text_lt: String
+  text_lte: String
+  text_gt: String
+  text_gte: String
+  text_contains: String
+  text_not_contains: String
+  text_starts_with: String
+  text_not_starts_with: String
+  text_ends_with: String
+  text_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [MessageScalarWhereInput!]
+  OR: [MessageScalarWhereInput!]
+  NOT: [MessageScalarWhereInput!]
+}
+
+type MessageSubscriptionPayload {
+  mutation: MutationType!
+  node: Message
+  updatedFields: [String!]
+  previousValues: MessagePreviousValues
+}
+
+input MessageSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: MessageWhereInput
+  AND: [MessageSubscriptionWhereInput!]
+  OR: [MessageSubscriptionWhereInput!]
+  NOT: [MessageSubscriptionWhereInput!]
+}
+
+input MessageUpdateInput {
+  text: String
+  from: UserUpdateOneRequiredInput
+  to: UserUpdateOneRequiredInput
+  room: RoomUpdateOneRequiredWithoutMessagesInput
+}
+
+input MessageUpdateManyDataInput {
+  text: String
+}
+
+input MessageUpdateManyMutationInput {
+  text: String
+}
+
+input MessageUpdateManyWithoutRoomInput {
+  create: [MessageCreateWithoutRoomInput!]
+  delete: [MessageWhereUniqueInput!]
+  connect: [MessageWhereUniqueInput!]
+  set: [MessageWhereUniqueInput!]
+  disconnect: [MessageWhereUniqueInput!]
+  update: [MessageUpdateWithWhereUniqueWithoutRoomInput!]
+  upsert: [MessageUpsertWithWhereUniqueWithoutRoomInput!]
+  deleteMany: [MessageScalarWhereInput!]
+  updateMany: [MessageUpdateManyWithWhereNestedInput!]
+}
+
+input MessageUpdateManyWithWhereNestedInput {
+  where: MessageScalarWhereInput!
+  data: MessageUpdateManyDataInput!
+}
+
+input MessageUpdateWithoutRoomDataInput {
+  text: String
+  from: UserUpdateOneRequiredInput
+  to: UserUpdateOneRequiredInput
+}
+
+input MessageUpdateWithWhereUniqueWithoutRoomInput {
+  where: MessageWhereUniqueInput!
+  data: MessageUpdateWithoutRoomDataInput!
+}
+
+input MessageUpsertWithWhereUniqueWithoutRoomInput {
+  where: MessageWhereUniqueInput!
+  update: MessageUpdateWithoutRoomDataInput!
+  create: MessageCreateWithoutRoomInput!
+}
+
+input MessageWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  text: String
+  text_not: String
+  text_in: [String!]
+  text_not_in: [String!]
+  text_lt: String
+  text_lte: String
+  text_gt: String
+  text_gte: String
+  text_contains: String
+  text_not_contains: String
+  text_starts_with: String
+  text_not_starts_with: String
+  text_ends_with: String
+  text_not_ends_with: String
+  from: UserWhereInput
+  to: UserWhereInput
+  room: RoomWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [MessageWhereInput!]
+  OR: [MessageWhereInput!]
+  NOT: [MessageWhereInput!]
+}
+
+input MessageWhereUniqueInput {
+  id: ID
+}
+
 type Mutation {
   createBoard(data: BoardCreateInput!): Board!
   updateBoard(data: BoardUpdateInput!, where: BoardWhereUniqueInput!): Board
@@ -1261,6 +1502,12 @@ type Mutation {
   upsertMarket(where: MarketWhereUniqueInput!, create: MarketCreateInput!, update: MarketUpdateInput!): Market!
   deleteMarket(where: MarketWhereUniqueInput!): Market
   deleteManyMarkets(where: MarketWhereInput): BatchPayload!
+  createMessage(data: MessageCreateInput!): Message!
+  updateMessage(data: MessageUpdateInput!, where: MessageWhereUniqueInput!): Message
+  updateManyMessages(data: MessageUpdateManyMutationInput!, where: MessageWhereInput): BatchPayload!
+  upsertMessage(where: MessageWhereUniqueInput!, create: MessageCreateInput!, update: MessageUpdateInput!): Message!
+  deleteMessage(where: MessageWhereUniqueInput!): Message
+  deleteManyMessages(where: MessageWhereInput): BatchPayload!
   createNotice(data: NoticeCreateInput!): Notice!
   updateNotice(data: NoticeUpdateInput!, where: NoticeWhereUniqueInput!): Notice
   updateManyNotices(data: NoticeUpdateManyMutationInput!, where: NoticeWhereInput): BatchPayload!
@@ -1278,6 +1525,11 @@ type Mutation {
   upsertRent(where: RentWhereUniqueInput!, create: RentCreateInput!, update: RentUpdateInput!): Rent!
   deleteRent(where: RentWhereUniqueInput!): Rent
   deleteManyRents(where: RentWhereInput): BatchPayload!
+  createRoom(data: RoomCreateInput!): Room!
+  updateRoom(data: RoomUpdateInput!, where: RoomWhereUniqueInput!): Room
+  upsertRoom(where: RoomWhereUniqueInput!, create: RoomCreateInput!, update: RoomUpdateInput!): Room!
+  deleteRoom(where: RoomWhereUniqueInput!): Room
+  deleteManyRooms(where: RoomWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -1780,6 +2032,9 @@ type Query {
   market(where: MarketWhereUniqueInput!): Market
   markets(where: MarketWhereInput, orderBy: MarketOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Market]!
   marketsConnection(where: MarketWhereInput, orderBy: MarketOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MarketConnection!
+  message(where: MessageWhereUniqueInput!): Message
+  messages(where: MessageWhereInput, orderBy: MessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Message]!
+  messagesConnection(where: MessageWhereInput, orderBy: MessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MessageConnection!
   notice(where: NoticeWhereUniqueInput!): Notice
   notices(where: NoticeWhereInput, orderBy: NoticeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Notice]!
   noticesConnection(where: NoticeWhereInput, orderBy: NoticeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NoticeConnection!
@@ -1789,6 +2044,9 @@ type Query {
   rent(where: RentWhereUniqueInput!): Rent
   rents(where: RentWhereInput, orderBy: RentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Rent]!
   rentsConnection(where: RentWhereInput, orderBy: RentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RentConnection!
+  room(where: RoomWhereUniqueInput!): Room
+  rooms(where: RoomWhereInput, orderBy: RoomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Room]!
+  roomsConnection(where: RoomWhereInput, orderBy: RoomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RoomConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
@@ -2129,14 +2387,223 @@ input RentWhereUniqueInput {
   id: ID
 }
 
+type Room {
+  id: ID!
+  participants(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  messages(where: MessageWhereInput, orderBy: MessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Message!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type RoomConnection {
+  pageInfo: PageInfo!
+  edges: [RoomEdge]!
+  aggregate: AggregateRoom!
+}
+
+input RoomCreateInput {
+  id: ID
+  participants: UserCreateManyWithoutRoomsInput
+  messages: MessageCreateManyWithoutRoomInput
+}
+
+input RoomCreateManyWithoutParticipantsInput {
+  create: [RoomCreateWithoutParticipantsInput!]
+  connect: [RoomWhereUniqueInput!]
+}
+
+input RoomCreateOneWithoutMessagesInput {
+  create: RoomCreateWithoutMessagesInput
+  connect: RoomWhereUniqueInput
+}
+
+input RoomCreateWithoutMessagesInput {
+  id: ID
+  participants: UserCreateManyWithoutRoomsInput
+}
+
+input RoomCreateWithoutParticipantsInput {
+  id: ID
+  messages: MessageCreateManyWithoutRoomInput
+}
+
+type RoomEdge {
+  node: Room!
+  cursor: String!
+}
+
+enum RoomOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type RoomPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input RoomScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [RoomScalarWhereInput!]
+  OR: [RoomScalarWhereInput!]
+  NOT: [RoomScalarWhereInput!]
+}
+
+type RoomSubscriptionPayload {
+  mutation: MutationType!
+  node: Room
+  updatedFields: [String!]
+  previousValues: RoomPreviousValues
+}
+
+input RoomSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: RoomWhereInput
+  AND: [RoomSubscriptionWhereInput!]
+  OR: [RoomSubscriptionWhereInput!]
+  NOT: [RoomSubscriptionWhereInput!]
+}
+
+input RoomUpdateInput {
+  participants: UserUpdateManyWithoutRoomsInput
+  messages: MessageUpdateManyWithoutRoomInput
+}
+
+input RoomUpdateManyWithoutParticipantsInput {
+  create: [RoomCreateWithoutParticipantsInput!]
+  delete: [RoomWhereUniqueInput!]
+  connect: [RoomWhereUniqueInput!]
+  set: [RoomWhereUniqueInput!]
+  disconnect: [RoomWhereUniqueInput!]
+  update: [RoomUpdateWithWhereUniqueWithoutParticipantsInput!]
+  upsert: [RoomUpsertWithWhereUniqueWithoutParticipantsInput!]
+  deleteMany: [RoomScalarWhereInput!]
+}
+
+input RoomUpdateOneRequiredWithoutMessagesInput {
+  create: RoomCreateWithoutMessagesInput
+  update: RoomUpdateWithoutMessagesDataInput
+  upsert: RoomUpsertWithoutMessagesInput
+  connect: RoomWhereUniqueInput
+}
+
+input RoomUpdateWithoutMessagesDataInput {
+  participants: UserUpdateManyWithoutRoomsInput
+}
+
+input RoomUpdateWithoutParticipantsDataInput {
+  messages: MessageUpdateManyWithoutRoomInput
+}
+
+input RoomUpdateWithWhereUniqueWithoutParticipantsInput {
+  where: RoomWhereUniqueInput!
+  data: RoomUpdateWithoutParticipantsDataInput!
+}
+
+input RoomUpsertWithoutMessagesInput {
+  update: RoomUpdateWithoutMessagesDataInput!
+  create: RoomCreateWithoutMessagesInput!
+}
+
+input RoomUpsertWithWhereUniqueWithoutParticipantsInput {
+  where: RoomWhereUniqueInput!
+  update: RoomUpdateWithoutParticipantsDataInput!
+  create: RoomCreateWithoutParticipantsInput!
+}
+
+input RoomWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  participants_every: UserWhereInput
+  participants_some: UserWhereInput
+  participants_none: UserWhereInput
+  messages_every: MessageWhereInput
+  messages_some: MessageWhereInput
+  messages_none: MessageWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [RoomWhereInput!]
+  OR: [RoomWhereInput!]
+  NOT: [RoomWhereInput!]
+}
+
+input RoomWhereUniqueInput {
+  id: ID
+}
+
 type Subscription {
   board(where: BoardSubscriptionWhereInput): BoardSubscriptionPayload
   comment(where: CommentSubscriptionWhereInput): CommentSubscriptionPayload
   image(where: ImageSubscriptionWhereInput): ImageSubscriptionPayload
   market(where: MarketSubscriptionWhereInput): MarketSubscriptionPayload
+  message(where: MessageSubscriptionWhereInput): MessageSubscriptionPayload
   notice(where: NoticeSubscriptionWhereInput): NoticeSubscriptionPayload
   post(where: PostSubscriptionWhereInput): PostSubscriptionPayload
   rent(where: RentSubscriptionWhereInput): RentSubscriptionPayload
+  room(where: RoomSubscriptionWhereInput): RoomSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
@@ -2153,6 +2620,7 @@ type User {
   markets(where: MarketWhereInput, orderBy: MarketOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Market!]
   rents(where: RentWhereInput, orderBy: RentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Rent!]
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
+  rooms(where: RoomWhereInput, orderBy: RoomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Room!]
   loginSecret: String
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -2177,7 +2645,13 @@ input UserCreateInput {
   markets: MarketCreateManyWithoutUserInput
   rents: RentCreateManyWithoutUserInput
   comments: CommentCreateManyWithoutUserInput
+  rooms: RoomCreateManyWithoutParticipantsInput
   loginSecret: String
+}
+
+input UserCreateManyWithoutRoomsInput {
+  create: [UserCreateWithoutRoomsInput!]
+  connect: [UserWhereUniqueInput!]
 }
 
 input UserCreateOneInput {
@@ -2222,6 +2696,7 @@ input UserCreateWithoutBoardsInput {
   markets: MarketCreateManyWithoutUserInput
   rents: RentCreateManyWithoutUserInput
   comments: CommentCreateManyWithoutUserInput
+  rooms: RoomCreateManyWithoutParticipantsInput
   loginSecret: String
 }
 
@@ -2237,6 +2712,7 @@ input UserCreateWithoutCommentsInput {
   boards: BoardCreateManyWithoutUserInput
   markets: MarketCreateManyWithoutUserInput
   rents: RentCreateManyWithoutUserInput
+  rooms: RoomCreateManyWithoutParticipantsInput
   loginSecret: String
 }
 
@@ -2252,6 +2728,7 @@ input UserCreateWithoutMarketsInput {
   boards: BoardCreateManyWithoutUserInput
   rents: RentCreateManyWithoutUserInput
   comments: CommentCreateManyWithoutUserInput
+  rooms: RoomCreateManyWithoutParticipantsInput
   loginSecret: String
 }
 
@@ -2267,6 +2744,7 @@ input UserCreateWithoutPostsInput {
   markets: MarketCreateManyWithoutUserInput
   rents: RentCreateManyWithoutUserInput
   comments: CommentCreateManyWithoutUserInput
+  rooms: RoomCreateManyWithoutParticipantsInput
   loginSecret: String
 }
 
@@ -2281,6 +2759,23 @@ input UserCreateWithoutRentsInput {
   posts: PostCreateManyWithoutUserInput
   boards: BoardCreateManyWithoutUserInput
   markets: MarketCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
+  rooms: RoomCreateManyWithoutParticipantsInput
+  loginSecret: String
+}
+
+input UserCreateWithoutRoomsInput {
+  id: ID
+  avatar: String
+  email: String!
+  firstName: String
+  lastName: String
+  username: String!
+  intro: String
+  posts: PostCreateManyWithoutUserInput
+  boards: BoardCreateManyWithoutUserInput
+  markets: MarketCreateManyWithoutUserInput
+  rents: RentCreateManyWithoutUserInput
   comments: CommentCreateManyWithoutUserInput
   loginSecret: String
 }
@@ -2326,6 +2821,140 @@ type UserPreviousValues {
   updatedAt: DateTime!
 }
 
+input UserScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  avatar: String
+  avatar_not: String
+  avatar_in: [String!]
+  avatar_not_in: [String!]
+  avatar_lt: String
+  avatar_lte: String
+  avatar_gt: String
+  avatar_gte: String
+  avatar_contains: String
+  avatar_not_contains: String
+  avatar_starts_with: String
+  avatar_not_starts_with: String
+  avatar_ends_with: String
+  avatar_not_ends_with: String
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  firstName: String
+  firstName_not: String
+  firstName_in: [String!]
+  firstName_not_in: [String!]
+  firstName_lt: String
+  firstName_lte: String
+  firstName_gt: String
+  firstName_gte: String
+  firstName_contains: String
+  firstName_not_contains: String
+  firstName_starts_with: String
+  firstName_not_starts_with: String
+  firstName_ends_with: String
+  firstName_not_ends_with: String
+  lastName: String
+  lastName_not: String
+  lastName_in: [String!]
+  lastName_not_in: [String!]
+  lastName_lt: String
+  lastName_lte: String
+  lastName_gt: String
+  lastName_gte: String
+  lastName_contains: String
+  lastName_not_contains: String
+  lastName_starts_with: String
+  lastName_not_starts_with: String
+  lastName_ends_with: String
+  lastName_not_ends_with: String
+  username: String
+  username_not: String
+  username_in: [String!]
+  username_not_in: [String!]
+  username_lt: String
+  username_lte: String
+  username_gt: String
+  username_gte: String
+  username_contains: String
+  username_not_contains: String
+  username_starts_with: String
+  username_not_starts_with: String
+  username_ends_with: String
+  username_not_ends_with: String
+  intro: String
+  intro_not: String
+  intro_in: [String!]
+  intro_not_in: [String!]
+  intro_lt: String
+  intro_lte: String
+  intro_gt: String
+  intro_gte: String
+  intro_contains: String
+  intro_not_contains: String
+  intro_starts_with: String
+  intro_not_starts_with: String
+  intro_ends_with: String
+  intro_not_ends_with: String
+  loginSecret: String
+  loginSecret_not: String
+  loginSecret_in: [String!]
+  loginSecret_not_in: [String!]
+  loginSecret_lt: String
+  loginSecret_lte: String
+  loginSecret_gt: String
+  loginSecret_gte: String
+  loginSecret_contains: String
+  loginSecret_not_contains: String
+  loginSecret_starts_with: String
+  loginSecret_not_starts_with: String
+  loginSecret_ends_with: String
+  loginSecret_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [UserScalarWhereInput!]
+  OR: [UserScalarWhereInput!]
+  NOT: [UserScalarWhereInput!]
+}
+
 type UserSubscriptionPayload {
   mutation: MutationType!
   node: User
@@ -2356,6 +2985,7 @@ input UserUpdateDataInput {
   markets: MarketUpdateManyWithoutUserInput
   rents: RentUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
+  rooms: RoomUpdateManyWithoutParticipantsInput
   loginSecret: String
 }
 
@@ -2371,6 +3001,17 @@ input UserUpdateInput {
   markets: MarketUpdateManyWithoutUserInput
   rents: RentUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
+  rooms: RoomUpdateManyWithoutParticipantsInput
+  loginSecret: String
+}
+
+input UserUpdateManyDataInput {
+  avatar: String
+  email: String
+  firstName: String
+  lastName: String
+  username: String
+  intro: String
   loginSecret: String
 }
 
@@ -2382,6 +3023,23 @@ input UserUpdateManyMutationInput {
   username: String
   intro: String
   loginSecret: String
+}
+
+input UserUpdateManyWithoutRoomsInput {
+  create: [UserCreateWithoutRoomsInput!]
+  delete: [UserWhereUniqueInput!]
+  connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutRoomsInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutRoomsInput!]
+  deleteMany: [UserScalarWhereInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+}
+
+input UserUpdateManyWithWhereNestedInput {
+  where: UserScalarWhereInput!
+  data: UserUpdateManyDataInput!
 }
 
 input UserUpdateOneRequiredInput {
@@ -2439,6 +3097,7 @@ input UserUpdateWithoutBoardsDataInput {
   markets: MarketUpdateManyWithoutUserInput
   rents: RentUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
+  rooms: RoomUpdateManyWithoutParticipantsInput
   loginSecret: String
 }
 
@@ -2453,6 +3112,7 @@ input UserUpdateWithoutCommentsDataInput {
   boards: BoardUpdateManyWithoutUserInput
   markets: MarketUpdateManyWithoutUserInput
   rents: RentUpdateManyWithoutUserInput
+  rooms: RoomUpdateManyWithoutParticipantsInput
   loginSecret: String
 }
 
@@ -2467,6 +3127,7 @@ input UserUpdateWithoutMarketsDataInput {
   boards: BoardUpdateManyWithoutUserInput
   rents: RentUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
+  rooms: RoomUpdateManyWithoutParticipantsInput
   loginSecret: String
 }
 
@@ -2481,6 +3142,7 @@ input UserUpdateWithoutPostsDataInput {
   markets: MarketUpdateManyWithoutUserInput
   rents: RentUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
+  rooms: RoomUpdateManyWithoutParticipantsInput
   loginSecret: String
 }
 
@@ -2495,7 +3157,28 @@ input UserUpdateWithoutRentsDataInput {
   boards: BoardUpdateManyWithoutUserInput
   markets: MarketUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
+  rooms: RoomUpdateManyWithoutParticipantsInput
   loginSecret: String
+}
+
+input UserUpdateWithoutRoomsDataInput {
+  avatar: String
+  email: String
+  firstName: String
+  lastName: String
+  username: String
+  intro: String
+  posts: PostUpdateManyWithoutUserInput
+  boards: BoardUpdateManyWithoutUserInput
+  markets: MarketUpdateManyWithoutUserInput
+  rents: RentUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
+  loginSecret: String
+}
+
+input UserUpdateWithWhereUniqueWithoutRoomsInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutRoomsDataInput!
 }
 
 input UserUpsertNestedInput {
@@ -2526,6 +3209,12 @@ input UserUpsertWithoutPostsInput {
 input UserUpsertWithoutRentsInput {
   update: UserUpdateWithoutRentsDataInput!
   create: UserCreateWithoutRentsInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutRoomsInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutRoomsDataInput!
+  create: UserCreateWithoutRoomsInput!
 }
 
 input UserWhereInput {
@@ -2642,6 +3331,9 @@ input UserWhereInput {
   comments_every: CommentWhereInput
   comments_some: CommentWhereInput
   comments_none: CommentWhereInput
+  rooms_every: RoomWhereInput
+  rooms_some: RoomWhereInput
+  rooms_none: RoomWhereInput
   loginSecret: String
   loginSecret_not: String
   loginSecret_in: [String!]

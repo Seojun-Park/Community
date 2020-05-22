@@ -11,6 +11,7 @@ type User {
   markets:[Market!]! @relation(name:"MarketsOfUser", onDelete: CASCADE)
   rents:[Rent!]! @relation(name:"RentsOfUser", onDelete: CASCADE)
   comments: [Comment!]! @relation(name:"CommentsOfUser", onDelete: CASCADE)
+  rooms: [Room!]!
   loginSecret: String
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
@@ -81,6 +82,24 @@ type Comment {
   board: Board @relation(name:"CommentsOfBoard")
   market: Market @relation(name:"CommentsOfMarket")
   rent: Rent @relation(name:"CommentsOfRent")
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Room {
+  id: ID! @id
+  participants: [User!]!
+  messages: [Message!]!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Message {
+  id: ID! @id
+  text: String!
+  from: User! @relation(name: "From")
+  to: User! @relation(name: "To")
+  room: Room!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
