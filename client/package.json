@@ -43,6 +43,7 @@
     "bootstrap": "^4.4.1",
     "citymapper": "^1.0.1",
     "clsx": "^1.1.0",
+    "country-flags-svg": "^0.2.12",
     "deck.gl": "^8.1.4",
     "dublinbus-client": "^1.0.10",
     "firebase": "^7.14.3",
