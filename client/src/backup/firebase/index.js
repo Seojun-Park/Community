@@ -1,6 +1,6 @@
 import firebase from 'firebase/app'
 import 'firebase/storage'
-import { FIREBASE_CONFIG } from '../key'
+import { FIREBASE_CONFIG } from '../../key'
 
 const config = FIREBASE_CONFIG;
 

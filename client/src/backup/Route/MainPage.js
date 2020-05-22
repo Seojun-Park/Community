@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { CircularProgress } from "@material-ui/core";
 import { useQuery } from "@apollo/react-hooks";
-import { BOARD_DATA } from "../SharedQueries";
+import { BOARD_DATA } from "../../SharedQueries";
 import FatText from "../components/FatText";
 import Carousel from "react-bootstrap/Carousel";
 
@@ -39,7 +39,6 @@ const Contents = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
   &:not(:last-child) {
       margin: 10px;
       margin: 10px auto;
@@ -173,12 +172,6 @@ export default () => {
           <FatText text="Market" />
           <ContentRow>
             <Content>마켓</Content>
-          </ContentRow>
-        </Contents>
-        <Contents>
-          <FatText text="News" />
-          <ContentRow>
-            <Content>뉴스</Content>
           </ContentRow>
         </Contents>
       </Wrapper>

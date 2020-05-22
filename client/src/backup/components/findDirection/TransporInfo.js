@@ -4,7 +4,7 @@ import axios from "axios";
 import BusOption from "./busOptions";
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import ReactMapGL, { GeolocateControl, Marker } from "react-map-gl";
-import { MAP_TOKEN } from "../../key";
+import { MAP_TOKEN } from "../../../key";
 import { MarkerIcon, BikeIcon } from "../Icon";
 // import useInput from "../InputTool";
 

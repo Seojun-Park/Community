@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import Input from "../components/Input";
-import Menu from '../components/Menu'
+import Input from "./Input";
+import Menu from './Menu'
+import Login from './Login'
 
 const Wrapper = styled.header`
   width: 100%;
@@ -57,6 +58,8 @@ const HeaderRow = styled.div`
     }
     &:last-child {
       justify-content: space-between;
+      padding-left: 8%;
+      padding-right: 8%;
     }
   }
 `;
@@ -144,7 +147,7 @@ export default () => {
               <Link to="/meetup">모임</Link>
             </MenuBlock>
             <MenuBlock>
-              <Link to="/direction">경로찾기</Link>
+              <Link to="/login">로그인</Link>
             </MenuBlock>
           </HeaderCol>
           <HeaderCol>

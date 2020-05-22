@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { CircularProgress } from "@material-ui/core";
-import { BOARD_DATA } from "../../SharedQueries";
+import { BOARD_DATA } from "../../../SharedQueries";
 import ContentPresenter from "../../components/ContentPresenter";
 
 export default () => {

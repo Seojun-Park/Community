@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ContentPresenter from '../../components/ContentPresenter'
 import { useQuery } from '@apollo/react-hooks';
 import { CircularProgress } from '@material-ui/core';
-import { NOTICE_DATA } from '../../SharedQueries';
+import { NOTICE_DATA } from '../../../SharedQueries';
 
 export default () => {
     const { data, loading } = useQuery(NOTICE_DATA);

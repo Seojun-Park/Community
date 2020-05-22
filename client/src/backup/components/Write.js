@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useMutation } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 import styled from "styled-components";
 import { toast } from "react-toastify";
 import Input from "./Input";
 import useInput from "./InputTool";
-import { UPLOAD_BOARD, UPLOAD_MARKET } from "../SharedQueries";
+import { ME, UPLOAD_BOARD, UPLOAD_MARKET } from "../../SharedQueries";
 import { storage } from "../firebase";
 
 const Wrapper = styled.div`
@@ -86,11 +86,11 @@ const Button = styled.button`
   }
 `;
 
-export default data => {
-  // console.log(data);
-  const path = data.match.path.split("/")[1];
+export default ({ match }) => {
+  const { path } = match.path.split("/")[1];
   const title = useInput("");
   const caption = useInput("");
+  const { data } = useQuery(ME);
   const [uploadBoardMutation] = useMutation(UPLOAD_BOARD, {
     variables: {
       title: title.value,
@@ -168,36 +168,42 @@ export default data => {
             .child(content.image.name)
             .getDownloadURL()
             .then(url => {
+              console.log(url);
               setContent({ url });
             });
         }
       );
     }
   };
-  console.log(content)
+  console.log(content.image, title.value, caption.value, path);
 
   return (
     <Wrapper>
-      <Container onSubmit={handleChangeValue}>
-        <Head>
-          <Title>Title</Title>
-          <Input
-            placeholder={"Title"}
-            setValue={title.value}
-            onChange={title.onChange}
-          />
-        </Head>
-        <InputField>
-          <InputBox type="file" onChange={handleChange} />
-        </InputField>
-        <Body>
-          <Title>Textarea</Title>
-          <TextArea setValue={caption.value} onChange={caption.onChange} />
-        </Body>
-        <Button type="submit" onClick={handleUpload}>
-          submit
-        </Button>
-      </Container>
+      {console.log(data)}
+      {data || (data && data.me) === undefined ? (
+        "you need to login"
+      ) : (
+        <Container onSubmit={handleChangeValue}>
+          <Head>
+            <Title>Title</Title>
+            <Input
+              placeholder={"Title"}
+              setValue={title.value}
+              onChange={title.onChange}
+            />
+          </Head>
+          <InputField>
+            <InputBox type="file" onChange={handleChange} />
+          </InputField>
+          <Body>
+            <Title>Textarea</Title>
+            <TextArea setValue={caption.value} onChange={caption.onChange} />
+          </Body>
+          <Button type="submit" onClick={handleUpload}>
+            submit
+          </Button>
+        </Container>
+      )}
     </Wrapper>
   );
 };

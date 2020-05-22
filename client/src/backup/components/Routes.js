@@ -12,6 +12,25 @@ import Detail from './Detail'
 import Direction from './findDirection'
 import MeetUp from '../Route/MeetUp'
 
+const Routes = () => (
+    <Switch>
+        <Route exact path="/" component={Main} />
+        <Route path="/login" component={Auth} />
+        <Route path="/direction" component={Direction} />
+        <Route path="/notice" component={Notice} />
+        <Route path="/news" component={News} />
+        <Route path="/board/write" component={Write} />
+        <Route path="/board/:id" exact component={Detail} />
+        <Route path="/board" component={Board} />
+        <Route path="/market/write" component={Write} />
+        <Route path="/market/:id" exact component={Detail} />
+        <Route path="/market" component={Market} />
+        <Route path="/meetup" component={MeetUp} />
+        <Redirect from="*" to="/" />
+    </Switch>
+)
+
+
 const LoggedInRoutes = () => (
     <Switch>
         <Route exact path="/" component={Main} />
@@ -31,7 +50,17 @@ const LoggedInRoutes = () => (
 
 const LoggedOutRoutes = () => (
     <Switch>
-        <Route exact path="/" component={Auth} />
+        <Route exact path="/" component={Main} />
+        <Route path="/direction" component={Direction} />
+        <Route path="/notice" component={Notice} />
+        <Route path="/news" component={News} />
+        <Route path="/board/write" component={Write} />
+        <Route path="/board/:id" exact component={Detail} />
+        <Route path="/board" component={Board} />
+        <Route path="/market/write" component={Write} />
+        <Route path="/market/:id" exact component={Detail} />
+        <Route path="/market" component={Market} />
+        <Route path="/meetup" component={MeetUp} />
         <Redirect from="*" to="/" />
     </Switch>
 )

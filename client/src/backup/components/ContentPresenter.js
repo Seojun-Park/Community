@@ -52,6 +52,9 @@ const TopCell = styled.th`
   &:not(:last-child) {
     border-right: 1px solid #95a5a6;
   }
+  @media screen and (min-width: 769px) {
+    font-size:14px;
+  }
 `;
 
 const TableBody = styled.tbody``;
@@ -70,6 +73,9 @@ const MidCell = styled.th`
   text-align: center;
   &:not(:last-child) {
     border-right: 1px solid #95a5a6;
+  }
+  @media screen and (min-width: 769px) {
+    font-size:14px;
   }
 `;
 

@@ -9,7 +9,7 @@ import {
   ADD_MARKET_COMMENT,
   SEE_BOARD_DETAIL,
   SEE_MARKET_DETAIL
-} from "../SharedQueries";
+} from "../../SharedQueries";
 import { toast } from "react-toastify";
 
 const Wrapper = styled.div`
@@ -87,11 +87,18 @@ const Comment = styled.span`
 `;
 
 const Tools = styled.div`
+  margin-top: 15px;
   display: flex;
+  @media screen and (min-width: 769px) {
+    margin-top: 30px;
+  }
 `;
 
 const Textarea = styled(Input)`
   margin-right: 8px;
+  @media screen and (min-width: 769px) {
+    width: 100%;
+  }
 `;
 
 const Button = styled.button`

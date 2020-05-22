@@ -1,5 +1,20 @@
 import { gql } from "apollo-boost";
 
+export const ME = gql`
+  query me {
+    me {
+      id
+      email
+      avatar
+      username
+      firstName
+      lastName
+      intro
+    }
+  }
+`;
+
+
 export const BOARD_DATA = gql`
   query showBoard {
     showBoard {

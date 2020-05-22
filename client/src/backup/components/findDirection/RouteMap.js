@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import mapboxgl from "mapbox-gl";
 import styled from "styled-components";
-import { MAP_TOKEN } from "../../key";
+import { MAP_TOKEN } from "../../../key";
 import MapboxDirections from "@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions";
 import "@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css";
 
