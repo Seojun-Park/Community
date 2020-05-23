@@ -68,7 +68,7 @@ export default () => {
           </HeaderCol>
           <HeaderCol>
             <MenuText>
-              <Link to="/">소식</Link>
+              <Link to="/notice">소식</Link>
             </MenuText>
           </HeaderCol>
           <HeaderCol>
