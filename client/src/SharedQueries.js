@@ -45,6 +45,10 @@ export const NOTICE_DATA = gql`
       title
       caption
       hit
+      user{
+        id
+        username
+      }
       createdAt
     }
   }

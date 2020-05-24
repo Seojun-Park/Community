@@ -58,6 +58,7 @@
     "mapbox-gl-geocoder": "^2.0.1",
     "papaparse": "^5.2.0",
     "prop-types": "^15.7.2",
+    "rc-pagination": "^2.2.2",
     "react-autosize-textarea": "^7.0.0",
     "react-bootstrap": "^1.0.1",
     "react-csv-reader": "^3.0.6",
