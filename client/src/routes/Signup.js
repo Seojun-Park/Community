@@ -37,7 +37,7 @@ const Title = styled.span`
   font-weight: 600;
 `;
 
-const LoginBoxContent = styled.div`
+const LoginBoxContent = styled.form`
   padding-top: 25px;
   display: flex;
   justify-content: center;
@@ -50,7 +50,7 @@ const Input = styled.input`
   border-radius: 4px;
   border: none;
   background-color: #dfe6e9;
-
+  text-align: center;
   width: 200px;
 
   &:not(:last-child) {
@@ -67,9 +67,10 @@ const Textarea = styled.textarea`
   margin-bottom: 15px;
   width: 200px;
   height: 100px;
+  text-align: center;
 `;
 
-const Button = styled.button`
+const Button = styled.div`
   padding: 8px;
   width: 200px;
   border-radius: 4px;
@@ -109,7 +110,7 @@ export default () => {
           toast.error("Can't create account");
         } else {
           toast.success("Account Created");
-          setTimeout(() =>window.location.href="/", 3000)
+          window.location.href = "/";
         }
       } catch (e) {
         toast.error(e.message);
@@ -127,7 +128,7 @@ export default () => {
           <Header>
             <Title>회원가입</Title>
           </Header>
-          <LoginBoxContent>
+          <LoginBoxContent onSubmit={onSubmit}>
             <Input
               placeholder="email"
               value={email.value}
@@ -153,7 +154,7 @@ export default () => {
               value={intro.value}
               onChange={intro.onChange}
             />
-            <Button onClick={onSubmit}>Sumbit</Button>
+            <Button>Sumbit</Button>
           </LoginBoxContent>
         </LoginBox>
       </Container>
