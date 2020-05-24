@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useQuery } from "@apollo/react-hooks";
+import { ME } from "../SharedQueries";
 
 const Wrapper = styled.div`
   ${props => props.theme.wrapperBox};
@@ -56,6 +58,17 @@ const MenuText = styled.span`
 `;
 
 export default () => {
+  const [option, setOption] = useState("on");
+  try {
+    const {
+      data: { me }
+    } = useQuery(ME);
+    if (me) {
+      setOption("off");
+    }
+  } catch {
+    console.log("You need to login");
+  }
   return (
     <Wrapper>
       <Container>
@@ -68,7 +81,7 @@ export default () => {
           </HeaderCol>
           <HeaderCol>
             <MenuText>
-              <Link to="/notice">소식</Link>
+              <Link to="/notice">게시판</Link>
             </MenuText>
           </HeaderCol>
           <HeaderCol>
@@ -79,6 +92,20 @@ export default () => {
           <HeaderCol>
             <MenuText>
               <Link to="/">정보</Link>
+            </MenuText>
+          </HeaderCol>
+          <HeaderCol>
+            <MenuText>
+              {option === "on" ? (
+                <Link to="/login">로그인</Link>
+              ) : (
+                "로그아웃"
+              )}
+            </MenuText>
+          </HeaderCol>
+          <HeaderCol>
+            <MenuText>
+              {option === "on" && <Link to="/signup">회원가입</Link>}
             </MenuText>
           </HeaderCol>
         </HeaderRow>

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { NOTICE_DATA } from "../SharedQueries";
+import { NOTICE_DATA, ME } from "../SharedQueries";
 import { useQuery } from "@apollo/react-hooks";
 import Loader from "../components/Loader";
 import Boardframe from "../components/BoardFrame";
@@ -55,6 +55,17 @@ const ViewRow = styled.div``;
 
 export default () => {
   const { data, loading } = useQuery(NOTICE_DATA);
+  
+  // try {
+  //   const {
+  //     data: { me }
+  //   } = useQuery(ME);
+  // } catch {
+  //   console.log("You need to login");
+  // }
+
+  // console.log(me);
+
   return (
     <Wrapper>
       {loading ? (
@@ -67,10 +78,7 @@ export default () => {
           </Head>
           <View>
             <ViewCol>
-              <Boardframe
-              data={data.showNotice}
-              action="notice"
-              />
+              <Boardframe data={data.showNotice} action="notice" />
             </ViewCol>
             <ViewCol>
               <ViewRow>list box</ViewRow>
