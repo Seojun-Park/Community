@@ -144,7 +144,15 @@ export default ({ data: props, action }) => {
                   <TableRow key={i}>
                     <TableBodyCell className="number">{i}</TableBodyCell>
                     <TableBodyCell className="title">{d.title}</TableBodyCell>
-                    <TableBodyCell className="status">{d.title}</TableBodyCell>
+                    {d.status === "one" && (
+                      <TableBodyCell className="status">판매중</TableBodyCell>
+                    )}
+                    {d.status === "two" && (
+                      <TableBodyCell className="status">예약중</TableBodyCell>
+                    )}
+                    {d.status === "three" && (
+                      <TableBodyCell className="status">판매완료</TableBodyCell>
+                    )}
                     <TableBodyCell className="writer">
                       {d.user.username}
                     </TableBodyCell>

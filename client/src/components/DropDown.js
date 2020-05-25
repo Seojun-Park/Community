@@ -20,7 +20,7 @@ const NavbarDropdown = styled.div`
     display: flex;
     flex-direction: column;
     transition: 0.2s linear;
-    opacity: 0.8;
+    opacity: 0.9;
   }
 `;
 

@@ -111,7 +111,6 @@ export default () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    console.log(status);
     try {
       if (action === "board") {
         const {
@@ -155,8 +154,6 @@ export default () => {
     }
   };
 
-  console.log(status);
-  console.log(action);
   return (
     <Wrapper>
       <Container>
@@ -188,9 +185,10 @@ export default () => {
             <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
           </ButtonContainer>
         </UploadContainer>
-        {(flag === true && action === "board" && <Redirect to="/board" />) ||
+        {flag === true && <Redirect to="/" />}
+        {/* {(flag === true && action === "board" && <Redirect to="/board" />) ||
           (action === "market" && <Redirect to="/market" />) ||
-          (action === "rent" && <Redirect to="/rent" />)}
+          (action === "rent" && <Redirect to="/rent" />)} */}
       </Container>
     </Wrapper>
   );
