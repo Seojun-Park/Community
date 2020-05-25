@@ -109,10 +109,17 @@ export const SEE_BOARD_DETAIL = gql`
       caption
       createdAt
       hit
+      user {
+        id
+        avatar
+        username
+      }
       comments {
         id
         text
         user {
+          id
+          avatar
           username
         }
         createdAt
@@ -128,6 +135,11 @@ export const SEE_MARKET_DETAIL = gql`
       title
       caption
       createdAt
+      user {
+        id
+        avatar
+        username
+      }
       hit
       comments {
         id
@@ -141,10 +153,31 @@ export const SEE_MARKET_DETAIL = gql`
   }
 `;
 
+export const SEE_NOTICE_DETAIL = gql`
+  query seeNoticeDetail($id: String!) {
+    seeNoticeDetail(id: $id) {
+      id
+      user {
+        id
+        avatar
+      }
+      title
+      caption
+      createdAt
+      hit
+    }
+  }
+`;
+
 export const SEE_RENT_DETAIL = gql`
   query seeRentDetail($id: String!) {
     seeRentDetail(id: $id) {
       id
+      user {
+        id
+        avatar
+        username
+      }
       title
       caption
       createdAt
@@ -152,6 +185,8 @@ export const SEE_RENT_DETAIL = gql`
         id
         text
         user {
+          id
+          avatar
           username
         }
         createdAt
@@ -161,8 +196,18 @@ export const SEE_RENT_DETAIL = gql`
 `;
 
 export const UPLOAD_BOARD = gql`
-  mutation uploadBoard($title: String!, $caption: String!, $status:String, $username: String) {
-    uploadBoard(title: $title, caption: $caption, status: $status, username: $username) {
+  mutation uploadBoard(
+    $title: String!
+    $caption: String!
+    $status: String
+    $username: String
+  ) {
+    uploadBoard(
+      title: $title
+      caption: $caption
+      status: $status
+      username: $username
+    ) {
       user {
         id
         username
@@ -173,8 +218,18 @@ export const UPLOAD_BOARD = gql`
 `;
 
 export const UPLOAD_MARKET = gql`
-  mutation uploadMarket($title: String!, $caption: String!, $status: String,$username: String) {
-    uploadMarket(title: $title, caption: $caption, status: $status, username: $username) {
+  mutation uploadMarket(
+    $title: String!
+    $caption: String!
+    $status: String
+    $username: String
+  ) {
+    uploadMarket(
+      title: $title
+      caption: $caption
+      status: $status
+      username: $username
+    ) {
       user {
         id
         username
@@ -185,8 +240,18 @@ export const UPLOAD_MARKET = gql`
 `;
 
 export const UPLOAD_RENT = gql`
-  mutation uploadRent($title: String!, $caption: String!, $status: String, $username: String) {
-    uploadRent(title: $title, caption: $caption, status: $status, username: $username) {
+  mutation uploadRent(
+    $title: String!
+    $caption: String!
+    $status: String
+    $username: String
+  ) {
+    uploadRent(
+      title: $title
+      caption: $caption
+      status: $status
+      username: $username
+    ) {
       user {
         id
         username
