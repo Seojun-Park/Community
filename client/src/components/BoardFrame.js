@@ -105,6 +105,12 @@ const TableBodyCell = styled.li.attrs(props => ({
   font-weight: 500;
 `;
 
+const ELink = styled(Link)`
+  a {
+    text-decoration: none;
+  }
+`;
+
 export default ({ data: props, action }) => {
   const [data, setData] = useState({
     pageSize: 20,
@@ -147,7 +153,7 @@ export default ({ data: props, action }) => {
                   <TableRow key={i}>
                     <TableBodyCell className="number">{i}</TableBodyCell>
                     <TableBodyCell className="title">
-                      <Link to={`/detail/${action}/${d.id}`}>{d.title}</Link>
+                      <ELink to={`/detail/${action}/${d.id}`}>{d.title}</ELink>
                     </TableBodyCell>
                     {d.status === "one" && (
                       <TableBodyCell className="status">판매중</TableBodyCell>
