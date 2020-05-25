@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Input from "./Input";
-import Menu from './Menu'
-import Login from './Login'
+import Menu from "./Menu";
+import Login from "./Login";
 
 const Wrapper = styled.header`
   width: 100%;
@@ -127,7 +127,8 @@ const SearchInput = styled(Input)`
   }
 `;
 
-export default () => {
+export default (data) => {
+  console.log(data);
   return (
     <Wrapper>
       <Header>

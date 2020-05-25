@@ -22,12 +22,13 @@ export default () => {
   const {
     data: { isLoggedIn }
   } = useQuery(QUERY);
+  console.log(isLoggedIn);
   return (
     <ThemeProvider theme={Theme}>
       <Router>
         <GlobalStyle />
         <Wrapper>
-          <Header />
+          <Header isLoggedIn={isLoggedIn} />
           <Routes />
           <Footer />
         </Wrapper>

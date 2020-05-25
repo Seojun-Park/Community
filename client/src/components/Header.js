@@ -57,18 +57,19 @@ const MenuText = styled.span`
   }
 `;
 
-export default () => {
+export default ({ isLoggedIn }) => {
+  console.log(isLoggedIn);
   const [option, setOption] = useState("on");
-  try {
-    const {
-      data: { me }
-    } = useQuery(ME);
-    if (me) {
-      setOption("off");
-    }
-  } catch {
-    console.log("You need to login");
-  }
+  // try {
+  //   const {
+  //     data: { me }
+  //   } = useQuery(ME);
+  //   if (me) {
+  //     setOption("off");
+  //   }
+  // } catch {
+  //   console.log("You need to login");
+  // }
   return (
     <Wrapper>
       <Container>
@@ -96,7 +97,7 @@ export default () => {
           </HeaderCol>
           <HeaderCol>
             <MenuText>
-              {option === "on" ? (
+              {isLoggedIn === false ? (
                 <Link to="/login">로그인</Link>
               ) : (
                 "로그아웃"
@@ -105,7 +106,7 @@ export default () => {
           </HeaderCol>
           <HeaderCol>
             <MenuText>
-              {option === "on" && <Link to="/signup">회원가입</Link>}
+              {isLoggedIn === false && <Link to="/signup">회원가입</Link>}
             </MenuText>
           </HeaderCol>
         </HeaderRow>

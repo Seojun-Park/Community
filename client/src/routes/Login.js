@@ -82,7 +82,7 @@ export default () => {
             toast.error("you don't have account, pls sign up first");
           } else {
             toast.success("Check your email");
-            setAction("confirm");
+            setTimeout(() => setAction("confirm"), 2000);
           }
         } catch {
           toast.error("Can't request secret code, try again");
