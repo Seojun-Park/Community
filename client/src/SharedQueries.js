@@ -14,13 +14,13 @@ export const ME = gql`
   }
 `;
 
-
 export const BOARD_DATA = gql`
   query showBoard {
     showBoard {
       id
       title
       caption
+      status
       comments {
         id
         user {
@@ -45,7 +45,7 @@ export const NOTICE_DATA = gql`
       title
       caption
       hit
-      user{
+      user {
         id
         username
       }
@@ -61,6 +61,7 @@ export const MARKET_DATA = gql`
       title
       caption
       hit
+      status
       comments {
         id
         text
@@ -83,6 +84,7 @@ export const RENT_DATA = gql`
       id
       title
       caption
+      status
       comments {
         id
         text
@@ -159,8 +161,8 @@ export const SEE_RENT_DETAIL = gql`
 `;
 
 export const UPLOAD_BOARD = gql`
-  mutation uploadBoard($title: String!, $caption: String!, $username: String) {
-    uploadBoard(title: $title, caption: $caption, username: $username) {
+  mutation uploadBoard($title: String!, $caption: String!, $status:String, $username: String) {
+    uploadBoard(title: $title, caption: $caption, status: $status, username: $username) {
       user {
         id
         username
@@ -171,8 +173,8 @@ export const UPLOAD_BOARD = gql`
 `;
 
 export const UPLOAD_MARKET = gql`
-  mutation uploadMarket($title: String!, $caption: String!, $username: String) {
-    uploadMarket(title: $title, caption: $caption, username: $username) {
+  mutation uploadMarket($title: String!, $caption: String!, $status: String,$username: String) {
+    uploadMarket(title: $title, caption: $caption, status: $status, username: $username) {
       user {
         id
         username
@@ -183,8 +185,8 @@ export const UPLOAD_MARKET = gql`
 `;
 
 export const UPLOAD_RENT = gql`
-  mutation uploadRent($title: String!, $caption: String!, $username: String) {
-    uploadRent(title: $title, caption: $caption, username: $username) {
+  mutation uploadRent($title: String!, $caption: String!, $status: String, $username: String) {
+    uploadRent(title: $title, caption: $caption, status: $status, username: $username) {
       user {
         id
         username

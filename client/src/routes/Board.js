@@ -90,7 +90,7 @@ export default () => {
             <ViewCol>
               <ButtonContainer>
                 {isLoggedIn === true ? (
-                  <WriteButton to="/write/notice">글쓰기</WriteButton>
+                  <WriteButton to="/write/board">글쓰기</WriteButton>
                 ) : (
                   "글 작성을 위해 로그인 해주세요"
                 )}

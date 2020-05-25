@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Redirect } from "react-router-dom";
 import { UPLOAD_BOARD, UPLOAD_RENT, UPLOAD_MARKET } from "../SharedQueries";
 import { useMutation } from "@apollo/react-hooks";
 import useInput from "../hooks/useInput";
@@ -73,7 +74,8 @@ export default () => {
   const action = window.location.href.split("/")[5];
   const title = useInput("");
   const caption = useInput("");
-  const [status, setStatus] = useState("");
+  const [flag, setFlag] = useState(false);
+  const [status, setStatus] = useState("one");
 
   const options = [
     { value: "one", label: "판매중" },
@@ -86,61 +88,74 @@ export default () => {
   const [uploadBoardMutation] = useMutation(UPLOAD_BOARD, {
     variables: {
       title: title.value,
-      caption: caption.value
+      caption: caption.value,
+      status: status
     }
   });
 
   const [uploadMarketMutation] = useMutation(UPLOAD_MARKET, {
     variables: {
       title: title.value,
-      caption: caption.value
+      caption: caption.value,
+      status: status
     }
   });
 
   const [uploadRentMutation] = useMutation(UPLOAD_RENT, {
     variables: {
       title: title.value,
-      caption: caption.value
+      caption: caption.value,
+      status: status
     }
   });
 
   const handleSubmit = async e => {
     e.preventDefault();
-    if (action === "board") {
-      const {
-        data: { uploadBoard }
-      } = await uploadBoardMutation();
-      if (uploadBoard) {
-        toast.success("done");
+    console.log(status);
+    try {
+      if (action === "board") {
+        const {
+          data: { uploadBoard }
+        } = await uploadBoardMutation();
+        if (uploadBoard) {
+          toast.success("done");
+          setTimeout(() => setFlag(true), 1000);
+        }
+      } else if (action === "market") {
+        const {
+          data: { uploadMarket }
+        } = await uploadMarketMutation();
+        if (uploadMarket) {
+          toast.success("done");
+          setTimeout(() => setFlag(true), 1000);
+        }
+      } else if (action === "rent") {
+        const {
+          data: { uploadRent }
+        } = await uploadRentMutation();
+        if (uploadRent) {
+          toast.success("done");
+          setTimeout(() => setFlag(true), 1000);
+        }
       }
-    } else if (action === "market") {
-      const {
-        data: { uploadMarket }
-      } = await uploadMarketMutation();
-      if (uploadMarket) {
-        toast.success("done");
-      }
-    } else if (action === "rent") {
-      const {
-        data: { uploadRent }
-      } = await uploadRentMutation();
-      if (uploadRent) {
-        toast.success("done");
-      }
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setFlag(false);
     }
   };
 
   const handleSelect = e => {
-    e.preventDefault();
     if (e.value === "one") {
-      setStatus("판매중");
+      setStatus("one");
     } else if (e.value === "two") {
-      setStatus("예약중");
+      setStatus("two");
     } else if (e.value === "three") {
-      setStatus("판매 완료");
+      setStatus("three");
     }
   };
 
+  console.log(status);
   console.log(action);
   return (
     <Wrapper>
@@ -173,6 +188,9 @@ export default () => {
             <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
           </ButtonContainer>
         </UploadContainer>
+        {(flag === true && action === "board" && <Redirect to="/board" />) ||
+          (action === "market" && <Redirect to="/market" />) ||
+          (action === "rent" && <Redirect to="/rent" />)}
       </Container>
     </Wrapper>
   );

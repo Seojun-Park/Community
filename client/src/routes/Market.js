@@ -90,12 +90,12 @@ export default () => {
             <ViewCol>
               <ButtonContainer>
                 {isLoggedIn === true ? (
-                  <WriteButton to="/write/notice">글쓰기</WriteButton>
+                  <WriteButton to="/write/market">글쓰기</WriteButton>
                 ) : (
                   alert("글작성을 위해 로그인을 해주세요")
                 )}
               </ButtonContainer>
-              <Boardframe data={data.showBoard} action="market" />
+              <Boardframe data={data.showMarket} action="market" />
             </ViewCol>
             <ViewCol>
               <ViewRow>list box</ViewRow>

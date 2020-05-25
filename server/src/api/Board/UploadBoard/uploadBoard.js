@@ -5,6 +5,7 @@ export default {
     uploadBoard: async (_, args, { request }) => {
       const { user } = request;
       const { title, caption, status } = args;
+      console.log(status);
       const board = await prisma.createBoard({
         caption,
         title,
