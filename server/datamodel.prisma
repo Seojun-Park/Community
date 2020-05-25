@@ -43,6 +43,7 @@ type Market {
   user: User! @relation(name:"MarketsOfUser")
   title: String!
   caption: String!
+  status: String!
   comments: [Comment!] @relation(name:"CommentsOfMarket", onDelete: CASCADE)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt 
@@ -53,6 +54,7 @@ type Rent {
   user: User! @relation(name:"RentsOfUser")
   title: String!
   caption: String!
+  status: String!
   comments: [Comment!] @relation(name:"CommentsOfRent", onDelete: CASCADE)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt 
@@ -63,6 +65,7 @@ type Board {
   user: User! @relation(name:"BoardsOfUser")
   title: String!
   caption: String!
+  status: String!
   comments: [Comment!]! @relation(name:"CommentsOfBoard", onDelete: CASCADE)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt 

@@ -2,6 +2,7 @@ type Mutation {
     uploadMarket(
         title: String!
         caption: String!
+        status: String
         username: String
     ): Market!
 }

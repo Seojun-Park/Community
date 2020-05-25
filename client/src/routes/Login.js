@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { LOCAL_LOG_IN, LOG_IN, CONFIRM_SECRET } from "../SharedQueries";
+import { Redirect } from "react-router-dom";
 import useInput from "../hooks/useInput";
 import { useMutation } from "@apollo/react-hooks";
 import { toast } from "react-toastify";
+import { AppContext } from "../components/App";
 
 const Wrapper = styled.div`
   ${props => props.theme.wrapperBox}
@@ -55,6 +57,7 @@ export default () => {
   const [action, setAction] = useState("login");
   const email = useInput("");
   const secret = useInput("");
+  const isLoggedIn = useContext(AppContext);
 
   const [requestCodeMutation] = useMutation(LOG_IN, {
     variables: {
@@ -133,6 +136,7 @@ export default () => {
                 <Button>Confrim</Button>
               </form>
             )}
+            {isLoggedIn === true && <Redirect to="/" />}
           </LoginWrapper>
         </LoginBox>
       </Container>

@@ -481,6 +481,8 @@ export type MarketOrderByInput =
   | "title_DESC"
   | "caption_ASC"
   | "caption_DESC"
+  | "status_ASC"
+  | "status_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -493,6 +495,8 @@ export type BoardOrderByInput =
   | "title_DESC"
   | "caption_ASC"
   | "caption_DESC"
+  | "status_ASC"
+  | "status_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -505,6 +509,8 @@ export type RentOrderByInput =
   | "title_DESC"
   | "caption_ASC"
   | "caption_DESC"
+  | "status_ASC"
+  | "status_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -811,6 +817,20 @@ export interface BoardWhereInput {
   caption_not_starts_with?: Maybe<String>;
   caption_ends_with?: Maybe<String>;
   caption_not_ends_with?: Maybe<String>;
+  status?: Maybe<String>;
+  status_not?: Maybe<String>;
+  status_in?: Maybe<String[] | String>;
+  status_not_in?: Maybe<String[] | String>;
+  status_lt?: Maybe<String>;
+  status_lte?: Maybe<String>;
+  status_gt?: Maybe<String>;
+  status_gte?: Maybe<String>;
+  status_contains?: Maybe<String>;
+  status_not_contains?: Maybe<String>;
+  status_starts_with?: Maybe<String>;
+  status_not_starts_with?: Maybe<String>;
+  status_ends_with?: Maybe<String>;
+  status_not_ends_with?: Maybe<String>;
   comments_every?: Maybe<CommentWhereInput>;
   comments_some?: Maybe<CommentWhereInput>;
   comments_none?: Maybe<CommentWhereInput>;
@@ -933,6 +953,20 @@ export interface MarketWhereInput {
   caption_not_starts_with?: Maybe<String>;
   caption_ends_with?: Maybe<String>;
   caption_not_ends_with?: Maybe<String>;
+  status?: Maybe<String>;
+  status_not?: Maybe<String>;
+  status_in?: Maybe<String[] | String>;
+  status_not_in?: Maybe<String[] | String>;
+  status_lt?: Maybe<String>;
+  status_lte?: Maybe<String>;
+  status_gt?: Maybe<String>;
+  status_gte?: Maybe<String>;
+  status_contains?: Maybe<String>;
+  status_not_contains?: Maybe<String>;
+  status_starts_with?: Maybe<String>;
+  status_not_starts_with?: Maybe<String>;
+  status_ends_with?: Maybe<String>;
+  status_not_ends_with?: Maybe<String>;
   comments_every?: Maybe<CommentWhereInput>;
   comments_some?: Maybe<CommentWhereInput>;
   comments_none?: Maybe<CommentWhereInput>;
@@ -1001,6 +1035,20 @@ export interface RentWhereInput {
   caption_not_starts_with?: Maybe<String>;
   caption_ends_with?: Maybe<String>;
   caption_not_ends_with?: Maybe<String>;
+  status?: Maybe<String>;
+  status_not?: Maybe<String>;
+  status_in?: Maybe<String[] | String>;
+  status_not_in?: Maybe<String[] | String>;
+  status_lt?: Maybe<String>;
+  status_lte?: Maybe<String>;
+  status_gt?: Maybe<String>;
+  status_gte?: Maybe<String>;
+  status_contains?: Maybe<String>;
+  status_not_contains?: Maybe<String>;
+  status_starts_with?: Maybe<String>;
+  status_not_starts_with?: Maybe<String>;
+  status_ends_with?: Maybe<String>;
+  status_not_ends_with?: Maybe<String>;
   comments_every?: Maybe<CommentWhereInput>;
   comments_some?: Maybe<CommentWhereInput>;
   comments_none?: Maybe<CommentWhereInput>;
@@ -1281,6 +1329,7 @@ export interface BoardCreateInput {
   user: UserCreateOneWithoutBoardsInput;
   title: String;
   caption: String;
+  status: String;
   comments?: Maybe<CommentCreateManyWithoutBoardInput>;
 }
 
@@ -1362,6 +1411,7 @@ export interface BoardCreateWithoutUserInput {
   id?: Maybe<ID_Input>;
   title: String;
   caption: String;
+  status: String;
   comments?: Maybe<CommentCreateManyWithoutBoardInput>;
 }
 
@@ -1410,6 +1460,7 @@ export interface MarketCreateWithoutUserInput {
   id?: Maybe<ID_Input>;
   title: String;
   caption: String;
+  status: String;
   comments?: Maybe<CommentCreateManyWithoutMarketInput>;
 }
 
@@ -1438,6 +1489,7 @@ export interface BoardCreateWithoutCommentsInput {
   user: UserCreateOneWithoutBoardsInput;
   title: String;
   caption: String;
+  status: String;
 }
 
 export interface RentCreateOneWithoutCommentsInput {
@@ -1450,6 +1502,7 @@ export interface RentCreateWithoutCommentsInput {
   user: UserCreateOneWithoutRentsInput;
   title: String;
   caption: String;
+  status: String;
 }
 
 export interface UserCreateOneWithoutRentsInput {
@@ -1498,6 +1551,7 @@ export interface MarketCreateWithoutCommentsInput {
   user: UserCreateOneWithoutMarketsInput;
   title: String;
   caption: String;
+  status: String;
 }
 
 export interface UserCreateOneWithoutMarketsInput {
@@ -1530,6 +1584,7 @@ export interface RentCreateWithoutUserInput {
   id?: Maybe<ID_Input>;
   title: String;
   caption: String;
+  status: String;
   comments?: Maybe<CommentCreateManyWithoutRentInput>;
 }
 
@@ -1598,6 +1653,7 @@ export interface MarketCreateInput {
   user: UserCreateOneWithoutMarketsInput;
   title: String;
   caption: String;
+  status: String;
   comments?: Maybe<CommentCreateManyWithoutMarketInput>;
 }
 
@@ -1616,6 +1672,7 @@ export interface RentCreateInput {
   user: UserCreateOneWithoutRentsInput;
   title: String;
   caption: String;
+  status: String;
   comments?: Maybe<CommentCreateManyWithoutRentInput>;
 }
 
@@ -1623,6 +1680,7 @@ export interface BoardUpdateInput {
   user?: Maybe<UserUpdateOneRequiredWithoutBoardsInput>;
   title?: Maybe<String>;
   caption?: Maybe<String>;
+  status?: Maybe<String>;
   comments?: Maybe<CommentUpdateManyWithoutBoardInput>;
 }
 
@@ -1761,6 +1819,7 @@ export interface BoardUpdateWithWhereUniqueWithoutUserInput {
 export interface BoardUpdateWithoutUserDataInput {
   title?: Maybe<String>;
   caption?: Maybe<String>;
+  status?: Maybe<String>;
   comments?: Maybe<CommentUpdateManyWithoutBoardInput>;
 }
 
@@ -1852,6 +1911,7 @@ export interface MarketUpdateWithWhereUniqueWithoutUserInput {
 export interface MarketUpdateWithoutUserDataInput {
   title?: Maybe<String>;
   caption?: Maybe<String>;
+  status?: Maybe<String>;
   comments?: Maybe<CommentUpdateManyWithoutMarketInput>;
 }
 
@@ -1903,6 +1963,7 @@ export interface BoardUpdateWithoutCommentsDataInput {
   user?: Maybe<UserUpdateOneRequiredWithoutBoardsInput>;
   title?: Maybe<String>;
   caption?: Maybe<String>;
+  status?: Maybe<String>;
 }
 
 export interface BoardUpsertWithoutCommentsInput {
@@ -1923,6 +1984,7 @@ export interface RentUpdateWithoutCommentsDataInput {
   user?: Maybe<UserUpdateOneRequiredWithoutRentsInput>;
   title?: Maybe<String>;
   caption?: Maybe<String>;
+  status?: Maybe<String>;
 }
 
 export interface UserUpdateOneRequiredWithoutRentsInput {
@@ -1995,6 +2057,7 @@ export interface MarketUpdateWithoutCommentsDataInput {
   user?: Maybe<UserUpdateOneRequiredWithoutMarketsInput>;
   title?: Maybe<String>;
   caption?: Maybe<String>;
+  status?: Maybe<String>;
 }
 
 export interface UserUpdateOneRequiredWithoutMarketsInput {
@@ -2047,6 +2110,7 @@ export interface RentUpdateWithWhereUniqueWithoutUserInput {
 export interface RentUpdateWithoutUserDataInput {
   title?: Maybe<String>;
   caption?: Maybe<String>;
+  status?: Maybe<String>;
   comments?: Maybe<CommentUpdateManyWithoutRentInput>;
 }
 
@@ -2199,6 +2263,20 @@ export interface RentScalarWhereInput {
   caption_not_starts_with?: Maybe<String>;
   caption_ends_with?: Maybe<String>;
   caption_not_ends_with?: Maybe<String>;
+  status?: Maybe<String>;
+  status_not?: Maybe<String>;
+  status_in?: Maybe<String[] | String>;
+  status_not_in?: Maybe<String[] | String>;
+  status_lt?: Maybe<String>;
+  status_lte?: Maybe<String>;
+  status_gt?: Maybe<String>;
+  status_gte?: Maybe<String>;
+  status_contains?: Maybe<String>;
+  status_not_contains?: Maybe<String>;
+  status_starts_with?: Maybe<String>;
+  status_not_starts_with?: Maybe<String>;
+  status_ends_with?: Maybe<String>;
+  status_not_ends_with?: Maybe<String>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -2228,6 +2306,7 @@ export interface RentUpdateManyWithWhereNestedInput {
 export interface RentUpdateManyDataInput {
   title?: Maybe<String>;
   caption?: Maybe<String>;
+  status?: Maybe<String>;
 }
 
 export interface RoomUpdateManyWithoutParticipantsInput {
@@ -2480,6 +2559,20 @@ export interface MarketScalarWhereInput {
   caption_not_starts_with?: Maybe<String>;
   caption_ends_with?: Maybe<String>;
   caption_not_ends_with?: Maybe<String>;
+  status?: Maybe<String>;
+  status_not?: Maybe<String>;
+  status_in?: Maybe<String[] | String>;
+  status_not_in?: Maybe<String[] | String>;
+  status_lt?: Maybe<String>;
+  status_lte?: Maybe<String>;
+  status_gt?: Maybe<String>;
+  status_gte?: Maybe<String>;
+  status_contains?: Maybe<String>;
+  status_not_contains?: Maybe<String>;
+  status_starts_with?: Maybe<String>;
+  status_not_starts_with?: Maybe<String>;
+  status_ends_with?: Maybe<String>;
+  status_not_ends_with?: Maybe<String>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -2509,6 +2602,7 @@ export interface MarketUpdateManyWithWhereNestedInput {
 export interface MarketUpdateManyDataInput {
   title?: Maybe<String>;
   caption?: Maybe<String>;
+  status?: Maybe<String>;
 }
 
 export interface UserUpsertWithoutCommentsInput {
@@ -2571,6 +2665,20 @@ export interface BoardScalarWhereInput {
   caption_not_starts_with?: Maybe<String>;
   caption_ends_with?: Maybe<String>;
   caption_not_ends_with?: Maybe<String>;
+  status?: Maybe<String>;
+  status_not?: Maybe<String>;
+  status_in?: Maybe<String[] | String>;
+  status_not_in?: Maybe<String[] | String>;
+  status_lt?: Maybe<String>;
+  status_lte?: Maybe<String>;
+  status_gt?: Maybe<String>;
+  status_gte?: Maybe<String>;
+  status_contains?: Maybe<String>;
+  status_not_contains?: Maybe<String>;
+  status_starts_with?: Maybe<String>;
+  status_not_starts_with?: Maybe<String>;
+  status_ends_with?: Maybe<String>;
+  status_not_ends_with?: Maybe<String>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -2600,6 +2708,7 @@ export interface BoardUpdateManyWithWhereNestedInput {
 export interface BoardUpdateManyDataInput {
   title?: Maybe<String>;
   caption?: Maybe<String>;
+  status?: Maybe<String>;
 }
 
 export interface UserUpsertNestedInput {
@@ -2757,6 +2866,7 @@ export interface MarketUpdateDataInput {
   user?: Maybe<UserUpdateOneRequiredWithoutMarketsInput>;
   title?: Maybe<String>;
   caption?: Maybe<String>;
+  status?: Maybe<String>;
   comments?: Maybe<CommentUpdateManyWithoutMarketInput>;
 }
 
@@ -2795,6 +2905,7 @@ export interface BoardUpdateDataInput {
   user?: Maybe<UserUpdateOneRequiredWithoutBoardsInput>;
   title?: Maybe<String>;
   caption?: Maybe<String>;
+  status?: Maybe<String>;
   comments?: Maybe<CommentUpdateManyWithoutBoardInput>;
 }
 
@@ -2833,6 +2944,7 @@ export interface RentUpdateDataInput {
   user?: Maybe<UserUpdateOneRequiredWithoutRentsInput>;
   title?: Maybe<String>;
   caption?: Maybe<String>;
+  status?: Maybe<String>;
   comments?: Maybe<CommentUpdateManyWithoutRentInput>;
 }
 
@@ -2892,6 +3004,7 @@ export interface UserUpsertWithoutBoardsInput {
 export interface BoardUpdateManyMutationInput {
   title?: Maybe<String>;
   caption?: Maybe<String>;
+  status?: Maybe<String>;
 }
 
 export interface CommentUpdateInput {
@@ -2923,12 +3036,14 @@ export interface MarketUpdateInput {
   user?: Maybe<UserUpdateOneRequiredWithoutMarketsInput>;
   title?: Maybe<String>;
   caption?: Maybe<String>;
+  status?: Maybe<String>;
   comments?: Maybe<CommentUpdateManyWithoutMarketInput>;
 }
 
 export interface MarketUpdateManyMutationInput {
   title?: Maybe<String>;
   caption?: Maybe<String>;
+  status?: Maybe<String>;
 }
 
 export interface MessageCreateInput {
@@ -3273,12 +3388,14 @@ export interface RentUpdateInput {
   user?: Maybe<UserUpdateOneRequiredWithoutRentsInput>;
   title?: Maybe<String>;
   caption?: Maybe<String>;
+  status?: Maybe<String>;
   comments?: Maybe<CommentUpdateManyWithoutRentInput>;
 }
 
 export interface RentUpdateManyMutationInput {
   title?: Maybe<String>;
   caption?: Maybe<String>;
+  status?: Maybe<String>;
 }
 
 export interface RoomCreateInput {
@@ -3436,6 +3553,7 @@ export interface Board {
   id: ID_Output;
   title: String;
   caption: String;
+  status: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -3445,6 +3563,7 @@ export interface BoardPromise extends Promise<Board>, Fragmentable {
   user: <T = UserPromise>() => T;
   title: () => Promise<String>;
   caption: () => Promise<String>;
+  status: () => Promise<String>;
   comments: <T = FragmentableArray<Comment>>(args?: {
     where?: CommentWhereInput;
     orderBy?: CommentOrderByInput;
@@ -3465,6 +3584,7 @@ export interface BoardSubscription
   user: <T = UserSubscription>() => T;
   title: () => Promise<AsyncIterator<String>>;
   caption: () => Promise<AsyncIterator<String>>;
+  status: () => Promise<AsyncIterator<String>>;
   comments: <T = Promise<AsyncIterator<CommentSubscription>>>(args?: {
     where?: CommentWhereInput;
     orderBy?: CommentOrderByInput;
@@ -3485,6 +3605,7 @@ export interface BoardNullablePromise
   user: <T = UserPromise>() => T;
   title: () => Promise<String>;
   caption: () => Promise<String>;
+  status: () => Promise<String>;
   comments: <T = FragmentableArray<Comment>>(args?: {
     where?: CommentWhereInput;
     orderBy?: CommentOrderByInput;
@@ -3969,6 +4090,7 @@ export interface Market {
   id: ID_Output;
   title: String;
   caption: String;
+  status: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -3978,6 +4100,7 @@ export interface MarketPromise extends Promise<Market>, Fragmentable {
   user: <T = UserPromise>() => T;
   title: () => Promise<String>;
   caption: () => Promise<String>;
+  status: () => Promise<String>;
   comments: <T = FragmentableArray<Comment>>(args?: {
     where?: CommentWhereInput;
     orderBy?: CommentOrderByInput;
@@ -3998,6 +4121,7 @@ export interface MarketSubscription
   user: <T = UserSubscription>() => T;
   title: () => Promise<AsyncIterator<String>>;
   caption: () => Promise<AsyncIterator<String>>;
+  status: () => Promise<AsyncIterator<String>>;
   comments: <T = Promise<AsyncIterator<CommentSubscription>>>(args?: {
     where?: CommentWhereInput;
     orderBy?: CommentOrderByInput;
@@ -4018,6 +4142,7 @@ export interface MarketNullablePromise
   user: <T = UserPromise>() => T;
   title: () => Promise<String>;
   caption: () => Promise<String>;
+  status: () => Promise<String>;
   comments: <T = FragmentableArray<Comment>>(args?: {
     where?: CommentWhereInput;
     orderBy?: CommentOrderByInput;
@@ -4035,6 +4160,7 @@ export interface Rent {
   id: ID_Output;
   title: String;
   caption: String;
+  status: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -4044,6 +4170,7 @@ export interface RentPromise extends Promise<Rent>, Fragmentable {
   user: <T = UserPromise>() => T;
   title: () => Promise<String>;
   caption: () => Promise<String>;
+  status: () => Promise<String>;
   comments: <T = FragmentableArray<Comment>>(args?: {
     where?: CommentWhereInput;
     orderBy?: CommentOrderByInput;
@@ -4064,6 +4191,7 @@ export interface RentSubscription
   user: <T = UserSubscription>() => T;
   title: () => Promise<AsyncIterator<String>>;
   caption: () => Promise<AsyncIterator<String>>;
+  status: () => Promise<AsyncIterator<String>>;
   comments: <T = Promise<AsyncIterator<CommentSubscription>>>(args?: {
     where?: CommentWhereInput;
     orderBy?: CommentOrderByInput;
@@ -4084,6 +4212,7 @@ export interface RentNullablePromise
   user: <T = UserPromise>() => T;
   title: () => Promise<String>;
   caption: () => Promise<String>;
+  status: () => Promise<String>;
   comments: <T = FragmentableArray<Comment>>(args?: {
     where?: CommentWhereInput;
     orderBy?: CommentOrderByInput;
@@ -4860,6 +4989,7 @@ export interface BoardPreviousValues {
   id: ID_Output;
   title: String;
   caption: String;
+  status: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -4870,6 +5000,7 @@ export interface BoardPreviousValuesPromise
   id: () => Promise<ID_Output>;
   title: () => Promise<String>;
   caption: () => Promise<String>;
+  status: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -4880,6 +5011,7 @@ export interface BoardPreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   title: () => Promise<AsyncIterator<String>>;
   caption: () => Promise<AsyncIterator<String>>;
+  status: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -5013,6 +5145,7 @@ export interface MarketPreviousValues {
   id: ID_Output;
   title: String;
   caption: String;
+  status: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -5023,6 +5156,7 @@ export interface MarketPreviousValuesPromise
   id: () => Promise<ID_Output>;
   title: () => Promise<String>;
   caption: () => Promise<String>;
+  status: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -5033,6 +5167,7 @@ export interface MarketPreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   title: () => Promise<AsyncIterator<String>>;
   caption: () => Promise<AsyncIterator<String>>;
+  status: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -5216,6 +5351,7 @@ export interface RentPreviousValues {
   id: ID_Output;
   title: String;
   caption: String;
+  status: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -5226,6 +5362,7 @@ export interface RentPreviousValuesPromise
   id: () => Promise<ID_Output>;
   title: () => Promise<String>;
   caption: () => Promise<String>;
+  status: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -5236,6 +5373,7 @@ export interface RentPreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   title: () => Promise<AsyncIterator<String>>;
   caption: () => Promise<AsyncIterator<String>>;
+  status: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }

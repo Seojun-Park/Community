@@ -1,9 +1,17 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { gql } from "apollo-boost";
 import styled from "styled-components";
-import { useQuery } from "@apollo/react-hooks";
-import { ME } from "../SharedQueries";
 import { AppContext } from "../components/App";
+import { useMutation } from "@apollo/react-hooks";
+import { toast } from "react-toastify";
+import DropDown from "./DropDown";
+
+const LOG_OUT = gql`
+  mutation logUserOut {
+    logUserOut @client
+  }
+`;
 
 const Wrapper = styled.div`
   ${props => props.theme.wrapperBox};
@@ -55,12 +63,37 @@ const MenuText = styled.span`
   cursor: pointer;
   @media screen and (min-width: 769px) {
     font-size: 16px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    :hover {
+      transition: 0.2s linear;
+      color: coral;
+    }
   }
+`;
+
+const LogInOutButton = styled.button`
+  border: none;
 `;
 
 export default () => {
   const isLoggedIn = useContext(AppContext);
   console.log(isLoggedIn);
+  const [logoutMutation] = useMutation(LOG_OUT);
+
+  const handleLogout = async e => {
+    e.preventDefault();
+    try {
+      const { data } = await logoutMutation();
+      if (data) {
+        toast.success("you are logged out :)");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <Wrapper>
       <Container>
@@ -73,13 +106,11 @@ export default () => {
           </HeaderCol>
           <HeaderCol>
             <MenuText>
-              <Link to="/notice">게시판</Link>
+              <Link to="/notice">공지사항</Link>
             </MenuText>
           </HeaderCol>
           <HeaderCol>
-            <MenuText>
-              <Link to="/">메뉴</Link>
-            </MenuText>
+            <DropDown />
           </HeaderCol>
           <HeaderCol>
             <MenuText>
@@ -89,9 +120,11 @@ export default () => {
           <HeaderCol>
             <MenuText>
               {isLoggedIn === false ? (
-                <Link to="/login">로그인</Link>
+                <LogInOutButton>
+                  <Link to="/login">로그인</Link>
+                </LogInOutButton>
               ) : (
-                "로그아웃"
+                <LogInOutButton onClick={handleLogout}>로그아웃</LogInOutButton>
               )}
             </MenuText>
           </HeaderCol>

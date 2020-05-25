@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { NOTICE_DATA } from "../SharedQueries";
+import { RENT_DATA } from "../SharedQueries";
 import { useQuery } from "@apollo/react-hooks";
 import Loader from "../components/Loader";
 import Boardframe from "../components/BoardFrame";
@@ -73,7 +73,7 @@ const WriteButton = styled(Link)`
 const ViewRow = styled.div``;
 
 export default () => {
-  const { data, loading } = useQuery(NOTICE_DATA);
+  const { data, loading } = useQuery(RENT_DATA);
   const isLoggedIn = useContext(AppContext);
 
   return (
@@ -95,7 +95,7 @@ export default () => {
                   "글 작성을 위해 로그인 해주세요"
                 )}
               </ButtonContainer>
-              <Boardframe data={data.showNotice} action="notice" />
+              <Boardframe data={data.showRent} action="rent" />
             </ViewCol>
             <ViewCol>
               <ViewRow>list box</ViewRow>

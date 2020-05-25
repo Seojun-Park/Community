@@ -1,3 +1,8 @@
 type Mutation {
-  uploadRent(title: String!, caption: String!, username: String): Rent!
+  uploadRent(
+    title: String!
+    caption: String!
+    status: String
+    username: String
+  ): Rent!
 }

@@ -5,13 +5,20 @@ import Notice from "../routes/Notice";
 import Write from "../routes/Write";
 import Signup from "../routes/Signup";
 import Login from "../routes/Login";
+import Market from "../routes/Market";
+import Board from "../routes/Board";
+import Rent from "../routes/Rent";
 
 const Routes = () => (
   <Switch>
     <Route exact path="/" component={Main} />
     <Route path="/notice" component={Notice} />
+    <Route path="/board" component={Board} />
+    <Route path="/market" component={Market} />
+    <Route path="/rent" component={Rent} />
     <Route path="/signup" component={Signup} />
     <Route path="/login" component={Login} />
+    <Route path="/write/:action" component={Write} />
     <Redirect from="*" to="/" />
   </Switch>
 );

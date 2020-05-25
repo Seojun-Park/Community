@@ -52,6 +52,7 @@ type Board {
   user: User!
   title: String!
   caption: String!
+  status: String!
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -68,6 +69,7 @@ input BoardCreateInput {
   user: UserCreateOneWithoutBoardsInput!
   title: String!
   caption: String!
+  status: String!
   comments: CommentCreateManyWithoutBoardInput
 }
 
@@ -91,12 +93,14 @@ input BoardCreateWithoutCommentsInput {
   user: UserCreateOneWithoutBoardsInput!
   title: String!
   caption: String!
+  status: String!
 }
 
 input BoardCreateWithoutUserInput {
   id: ID
   title: String!
   caption: String!
+  status: String!
   comments: CommentCreateManyWithoutBoardInput
 }
 
@@ -112,6 +116,8 @@ enum BoardOrderByInput {
   title_DESC
   caption_ASC
   caption_DESC
+  status_ASC
+  status_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -122,6 +128,7 @@ type BoardPreviousValues {
   id: ID!
   title: String!
   caption: String!
+  status: String!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -169,6 +176,20 @@ input BoardScalarWhereInput {
   caption_not_starts_with: String
   caption_ends_with: String
   caption_not_ends_with: String
+  status: String
+  status_not: String
+  status_in: [String!]
+  status_not_in: [String!]
+  status_lt: String
+  status_lte: String
+  status_gt: String
+  status_gte: String
+  status_contains: String
+  status_not_contains: String
+  status_starts_with: String
+  status_not_starts_with: String
+  status_ends_with: String
+  status_not_ends_with: String
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -212,6 +233,7 @@ input BoardUpdateDataInput {
   user: UserUpdateOneRequiredWithoutBoardsInput
   title: String
   caption: String
+  status: String
   comments: CommentUpdateManyWithoutBoardInput
 }
 
@@ -219,12 +241,14 @@ input BoardUpdateInput {
   user: UserUpdateOneRequiredWithoutBoardsInput
   title: String
   caption: String
+  status: String
   comments: CommentUpdateManyWithoutBoardInput
 }
 
 input BoardUpdateManyDataInput {
   title: String
   caption: String
+  status: String
 }
 
 input BoardUpdateManyInput {
@@ -242,6 +266,7 @@ input BoardUpdateManyInput {
 input BoardUpdateManyMutationInput {
   title: String
   caption: String
+  status: String
 }
 
 input BoardUpdateManyWithoutUserInput {
@@ -274,11 +299,13 @@ input BoardUpdateWithoutCommentsDataInput {
   user: UserUpdateOneRequiredWithoutBoardsInput
   title: String
   caption: String
+  status: String
 }
 
 input BoardUpdateWithoutUserDataInput {
   title: String
   caption: String
+  status: String
   comments: CommentUpdateManyWithoutBoardInput
 }
 
@@ -353,6 +380,20 @@ input BoardWhereInput {
   caption_not_starts_with: String
   caption_ends_with: String
   caption_not_ends_with: String
+  status: String
+  status_not: String
+  status_in: [String!]
+  status_not_in: [String!]
+  status_lt: String
+  status_lte: String
+  status_gt: String
+  status_gte: String
+  status_contains: String
+  status_not_contains: String
+  status_starts_with: String
+  status_not_starts_with: String
+  status_ends_with: String
+  status_not_ends_with: String
   comments_every: CommentWhereInput
   comments_some: CommentWhereInput
   comments_none: CommentWhereInput
@@ -915,6 +956,7 @@ type Market {
   user: User!
   title: String!
   caption: String!
+  status: String!
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -931,6 +973,7 @@ input MarketCreateInput {
   user: UserCreateOneWithoutMarketsInput!
   title: String!
   caption: String!
+  status: String!
   comments: CommentCreateManyWithoutMarketInput
 }
 
@@ -954,12 +997,14 @@ input MarketCreateWithoutCommentsInput {
   user: UserCreateOneWithoutMarketsInput!
   title: String!
   caption: String!
+  status: String!
 }
 
 input MarketCreateWithoutUserInput {
   id: ID
   title: String!
   caption: String!
+  status: String!
   comments: CommentCreateManyWithoutMarketInput
 }
 
@@ -975,6 +1020,8 @@ enum MarketOrderByInput {
   title_DESC
   caption_ASC
   caption_DESC
+  status_ASC
+  status_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -985,6 +1032,7 @@ type MarketPreviousValues {
   id: ID!
   title: String!
   caption: String!
+  status: String!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -1032,6 +1080,20 @@ input MarketScalarWhereInput {
   caption_not_starts_with: String
   caption_ends_with: String
   caption_not_ends_with: String
+  status: String
+  status_not: String
+  status_in: [String!]
+  status_not_in: [String!]
+  status_lt: String
+  status_lte: String
+  status_gt: String
+  status_gte: String
+  status_contains: String
+  status_not_contains: String
+  status_starts_with: String
+  status_not_starts_with: String
+  status_ends_with: String
+  status_not_ends_with: String
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -1075,6 +1137,7 @@ input MarketUpdateDataInput {
   user: UserUpdateOneRequiredWithoutMarketsInput
   title: String
   caption: String
+  status: String
   comments: CommentUpdateManyWithoutMarketInput
 }
 
@@ -1082,12 +1145,14 @@ input MarketUpdateInput {
   user: UserUpdateOneRequiredWithoutMarketsInput
   title: String
   caption: String
+  status: String
   comments: CommentUpdateManyWithoutMarketInput
 }
 
 input MarketUpdateManyDataInput {
   title: String
   caption: String
+  status: String
 }
 
 input MarketUpdateManyInput {
@@ -1105,6 +1170,7 @@ input MarketUpdateManyInput {
 input MarketUpdateManyMutationInput {
   title: String
   caption: String
+  status: String
 }
 
 input MarketUpdateManyWithoutUserInput {
@@ -1137,11 +1203,13 @@ input MarketUpdateWithoutCommentsDataInput {
   user: UserUpdateOneRequiredWithoutMarketsInput
   title: String
   caption: String
+  status: String
 }
 
 input MarketUpdateWithoutUserDataInput {
   title: String
   caption: String
+  status: String
   comments: CommentUpdateManyWithoutMarketInput
 }
 
@@ -1216,6 +1284,20 @@ input MarketWhereInput {
   caption_not_starts_with: String
   caption_ends_with: String
   caption_not_ends_with: String
+  status: String
+  status_not: String
+  status_in: [String!]
+  status_not_in: [String!]
+  status_lt: String
+  status_lte: String
+  status_gt: String
+  status_gte: String
+  status_contains: String
+  status_not_contains: String
+  status_starts_with: String
+  status_not_starts_with: String
+  status_ends_with: String
+  status_not_ends_with: String
   comments_every: CommentWhereInput
   comments_some: CommentWhereInput
   comments_none: CommentWhereInput
@@ -2058,6 +2140,7 @@ type Rent {
   user: User!
   title: String!
   caption: String!
+  status: String!
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -2074,6 +2157,7 @@ input RentCreateInput {
   user: UserCreateOneWithoutRentsInput!
   title: String!
   caption: String!
+  status: String!
   comments: CommentCreateManyWithoutRentInput
 }
 
@@ -2097,12 +2181,14 @@ input RentCreateWithoutCommentsInput {
   user: UserCreateOneWithoutRentsInput!
   title: String!
   caption: String!
+  status: String!
 }
 
 input RentCreateWithoutUserInput {
   id: ID
   title: String!
   caption: String!
+  status: String!
   comments: CommentCreateManyWithoutRentInput
 }
 
@@ -2118,6 +2204,8 @@ enum RentOrderByInput {
   title_DESC
   caption_ASC
   caption_DESC
+  status_ASC
+  status_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -2128,6 +2216,7 @@ type RentPreviousValues {
   id: ID!
   title: String!
   caption: String!
+  status: String!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -2175,6 +2264,20 @@ input RentScalarWhereInput {
   caption_not_starts_with: String
   caption_ends_with: String
   caption_not_ends_with: String
+  status: String
+  status_not: String
+  status_in: [String!]
+  status_not_in: [String!]
+  status_lt: String
+  status_lte: String
+  status_gt: String
+  status_gte: String
+  status_contains: String
+  status_not_contains: String
+  status_starts_with: String
+  status_not_starts_with: String
+  status_ends_with: String
+  status_not_ends_with: String
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -2218,6 +2321,7 @@ input RentUpdateDataInput {
   user: UserUpdateOneRequiredWithoutRentsInput
   title: String
   caption: String
+  status: String
   comments: CommentUpdateManyWithoutRentInput
 }
 
@@ -2225,12 +2329,14 @@ input RentUpdateInput {
   user: UserUpdateOneRequiredWithoutRentsInput
   title: String
   caption: String
+  status: String
   comments: CommentUpdateManyWithoutRentInput
 }
 
 input RentUpdateManyDataInput {
   title: String
   caption: String
+  status: String
 }
 
 input RentUpdateManyInput {
@@ -2248,6 +2354,7 @@ input RentUpdateManyInput {
 input RentUpdateManyMutationInput {
   title: String
   caption: String
+  status: String
 }
 
 input RentUpdateManyWithoutUserInput {
@@ -2280,11 +2387,13 @@ input RentUpdateWithoutCommentsDataInput {
   user: UserUpdateOneRequiredWithoutRentsInput
   title: String
   caption: String
+  status: String
 }
 
 input RentUpdateWithoutUserDataInput {
   title: String
   caption: String
+  status: String
   comments: CommentUpdateManyWithoutRentInput
 }
 
@@ -2359,6 +2468,20 @@ input RentWhereInput {
   caption_not_starts_with: String
   caption_ends_with: String
   caption_not_ends_with: String
+  status: String
+  status_not: String
+  status_in: [String!]
+  status_not_in: [String!]
+  status_lt: String
+  status_lte: String
+  status_gt: String
+  status_gte: String
+  status_contains: String
+  status_not_contains: String
+  status_starts_with: String
+  status_not_starts_with: String
+  status_ends_with: String
+  status_not_ends_with: String
   comments_every: CommentWhereInput
   comments_some: CommentWhereInput
   comments_none: CommentWhereInput

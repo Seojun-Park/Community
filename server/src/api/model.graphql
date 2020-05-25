@@ -46,6 +46,7 @@ type Market {
   title: String!
   caption: String!
   hit: Int
+  status: String!
   comments: [Comment!]
   createdAt: String
   updatedAt: String
@@ -57,6 +58,7 @@ type Rent {
   title: String!
   caption: String!
   hit: Int
+  status: String!
   comments: [Comment!]
   createdAt: String
   updatedAt: String
@@ -68,6 +70,7 @@ type Board {
   title: String!
   caption: String!
   hit: Int
+  status: String!
   comments: [Comment!]
   createdAt: String
   updatedAt: String

@@ -56,7 +56,6 @@ const TableHeadCell = styled.div.attrs(props => ({
 
 const TableBody = styled.div`
   height: 65vh;
-
 `;
 
 const TableRow = styled.ul`
@@ -125,7 +124,7 @@ export default ({ data: props, action }) => {
 
   useEffect(() => {
     sliceDatabyPage(props, data.currentPage, data.pageSize);
-  }, [data.currentPage]);
+  }, [props, data.currentPage, data.pageSize]);
 
   return (
     <Container>
