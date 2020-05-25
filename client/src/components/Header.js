@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useQuery } from "@apollo/react-hooks";
 import { ME } from "../SharedQueries";
+import { AppContext } from "../components/App";
 
 const Wrapper = styled.div`
   ${props => props.theme.wrapperBox};
@@ -57,19 +58,9 @@ const MenuText = styled.span`
   }
 `;
 
-export default ({ isLoggedIn }) => {
+export default () => {
+  const isLoggedIn = useContext(AppContext);
   console.log(isLoggedIn);
-  const [option, setOption] = useState("on");
-  // try {
-  //   const {
-  //     data: { me }
-  //   } = useQuery(ME);
-  //   if (me) {
-  //     setOption("off");
-  //   }
-  // } catch {
-  //   console.log("You need to login");
-  // }
   return (
     <Wrapper>
       <Container>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext } from "react";
 import { gql } from "apollo-boost";
 import styled, { ThemeProvider } from "styled-components";
 import { HashRouter as Router } from "react-router-dom";
@@ -16,6 +16,8 @@ const QUERY = gql`
   }
 `;
 
+export const AppContext = createContext();
+
 const Wrapper = styled.div``;
 
 export default () => {
@@ -24,16 +26,18 @@ export default () => {
   } = useQuery(QUERY);
   console.log(isLoggedIn);
   return (
-    <ThemeProvider theme={Theme}>
-      <Router>
-        <GlobalStyle />
-        <Wrapper>
-          <Header isLoggedIn={isLoggedIn} />
-          <Routes />
-          <Footer />
-        </Wrapper>
-      </Router>
-      <ToastContainer position={toast.POSITION.BOTTOM_LEFT} />
-    </ThemeProvider>
+    <AppContext.Provider value={isLoggedIn}>
+      <ThemeProvider theme={Theme}>
+        <Router>
+          <GlobalStyle />
+          <Wrapper>
+            <Header isLoggedIn={isLoggedIn} />
+            <Routes />
+            <Footer />
+          </Wrapper>
+        </Router>
+        <ToastContainer position={toast.POSITION.BOTTOM_LEFT} />
+      </ThemeProvider>
+    </AppContext.Provider>
   );
 };
