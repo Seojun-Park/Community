@@ -89,7 +89,7 @@ export default () => {
           <View>
             <ViewCol>
               <ButtonContainer>
-                {isLoggedIn === true ? (
+                {isLoggedIn === true  ? (
                   <WriteButton to="/write/market">글쓰기</WriteButton>
                 ) : (
                   alert("글작성을 위해 로그인을 해주세요")

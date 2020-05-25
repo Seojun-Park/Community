@@ -31,12 +31,7 @@ const TableHeadCell = styled.div.attrs(props => ({
     overflow: hidden;
   }
   &.title {
-    width: 40%;
-    border-right: 1px solid #2f3640;
-    overflow: hidden;
-  }
-  &.status {
-    width: 20%;
+    width: 60%;
     border-right: 1px solid #2f3640;
     overflow: hidden;
   }
@@ -78,14 +73,9 @@ const TableBodyCell = styled.li.attrs(props => ({
     overflow: hidden;
   }
   &.title {
-    width: 40%;
+    width: 60%;
     margin-left: 20px;
     cursor: pointer;
-    overflow: hidden;
-  }
-  &.status {
-    width: 20%;
-    text-align: center;
     overflow: hidden;
   }
   &.writer {
@@ -128,14 +118,12 @@ export default ({ data: props, action }) => {
     sliceDatabyPage(props, data.currentPage, data.pageSize);
   }, [props, data.currentPage, data.pageSize]);
 
-  console.log(action);
   return (
     <Container>
       <TableFrame>
         <TableHead>
           <TableHeadCell className="number">#</TableHeadCell>
           <TableHeadCell className="title">제목</TableHeadCell>
-          <TableHeadCell className="status">거래상황</TableHeadCell>
           <TableHeadCell className="writer">작성자</TableHeadCell>
           <TableHeadCell className="createdat">작성일</TableHeadCell>
         </TableHead>
@@ -146,18 +134,7 @@ export default ({ data: props, action }) => {
                 return (
                   <TableRow key={i}>
                     <TableBodyCell className="number">{i}</TableBodyCell>
-                    <TableBodyCell className="title">
-                      <Link to={`/detail/${action}/${d.id}`}>{d.title}</Link>
-                    </TableBodyCell>
-                    {d.status === "one" && (
-                      <TableBodyCell className="status">판매중</TableBodyCell>
-                    )}
-                    {d.status === "two" && (
-                      <TableBodyCell className="status">예약중</TableBodyCell>
-                    )}
-                    {d.status === "three" && (
-                      <TableBodyCell className="status">판매완료</TableBodyCell>
-                    )}
+                    <TableBodyCell className="title"><Link to={`/detail/${action}/${d.id}`}>{d.title}</Link></TableBodyCell>
                     <TableBodyCell className="writer">
                       {d.user.username}
                     </TableBodyCell>

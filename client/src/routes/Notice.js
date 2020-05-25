@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { NOTICE_DATA } from "../SharedQueries";
 import { useQuery } from "@apollo/react-hooks";
 import Loader from "../components/Loader";
-import Boardframe from "../components/BoardFrame";
+import Noticeframe from "../components/NoticeFrame";
 import { AppContext } from "../components/App";
 
 const Wrapper = styled.div`
@@ -20,7 +20,7 @@ const View = styled.div`
   display: grid;
   grid-template-columns: 80% 20%;
   border: 1px solid green;
-
+  height: 100%;
   @media screen and (min-width: 769px) {
   }
 `;
@@ -50,31 +50,17 @@ const ViewCol = styled.div`
   padding: 10px;
   padding-top: 10px;
   width: 100%;
+  height: 100%;
   &:last-child {
     margin-left: 10px;
     padding-top: 50px;
   }
 `;
 
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`;
-
-const WriteButton = styled(Link)`
-  border: none;
-  background-color: pink;
-  color: white;
-  padding: 10px;
-  border-radius: 4px;
-  margin-bottom: 5px;
-`;
-
 const ViewRow = styled.div``;
 
 export default () => {
   const { data, loading } = useQuery(NOTICE_DATA);
-  const isLoggedIn = useContext(AppContext);
 
   return (
     <Wrapper>
@@ -88,14 +74,7 @@ export default () => {
           </Head>
           <View>
             <ViewCol>
-              <ButtonContainer>
-                {isLoggedIn === true ? (
-                  <WriteButton to="/write/notice">글쓰기</WriteButton>
-                ) : (
-                  "글 작성을 위해 로그인 해주세요"
-                )}
-              </ButtonContainer>
-              <Boardframe data={data.showNotice} action="notice" />
+              <Noticeframe data={data.showNotice} action="notice" />
             </ViewCol>
             <ViewCol>
               <ViewRow>list box</ViewRow>

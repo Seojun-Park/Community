@@ -8,7 +8,7 @@ export default {
       const rent = await prisma.createRent({
         caption,
         title,
-        tatus,
+        status,
         user: {
           connect: {
             id: user.id

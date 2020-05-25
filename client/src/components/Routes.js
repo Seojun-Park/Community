@@ -8,6 +8,7 @@ import Login from "../routes/Login";
 import Market from "../routes/Market";
 import Board from "../routes/Board";
 import Rent from "../routes/Rent";
+import Detail from "../routes/Detail";
 
 const Routes = () => (
   <Switch>
@@ -19,6 +20,7 @@ const Routes = () => (
     <Route path="/signup" component={Signup} />
     <Route path="/login" component={Login} />
     <Route path="/write/:action" component={Write} />
+    <Route path="/detail/:id" component={Detail} />
     <Redirect from="*" to="/" />
   </Switch>
 );
