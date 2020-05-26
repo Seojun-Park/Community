@@ -2,6 +2,6 @@ import { prisma } from "../../../generated/prisma-client";
 
 export default {
   Meet: {
-    participants: ({ id }) => prisma.user({ id }).user()
+    participants: ({ id }) => prisma.meet({ id }).participants()
   }
 };

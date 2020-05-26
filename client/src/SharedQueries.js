@@ -385,13 +385,21 @@ export const SHOW_MEET = gql`
   query showMeet {
     showMeet {
       id
+      intro
+      title
+      tag
+      creator
+      participants {
+        id
+        username
+      }
     }
   }
 `;
 
 export const CREATE_MEET = gql`
-  mutation createMeet($tag: String!, $intro: String!) {
-    createMeet(tag: $tag, intro: $intro) {
+  mutation createMeet($tag: String!, $intro: String!, $title: String!) {
+    createMeet(tag: $tag, intro: $intro, title: $title) {
       id
     }
   }

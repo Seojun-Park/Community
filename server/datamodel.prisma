@@ -11,7 +11,7 @@ type User {
   markets:[Market!]! @relation(name:"MarketsOfUser", onDelete: CASCADE)
   rents:[Rent!]! @relation(name:"RentsOfUser", onDelete: CASCADE)
   comments: [Comment!]! @relation(name:"CommentsOfUser", onDelete: CASCADE)
-  meets:[Meet!]!
+  meets:[Meet!]! @relation(name:"MeetsOfUser")
   rooms: [Room!]!
   loginSecret: String
   createdAt: DateTime! @createdAt
@@ -111,8 +111,9 @@ type Message {
 type Meet {
   id: ID! @id
   intro: String!
-  creator: User!
-  participants: [User!]!
+  title: String!
+  creator: String
+  participants: [User!]! @relation(name:"MeetsOfUser")
   tag: String!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt

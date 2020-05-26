@@ -560,6 +560,10 @@ export type MeetOrderByInput =
   | "id_DESC"
   | "intro_ASC"
   | "intro_DESC"
+  | "title_ASC"
+  | "title_DESC"
+  | "creator_ASC"
+  | "creator_DESC"
   | "tag_ASC"
   | "tag_DESC"
   | "createdAt_ASC"
@@ -1156,6 +1160,34 @@ export interface MeetWhereInput {
   intro_not_starts_with?: Maybe<String>;
   intro_ends_with?: Maybe<String>;
   intro_not_ends_with?: Maybe<String>;
+  title?: Maybe<String>;
+  title_not?: Maybe<String>;
+  title_in?: Maybe<String[] | String>;
+  title_not_in?: Maybe<String[] | String>;
+  title_lt?: Maybe<String>;
+  title_lte?: Maybe<String>;
+  title_gt?: Maybe<String>;
+  title_gte?: Maybe<String>;
+  title_contains?: Maybe<String>;
+  title_not_contains?: Maybe<String>;
+  title_starts_with?: Maybe<String>;
+  title_not_starts_with?: Maybe<String>;
+  title_ends_with?: Maybe<String>;
+  title_not_ends_with?: Maybe<String>;
+  creator?: Maybe<String>;
+  creator_not?: Maybe<String>;
+  creator_in?: Maybe<String[] | String>;
+  creator_not_in?: Maybe<String[] | String>;
+  creator_lt?: Maybe<String>;
+  creator_lte?: Maybe<String>;
+  creator_gt?: Maybe<String>;
+  creator_gte?: Maybe<String>;
+  creator_contains?: Maybe<String>;
+  creator_not_contains?: Maybe<String>;
+  creator_starts_with?: Maybe<String>;
+  creator_not_starts_with?: Maybe<String>;
+  creator_ends_with?: Maybe<String>;
+  creator_not_ends_with?: Maybe<String>;
   participants_every?: Maybe<UserWhereInput>;
   participants_some?: Maybe<UserWhereInput>;
   participants_none?: Maybe<UserWhereInput>;
@@ -1743,6 +1775,8 @@ export interface MeetCreateManyWithoutParticipantsInput {
 export interface MeetCreateWithoutParticipantsInput {
   id?: Maybe<ID_Input>;
   intro: String;
+  title: String;
+  creator?: Maybe<String>;
   tag: String;
 }
 
@@ -2486,6 +2520,8 @@ export interface MeetUpdateWithWhereUniqueWithoutParticipantsInput {
 
 export interface MeetUpdateWithoutParticipantsDataInput {
   intro?: Maybe<String>;
+  title?: Maybe<String>;
+  creator?: Maybe<String>;
   tag?: Maybe<String>;
 }
 
@@ -2524,6 +2560,34 @@ export interface MeetScalarWhereInput {
   intro_not_starts_with?: Maybe<String>;
   intro_ends_with?: Maybe<String>;
   intro_not_ends_with?: Maybe<String>;
+  title?: Maybe<String>;
+  title_not?: Maybe<String>;
+  title_in?: Maybe<String[] | String>;
+  title_not_in?: Maybe<String[] | String>;
+  title_lt?: Maybe<String>;
+  title_lte?: Maybe<String>;
+  title_gt?: Maybe<String>;
+  title_gte?: Maybe<String>;
+  title_contains?: Maybe<String>;
+  title_not_contains?: Maybe<String>;
+  title_starts_with?: Maybe<String>;
+  title_not_starts_with?: Maybe<String>;
+  title_ends_with?: Maybe<String>;
+  title_not_ends_with?: Maybe<String>;
+  creator?: Maybe<String>;
+  creator_not?: Maybe<String>;
+  creator_in?: Maybe<String[] | String>;
+  creator_not_in?: Maybe<String[] | String>;
+  creator_lt?: Maybe<String>;
+  creator_lte?: Maybe<String>;
+  creator_gt?: Maybe<String>;
+  creator_gte?: Maybe<String>;
+  creator_contains?: Maybe<String>;
+  creator_not_contains?: Maybe<String>;
+  creator_starts_with?: Maybe<String>;
+  creator_not_starts_with?: Maybe<String>;
+  creator_ends_with?: Maybe<String>;
+  creator_not_ends_with?: Maybe<String>;
   tag?: Maybe<String>;
   tag_not?: Maybe<String>;
   tag_in?: Maybe<String[] | String>;
@@ -2566,6 +2630,8 @@ export interface MeetUpdateManyWithWhereNestedInput {
 
 export interface MeetUpdateManyDataInput {
   intro?: Maybe<String>;
+  title?: Maybe<String>;
+  creator?: Maybe<String>;
   tag?: Maybe<String>;
 }
 
@@ -3309,6 +3375,8 @@ export interface MarketUpdateManyMutationInput {
 export interface MeetCreateInput {
   id?: Maybe<ID_Input>;
   intro: String;
+  title: String;
+  creator?: Maybe<String>;
   participants?: Maybe<UserCreateManyWithoutMeetsInput>;
   tag: String;
 }
@@ -3337,6 +3405,8 @@ export interface UserCreateWithoutMeetsInput {
 
 export interface MeetUpdateInput {
   intro?: Maybe<String>;
+  title?: Maybe<String>;
+  creator?: Maybe<String>;
   participants?: Maybe<UserUpdateManyWithoutMeetsInput>;
   tag?: Maybe<String>;
 }
@@ -3539,6 +3609,8 @@ export interface UserUpdateManyDataInput {
 
 export interface MeetUpdateManyMutationInput {
   intro?: Maybe<String>;
+  title?: Maybe<String>;
+  creator?: Maybe<String>;
   tag?: Maybe<String>;
 }
 
@@ -4619,6 +4691,8 @@ export interface RentNullablePromise
 export interface Meet {
   id: ID_Output;
   intro: String;
+  title: String;
+  creator?: String;
   tag: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
@@ -4627,6 +4701,8 @@ export interface Meet {
 export interface MeetPromise extends Promise<Meet>, Fragmentable {
   id: () => Promise<ID_Output>;
   intro: () => Promise<String>;
+  title: () => Promise<String>;
+  creator: () => Promise<String>;
   participants: <T = FragmentableArray<User>>(args?: {
     where?: UserWhereInput;
     orderBy?: UserOrderByInput;
@@ -4646,6 +4722,8 @@ export interface MeetSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   intro: () => Promise<AsyncIterator<String>>;
+  title: () => Promise<AsyncIterator<String>>;
+  creator: () => Promise<AsyncIterator<String>>;
   participants: <T = Promise<AsyncIterator<UserSubscription>>>(args?: {
     where?: UserWhereInput;
     orderBy?: UserOrderByInput;
@@ -4665,6 +4743,8 @@ export interface MeetNullablePromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   intro: () => Promise<String>;
+  title: () => Promise<String>;
+  creator: () => Promise<String>;
   participants: <T = FragmentableArray<User>>(args?: {
     where?: UserWhereInput;
     orderBy?: UserOrderByInput;
@@ -5707,6 +5787,8 @@ export interface MeetSubscriptionPayloadSubscription
 export interface MeetPreviousValues {
   id: ID_Output;
   intro: String;
+  title: String;
+  creator?: String;
   tag: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
@@ -5717,6 +5799,8 @@ export interface MeetPreviousValuesPromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   intro: () => Promise<String>;
+  title: () => Promise<String>;
+  creator: () => Promise<String>;
   tag: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
@@ -5727,6 +5811,8 @@ export interface MeetPreviousValuesSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   intro: () => Promise<AsyncIterator<String>>;
+  title: () => Promise<AsyncIterator<String>>;
+  creator: () => Promise<AsyncIterator<String>>;
   tag: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;

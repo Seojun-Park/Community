@@ -5,10 +5,13 @@ export default {
     createMeet: async (_, args, { request, isAuthenticated }) => {
       isAuthenticated(request);
       const { user } = request;
-      const { tag, intro } = args;
+      const { tag, intro, title, creator } = args;
+      console.log(user);
       const meetup = await prisma.createMeet({
         tag,
         intro,
+        title,
+        creator,
         participants: {
           connect: {
             id: user.id

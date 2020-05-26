@@ -1333,6 +1333,8 @@ input MarketWhereUniqueInput {
 type Meet {
   id: ID!
   intro: String!
+  title: String!
+  creator: String
   participants(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
   tag: String!
   createdAt: DateTime!
@@ -1348,6 +1350,8 @@ type MeetConnection {
 input MeetCreateInput {
   id: ID
   intro: String!
+  title: String!
+  creator: String
   participants: UserCreateManyWithoutMeetsInput
   tag: String!
 }
@@ -1360,6 +1364,8 @@ input MeetCreateManyWithoutParticipantsInput {
 input MeetCreateWithoutParticipantsInput {
   id: ID
   intro: String!
+  title: String!
+  creator: String
   tag: String!
 }
 
@@ -1373,6 +1379,10 @@ enum MeetOrderByInput {
   id_DESC
   intro_ASC
   intro_DESC
+  title_ASC
+  title_DESC
+  creator_ASC
+  creator_DESC
   tag_ASC
   tag_DESC
   createdAt_ASC
@@ -1384,6 +1394,8 @@ enum MeetOrderByInput {
 type MeetPreviousValues {
   id: ID!
   intro: String!
+  title: String!
+  creator: String
   tag: String!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -1418,6 +1430,34 @@ input MeetScalarWhereInput {
   intro_not_starts_with: String
   intro_ends_with: String
   intro_not_ends_with: String
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  creator: String
+  creator_not: String
+  creator_in: [String!]
+  creator_not_in: [String!]
+  creator_lt: String
+  creator_lte: String
+  creator_gt: String
+  creator_gte: String
+  creator_contains: String
+  creator_not_contains: String
+  creator_starts_with: String
+  creator_not_starts_with: String
+  creator_ends_with: String
+  creator_not_ends_with: String
   tag: String
   tag_not: String
   tag_in: [String!]
@@ -1473,17 +1513,23 @@ input MeetSubscriptionWhereInput {
 
 input MeetUpdateInput {
   intro: String
+  title: String
+  creator: String
   participants: UserUpdateManyWithoutMeetsInput
   tag: String
 }
 
 input MeetUpdateManyDataInput {
   intro: String
+  title: String
+  creator: String
   tag: String
 }
 
 input MeetUpdateManyMutationInput {
   intro: String
+  title: String
+  creator: String
   tag: String
 }
 
@@ -1506,6 +1552,8 @@ input MeetUpdateManyWithWhereNestedInput {
 
 input MeetUpdateWithoutParticipantsDataInput {
   intro: String
+  title: String
+  creator: String
   tag: String
 }
 
@@ -1549,6 +1597,34 @@ input MeetWhereInput {
   intro_not_starts_with: String
   intro_ends_with: String
   intro_not_ends_with: String
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  creator: String
+  creator_not: String
+  creator_in: [String!]
+  creator_not_in: [String!]
+  creator_lt: String
+  creator_lte: String
+  creator_gt: String
+  creator_gte: String
+  creator_contains: String
+  creator_not_contains: String
+  creator_starts_with: String
+  creator_not_starts_with: String
+  creator_ends_with: String
+  creator_not_ends_with: String
   participants_every: UserWhereInput
   participants_some: UserWhereInput
   participants_none: UserWhereInput

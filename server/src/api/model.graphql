@@ -117,8 +117,9 @@ type Message {
 
 type Meet {
   id: ID!
+  title: String!
   intro: String!
-  creator: String!
+  creator:String
   participants: [User!]!
   tag: String!
   createdAt: String
