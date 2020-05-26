@@ -11,6 +11,9 @@ import Rent from "../routes/Rent";
 import Detail from "../routes/Detail";
 import Profile from "../routes/Profile";
 import Edit from "../routes/Edit";
+import Meetup from "../routes/Meetup";
+
+import CreateMeetUp from '../routes/CreateMeetUp'
 
 const Routes = () => (
   <Switch>
@@ -25,6 +28,8 @@ const Routes = () => (
     <Route path="/detail/:id" component={Detail} />
     <Route path="/profile" component={Profile} />
     <Route path="/edit" component={Edit} />
+    <Route path="/meetup" component={Meetup} />
+    <Route path="/craeteMeetUp" component={CreateMeetUp} />
     <Redirect from="*" to="/" />
   </Switch>
 );

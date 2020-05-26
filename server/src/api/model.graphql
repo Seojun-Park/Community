@@ -11,6 +11,7 @@ type User {
   markets: [Market!]!
   rents: [Rent!]!
   rooms: [Room!]
+  meets: [Meet!]!
   loginSecret: String!
   createdAt: String
   updatedAt: String
@@ -110,6 +111,16 @@ type Message {
   from: User!
   to: User!
   room: Room!
+  createdAt: String
+  updatedAt: String
+}
+
+type Meet {
+  id: ID!
+  intro: String!
+  creator: String!
+  participants: [User!]!
+  tag: String!
   createdAt: String
   updatedAt: String
 }

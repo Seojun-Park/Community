@@ -375,8 +375,36 @@ export const EDIT_USER = gql`
       lastName: $lastName
       intro: $intro
       avatar: $avatar
-    ){
+    ) {
       id
     }
+  }
+`;
+
+export const SHOW_MEET = gql`
+  query showMeet {
+    showMeet {
+      id
+    }
+  }
+`;
+
+export const CREATE_MEET = gql`
+  mutation createMeet($tag: String!, $intro: String!) {
+    createMeet(tag: $tag, intro: $intro) {
+      id
+    }
+  }
+`;
+
+export const DELETE_MEET = gql`
+  mutation deleteMeet($meetId: String!, $isMaster: Boolean!) {
+    deleteMeet(meetId: $meetId, isMaster: $isMaster)
+  }
+`;
+
+export const JOIN_MEET = gql`
+  mutation joinMeet($meetId: String!) {
+    joinMeet(meetId: $meetId)
   }
 `;

@@ -1,0 +1,3 @@
+type Mutation {
+  createMeet(tag: String!, intro: String!, creator: String): Meet!
+}

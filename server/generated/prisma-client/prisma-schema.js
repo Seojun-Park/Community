@@ -19,6 +19,10 @@ type AggregateMarket {
   count: Int!
 }
 
+type AggregateMeet {
+  count: Int!
+}
+
 type AggregateMessage {
   count: Int!
 }
@@ -1326,6 +1330,267 @@ input MarketWhereUniqueInput {
   id: ID
 }
 
+type Meet {
+  id: ID!
+  intro: String!
+  participants(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  tag: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type MeetConnection {
+  pageInfo: PageInfo!
+  edges: [MeetEdge]!
+  aggregate: AggregateMeet!
+}
+
+input MeetCreateInput {
+  id: ID
+  intro: String!
+  participants: UserCreateManyWithoutMeetsInput
+  tag: String!
+}
+
+input MeetCreateManyWithoutParticipantsInput {
+  create: [MeetCreateWithoutParticipantsInput!]
+  connect: [MeetWhereUniqueInput!]
+}
+
+input MeetCreateWithoutParticipantsInput {
+  id: ID
+  intro: String!
+  tag: String!
+}
+
+type MeetEdge {
+  node: Meet!
+  cursor: String!
+}
+
+enum MeetOrderByInput {
+  id_ASC
+  id_DESC
+  intro_ASC
+  intro_DESC
+  tag_ASC
+  tag_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type MeetPreviousValues {
+  id: ID!
+  intro: String!
+  tag: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input MeetScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  intro: String
+  intro_not: String
+  intro_in: [String!]
+  intro_not_in: [String!]
+  intro_lt: String
+  intro_lte: String
+  intro_gt: String
+  intro_gte: String
+  intro_contains: String
+  intro_not_contains: String
+  intro_starts_with: String
+  intro_not_starts_with: String
+  intro_ends_with: String
+  intro_not_ends_with: String
+  tag: String
+  tag_not: String
+  tag_in: [String!]
+  tag_not_in: [String!]
+  tag_lt: String
+  tag_lte: String
+  tag_gt: String
+  tag_gte: String
+  tag_contains: String
+  tag_not_contains: String
+  tag_starts_with: String
+  tag_not_starts_with: String
+  tag_ends_with: String
+  tag_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [MeetScalarWhereInput!]
+  OR: [MeetScalarWhereInput!]
+  NOT: [MeetScalarWhereInput!]
+}
+
+type MeetSubscriptionPayload {
+  mutation: MutationType!
+  node: Meet
+  updatedFields: [String!]
+  previousValues: MeetPreviousValues
+}
+
+input MeetSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: MeetWhereInput
+  AND: [MeetSubscriptionWhereInput!]
+  OR: [MeetSubscriptionWhereInput!]
+  NOT: [MeetSubscriptionWhereInput!]
+}
+
+input MeetUpdateInput {
+  intro: String
+  participants: UserUpdateManyWithoutMeetsInput
+  tag: String
+}
+
+input MeetUpdateManyDataInput {
+  intro: String
+  tag: String
+}
+
+input MeetUpdateManyMutationInput {
+  intro: String
+  tag: String
+}
+
+input MeetUpdateManyWithoutParticipantsInput {
+  create: [MeetCreateWithoutParticipantsInput!]
+  delete: [MeetWhereUniqueInput!]
+  connect: [MeetWhereUniqueInput!]
+  set: [MeetWhereUniqueInput!]
+  disconnect: [MeetWhereUniqueInput!]
+  update: [MeetUpdateWithWhereUniqueWithoutParticipantsInput!]
+  upsert: [MeetUpsertWithWhereUniqueWithoutParticipantsInput!]
+  deleteMany: [MeetScalarWhereInput!]
+  updateMany: [MeetUpdateManyWithWhereNestedInput!]
+}
+
+input MeetUpdateManyWithWhereNestedInput {
+  where: MeetScalarWhereInput!
+  data: MeetUpdateManyDataInput!
+}
+
+input MeetUpdateWithoutParticipantsDataInput {
+  intro: String
+  tag: String
+}
+
+input MeetUpdateWithWhereUniqueWithoutParticipantsInput {
+  where: MeetWhereUniqueInput!
+  data: MeetUpdateWithoutParticipantsDataInput!
+}
+
+input MeetUpsertWithWhereUniqueWithoutParticipantsInput {
+  where: MeetWhereUniqueInput!
+  update: MeetUpdateWithoutParticipantsDataInput!
+  create: MeetCreateWithoutParticipantsInput!
+}
+
+input MeetWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  intro: String
+  intro_not: String
+  intro_in: [String!]
+  intro_not_in: [String!]
+  intro_lt: String
+  intro_lte: String
+  intro_gt: String
+  intro_gte: String
+  intro_contains: String
+  intro_not_contains: String
+  intro_starts_with: String
+  intro_not_starts_with: String
+  intro_ends_with: String
+  intro_not_ends_with: String
+  participants_every: UserWhereInput
+  participants_some: UserWhereInput
+  participants_none: UserWhereInput
+  tag: String
+  tag_not: String
+  tag_in: [String!]
+  tag_not_in: [String!]
+  tag_lt: String
+  tag_lte: String
+  tag_gt: String
+  tag_gte: String
+  tag_contains: String
+  tag_not_contains: String
+  tag_starts_with: String
+  tag_not_starts_with: String
+  tag_ends_with: String
+  tag_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [MeetWhereInput!]
+  OR: [MeetWhereInput!]
+  NOT: [MeetWhereInput!]
+}
+
+input MeetWhereUniqueInput {
+  id: ID
+}
+
 type Message {
   id: ID!
   text: String!
@@ -1584,6 +1849,12 @@ type Mutation {
   upsertMarket(where: MarketWhereUniqueInput!, create: MarketCreateInput!, update: MarketUpdateInput!): Market!
   deleteMarket(where: MarketWhereUniqueInput!): Market
   deleteManyMarkets(where: MarketWhereInput): BatchPayload!
+  createMeet(data: MeetCreateInput!): Meet!
+  updateMeet(data: MeetUpdateInput!, where: MeetWhereUniqueInput!): Meet
+  updateManyMeets(data: MeetUpdateManyMutationInput!, where: MeetWhereInput): BatchPayload!
+  upsertMeet(where: MeetWhereUniqueInput!, create: MeetCreateInput!, update: MeetUpdateInput!): Meet!
+  deleteMeet(where: MeetWhereUniqueInput!): Meet
+  deleteManyMeets(where: MeetWhereInput): BatchPayload!
   createMessage(data: MessageCreateInput!): Message!
   updateMessage(data: MessageUpdateInput!, where: MessageWhereUniqueInput!): Message
   updateManyMessages(data: MessageUpdateManyMutationInput!, where: MessageWhereInput): BatchPayload!
@@ -2114,6 +2385,9 @@ type Query {
   market(where: MarketWhereUniqueInput!): Market
   markets(where: MarketWhereInput, orderBy: MarketOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Market]!
   marketsConnection(where: MarketWhereInput, orderBy: MarketOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MarketConnection!
+  meet(where: MeetWhereUniqueInput!): Meet
+  meets(where: MeetWhereInput, orderBy: MeetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Meet]!
+  meetsConnection(where: MeetWhereInput, orderBy: MeetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MeetConnection!
   message(where: MessageWhereUniqueInput!): Message
   messages(where: MessageWhereInput, orderBy: MessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Message]!
   messagesConnection(where: MessageWhereInput, orderBy: MessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MessageConnection!
@@ -2722,6 +2996,7 @@ type Subscription {
   comment(where: CommentSubscriptionWhereInput): CommentSubscriptionPayload
   image(where: ImageSubscriptionWhereInput): ImageSubscriptionPayload
   market(where: MarketSubscriptionWhereInput): MarketSubscriptionPayload
+  meet(where: MeetSubscriptionWhereInput): MeetSubscriptionPayload
   message(where: MessageSubscriptionWhereInput): MessageSubscriptionPayload
   notice(where: NoticeSubscriptionWhereInput): NoticeSubscriptionPayload
   post(where: PostSubscriptionWhereInput): PostSubscriptionPayload
@@ -2743,6 +3018,7 @@ type User {
   markets(where: MarketWhereInput, orderBy: MarketOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Market!]
   rents(where: RentWhereInput, orderBy: RentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Rent!]
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
+  meets(where: MeetWhereInput, orderBy: MeetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Meet!]
   rooms(where: RoomWhereInput, orderBy: RoomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Room!]
   loginSecret: String
   createdAt: DateTime!
@@ -2768,8 +3044,14 @@ input UserCreateInput {
   markets: MarketCreateManyWithoutUserInput
   rents: RentCreateManyWithoutUserInput
   comments: CommentCreateManyWithoutUserInput
+  meets: MeetCreateManyWithoutParticipantsInput
   rooms: RoomCreateManyWithoutParticipantsInput
   loginSecret: String
+}
+
+input UserCreateManyWithoutMeetsInput {
+  create: [UserCreateWithoutMeetsInput!]
+  connect: [UserWhereUniqueInput!]
 }
 
 input UserCreateManyWithoutRoomsInput {
@@ -2819,6 +3101,7 @@ input UserCreateWithoutBoardsInput {
   markets: MarketCreateManyWithoutUserInput
   rents: RentCreateManyWithoutUserInput
   comments: CommentCreateManyWithoutUserInput
+  meets: MeetCreateManyWithoutParticipantsInput
   rooms: RoomCreateManyWithoutParticipantsInput
   loginSecret: String
 }
@@ -2835,6 +3118,7 @@ input UserCreateWithoutCommentsInput {
   boards: BoardCreateManyWithoutUserInput
   markets: MarketCreateManyWithoutUserInput
   rents: RentCreateManyWithoutUserInput
+  meets: MeetCreateManyWithoutParticipantsInput
   rooms: RoomCreateManyWithoutParticipantsInput
   loginSecret: String
 }
@@ -2849,6 +3133,24 @@ input UserCreateWithoutMarketsInput {
   intro: String
   posts: PostCreateManyWithoutUserInput
   boards: BoardCreateManyWithoutUserInput
+  rents: RentCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
+  meets: MeetCreateManyWithoutParticipantsInput
+  rooms: RoomCreateManyWithoutParticipantsInput
+  loginSecret: String
+}
+
+input UserCreateWithoutMeetsInput {
+  id: ID
+  avatar: String
+  email: String!
+  firstName: String
+  lastName: String
+  username: String!
+  intro: String
+  posts: PostCreateManyWithoutUserInput
+  boards: BoardCreateManyWithoutUserInput
+  markets: MarketCreateManyWithoutUserInput
   rents: RentCreateManyWithoutUserInput
   comments: CommentCreateManyWithoutUserInput
   rooms: RoomCreateManyWithoutParticipantsInput
@@ -2867,6 +3169,7 @@ input UserCreateWithoutPostsInput {
   markets: MarketCreateManyWithoutUserInput
   rents: RentCreateManyWithoutUserInput
   comments: CommentCreateManyWithoutUserInput
+  meets: MeetCreateManyWithoutParticipantsInput
   rooms: RoomCreateManyWithoutParticipantsInput
   loginSecret: String
 }
@@ -2883,6 +3186,7 @@ input UserCreateWithoutRentsInput {
   boards: BoardCreateManyWithoutUserInput
   markets: MarketCreateManyWithoutUserInput
   comments: CommentCreateManyWithoutUserInput
+  meets: MeetCreateManyWithoutParticipantsInput
   rooms: RoomCreateManyWithoutParticipantsInput
   loginSecret: String
 }
@@ -2900,6 +3204,7 @@ input UserCreateWithoutRoomsInput {
   markets: MarketCreateManyWithoutUserInput
   rents: RentCreateManyWithoutUserInput
   comments: CommentCreateManyWithoutUserInput
+  meets: MeetCreateManyWithoutParticipantsInput
   loginSecret: String
 }
 
@@ -3108,6 +3413,7 @@ input UserUpdateDataInput {
   markets: MarketUpdateManyWithoutUserInput
   rents: RentUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
+  meets: MeetUpdateManyWithoutParticipantsInput
   rooms: RoomUpdateManyWithoutParticipantsInput
   loginSecret: String
 }
@@ -3124,6 +3430,7 @@ input UserUpdateInput {
   markets: MarketUpdateManyWithoutUserInput
   rents: RentUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
+  meets: MeetUpdateManyWithoutParticipantsInput
   rooms: RoomUpdateManyWithoutParticipantsInput
   loginSecret: String
 }
@@ -3146,6 +3453,18 @@ input UserUpdateManyMutationInput {
   username: String
   intro: String
   loginSecret: String
+}
+
+input UserUpdateManyWithoutMeetsInput {
+  create: [UserCreateWithoutMeetsInput!]
+  delete: [UserWhereUniqueInput!]
+  connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutMeetsInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutMeetsInput!]
+  deleteMany: [UserScalarWhereInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
 }
 
 input UserUpdateManyWithoutRoomsInput {
@@ -3220,6 +3539,7 @@ input UserUpdateWithoutBoardsDataInput {
   markets: MarketUpdateManyWithoutUserInput
   rents: RentUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
+  meets: MeetUpdateManyWithoutParticipantsInput
   rooms: RoomUpdateManyWithoutParticipantsInput
   loginSecret: String
 }
@@ -3235,6 +3555,7 @@ input UserUpdateWithoutCommentsDataInput {
   boards: BoardUpdateManyWithoutUserInput
   markets: MarketUpdateManyWithoutUserInput
   rents: RentUpdateManyWithoutUserInput
+  meets: MeetUpdateManyWithoutParticipantsInput
   rooms: RoomUpdateManyWithoutParticipantsInput
   loginSecret: String
 }
@@ -3248,6 +3569,23 @@ input UserUpdateWithoutMarketsDataInput {
   intro: String
   posts: PostUpdateManyWithoutUserInput
   boards: BoardUpdateManyWithoutUserInput
+  rents: RentUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
+  meets: MeetUpdateManyWithoutParticipantsInput
+  rooms: RoomUpdateManyWithoutParticipantsInput
+  loginSecret: String
+}
+
+input UserUpdateWithoutMeetsDataInput {
+  avatar: String
+  email: String
+  firstName: String
+  lastName: String
+  username: String
+  intro: String
+  posts: PostUpdateManyWithoutUserInput
+  boards: BoardUpdateManyWithoutUserInput
+  markets: MarketUpdateManyWithoutUserInput
   rents: RentUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
   rooms: RoomUpdateManyWithoutParticipantsInput
@@ -3265,6 +3603,7 @@ input UserUpdateWithoutPostsDataInput {
   markets: MarketUpdateManyWithoutUserInput
   rents: RentUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
+  meets: MeetUpdateManyWithoutParticipantsInput
   rooms: RoomUpdateManyWithoutParticipantsInput
   loginSecret: String
 }
@@ -3280,6 +3619,7 @@ input UserUpdateWithoutRentsDataInput {
   boards: BoardUpdateManyWithoutUserInput
   markets: MarketUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
+  meets: MeetUpdateManyWithoutParticipantsInput
   rooms: RoomUpdateManyWithoutParticipantsInput
   loginSecret: String
 }
@@ -3296,7 +3636,13 @@ input UserUpdateWithoutRoomsDataInput {
   markets: MarketUpdateManyWithoutUserInput
   rents: RentUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
+  meets: MeetUpdateManyWithoutParticipantsInput
   loginSecret: String
+}
+
+input UserUpdateWithWhereUniqueWithoutMeetsInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutMeetsDataInput!
 }
 
 input UserUpdateWithWhereUniqueWithoutRoomsInput {
@@ -3332,6 +3678,12 @@ input UserUpsertWithoutPostsInput {
 input UserUpsertWithoutRentsInput {
   update: UserUpdateWithoutRentsDataInput!
   create: UserCreateWithoutRentsInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutMeetsInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutMeetsDataInput!
+  create: UserCreateWithoutMeetsInput!
 }
 
 input UserUpsertWithWhereUniqueWithoutRoomsInput {
@@ -3454,6 +3806,9 @@ input UserWhereInput {
   comments_every: CommentWhereInput
   comments_some: CommentWhereInput
   comments_none: CommentWhereInput
+  meets_every: MeetWhereInput
+  meets_some: MeetWhereInput
+  meets_none: MeetWhereInput
   rooms_every: RoomWhereInput
   rooms_some: RoomWhereInput
   rooms_none: RoomWhereInput

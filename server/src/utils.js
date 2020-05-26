@@ -30,3 +30,8 @@ export const sendSecretMail = (address, secret) => {
 }
 
 export const generateToken = id => jwt.sign({ id }, process.env.JWT_SECRET);
+
+export const confirmApply = (user) =>{
+    console.log(user)
+    return "notAccept"
+}
