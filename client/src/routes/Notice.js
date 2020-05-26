@@ -1,11 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { NOTICE_DATA } from "../SharedQueries";
 import { useQuery } from "@apollo/react-hooks";
 import Loader from "../components/Loader";
 import Noticeframe from "../components/NoticeFrame";
-import { AppContext } from "../components/App";
 
 const Wrapper = styled.div`
   ${props => props.theme.wrapperBox}

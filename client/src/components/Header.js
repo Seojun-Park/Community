@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { gql } from "apollo-boost";
 import styled from "styled-components";
 import { AppContext } from "../components/App";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import { toast } from "react-toastify";
 import DropDown from "./DropDown";
 
@@ -79,8 +79,14 @@ const LogInOutButton = styled.button`
 
 export default () => {
   const isLoggedIn = useContext(AppContext);
-  console.log(isLoggedIn);
   const [logoutMutation] = useMutation(LOG_OUT);
+  // let profile;
+  // if (isLoggedIn === true) {
+  //   const { data } = useQuery(ME);
+  //   if (data) {
+  //     profile = data.me;
+  //   }
+  // }
 
   const handleLogout = async e => {
     e.preventDefault();
@@ -120,17 +126,21 @@ export default () => {
           <HeaderCol>
             <MenuText>
               {isLoggedIn === false ? (
+                <Link to="/signup">회원가입</Link>
+              ) : (
+                <Link to="/profile">마이페이지</Link>
+              )}
+            </MenuText>
+          </HeaderCol>
+          <HeaderCol>
+            <MenuText>
+              {isLoggedIn === false ? (
                 <LogInOutButton>
                   <Link to="/login">로그인</Link>
                 </LogInOutButton>
               ) : (
                 <LogInOutButton onClick={handleLogout}>로그아웃</LogInOutButton>
               )}
-            </MenuText>
-          </HeaderCol>
-          <HeaderCol>
-            <MenuText>
-              {isLoggedIn === false && <Link to="/signup">회원가입</Link>}
             </MenuText>
           </HeaderCol>
         </HeaderRow>

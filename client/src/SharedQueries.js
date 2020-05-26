@@ -10,6 +10,24 @@ export const ME = gql`
       firstName
       lastName
       intro
+      boards {
+        id
+        title
+        caption
+        createdAt
+      }
+      rents {
+        id
+        title
+        caption
+        createdAt
+      }
+      markets {
+        id
+        title
+        caption
+        createdAt
+      }
     }
   }
 `;
