@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { gql } from "apollo-boost";
 import styled from "styled-components";
 import { AppContext } from "../components/App";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/react-hooks";
 import { toast } from "react-toastify";
 import DropDown from "./DropDown";
 
@@ -80,13 +80,6 @@ const LogInOutButton = styled.button`
 export default () => {
   const isLoggedIn = useContext(AppContext);
   const [logoutMutation] = useMutation(LOG_OUT);
-  // let profile;
-  // if (isLoggedIn === true) {
-  //   const { data } = useQuery(ME);
-  //   if (data) {
-  //     profile = data.me;
-  //   }
-  // }
 
   const handleLogout = async e => {
     e.preventDefault();

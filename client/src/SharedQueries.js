@@ -42,12 +42,14 @@ export const BOARD_DATA = gql`
       comments {
         id
         user {
+          avatar
           username
         }
         text
       }
       user {
         id
+        avatar
         username
       }
       hit
@@ -65,6 +67,7 @@ export const NOTICE_DATA = gql`
       hit
       user {
         id
+        avatar
         username
       }
       createdAt
@@ -84,11 +87,14 @@ export const MARKET_DATA = gql`
         id
         text
         user {
+          id
+          avatar
           username
         }
       }
       user {
         id
+        avatar
         username
       }
       createdAt
@@ -107,11 +113,14 @@ export const RENT_DATA = gql`
         id
         text
         user {
+          id
+          avatar
           username
         }
       }
       user {
         id
+        avatar
         username
       }
       createdAt

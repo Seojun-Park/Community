@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 
 import CurrencyBox from "../components/CurrencyBox";
+import { AppContext } from "../components/App";
 
 const Wrapper = styled.div`
   ${props => props.theme.wrapperBox}
@@ -42,6 +43,9 @@ const ViewCol = styled.div`
 const LastViewRow = styled.div``;
 
 export default () => {
+  const isLoggedIn = useContext(AppContext);
+  console.log(isLoggedIn);
+
   return (
     <Wrapper>
       <Container>

@@ -189,38 +189,38 @@ export default () => {
       data = extractData.data.seeNoticeDetail;
   }
 
-  const onKeyPress = async e => {
-    const { which } = e;
-    if (which === 13) {
-      e.preventDefault();
-      try {
-        if (action === "board") {
-          const {
-            data: { addBoardComment }
-          } = await addBoardCommentMutation();
-          setSelfComments([...selfComments, addBoardComment]);
-          commentText.setValue("");
-          toast.success("Comment created :D");
-        } else if (action === "market") {
-          const {
-            data: { addMarketComment }
-          } = await addMarketCommentMutation();
-          setSelfComments([...selfComments, addMarketComment]);
-          commentText.setValue("");
-          toast.success("Comment Created :D");
-        } else if (action === "rent") {
-          const {
-            data: { addRentComment }
-          } = await addRentCommentMutation();
-          setSelfComments([...selfComments], addRentComment);
-          commentText.setValue("");
-          toast.success("Comment Created :D");
-        }
-      } catch {
-        toast.error("Can't create Comment");
-      }
-    }
-  };
+  // const onKeyPress = async e => {
+  //   const { which } = e;
+  //   if (which === 13) {
+  //     e.preventDefault();
+  //     try {
+  //       if (action === "board") {
+  //         const {
+  //           data: { addBoardComment }
+  //         } = await addBoardCommentMutation();
+  //         setSelfComments([...selfComments, addBoardComment]);
+  //         commentText.setValue("");
+  //         toast.success("Comment created :D");
+  //       } else if (action === "market") {
+  //         const {
+  //           data: { addMarketComment }
+  //         } = await addMarketCommentMutation();
+  //         setSelfComments([...selfComments, addMarketComment]);
+  //         commentText.setValue("");
+  //         toast.success("Comment Created :D");
+  //       } else if (action === "rent") {
+  //         const {
+  //           data: { addRentComment }
+  //         } = await addRentCommentMutation();
+  //         setSelfComments([...selfComments], addRentComment);
+  //         commentText.setValue("");
+  //         toast.success("Comment Created :D");
+  //       }
+  //     } catch {
+  //       toast.error("Can't create Comment");
+  //     }
+  //   }
+  // };
 
   const handleOnClick = async e => {
     e.preventDefault();
@@ -237,6 +237,12 @@ export default () => {
       } = await addMarketCommentMutation();
       setSelfComments([...selfComments, addMarketComment]);
       commentText.setValue("");
+      toast.success("Comment created :D");
+    } else if (action === "rent") {
+      const {
+        data: { addRentComment }
+      } = await addRentCommentMutation();
+      setSelfComments([...selfComments, addRentComment]);
       toast.success("Comment created :D");
     }
   };

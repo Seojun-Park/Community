@@ -9,7 +9,8 @@ import Market from "../routes/Market";
 import Board from "../routes/Board";
 import Rent from "../routes/Rent";
 import Detail from "../routes/Detail";
-import Edit from "../routes/Profile";
+import Profile from "../routes/Profile";
+import Edit from "../routes/Edit";
 
 const Routes = () => (
   <Switch>
@@ -22,7 +23,8 @@ const Routes = () => (
     <Route path="/login" component={Login} />
     <Route path="/write/:action" component={Write} />
     <Route path="/detail/:id" component={Detail} />
-    <Route path="/profile" component={Edit} />
+    <Route path="/profile" component={Profile} />
+    <Route path="/edit" component={Edit} />
     <Redirect from="*" to="/" />
   </Switch>
 );

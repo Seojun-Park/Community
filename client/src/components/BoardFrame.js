@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Pagenation from "./Pagenation";
 import _ from "lodash";
+import Avatar from "./Avatar";
 
 const Container = styled.div`
   height: 100%;
@@ -36,12 +37,12 @@ const TableHeadCell = styled.div.attrs(props => ({
     overflow: hidden;
   }
   &.status {
-    width: 20%;
+    width: 15%;
     border-right: 1px solid #2f3640;
     overflow: hidden;
   }
   &.writer {
-    width: 15%;
+    width: 20%;
     border-right: 1px solid #2f3640;
     overflow: hidden;
   }
@@ -84,14 +85,17 @@ const TableBodyCell = styled.li.attrs(props => ({
     overflow: hidden;
   }
   &.status {
-    width: 20%;
+    width: 15%;
     text-align: center;
     overflow: hidden;
   }
   &.writer {
-    width: 15%;
-    text-align: center;
+    width: 20%;
     overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
     cursor: pointer;
   }
   &.createdat {
@@ -106,7 +110,7 @@ const TableBodyCell = styled.li.attrs(props => ({
 `;
 
 const ELink = styled(Link)`
-  a {
+  :hover {
     text-decoration: none;
   }
 `;
@@ -134,7 +138,6 @@ export default ({ data: props, action }) => {
     sliceDatabyPage(props, data.currentPage, data.pageSize);
   }, [props, data.currentPage, data.pageSize]);
 
-  console.log(action);
   return (
     <Container>
       <TableFrame>
@@ -165,6 +168,7 @@ export default ({ data: props, action }) => {
                       <TableBodyCell className="status">판매완료</TableBodyCell>
                     )}
                     <TableBodyCell className="writer">
+                      <Avatar url={d.user.avatar} size={"sm"} />
                       {d.user.username}
                     </TableBodyCell>
                     <TableBodyCell className="createdat">

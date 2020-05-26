@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { ME } from "../SharedQueries";
 import { useQuery } from "@apollo/react-hooks";
+import { Settings } from "../components/Icon";
 import Loader from "../components/Loader";
 import Avatar from "../components/Avatar";
 
@@ -23,6 +25,7 @@ const Head = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding: 5% 0%;
 `;
 
 const InfoSection = styled.div`
@@ -40,6 +43,7 @@ const AvatarPart = styled.div`
 const Username = styled.span`
   padding: 5px;
   font-size: 20px;
+  width: 150px;
 `;
 
 const Name = styled.span`
@@ -66,11 +70,23 @@ const Board = styled.div`
   border: 1px solid orange;
 `;
 
-const SubContent = styled.div``;
+const SubContent = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 
-const Note = styled.div``;
+const Note = styled.div`
+  padding: 3px;
+  margin-left: 4%;
+  :hover {
+    color: coral;
+    transition: 0.1s linear;
+  }
+`;
 
-const CreateAt = styled.div``;
+const CreateAt = styled.div`
+  margin-right: 4%;
+`;
 
 const Market = styled.div`
   padding: 10px;
@@ -84,12 +100,21 @@ const Rent = styled.div`
   border: 1px solid lime;
 `;
 
+const Title = styled.span`
+  font-size: 16px;
+  width: 350px;
+  margin: 3px;
+  overflow: hidden;
+`;
+
+const Top = styled.div`
+  display: flex;
+`;
+
 export default () => {
   const { data, loading } = useQuery(ME);
-  let length;
-  let slicedData;
 
-  console.log(data);
+  let slicedData;
 
   return (
     <Wrapper>
@@ -100,82 +125,88 @@ export default () => {
           <Content>
             <Head>
               <AvatarPart>
-                <Avatar url={data.me.avatar} size="lg" />
+                {data && data.me && <Avatar url={data.me.avatar} size="lg" />}
               </AvatarPart>
-              <InfoSection>
-                <Username>{data.me.username}</Username>
-                <Name>
-                  {data.me.firstName} {data.me.lastName}
-                </Name>
-                <Intro>{data.me.intro}</Intro>
-              </InfoSection>
+              {data && data.me && (
+                <InfoSection>
+                  <Top>
+                    <Username>{data && data.me.username}</Username>
+                    <Link to="/edit">
+                      <Settings />
+                    </Link>
+                  </Top>
+                  <Name>
+                    {data.me.firstName} {data.me.lastName}
+                  </Name>
+                  <Intro>{data.me.intro}</Intro>
+                </InfoSection>
+              )}
             </Head>
             <Body>
-              <History>
-                <Board>
-                  {data.me.boards.length !== 0
-                    ? data.me.boards &&
-                      (slicedData = data.me.boards.slice(
-                        data.me.boards.length - 5,
-                        data.me.boards.length
-                      )) &&
-                      slicedData.map(b => {
-                        const trimmedDate = b.creatdAt.slice(5, 10);
-                        console.log(trimmedDate);
-                        return (
-                          <SubContent key={b.id}>
-                            <Note>
-                              {b.title} : {b.caption}
-                            </Note>
-                            <CreateAt>{b.createdAt}</CreateAt>
-                          </SubContent>
-                        );
-                      })
-                    : "No data"}
-                </Board>
-                <Market>
-                  {data.me.markets.length !== 0
-                    ? data.me.markets &&
-                      (slicedData = data.me.markets.slice(
-                        data.me.markets.length - 5,
-                        data.me.markets.length
-                      )) &&
-                      slicedData.map(b => {
-                        const trimmedDate = b.creatdAt.slice(5, 10);
-                        console.log(trimmedDate);
-                        return (
-                          <SubContent key={b.id}>
-                            <Note key={b.id}>
-                              {b.title} : {b.caption}
-                            </Note>
-                            <CreateAt>{b.createdAt}</CreateAt>
-                          </SubContent>
-                        );
-                      })
-                    : "No Data"}
-                </Market>
-                <Rent>
-                  {data.me.rents.length !== 0
-                    ? data.me.rents &&
-                      (slicedData = data.me.rents.slice(
-                        data.me.rents.length - 5,
-                        data.me.rents.length
-                      )) &&
-                      slicedData.map(b => {
-                        const trimmedDate = b.creatdAt.slice(5, 10);
-                        console.log(trimmedDate);
-                        return (
-                          <SubContent key={b.id}>
-                            <Note key={b.id}>
-                              {b.title} : {b.caption}
-                            </Note>
-                            <CreateAt>{b.createdAt}</CreateAt>
-                          </SubContent>
-                        );
-                      })
-                    : "No data"}
-                </Rent>
-              </History>
+              {data && data.me && (
+                <History>
+                  <Board>
+                    {data.me.boards.length !== 0
+                      ? data.me.boards &&
+                        (slicedData = data.me.boards.slice(
+                          data.me.boards.length - 5,
+                          data.me.boards.length
+                        )) &&
+                        slicedData.map(b => {
+                          const trimmedDate = `${b.createdAt}`.substr(0, 10);
+                          return (
+                            <SubContent key={b.id}>
+                              <Note>
+                                <Title>{b.title}</Title>
+                              </Note>
+                              <CreateAt>{trimmedDate}</CreateAt>
+                            </SubContent>
+                          );
+                        })
+                      : "No data"}
+                  </Board>
+                  <Market>
+                    {data.me.markets.length !== 0
+                      ? data.me.markets &&
+                        (slicedData = data.me.markets.slice(
+                          data.me.markets.length - 5,
+                          data.me.markets.length
+                        )) &&
+                        slicedData.map(b => {
+                          const trimmedDate = `${b.createdAt}`.substr(0, 10);
+                          return (
+                            <SubContent key={b.id}>
+                              <Note key={b.id}>
+                                <Title>{b.title}</Title>
+                              </Note>
+                              <CreateAt>{trimmedDate}</CreateAt>
+                            </SubContent>
+                          );
+                        })
+                      : "No Data"}
+                  </Market>
+                  <Rent>
+                    {data.me.rents.length !== 0
+                      ? data.me.rents &&
+                        (slicedData = data.me.rents.slice(
+                          data.me.rents.length - 5,
+                          data.me.rents.length
+                        )) &&
+                        slicedData.map(b => {
+                          const trimmedDate = `${b.createdAt}`.substr(0, 10);
+                          return (
+                            <SubContent key={b.id}>
+                              <Note key={b.id}>
+                                <Title>{b.title}</Title>
+                              </Note>
+                              <CreateAt>{trimmedDate}</CreateAt>
+                            </SubContent>
+                          );
+                        })
+                      : "No data"}
+                  </Rent>
+                </History>
+              )}
             </Body>
           </Content>
         )}
