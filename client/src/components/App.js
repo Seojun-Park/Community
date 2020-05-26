@@ -24,7 +24,6 @@ export default () => {
   const {
     data: { isLoggedIn }
   } = useQuery(QUERY);
-  console.log(isLoggedIn);
   return (
     <AppContext.Provider value={isLoggedIn}>
       <ThemeProvider theme={Theme}>

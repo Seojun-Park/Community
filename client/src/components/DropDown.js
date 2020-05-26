@@ -36,21 +36,36 @@ const DropdownBox = styled.div`
   }
 `;
 
-export default () => {
+export default ({ action }) => {
+  console.log(action);
   return (
     <NavbarDropdown>
-      <span>메뉴</span>
-      <NavbarDropdownContent>
-        <DropdownBox>
-          <Link to="/board">자유게시판</Link>
-        </DropdownBox>
-        <DropdownBox>
-          <Link to="/market">벼룩시장</Link>
-        </DropdownBox>
-        <DropdownBox>
-          <Link to="/rent">내 집 찾기</Link>
-        </DropdownBox>
-      </NavbarDropdownContent>
+      {action === "first" && (
+        <>
+          <span>메뉴</span>
+          <NavbarDropdownContent>
+            <DropdownBox>
+              <Link to="/board">자유게시판</Link>
+            </DropdownBox>
+            <DropdownBox>
+              <Link to="/market">벼룩시장</Link>
+            </DropdownBox>
+            <DropdownBox>
+              <Link to="/rent">내 집 찾기</Link>
+            </DropdownBox>
+          </NavbarDropdownContent>
+        </>
+      )}
+      {action === "second" && (
+        <>
+          <span>정보</span>
+          <NavbarDropdownContent>
+            <DropdownBox>
+              <Link to="/meetup">모임</Link>
+            </DropdownBox>
+          </NavbarDropdownContent>
+        </>
+      )}
     </NavbarDropdown>
   );
 };

@@ -360,3 +360,23 @@ export const LOCAL_LOG_IN = gql`
     logUserIn(token: $token) @client
   }
 `;
+
+export const EDIT_USER = gql`
+  mutation editUser(
+    $username: String
+    $firstName: String
+    $lastName: String
+    $intro: String
+    $avatar: String
+  ) {
+    editUser(
+      username: $username
+      firstName: $firstName
+      lastName: $lastName
+      intro: $intro
+      avatar: $avatar
+    ){
+      id
+    }
+  }
+`;

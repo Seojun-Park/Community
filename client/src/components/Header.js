@@ -109,12 +109,10 @@ export default () => {
             </MenuText>
           </HeaderCol>
           <HeaderCol>
-            <DropDown />
+            <DropDown action="first" />
           </HeaderCol>
           <HeaderCol>
-            <MenuText>
-              <Link to="/">정보</Link>
-            </MenuText>
+            <DropDown action="second" />
           </HeaderCol>
           <HeaderCol>
             <MenuText>
