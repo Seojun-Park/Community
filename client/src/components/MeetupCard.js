@@ -1,17 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-const Wrapper = styled.div`
-  ${props => props.theme.wrapperBox};
-`;
+const Wrapper = styled.div``;
 
 const Container = styled.div`
-  width: 100%;
-  border: 1px solid red;
+  height: 100%;
+  border: 1px solid blue;
 `;
 
 const Card = styled.div`
-  height: 200px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -19,9 +16,8 @@ const Card = styled.div`
 `;
 
 const Head = styled.div`
-  width: 100%;
   text-align: center;
-  margin: 15px;
+  margin: 8px;
 `;
 const Title = styled.span`
   font-size: 18px;
@@ -29,14 +25,15 @@ const Title = styled.span`
 `;
 
 const Background = styled.div`
-  height: 100px;
+  height: 150px;
   width: 100%;
-
+  background-size: cover;
+  background-image: url(${props => props.url});
   border: 1px solid green;
 `;
 
 const Body = styled.div`
-  padding-bottom: 15px;
+  margin: 10px;
 `;
 
 const Intro = styled.span``;
@@ -45,6 +42,20 @@ const Tag = styled.span``;
 
 export default ({ data }) => {
   console.log(data);
+
+  const studyBgUrl =
+    "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80";
+  const workoutBgUrl =
+    "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80";
+  const travelBgUrl =
+    "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1008&q=80";
+
+  const options = [
+    { label: "여행 ✈️ ", value: "travel" },
+    { label: "공부 📚 ", value: "study" },
+    { label: "운동 💪🏻 ", value: "workout" }
+  ];
+
   return (
     <Wrapper>
       <Container>
@@ -52,11 +63,15 @@ export default ({ data }) => {
           <Head>
             <Title>{data.title}</Title>
           </Head>
-          <Background>test</Background>
+          {data.tag === "travel" && <Background url={travelBgUrl} />}
+          {data.tag === "study" && <Background url={studyBgUrl} />}
+          {data.tag === "workout" && <Background url={workoutBgUrl} />}
           <Body>
             <Intro>{data.intro}</Intro>
           </Body>
-          <Tag>#{data.tag}</Tag>
+          {data.tag === "travel" && <Tag># 여행 ✈️ </Tag>}
+          {data.tag === "study" && <Tag># 공부 📚 </Tag>}
+          {data.tag === "workout" && <Tag># 운동 💪🏻 </Tag>}
         </Card>
       </Container>
     </Wrapper>
