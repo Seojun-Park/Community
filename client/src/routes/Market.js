@@ -83,13 +83,13 @@ export default () => {
       ) : (
         <Container>
           <Head>
-            <HeadTitle>This is head</HeadTitle>
+            <HeadTitle>벼룩시장</HeadTitle>
             <HeadCaption>Head Caption</HeadCaption>
           </Head>
           <View>
             <ViewCol>
               <ButtonContainer>
-                {isLoggedIn === true  ? (
+                {isLoggedIn === true ? (
                   <WriteButton to="/write/market">글쓰기</WriteButton>
                 ) : (
                   alert("글작성을 위해 로그인을 해주세요")
@@ -98,8 +98,18 @@ export default () => {
               <Boardframe data={data.showMarket} action="market" />
             </ViewCol>
             <ViewCol>
-              <ViewRow>list box</ViewRow>
-              <ViewRow>list box</ViewRow>
+              <ViewRow>
+                <Link to="/board">자유게시판</Link>
+              </ViewRow>
+              <ViewRow>
+                <Link to="/market">벼룩시장</Link>
+              </ViewRow>
+              <ViewRow>
+                <Link to="/rent">내집찾기</Link>
+              </ViewRow>
+              <ViewRow>
+                <Link to="/meetup">모임</Link>
+              </ViewRow>
             </ViewCol>
           </View>
         </Container>

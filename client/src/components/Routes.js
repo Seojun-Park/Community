@@ -14,6 +14,7 @@ import Edit from "../routes/Edit";
 import Meetup from "../routes/Meetup";
 import CreateMeetUp from "../routes/CreateMeetUp";
 import MeetUpDetail from "../routes/MeetUpDetail";
+import Info from "../routes/Information";
 
 const Routes = () => (
   <Switch>
@@ -31,6 +32,7 @@ const Routes = () => (
     <Route path="/meetup" component={Meetup} />
     <Route path="/createMeetUp" component={CreateMeetUp} />
     <Route path="/meetupDetail/:id" component={MeetUpDetail} />
+    <Route path="/info" component={Info} />
     <Redirect from="*" to="/" />
   </Switch>
 );

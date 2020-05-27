@@ -83,7 +83,7 @@ export default () => {
       ) : (
         <Container>
           <Head>
-            <HeadTitle>This is head</HeadTitle>
+            <HeadTitle>자유게시판</HeadTitle>
             <HeadCaption>Head Caption</HeadCaption>
           </Head>
           <View>
@@ -98,8 +98,18 @@ export default () => {
               <Boardframe data={data.showBoard} action="board" />
             </ViewCol>
             <ViewCol>
-              <ViewRow>list box</ViewRow>
-              <ViewRow>list box</ViewRow>
+              <ViewRow>
+                <Link to="/board">자유게시판</Link>
+              </ViewRow>
+              <ViewRow>
+                <Link to="/market">벼룩시장</Link>
+              </ViewRow>
+              <ViewRow>
+                <Link to="/rent">내집찾기</Link>
+              </ViewRow>
+              <ViewRow>
+                <Link to="/meetup">모임</Link>
+              </ViewRow>
             </ViewCol>
           </View>
         </Container>

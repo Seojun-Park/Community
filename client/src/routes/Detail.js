@@ -13,6 +13,7 @@ import { useQuery, useMutation } from "@apollo/react-hooks";
 import Avatar from "../components/Avatar";
 import useInput from "../hooks/useInput";
 import { toast } from "react-toastify";
+import Loader from "../components/Loader";
 
 const Wrapper = styled.div`
   ${props => props.theme.wrapperBox}
@@ -151,6 +152,7 @@ export default () => {
   });
 
   let data = {};
+  let loading = false;
 
   if (action === "board") {
     const extractData = useQuery(SEE_BOARD_DETAIL, {
@@ -159,7 +161,10 @@ export default () => {
       }
     });
     if (extractData && extractData.data) {
+      loading = false;
       data = extractData.data.seeBoardDetail;
+    } else if (extractData.loading === true) {
+      loading = true;
     }
   } else if (action === "market") {
     const extractData = useQuery(SEE_MARKET_DETAIL, {
@@ -168,7 +173,10 @@ export default () => {
       }
     });
     if (extractData && extractData.data) {
+      loading = false;
       data = extractData.data.seeMarketDetail;
+    } else if (extractData.loading === true) {
+      loading = true;
     }
   } else if (action === "rent") {
     const extractData = useQuery(SEE_RENT_DETAIL, {
@@ -177,7 +185,10 @@ export default () => {
       }
     });
     if (extractData && extractData.data) {
+      loading = false;
       data = extractData.data.seeRentDetail;
+    } else if (extractData.loading === true) {
+      loading = true;
     }
   } else if (action === "notice") {
     const extractData = useQuery(SEE_NOTICE_DETAIL, {
@@ -185,8 +196,12 @@ export default () => {
         id
       }
     });
-    if (extractData && extractData.data)
+    if (extractData && extractData.data) {
+      loading = false;
       data = extractData.data.seeNoticeDetail;
+    } else if (extractData.loading === true) {
+      loading = true;
+    }
   }
 
   // const onKeyPress = async e => {
@@ -249,57 +264,61 @@ export default () => {
 
   return (
     <Wrapper>
-      <Container>
-        <View>
-          <ViewCol>col1</ViewCol>
-          <ViewCol>
-            <MainContent>
-              <Head>
-                <Title>{data.title}</Title>
-                {action === "notice" ? (
-                  <Writer>Admin</Writer>
-                ) : (
-                  data.user && (
-                    <Profile>
-                      <Avatar url={data.user.avatar} size="sm" />
-                      <Writer> {data.user.username}</Writer>
-                    </Profile>
-                  )
-                )}
-              </Head>
-              <Caption>
-                <CaptionText>{data.caption}</CaptionText>
-              </Caption>
-              <CommentContainer>
-                <CommentBoard type="submit">
-                  {data.comments &&
-                    data.comments.map(c => {
-                      console.log(c);
-                      return (
-                        <Comment key={c.id}>
+      {loading === true ? (
+        <Loader />
+      ) : (
+        <Container>
+          <View>
+            <ViewCol>col1</ViewCol>
+            <ViewCol>
+              <MainContent>
+                <Head>
+                  <Title>{data.title}</Title>
+                  {action === "notice" ? (
+                    <Writer>Admin</Writer>
+                  ) : (
+                    data.user && (
+                      <Profile>
+                        <Avatar url={data.user.avatar} size="sm" />
+                        <Writer> {data.user.username}</Writer>
+                      </Profile>
+                    )
+                  )}
+                </Head>
+                <Caption>
+                  <CaptionText>{data.caption}</CaptionText>
+                </Caption>
+                <CommentContainer>
+                  <CommentBoard type="submit">
+                    {data.comments &&
+                      data.comments.map(c => {
+                        console.log(c);
+                        return (
+                          <Comment key={c.id}>
+                            {c.user.username} : {c.text}
+                          </Comment>
+                        );
+                      })}
+                    {selfComments &&
+                      selfComments.map(c => (
+                        <Comment>
                           {c.user.username} : {c.text}
                         </Comment>
-                      );
-                    })}
-                  {selfComments &&
-                    selfComments.map(c => (
-                      <Comment>
-                        {c.user.username} : {c.text}
-                      </Comment>
-                    ))}
-                </CommentBoard>
-                <CommentInput
-                  placeholder="Add comments..."
-                  setValue={commentText.value}
-                  onChange={commentText.onChange}
-                />
-                <Button onClick={handleOnClick}>Send</Button>
-              </CommentContainer>
-            </MainContent>
-          </ViewCol>
-          <ViewCol>col3</ViewCol>
-        </View>
-      </Container>
+                      ))}
+                  </CommentBoard>
+                  <CommentInput
+                    placeholder="Add comments..."
+                    setValue={commentText.value}
+                    onChange={commentText.onChange}
+                  />
+                  <Button onClick={handleOnClick}>Send</Button>
+                </CommentContainer>
+              </MainContent>
+            </ViewCol>
+            <ViewCol>col3</ViewCol>
+          </View>
+        </Container>
+      )}
     </Wrapper>
   );
 };

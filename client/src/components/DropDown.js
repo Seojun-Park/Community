@@ -52,6 +52,9 @@ export default ({ action }) => {
             <DropdownBox>
               <Link to="/rent">내 집 찾기</Link>
             </DropdownBox>
+            <DropdownBox>
+              <Link to="/meetup">모임</Link>
+            </DropdownBox>
           </NavbarDropdownContent>
         </>
       )}
@@ -60,7 +63,7 @@ export default ({ action }) => {
           <span>정보</span>
           <NavbarDropdownContent>
             <DropdownBox>
-              <Link to="/meetup">모임</Link>
+              <Link to="/info">유학 정보</Link>
             </DropdownBox>
           </NavbarDropdownContent>
         </>

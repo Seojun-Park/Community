@@ -110,7 +110,7 @@ export default () => {
       });
       sliceDatabyPage(meetData.showMeet, data.currentPage, data.pageSize);
     }
-  }, [meetData, meetData.showMeet, data.currentPage, data.pageSize]);
+  }, [meetData, data.currentPage, data.pageSize]);
 
   return (
     <Wrapper>
