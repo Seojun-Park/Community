@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Wrapper = styled.div``;
@@ -50,18 +51,14 @@ export default ({ data }) => {
   const travelBgUrl =
     "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1008&q=80";
 
-  const options = [
-    { label: "여행 ✈️ ", value: "travel" },
-    { label: "공부 📚 ", value: "study" },
-    { label: "운동 💪🏻 ", value: "workout" }
-  ];
-
   return (
     <Wrapper>
       <Container>
         <Card>
           <Head>
-            <Title>{data.title}</Title>
+            <Title>
+              <Link to={`/meetupDetail/${data.id}`}>{data.title}</Link>
+            </Title>
           </Head>
           {data.tag === "travel" && <Background url={travelBgUrl} />}
           {data.tag === "study" && <Background url={studyBgUrl} />}

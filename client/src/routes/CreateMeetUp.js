@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Redirect } from "react-router-dom";
 import { CREATE_MEET, ME } from "../SharedQueries";
@@ -54,9 +54,10 @@ const CreateButton = styled.button`
 `;
 
 export default () => {
-  const tagInput = useInput("");
+  // const tagInput = useInput("");
   const introInput = useInput("");
   const titleInput = useInput("");
+  const [creator, setCreator] = useState("");
   const { data, loading } = useQuery(ME);
   const [selected, setSelected] = useState([]);
   const [tag, setTag] = useState("");
@@ -64,7 +65,8 @@ export default () => {
     variables: {
       tag: tag,
       title: titleInput.value,
-      intro: introInput.value
+      intro: introInput.value,
+      creator
     }
   });
 
@@ -90,8 +92,13 @@ export default () => {
     }
   };
 
-  console.log(selected);
-  console.log(tag);
+  useEffect(() => {
+    if (data && data.me) {
+      setCreator(data.me.id);
+    }
+  }, [data]);
+
+  console.log(creator);
   return (
     <Wrapper>
       <Container>
@@ -107,11 +114,6 @@ export default () => {
                 labelledBy={"Select"}
               />
 
-              <Input
-                placeholder="tag"
-                setValue={tagInput.value}
-                onChange={tagInput.onChange}
-              />
               <Input
                 placeholder="Title"
                 setValue={titleInput.value}

@@ -398,8 +398,13 @@ export const SHOW_MEET = gql`
 `;
 
 export const CREATE_MEET = gql`
-  mutation createMeet($tag: String!, $intro: String!, $title: String!) {
-    createMeet(tag: $tag, intro: $intro, title: $title) {
+  mutation createMeet(
+    $tag: String!
+    $intro: String!
+    $title: String!
+    $creator: String!
+  ) {
+    createMeet(tag: $tag, intro: $intro, title: $title, creator: $creator) {
       id
     }
   }
@@ -414,5 +419,21 @@ export const DELETE_MEET = gql`
 export const JOIN_MEET = gql`
   mutation joinMeet($meetId: String!) {
     joinMeet(meetId: $meetId)
+  }
+`;
+
+export const SEE_MEET_DETAIL = gql`
+  query seeMeetDetail($id: String!) {
+    seeMeetDetail(id: $id) {
+      id
+      title
+      tag
+      creator
+      participants {
+        id
+        username
+      }
+      createdAt
+    }
   }
 `;
