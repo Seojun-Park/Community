@@ -411,8 +411,8 @@ export const CREATE_MEET = gql`
 `;
 
 export const DELETE_MEET = gql`
-  mutation deleteMeet($meetId: String!, $isMaster: Boolean!) {
-    deleteMeet(meetId: $meetId, isMaster: $isMaster)
+  mutation deleteMeet($id: String!, $isMaster: Boolean!) {
+    deleteMeet(id: $id, isMaster: $isMaster)
   }
 `;
 
@@ -429,6 +429,7 @@ export const SEE_MEET_DETAIL = gql`
       title
       tag
       creator
+      intro
       participants {
         id
         username

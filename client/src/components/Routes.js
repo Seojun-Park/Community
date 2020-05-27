@@ -29,7 +29,7 @@ const Routes = () => (
     <Route path="/profile" component={Profile} />
     <Route path="/edit" component={Edit} />
     <Route path="/meetup" component={Meetup} />
-    <Route path="/craeteMeetUp" component={CreateMeetUp} />
+    <Route path="/createMeetUp" component={CreateMeetUp} />
     <Route path="/meetupDetail/:id" component={MeetUpDetail} />
     <Redirect from="*" to="/" />
   </Switch>

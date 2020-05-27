@@ -79,7 +79,7 @@ export default () => {
     totalCount: 1,
     currentPage: 1
   });
-  const { data: searchData, loading: searchLoading } = useQuery(MEET_SEARCH, {
+  const { data: searchData } = useQuery(MEET_SEARCH, {
     skip: searchInput.value === "",
     variables: {
       term: searchInput.value
@@ -101,7 +101,6 @@ export default () => {
     console.log(curPage);
   };
 
-  console.log(searchData);
   useEffect(() => {
     if (meetData && meetData.showMeet) {
       setData({
@@ -112,8 +111,6 @@ export default () => {
       sliceDatabyPage(meetData.showMeet, data.currentPage, data.pageSize);
     }
   }, [meetData, data.currentPage, data.pageSize]);
-
-  console.log(searchInput.value);
 
   return (
     <Wrapper>
@@ -132,6 +129,9 @@ export default () => {
                   />
                   <SearchIcon />
                 </SearchWrapper>
+                <LinkWrapper>
+                <Link to="/createMeetUp">모임 만들기</Link>
+                </LinkWrapper>
               </LinkHeader>
               <Content>
                 {searchInput.value === ""

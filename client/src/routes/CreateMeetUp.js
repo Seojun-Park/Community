@@ -24,10 +24,28 @@ const Content = styled.div`
   padding: 20px;
 `;
 
+const Head = styled.div`
+  /* width: 200px; */
+  display: flex;
+  justify-content: center;
+  width: 50%;
+  margin: 0 auto;
+`;
+
+const Body = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+  margin: 0 auto;
+`;
+
 const Input = styled.input`
+  margin-top: 15px;
   padding: 8px;
   border: none;
-  background-color: #bdc3c7;
+  border-radius: 4px;
+  background-color: #ced6e0;
   &:not(:last-child) {
     margin-bottom: 8px;
   }
@@ -38,7 +56,8 @@ const Textarea = styled.textarea`
   padding: 8px;
   resize: none;
   border: none;
-  background-color: #bdc3c7;
+  border-radius: 4px;
+  background-color: #ced6e0;
 `;
 
 const CreateButton = styled.button`
@@ -46,11 +65,14 @@ const CreateButton = styled.button`
   padding: 8px;
   border: none;
   border-radius: 4px;
-  background-color: #e67e22;
+  background-color: #eccc68;
   color: white;
   font-weight: 600;
   font-size: 14px;
   margin: 0 auto;
+  &:active {
+    background-color: #ffa502;
+  }
 `;
 
 export default () => {
@@ -105,15 +127,16 @@ export default () => {
         {loading ? (
           <Loader />
         ) : (
-          <>
-            <Content>
+          <Content>
+            <Head>
               <MultiSelect
                 options={options}
                 value={selected}
                 onChange={handleChange}
                 labelledBy={"Select"}
               />
-
+            </Head>
+            <Body>
               <Input
                 placeholder="Title"
                 setValue={titleInput.value}
@@ -125,9 +148,9 @@ export default () => {
                 onChange={introInput.onChange}
                 row={10}
               />
-              <CreateButton onClick={handleCreate}>Create</CreateButton>
-            </Content>
-          </>
+            </Body>
+            <CreateButton onClick={handleCreate}>Create</CreateButton>
+          </Content>
         )}
       </Container>
     </Wrapper>
