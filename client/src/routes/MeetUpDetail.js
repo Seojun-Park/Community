@@ -19,7 +19,7 @@ export default () => {
       id
     }
   });
-  console.log(data);
+//   console.log(data);
 
   return (
     <Wrapper>{loading ? <Loader /> : <Container>lala</Container>}</Wrapper>

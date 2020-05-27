@@ -437,3 +437,63 @@ export const SEE_MEET_DETAIL = gql`
     }
   }
 `;
+
+export const BOARD_SEARCH = gql`
+  query searchBoard($term: String!) {
+    searchBoard(term: $term) {
+      id
+      user {
+        id
+        username
+        avatar
+      }
+      title
+      caption
+      createdAt
+    }
+  }
+`;
+
+export const MARKET_SERACH = gql`
+  query searchMarket($term: String!) {
+    searchMarket(term: $term) {
+      id
+      user {
+        id
+        username
+        avatar
+      }
+      title
+      caption
+      createdAt
+    }
+  }
+`;
+
+export const RENT_SEARCH = gql`
+  query searchRent($term: String!) {
+    searchRent(term: $term) {
+      id
+      user {
+        id
+        username
+        avatar
+      }
+      title
+      caption
+      createdAt
+    }
+  }
+`;
+
+export const MEET_SEARCH = gql`
+  query searchMeet($term: String!) {
+    searchMeet(term: $term) {
+      id
+      title
+      intro
+      creator
+      tag
+    }
+  }
+`;

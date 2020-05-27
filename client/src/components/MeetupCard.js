@@ -39,10 +39,8 @@ const Body = styled.div`
 
 const Intro = styled.span``;
 
-const Tag = styled.span``;
-
 export default ({ data }) => {
-  console.log(data);
+  // console.log(data);
 
   const studyBgUrl =
     "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80";
@@ -66,9 +64,9 @@ export default ({ data }) => {
           <Body>
             <Intro>{data.intro}</Intro>
           </Body>
-          {data.tag === "travel" && <Tag># 여행 ✈️ </Tag>}
-          {data.tag === "study" && <Tag># 공부 📚 </Tag>}
-          {data.tag === "workout" && <Tag># 운동 💪🏻 </Tag>}
+          {data.tag === "travel" && <span role="img" aria-labelledby="plane"># 여행 ✈️ </span>}
+          {data.tag === "study" && <span role="img" aria-label="books"># 공부 📚 </span>}
+          {data.tag === "workout" && <span role="img" aria-label="gym"># 운동 💪🏻 </span>}
         </Card>
       </Container>
     </Wrapper>
