@@ -25,11 +25,17 @@ const Content = styled.div`
 `;
 
 const Head = styled.div`
-  /* width: 200px; */
   display: flex;
   justify-content: center;
-  width: 50%;
+  align-items: center;
+  flex-direction: column;
   margin: 0 auto;
+`;
+
+const Caption = styled.span`
+  margin-top: 10px;
+  font-size: 10px;
+  font-weight: 400;
 `;
 
 const Body = styled.div`
@@ -120,7 +126,6 @@ export default () => {
     }
   }, [data]);
 
-  console.log(creator);
   return (
     <Wrapper>
       <Container>
@@ -135,6 +140,7 @@ export default () => {
                 onChange={handleChange}
                 labelledBy={"Select"}
               />
+              <Caption>태그를 선택 해 주세요</Caption>
             </Head>
             <Body>
               <Input
