@@ -147,10 +147,12 @@ export default () => {
         data: { editUser }
       } = await editUserMutation();
       if (editUser) {
-        setFlag(true);
+        console.log("tada");
       }
     } catch (e) {
       console.log(e);
+    } finally {
+      setFlag(true);
     }
   };
 
@@ -195,6 +197,7 @@ export default () => {
                 <Button onClick={handleSubmit}>upload</Button>
               </InputParts>
             </InfoSection>
+            {flag === true && <Redirect to="/" />}
           </Content>
         )}
       </Container>

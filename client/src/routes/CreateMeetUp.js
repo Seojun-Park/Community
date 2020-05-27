@@ -82,13 +82,13 @@ const CreateButton = styled.button`
 `;
 
 export default () => {
-  // const tagInput = useInput("");
   const introInput = useInput("");
   const titleInput = useInput("");
   const [creator, setCreator] = useState("");
   const { data, loading } = useQuery(ME);
   const [selected, setSelected] = useState([]);
   const [tag, setTag] = useState("");
+  const [flag, setFlag] = useState(false);
   const [createMeetMutation] = useMutation(CREATE_MEET, {
     variables: {
       tag: tag,
@@ -105,11 +105,17 @@ export default () => {
   ];
 
   const handleCreate = async e => {
-    const {
-      data: { createMeet }
-    } = await createMeetMutation();
-    if (createMeet) {
-      console.log("how can you throw me to back");
+    try {
+      const {
+        data: { createMeet }
+      } = await createMeetMutation();
+      if (createMeet) {
+        console.log("how can you throw me to back");
+      }
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setFlag(true);
     }
   };
 
@@ -123,6 +129,7 @@ export default () => {
   useEffect(() => {
     if (data && data.me) {
       setCreator(data.me.id);
+      setFlag(false);
     }
   }, [data]);
 
@@ -156,6 +163,7 @@ export default () => {
               />
             </Body>
             <CreateButton onClick={handleCreate}>Create</CreateButton>
+            {flag === true && <Redirect to="/" />}
           </Content>
         )}
       </Container>

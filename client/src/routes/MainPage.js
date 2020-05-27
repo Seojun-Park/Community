@@ -45,10 +45,6 @@ const LastViewRow = styled.div``;
 export default () => {
   const isLoggedIn = useContext(AppContext);
 
-  console.log(window.location);
-  console.log(window.history);
-
-
   return (
     <Wrapper>
       <Container>

@@ -37,7 +37,6 @@ const DropdownBox = styled.div`
 `;
 
 export default ({ action }) => {
-  console.log(action);
   return (
     <NavbarDropdown>
       {action === "first" && (

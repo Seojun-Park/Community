@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { SHOW_MEET, MEET_SEARCH } from "../SharedQueries";
-import { useQuery, useMutation } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/react-hooks";
 import { SearchIcon } from "../components/Icon";
 import Loader from "../components/Loader";
 import MeetupCard from "../components/MeetupCard";
@@ -110,7 +110,7 @@ export default () => {
       });
       sliceDatabyPage(meetData.showMeet, data.currentPage, data.pageSize);
     }
-  }, [meetData, data.currentPage, data.pageSize]);
+  }, [meetData, meetData.showMeet, data.currentPage, data.pageSize]);
 
   return (
     <Wrapper>
@@ -130,7 +130,7 @@ export default () => {
                   <SearchIcon />
                 </SearchWrapper>
                 <LinkWrapper>
-                <Link to="/createMeetUp">모임 만들기</Link>
+                  <Link to="/createMeetUp">모임 만들기</Link>
                 </LinkWrapper>
               </LinkHeader>
               <Content>
