@@ -59,7 +59,10 @@ const ViewCol = styled.div`
 
 const ButtonContainer = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 30%;
+  margin-bottom: 2%;
 `;
 
 const WriteButton = styled(Link)`
@@ -73,7 +76,13 @@ const WriteButton = styled(Link)`
 
 const ViewRow = styled.div``;
 
-const SearchBar = styled.input``;
+const SearchBar = styled.input`
+  padding: 8px;
+  width: 250px;
+  border-radius: 4px;
+  border: none;
+  background-color: #f1f2f6;
+`;
 
 export default () => {
   const { data, loading } = useQuery(BOARD_DATA);
@@ -110,12 +119,12 @@ export default () => {
           </Head>
           <View>
             <ViewCol>
-              <SearchBar
-                placeholder="Search"
-                setValue={term.value}
-                onChange={term.onChange}
-              />
               <ButtonContainer>
+                <SearchBar
+                  placeholder="Search"
+                  setValue={term.value}
+                  onChange={term.onChange}
+                />
                 {isLoggedIn === true ? (
                   <WriteButton to="/write/board">글쓰기</WriteButton>
                 ) : (

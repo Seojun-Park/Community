@@ -1,12 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { MARKET_DATA } from "../SharedQueries";
+import { MARKET_DATA, RENT_SEARCH } from "../SharedQueries";
 import { useQuery } from "@apollo/react-hooks";
 import Loader from "../components/Loader";
 import Boardframe from "../components/BoardFrame";
 import { AppContext } from "../components/App";
-// import SearchBar from "../components/SearchBar";
+import useInput from "../hooks/useInput";
 
 const Wrapper = styled.div`
   ${props => props.theme.wrapperBox}
@@ -59,7 +59,10 @@ const ViewCol = styled.div`
 
 const ButtonContainer = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 30%;
+  margin-bottom: 2%;
 `;
 
 const WriteButton = styled(Link)`
@@ -73,10 +76,35 @@ const WriteButton = styled(Link)`
 
 const ViewRow = styled.div``;
 
+const SearchBar = styled.input`
+  padding: 8px;
+  width: 250px;
+  border-radius: 4px;
+  border: none;
+  background-color: #f1f2f6;
+`;
+
 export default () => {
   const { data, loading } = useQuery(MARKET_DATA);
   const isLoggedIn = useContext(AppContext);
+  const term = useInput("");
   const [search, setSearch] = useState([]);
+  const [flag, setFlag] = useState(false);
+  const { data: rentSearch, loading: searchLoading } = useQuery(RENT_SEARCH, {
+    skip: term.value === "",
+    variables: {
+      term: term.value
+    }
+  });
+
+  useEffect(() => {
+    if (term !== "") {
+      if (!searchLoading) {
+        setSearch(rentSearch);
+        setFlag(true);
+      }
+    }
+  }, [term]);
 
   return (
     <Wrapper>
@@ -90,18 +118,19 @@ export default () => {
           </Head>
           <View>
             <ViewCol>
-              {/* <SearchBar
-                action="market"
-                onchange={setSearch}
-              /> */}
               <ButtonContainer>
+                <SearchBar
+                  placeholder="Search"
+                  setValue={term.value}
+                  onChange={term.onChange}
+                />
                 {isLoggedIn === true ? (
                   <WriteButton to="/write/market">글쓰기</WriteButton>
                 ) : (
                   alert("글작성을 위해 로그인을 해주세요")
                 )}
               </ButtonContainer>
-              {search.length !== 0 ? (
+              {search ? (
                 <Boardframe data={search} action="market" />
               ) : (
                 <Boardframe data={data.showMarket} action="market" />
