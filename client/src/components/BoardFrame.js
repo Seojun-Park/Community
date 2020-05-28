@@ -138,6 +138,7 @@ export default ({ data: props, action }) => {
     sliceDatabyPage(props, data.currentPage, data.pageSize);
   }, [props, data.currentPage, data.pageSize]);
 
+  console.log(props);
   return (
     <Container>
       <TableFrame>

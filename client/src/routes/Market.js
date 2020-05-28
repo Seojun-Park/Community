@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { MARKET_DATA } from "../SharedQueries";
@@ -6,6 +6,7 @@ import { useQuery } from "@apollo/react-hooks";
 import Loader from "../components/Loader";
 import Boardframe from "../components/BoardFrame";
 import { AppContext } from "../components/App";
+// import SearchBar from "../components/SearchBar";
 
 const Wrapper = styled.div`
   ${props => props.theme.wrapperBox}
@@ -75,6 +76,7 @@ const ViewRow = styled.div``;
 export default () => {
   const { data, loading } = useQuery(MARKET_DATA);
   const isLoggedIn = useContext(AppContext);
+  const [search, setSearch] = useState([]);
 
   return (
     <Wrapper>
@@ -88,6 +90,10 @@ export default () => {
           </Head>
           <View>
             <ViewCol>
+              {/* <SearchBar
+                action="market"
+                onchange={setSearch}
+              /> */}
               <ButtonContainer>
                 {isLoggedIn === true ? (
                   <WriteButton to="/write/market">글쓰기</WriteButton>
@@ -95,7 +101,11 @@ export default () => {
                   alert("글작성을 위해 로그인을 해주세요")
                 )}
               </ButtonContainer>
-              <Boardframe data={data.showMarket} action="market" />
+              {search.length !== 0 ? (
+                <Boardframe data={search} action="market" />
+              ) : (
+                <Boardframe data={data.showMarket} action="market" />
+              )}
             </ViewCol>
             <ViewCol>
               <ViewRow>

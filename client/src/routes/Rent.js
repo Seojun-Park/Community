@@ -1,11 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { RENT_DATA } from "../SharedQueries";
+import { RENT_DATA, RENT_SEARCH } from "../SharedQueries";
 import { useQuery } from "@apollo/react-hooks";
 import Loader from "../components/Loader";
 import Boardframe from "../components/BoardFrame";
 import { AppContext } from "../components/App";
+import useInput from "../hooks/useInput";
 
 const Wrapper = styled.div`
   ${props => props.theme.wrapperBox}
@@ -72,10 +73,31 @@ const WriteButton = styled(Link)`
 
 const ViewRow = styled.div``;
 
+const SearchBar = styled.input``;
+
 export default () => {
   const { data, loading } = useQuery(RENT_DATA);
   const isLoggedIn = useContext(AppContext);
+  const term = useInput("");
+  const [search, setSearch] = useState([]);
+  const [flag, setFlag] = useState(false);
+  const { data: rentSearch, loading: searchLoading } = useQuery(RENT_SEARCH, {
+    skip: term.value === "",
+    variables: {
+      term: term.value
+    }
+  });
 
+  useEffect(() => {
+    if (term !== "") {
+      if (!searchLoading) {
+        setSearch(rentSearch);
+        setFlag(true);
+      }
+    }
+  }, [term]);
+
+  console.log(search);
   return (
     <Wrapper>
       {loading ? (
@@ -88,6 +110,11 @@ export default () => {
           </Head>
           <View>
             <ViewCol>
+              <SearchBar
+                placeholder="Search"
+                setValue={term.value}
+                onChange={term.onChange}
+              />
               <ButtonContainer>
                 {isLoggedIn === true ? (
                   <WriteButton to="/write/rent">글쓰기</WriteButton>
@@ -95,7 +122,11 @@ export default () => {
                   "글 작성을 위해 로그인 해주세요"
                 )}
               </ButtonContainer>
-              <Boardframe data={data.showRent} action="rent" />
+              {search === undefined ? (
+                <Boardframe data={data.showRent} action="rent" />
+              ) : (
+                <Boardframe data={search} action="rent" />
+              )}
             </ViewCol>
             <ViewCol>
               <ViewRow>
