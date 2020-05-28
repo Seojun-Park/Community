@@ -24,15 +24,29 @@ const NavbarDropdown = styled.div`
   }
 `;
 
+const DropDownTitle = styled.span`
+  font-size: 14px;
+  font-weight: 600;
+  color: black;
+  :hover {
+    transition: 0.2s linear;
+    color: coral;
+  }
+`;
+
 const DropdownBox = styled.div`
   padding: 10px;
   a {
     text-decoration: none;
+    color: black;
+    :hover {
+      color: coral;
+    }
   }
   :hover {
     transition: 0.2s linear;
     opacity: 0.9;
-    background-color: lime;
+    background-color: #ecf0f1;
   }
 `;
 
@@ -41,7 +55,7 @@ export default ({ action }) => {
     <NavbarDropdown>
       {action === "first" && (
         <>
-          <span>메뉴</span>
+          <DropDownTitle>메뉴</DropDownTitle>
           <NavbarDropdownContent>
             <DropdownBox>
               <Link to="/board">자유게시판</Link>
@@ -60,7 +74,7 @@ export default ({ action }) => {
       )}
       {action === "second" && (
         <>
-          <span>정보</span>
+          <DropDownTitle>정보</DropDownTitle>
           <NavbarDropdownContent>
             <DropdownBox>
               <Link to="/info">유학 정보</Link>

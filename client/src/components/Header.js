@@ -55,6 +55,7 @@ const MenuText = styled.span`
   font-weight: 600;
   a {
     text-decoration: none;
+    color: black;
     :hover {
       transition: 0.2s linear;
       color: coral;
@@ -75,6 +76,13 @@ const MenuText = styled.span`
 
 const LogInOutButton = styled.button`
   border: none;
+  background-color: #fafafa;
+  font-size: 14px;
+  font-weight: 600;
+  :hover {
+    transition: 0.2s linear;
+    color: coral;
+  }
 `;
 
 export default () => {

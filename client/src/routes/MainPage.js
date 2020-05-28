@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 
+import Weather from "../components/Weather";
 import CurrencyBox from "../components/CurrencyBox";
 import { AppContext } from "../components/App";
 
@@ -55,6 +56,7 @@ export default () => {
           <ViewCol>
             <LastViewRow>
               <CurrencyBox />
+              <Weather />
             </LastViewRow>
           </ViewCol>
         </View>
