@@ -75,6 +75,7 @@ type Board {
 type Image{
   id: ID! @id
   url: String!
+  meet: Meet @relation(name: "ImagesOfMeet")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
@@ -113,7 +114,10 @@ type Meet {
   intro: String!
   title: String!
   creator: String
+  location: String
+  date: String
   participants: [User!]! @relation(name:"MeetsOfUser")
+  images: [Image!]! @relation(name: "ImagesOfMeet", onDelete:CASCADE)
   tag: String!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt

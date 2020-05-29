@@ -835,6 +835,7 @@ scalar DateTime
 type Image {
   id: ID!
   url: String!
+  meet: Meet
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -846,6 +847,17 @@ type ImageConnection {
 }
 
 input ImageCreateInput {
+  id: ID
+  url: String!
+  meet: MeetCreateOneWithoutImagesInput
+}
+
+input ImageCreateManyWithoutMeetInput {
+  create: [ImageCreateWithoutMeetInput!]
+  connect: [ImageWhereUniqueInput!]
+}
+
+input ImageCreateWithoutMeetInput {
   id: ID
   url: String!
 }
@@ -873,6 +885,56 @@ type ImagePreviousValues {
   updatedAt: DateTime!
 }
 
+input ImageScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  url: String
+  url_not: String
+  url_in: [String!]
+  url_not_in: [String!]
+  url_lt: String
+  url_lte: String
+  url_gt: String
+  url_gte: String
+  url_contains: String
+  url_not_contains: String
+  url_starts_with: String
+  url_not_starts_with: String
+  url_ends_with: String
+  url_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [ImageScalarWhereInput!]
+  OR: [ImageScalarWhereInput!]
+  NOT: [ImageScalarWhereInput!]
+}
+
 type ImageSubscriptionPayload {
   mutation: MutationType!
   node: Image
@@ -893,10 +955,47 @@ input ImageSubscriptionWhereInput {
 
 input ImageUpdateInput {
   url: String
+  meet: MeetUpdateOneWithoutImagesInput
+}
+
+input ImageUpdateManyDataInput {
+  url: String
 }
 
 input ImageUpdateManyMutationInput {
   url: String
+}
+
+input ImageUpdateManyWithoutMeetInput {
+  create: [ImageCreateWithoutMeetInput!]
+  delete: [ImageWhereUniqueInput!]
+  connect: [ImageWhereUniqueInput!]
+  set: [ImageWhereUniqueInput!]
+  disconnect: [ImageWhereUniqueInput!]
+  update: [ImageUpdateWithWhereUniqueWithoutMeetInput!]
+  upsert: [ImageUpsertWithWhereUniqueWithoutMeetInput!]
+  deleteMany: [ImageScalarWhereInput!]
+  updateMany: [ImageUpdateManyWithWhereNestedInput!]
+}
+
+input ImageUpdateManyWithWhereNestedInput {
+  where: ImageScalarWhereInput!
+  data: ImageUpdateManyDataInput!
+}
+
+input ImageUpdateWithoutMeetDataInput {
+  url: String
+}
+
+input ImageUpdateWithWhereUniqueWithoutMeetInput {
+  where: ImageWhereUniqueInput!
+  data: ImageUpdateWithoutMeetDataInput!
+}
+
+input ImageUpsertWithWhereUniqueWithoutMeetInput {
+  where: ImageWhereUniqueInput!
+  update: ImageUpdateWithoutMeetDataInput!
+  create: ImageCreateWithoutMeetInput!
 }
 
 input ImageWhereInput {
@@ -928,6 +1027,7 @@ input ImageWhereInput {
   url_not_starts_with: String
   url_ends_with: String
   url_not_ends_with: String
+  meet: MeetWhereInput
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -1335,7 +1435,10 @@ type Meet {
   intro: String!
   title: String!
   creator: String
+  location: String
+  date: String
   participants(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  images(where: ImageWhereInput, orderBy: ImageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Image!]
   tag: String!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -1352,7 +1455,10 @@ input MeetCreateInput {
   intro: String!
   title: String!
   creator: String
+  location: String
+  date: String
   participants: UserCreateManyWithoutMeetsInput
+  images: ImageCreateManyWithoutMeetInput
   tag: String!
 }
 
@@ -1361,11 +1467,30 @@ input MeetCreateManyWithoutParticipantsInput {
   connect: [MeetWhereUniqueInput!]
 }
 
+input MeetCreateOneWithoutImagesInput {
+  create: MeetCreateWithoutImagesInput
+  connect: MeetWhereUniqueInput
+}
+
+input MeetCreateWithoutImagesInput {
+  id: ID
+  intro: String!
+  title: String!
+  creator: String
+  location: String
+  date: String
+  participants: UserCreateManyWithoutMeetsInput
+  tag: String!
+}
+
 input MeetCreateWithoutParticipantsInput {
   id: ID
   intro: String!
   title: String!
   creator: String
+  location: String
+  date: String
+  images: ImageCreateManyWithoutMeetInput
   tag: String!
 }
 
@@ -1383,6 +1508,10 @@ enum MeetOrderByInput {
   title_DESC
   creator_ASC
   creator_DESC
+  location_ASC
+  location_DESC
+  date_ASC
+  date_DESC
   tag_ASC
   tag_DESC
   createdAt_ASC
@@ -1396,6 +1525,8 @@ type MeetPreviousValues {
   intro: String!
   title: String!
   creator: String
+  location: String
+  date: String
   tag: String!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -1458,6 +1589,34 @@ input MeetScalarWhereInput {
   creator_not_starts_with: String
   creator_ends_with: String
   creator_not_ends_with: String
+  location: String
+  location_not: String
+  location_in: [String!]
+  location_not_in: [String!]
+  location_lt: String
+  location_lte: String
+  location_gt: String
+  location_gte: String
+  location_contains: String
+  location_not_contains: String
+  location_starts_with: String
+  location_not_starts_with: String
+  location_ends_with: String
+  location_not_ends_with: String
+  date: String
+  date_not: String
+  date_in: [String!]
+  date_not_in: [String!]
+  date_lt: String
+  date_lte: String
+  date_gt: String
+  date_gte: String
+  date_contains: String
+  date_not_contains: String
+  date_starts_with: String
+  date_not_starts_with: String
+  date_ends_with: String
+  date_not_ends_with: String
   tag: String
   tag_not: String
   tag_in: [String!]
@@ -1515,7 +1674,10 @@ input MeetUpdateInput {
   intro: String
   title: String
   creator: String
+  location: String
+  date: String
   participants: UserUpdateManyWithoutMeetsInput
+  images: ImageUpdateManyWithoutMeetInput
   tag: String
 }
 
@@ -1523,6 +1685,8 @@ input MeetUpdateManyDataInput {
   intro: String
   title: String
   creator: String
+  location: String
+  date: String
   tag: String
 }
 
@@ -1530,6 +1694,8 @@ input MeetUpdateManyMutationInput {
   intro: String
   title: String
   creator: String
+  location: String
+  date: String
   tag: String
 }
 
@@ -1550,16 +1716,43 @@ input MeetUpdateManyWithWhereNestedInput {
   data: MeetUpdateManyDataInput!
 }
 
+input MeetUpdateOneWithoutImagesInput {
+  create: MeetCreateWithoutImagesInput
+  update: MeetUpdateWithoutImagesDataInput
+  upsert: MeetUpsertWithoutImagesInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: MeetWhereUniqueInput
+}
+
+input MeetUpdateWithoutImagesDataInput {
+  intro: String
+  title: String
+  creator: String
+  location: String
+  date: String
+  participants: UserUpdateManyWithoutMeetsInput
+  tag: String
+}
+
 input MeetUpdateWithoutParticipantsDataInput {
   intro: String
   title: String
   creator: String
+  location: String
+  date: String
+  images: ImageUpdateManyWithoutMeetInput
   tag: String
 }
 
 input MeetUpdateWithWhereUniqueWithoutParticipantsInput {
   where: MeetWhereUniqueInput!
   data: MeetUpdateWithoutParticipantsDataInput!
+}
+
+input MeetUpsertWithoutImagesInput {
+  update: MeetUpdateWithoutImagesDataInput!
+  create: MeetCreateWithoutImagesInput!
 }
 
 input MeetUpsertWithWhereUniqueWithoutParticipantsInput {
@@ -1625,9 +1818,40 @@ input MeetWhereInput {
   creator_not_starts_with: String
   creator_ends_with: String
   creator_not_ends_with: String
+  location: String
+  location_not: String
+  location_in: [String!]
+  location_not_in: [String!]
+  location_lt: String
+  location_lte: String
+  location_gt: String
+  location_gte: String
+  location_contains: String
+  location_not_contains: String
+  location_starts_with: String
+  location_not_starts_with: String
+  location_ends_with: String
+  location_not_ends_with: String
+  date: String
+  date_not: String
+  date_in: [String!]
+  date_not_in: [String!]
+  date_lt: String
+  date_lte: String
+  date_gt: String
+  date_gte: String
+  date_contains: String
+  date_not_contains: String
+  date_starts_with: String
+  date_not_starts_with: String
+  date_ends_with: String
+  date_not_ends_with: String
   participants_every: UserWhereInput
   participants_some: UserWhereInput
   participants_none: UserWhereInput
+  images_every: ImageWhereInput
+  images_some: ImageWhereInput
+  images_none: ImageWhereInput
   tag: String
   tag_not: String
   tag_in: [String!]

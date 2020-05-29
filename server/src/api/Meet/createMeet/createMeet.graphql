@@ -1,3 +1,9 @@
 type Mutation {
-  createMeet(tag: String!, intro: String!, title:String!, creator: String): Meet!
+  createMeet(
+    tag: String!
+    intro: String!
+    title: String!
+    creator: String
+    images: [String!]
+  ): Meet!
 }

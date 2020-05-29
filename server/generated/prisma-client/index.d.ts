@@ -564,6 +564,10 @@ export type MeetOrderByInput =
   | "title_DESC"
   | "creator_ASC"
   | "creator_DESC"
+  | "location_ASC"
+  | "location_DESC"
+  | "date_ASC"
+  | "date_DESC"
   | "tag_ASC"
   | "tag_DESC"
   | "createdAt_ASC"
@@ -593,6 +597,16 @@ export type UserOrderByInput =
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
+export type ImageOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "url_ASC"
+  | "url_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
 export type RoomOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -606,16 +620,6 @@ export type MessageOrderByInput =
   | "id_DESC"
   | "text_ASC"
   | "text_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC";
-
-export type ImageOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "url_ASC"
-  | "url_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -1188,9 +1192,40 @@ export interface MeetWhereInput {
   creator_not_starts_with?: Maybe<String>;
   creator_ends_with?: Maybe<String>;
   creator_not_ends_with?: Maybe<String>;
+  location?: Maybe<String>;
+  location_not?: Maybe<String>;
+  location_in?: Maybe<String[] | String>;
+  location_not_in?: Maybe<String[] | String>;
+  location_lt?: Maybe<String>;
+  location_lte?: Maybe<String>;
+  location_gt?: Maybe<String>;
+  location_gte?: Maybe<String>;
+  location_contains?: Maybe<String>;
+  location_not_contains?: Maybe<String>;
+  location_starts_with?: Maybe<String>;
+  location_not_starts_with?: Maybe<String>;
+  location_ends_with?: Maybe<String>;
+  location_not_ends_with?: Maybe<String>;
+  date?: Maybe<String>;
+  date_not?: Maybe<String>;
+  date_in?: Maybe<String[] | String>;
+  date_not_in?: Maybe<String[] | String>;
+  date_lt?: Maybe<String>;
+  date_lte?: Maybe<String>;
+  date_gt?: Maybe<String>;
+  date_gte?: Maybe<String>;
+  date_contains?: Maybe<String>;
+  date_not_contains?: Maybe<String>;
+  date_starts_with?: Maybe<String>;
+  date_not_starts_with?: Maybe<String>;
+  date_ends_with?: Maybe<String>;
+  date_not_ends_with?: Maybe<String>;
   participants_every?: Maybe<UserWhereInput>;
   participants_some?: Maybe<UserWhereInput>;
   participants_none?: Maybe<UserWhereInput>;
+  images_every?: Maybe<ImageWhereInput>;
+  images_some?: Maybe<ImageWhereInput>;
+  images_none?: Maybe<ImageWhereInput>;
   tag?: Maybe<String>;
   tag_not?: Maybe<String>;
   tag_in?: Maybe<String[] | String>;
@@ -1224,6 +1259,57 @@ export interface MeetWhereInput {
   AND?: Maybe<MeetWhereInput[] | MeetWhereInput>;
   OR?: Maybe<MeetWhereInput[] | MeetWhereInput>;
   NOT?: Maybe<MeetWhereInput[] | MeetWhereInput>;
+}
+
+export interface ImageWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  url?: Maybe<String>;
+  url_not?: Maybe<String>;
+  url_in?: Maybe<String[] | String>;
+  url_not_in?: Maybe<String[] | String>;
+  url_lt?: Maybe<String>;
+  url_lte?: Maybe<String>;
+  url_gt?: Maybe<String>;
+  url_gte?: Maybe<String>;
+  url_contains?: Maybe<String>;
+  url_not_contains?: Maybe<String>;
+  url_starts_with?: Maybe<String>;
+  url_not_starts_with?: Maybe<String>;
+  url_ends_with?: Maybe<String>;
+  url_not_ends_with?: Maybe<String>;
+  meet?: Maybe<MeetWhereInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<ImageWhereInput[] | ImageWhereInput>;
+  OR?: Maybe<ImageWhereInput[] | ImageWhereInput>;
+  NOT?: Maybe<ImageWhereInput[] | ImageWhereInput>;
 }
 
 export interface RoomWhereInput {
@@ -1396,56 +1482,6 @@ export type CommentWhereUniqueInput = AtLeastOne<{
 export type ImageWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
-
-export interface ImageWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  url?: Maybe<String>;
-  url_not?: Maybe<String>;
-  url_in?: Maybe<String[] | String>;
-  url_not_in?: Maybe<String[] | String>;
-  url_lt?: Maybe<String>;
-  url_lte?: Maybe<String>;
-  url_gt?: Maybe<String>;
-  url_gte?: Maybe<String>;
-  url_contains?: Maybe<String>;
-  url_not_contains?: Maybe<String>;
-  url_starts_with?: Maybe<String>;
-  url_not_starts_with?: Maybe<String>;
-  url_ends_with?: Maybe<String>;
-  url_not_ends_with?: Maybe<String>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  AND?: Maybe<ImageWhereInput[] | ImageWhereInput>;
-  OR?: Maybe<ImageWhereInput[] | ImageWhereInput>;
-  NOT?: Maybe<ImageWhereInput[] | ImageWhereInput>;
-}
 
 export type MarketWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
@@ -1777,7 +1813,20 @@ export interface MeetCreateWithoutParticipantsInput {
   intro: String;
   title: String;
   creator?: Maybe<String>;
+  location?: Maybe<String>;
+  date?: Maybe<String>;
+  images?: Maybe<ImageCreateManyWithoutMeetInput>;
   tag: String;
+}
+
+export interface ImageCreateManyWithoutMeetInput {
+  create?: Maybe<ImageCreateWithoutMeetInput[] | ImageCreateWithoutMeetInput>;
+  connect?: Maybe<ImageWhereUniqueInput[] | ImageWhereUniqueInput>;
+}
+
+export interface ImageCreateWithoutMeetInput {
+  id?: Maybe<ID_Input>;
+  url: String;
 }
 
 export interface RoomCreateManyWithoutParticipantsInput {
@@ -2522,7 +2571,104 @@ export interface MeetUpdateWithoutParticipantsDataInput {
   intro?: Maybe<String>;
   title?: Maybe<String>;
   creator?: Maybe<String>;
+  location?: Maybe<String>;
+  date?: Maybe<String>;
+  images?: Maybe<ImageUpdateManyWithoutMeetInput>;
   tag?: Maybe<String>;
+}
+
+export interface ImageUpdateManyWithoutMeetInput {
+  create?: Maybe<ImageCreateWithoutMeetInput[] | ImageCreateWithoutMeetInput>;
+  delete?: Maybe<ImageWhereUniqueInput[] | ImageWhereUniqueInput>;
+  connect?: Maybe<ImageWhereUniqueInput[] | ImageWhereUniqueInput>;
+  set?: Maybe<ImageWhereUniqueInput[] | ImageWhereUniqueInput>;
+  disconnect?: Maybe<ImageWhereUniqueInput[] | ImageWhereUniqueInput>;
+  update?: Maybe<
+    | ImageUpdateWithWhereUniqueWithoutMeetInput[]
+    | ImageUpdateWithWhereUniqueWithoutMeetInput
+  >;
+  upsert?: Maybe<
+    | ImageUpsertWithWhereUniqueWithoutMeetInput[]
+    | ImageUpsertWithWhereUniqueWithoutMeetInput
+  >;
+  deleteMany?: Maybe<ImageScalarWhereInput[] | ImageScalarWhereInput>;
+  updateMany?: Maybe<
+    ImageUpdateManyWithWhereNestedInput[] | ImageUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface ImageUpdateWithWhereUniqueWithoutMeetInput {
+  where: ImageWhereUniqueInput;
+  data: ImageUpdateWithoutMeetDataInput;
+}
+
+export interface ImageUpdateWithoutMeetDataInput {
+  url?: Maybe<String>;
+}
+
+export interface ImageUpsertWithWhereUniqueWithoutMeetInput {
+  where: ImageWhereUniqueInput;
+  update: ImageUpdateWithoutMeetDataInput;
+  create: ImageCreateWithoutMeetInput;
+}
+
+export interface ImageScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  url?: Maybe<String>;
+  url_not?: Maybe<String>;
+  url_in?: Maybe<String[] | String>;
+  url_not_in?: Maybe<String[] | String>;
+  url_lt?: Maybe<String>;
+  url_lte?: Maybe<String>;
+  url_gt?: Maybe<String>;
+  url_gte?: Maybe<String>;
+  url_contains?: Maybe<String>;
+  url_not_contains?: Maybe<String>;
+  url_starts_with?: Maybe<String>;
+  url_not_starts_with?: Maybe<String>;
+  url_ends_with?: Maybe<String>;
+  url_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<ImageScalarWhereInput[] | ImageScalarWhereInput>;
+  OR?: Maybe<ImageScalarWhereInput[] | ImageScalarWhereInput>;
+  NOT?: Maybe<ImageScalarWhereInput[] | ImageScalarWhereInput>;
+}
+
+export interface ImageUpdateManyWithWhereNestedInput {
+  where: ImageScalarWhereInput;
+  data: ImageUpdateManyDataInput;
+}
+
+export interface ImageUpdateManyDataInput {
+  url?: Maybe<String>;
 }
 
 export interface MeetUpsertWithWhereUniqueWithoutParticipantsInput {
@@ -2588,6 +2734,34 @@ export interface MeetScalarWhereInput {
   creator_not_starts_with?: Maybe<String>;
   creator_ends_with?: Maybe<String>;
   creator_not_ends_with?: Maybe<String>;
+  location?: Maybe<String>;
+  location_not?: Maybe<String>;
+  location_in?: Maybe<String[] | String>;
+  location_not_in?: Maybe<String[] | String>;
+  location_lt?: Maybe<String>;
+  location_lte?: Maybe<String>;
+  location_gt?: Maybe<String>;
+  location_gte?: Maybe<String>;
+  location_contains?: Maybe<String>;
+  location_not_contains?: Maybe<String>;
+  location_starts_with?: Maybe<String>;
+  location_not_starts_with?: Maybe<String>;
+  location_ends_with?: Maybe<String>;
+  location_not_ends_with?: Maybe<String>;
+  date?: Maybe<String>;
+  date_not?: Maybe<String>;
+  date_in?: Maybe<String[] | String>;
+  date_not_in?: Maybe<String[] | String>;
+  date_lt?: Maybe<String>;
+  date_lte?: Maybe<String>;
+  date_gt?: Maybe<String>;
+  date_gte?: Maybe<String>;
+  date_contains?: Maybe<String>;
+  date_not_contains?: Maybe<String>;
+  date_starts_with?: Maybe<String>;
+  date_not_starts_with?: Maybe<String>;
+  date_ends_with?: Maybe<String>;
+  date_not_ends_with?: Maybe<String>;
   tag?: Maybe<String>;
   tag_not?: Maybe<String>;
   tag_in?: Maybe<String[] | String>;
@@ -2632,6 +2806,8 @@ export interface MeetUpdateManyDataInput {
   intro?: Maybe<String>;
   title?: Maybe<String>;
   creator?: Maybe<String>;
+  location?: Maybe<String>;
+  date?: Maybe<String>;
   tag?: Maybe<String>;
 }
 
@@ -3348,35 +3524,21 @@ export interface CommentUpdateManyMutationInput {
 export interface ImageCreateInput {
   id?: Maybe<ID_Input>;
   url: String;
+  meet?: Maybe<MeetCreateOneWithoutImagesInput>;
 }
 
-export interface ImageUpdateInput {
-  url?: Maybe<String>;
+export interface MeetCreateOneWithoutImagesInput {
+  create?: Maybe<MeetCreateWithoutImagesInput>;
+  connect?: Maybe<MeetWhereUniqueInput>;
 }
 
-export interface ImageUpdateManyMutationInput {
-  url?: Maybe<String>;
-}
-
-export interface MarketUpdateInput {
-  user?: Maybe<UserUpdateOneRequiredWithoutMarketsInput>;
-  title?: Maybe<String>;
-  caption?: Maybe<String>;
-  status?: Maybe<String>;
-  comments?: Maybe<CommentUpdateManyWithoutMarketInput>;
-}
-
-export interface MarketUpdateManyMutationInput {
-  title?: Maybe<String>;
-  caption?: Maybe<String>;
-  status?: Maybe<String>;
-}
-
-export interface MeetCreateInput {
+export interface MeetCreateWithoutImagesInput {
   id?: Maybe<ID_Input>;
   intro: String;
   title: String;
   creator?: Maybe<String>;
+  location?: Maybe<String>;
+  date?: Maybe<String>;
   participants?: Maybe<UserCreateManyWithoutMeetsInput>;
   tag: String;
 }
@@ -3403,10 +3565,26 @@ export interface UserCreateWithoutMeetsInput {
   loginSecret?: Maybe<String>;
 }
 
-export interface MeetUpdateInput {
+export interface ImageUpdateInput {
+  url?: Maybe<String>;
+  meet?: Maybe<MeetUpdateOneWithoutImagesInput>;
+}
+
+export interface MeetUpdateOneWithoutImagesInput {
+  create?: Maybe<MeetCreateWithoutImagesInput>;
+  update?: Maybe<MeetUpdateWithoutImagesDataInput>;
+  upsert?: Maybe<MeetUpsertWithoutImagesInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<MeetWhereUniqueInput>;
+}
+
+export interface MeetUpdateWithoutImagesDataInput {
   intro?: Maybe<String>;
   title?: Maybe<String>;
   creator?: Maybe<String>;
+  location?: Maybe<String>;
+  date?: Maybe<String>;
   participants?: Maybe<UserUpdateManyWithoutMeetsInput>;
   tag?: Maybe<String>;
 }
@@ -3607,10 +3785,58 @@ export interface UserUpdateManyDataInput {
   loginSecret?: Maybe<String>;
 }
 
+export interface MeetUpsertWithoutImagesInput {
+  update: MeetUpdateWithoutImagesDataInput;
+  create: MeetCreateWithoutImagesInput;
+}
+
+export interface ImageUpdateManyMutationInput {
+  url?: Maybe<String>;
+}
+
+export interface MarketUpdateInput {
+  user?: Maybe<UserUpdateOneRequiredWithoutMarketsInput>;
+  title?: Maybe<String>;
+  caption?: Maybe<String>;
+  status?: Maybe<String>;
+  comments?: Maybe<CommentUpdateManyWithoutMarketInput>;
+}
+
+export interface MarketUpdateManyMutationInput {
+  title?: Maybe<String>;
+  caption?: Maybe<String>;
+  status?: Maybe<String>;
+}
+
+export interface MeetCreateInput {
+  id?: Maybe<ID_Input>;
+  intro: String;
+  title: String;
+  creator?: Maybe<String>;
+  location?: Maybe<String>;
+  date?: Maybe<String>;
+  participants?: Maybe<UserCreateManyWithoutMeetsInput>;
+  images?: Maybe<ImageCreateManyWithoutMeetInput>;
+  tag: String;
+}
+
+export interface MeetUpdateInput {
+  intro?: Maybe<String>;
+  title?: Maybe<String>;
+  creator?: Maybe<String>;
+  location?: Maybe<String>;
+  date?: Maybe<String>;
+  participants?: Maybe<UserUpdateManyWithoutMeetsInput>;
+  images?: Maybe<ImageUpdateManyWithoutMeetInput>;
+  tag?: Maybe<String>;
+}
+
 export interface MeetUpdateManyMutationInput {
   intro?: Maybe<String>;
   title?: Maybe<String>;
   creator?: Maybe<String>;
+  location?: Maybe<String>;
+  date?: Maybe<String>;
   tag?: Maybe<String>;
 }
 
@@ -4693,6 +4919,8 @@ export interface Meet {
   intro: String;
   title: String;
   creator?: String;
+  location?: String;
+  date?: String;
   tag: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
@@ -4703,9 +4931,20 @@ export interface MeetPromise extends Promise<Meet>, Fragmentable {
   intro: () => Promise<String>;
   title: () => Promise<String>;
   creator: () => Promise<String>;
+  location: () => Promise<String>;
+  date: () => Promise<String>;
   participants: <T = FragmentableArray<User>>(args?: {
     where?: UserWhereInput;
     orderBy?: UserOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  images: <T = FragmentableArray<Image>>(args?: {
+    where?: ImageWhereInput;
+    orderBy?: ImageOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -4724,9 +4963,20 @@ export interface MeetSubscription
   intro: () => Promise<AsyncIterator<String>>;
   title: () => Promise<AsyncIterator<String>>;
   creator: () => Promise<AsyncIterator<String>>;
+  location: () => Promise<AsyncIterator<String>>;
+  date: () => Promise<AsyncIterator<String>>;
   participants: <T = Promise<AsyncIterator<UserSubscription>>>(args?: {
     where?: UserWhereInput;
     orderBy?: UserOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  images: <T = Promise<AsyncIterator<ImageSubscription>>>(args?: {
+    where?: ImageWhereInput;
+    orderBy?: ImageOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -4745,6 +4995,8 @@ export interface MeetNullablePromise
   intro: () => Promise<String>;
   title: () => Promise<String>;
   creator: () => Promise<String>;
+  location: () => Promise<String>;
+  date: () => Promise<String>;
   participants: <T = FragmentableArray<User>>(args?: {
     where?: UserWhereInput;
     orderBy?: UserOrderByInput;
@@ -4754,7 +5006,51 @@ export interface MeetNullablePromise
     first?: Int;
     last?: Int;
   }) => T;
+  images: <T = FragmentableArray<Image>>(args?: {
+    where?: ImageWhereInput;
+    orderBy?: ImageOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
   tag: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface Image {
+  id: ID_Output;
+  url: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface ImagePromise extends Promise<Image>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  url: () => Promise<String>;
+  meet: <T = MeetPromise>() => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface ImageSubscription
+  extends Promise<AsyncIterator<Image>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  url: () => Promise<AsyncIterator<String>>;
+  meet: <T = MeetSubscription>() => T;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface ImageNullablePromise
+  extends Promise<Image | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  url: () => Promise<String>;
+  meet: <T = MeetPromise>() => T;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -5011,38 +5307,6 @@ export interface AggregateCommentSubscription
   extends Promise<AsyncIterator<AggregateComment>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface Image {
-  id: ID_Output;
-  url: String;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface ImagePromise extends Promise<Image>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  url: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface ImageSubscription
-  extends Promise<AsyncIterator<Image>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  url: () => Promise<AsyncIterator<String>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface ImageNullablePromise
-  extends Promise<Image | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  url: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface ImageConnection {
@@ -5789,6 +6053,8 @@ export interface MeetPreviousValues {
   intro: String;
   title: String;
   creator?: String;
+  location?: String;
+  date?: String;
   tag: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
@@ -5801,6 +6067,8 @@ export interface MeetPreviousValuesPromise
   intro: () => Promise<String>;
   title: () => Promise<String>;
   creator: () => Promise<String>;
+  location: () => Promise<String>;
+  date: () => Promise<String>;
   tag: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
@@ -5813,6 +6081,8 @@ export interface MeetPreviousValuesSubscription
   intro: () => Promise<AsyncIterator<String>>;
   title: () => Promise<AsyncIterator<String>>;
   creator: () => Promise<AsyncIterator<String>>;
+  location: () => Promise<AsyncIterator<String>>;
+  date: () => Promise<AsyncIterator<String>>;
   tag: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;

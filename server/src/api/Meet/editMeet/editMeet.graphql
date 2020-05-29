@@ -1,0 +1,10 @@
+type Mutation {
+  editMeet(
+    id: String!
+    title: String!
+    intro: String!
+    images: [Image!]
+    location: String
+    date: String
+  ): Meet!
+}

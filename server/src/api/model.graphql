@@ -77,13 +77,12 @@ type Board {
   updatedAt: String
 }
 
-
-type Image{
+type Image {
   id: ID!
   url: String!
-  post: Post
+  meet: Meet
   createdAt: String
-  updatedAt: String 
+  updatedAt: String
 }
 
 type Comment {
@@ -119,9 +118,12 @@ type Meet {
   id: ID!
   title: String!
   intro: String!
-  creator:String
+  creator: String
+  location: String
+  date: String
   participants: [User!]!
   tag: String!
+  images: [Image!]
   createdAt: String
   updatedAt: String
 }
