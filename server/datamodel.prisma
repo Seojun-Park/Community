@@ -117,7 +117,7 @@ type Meet {
   location: String
   date: String
   participants: [User!]! @relation(name:"MeetsOfUser")
-  images: [Image!]! @relation(name: "ImagesOfMeet", onDelete:CASCADE)
+  images: [Image!] @relation(name: "ImagesOfMeet", onDelete:CASCADE)
   tag: String!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
