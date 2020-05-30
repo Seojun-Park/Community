@@ -6,6 +6,7 @@ export default {
     boards: ({ id }) => prisma.user({ id }).boards(),
     markets: ({ id }) => prisma.user({ id }).markets(),
     rents: ({ id }) => prisma.user({ id }).rents(),
-    meets: ({ id }) => prisma.user({ id }).meets()
+    meets: ({ id }) => prisma.user({ id }).meets(),
+    schedules: ({ id }) => prisma.user({ id }).schedules()
   }
 };

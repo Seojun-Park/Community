@@ -47,6 +47,10 @@ var models = [
   {
     name: "Meet",
     embedded: false
+  },
+  {
+    name: "Schedule",
+    embedded: false
   }
 ];
 exports.Prisma = prisma_lib_1.makePrismaClientClass({

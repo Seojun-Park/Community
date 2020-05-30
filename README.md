@@ -4,8 +4,10 @@
 
 ### view parts
 - [x] dynamic weather view
+- [x] currency exchange
 - [ ] create Meet content view
-- [ ] todo(?) / calendar
+- [ ] locational information such as National holiday
+- [ ] calendar
 
 
 ### functional parts

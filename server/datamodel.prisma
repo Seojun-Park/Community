@@ -13,6 +13,7 @@ type User {
   comments: [Comment!]! @relation(name:"CommentsOfUser", onDelete: CASCADE)
   meets:[Meet!]! @relation(name:"MeetsOfUser")
   rooms: [Room!]!
+  schedules: [Schedule!] @relation(name: "SchedulesOfUser", onDelete:CASCADE)
   loginSecret: String
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
@@ -119,6 +120,16 @@ type Meet {
   participants: [User!]! @relation(name:"MeetsOfUser")
   images: [Image!] @relation(name: "ImagesOfMeet", onDelete:CASCADE)
   tag: String!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Schedule{
+  id: ID! @id
+  user: User! @relation(name: "SchedulesOfUser")
+  date: String!
+  todo: String!
+  tag: String
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }

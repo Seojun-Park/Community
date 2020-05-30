@@ -26,6 +26,7 @@ export interface Exists {
   post: (where?: PostWhereInput) => Promise<boolean>;
   rent: (where?: RentWhereInput) => Promise<boolean>;
   room: (where?: RoomWhereInput) => Promise<boolean>;
+  schedule: (where?: ScheduleWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
 }
 
@@ -238,6 +239,25 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => RoomConnectionPromise;
+  schedule: (where: ScheduleWhereUniqueInput) => ScheduleNullablePromise;
+  schedules: (args?: {
+    where?: ScheduleWhereInput;
+    orderBy?: ScheduleOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Schedule>;
+  schedulesConnection: (args?: {
+    where?: ScheduleWhereInput;
+    orderBy?: ScheduleOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => ScheduleConnectionPromise;
   user: (where: UserWhereUniqueInput) => UserNullablePromise;
   users: (args?: {
     where?: UserWhereInput;
@@ -415,6 +435,22 @@ export interface Prisma {
   }) => RoomPromise;
   deleteRoom: (where: RoomWhereUniqueInput) => RoomPromise;
   deleteManyRooms: (where?: RoomWhereInput) => BatchPayloadPromise;
+  createSchedule: (data: ScheduleCreateInput) => SchedulePromise;
+  updateSchedule: (args: {
+    data: ScheduleUpdateInput;
+    where: ScheduleWhereUniqueInput;
+  }) => SchedulePromise;
+  updateManySchedules: (args: {
+    data: ScheduleUpdateManyMutationInput;
+    where?: ScheduleWhereInput;
+  }) => BatchPayloadPromise;
+  upsertSchedule: (args: {
+    where: ScheduleWhereUniqueInput;
+    create: ScheduleCreateInput;
+    update: ScheduleUpdateInput;
+  }) => SchedulePromise;
+  deleteSchedule: (where: ScheduleWhereUniqueInput) => SchedulePromise;
+  deleteManySchedules: (where?: ScheduleWhereInput) => BatchPayloadPromise;
   createUser: (data: UserCreateInput) => UserPromise;
   updateUser: (args: {
     data: UserUpdateInput;
@@ -470,6 +506,9 @@ export interface Subscription {
   room: (
     where?: RoomSubscriptionWhereInput
   ) => RoomSubscriptionPayloadSubscription;
+  schedule: (
+    where?: ScheduleSubscriptionWhereInput
+  ) => ScheduleSubscriptionPayloadSubscription;
   user: (
     where?: UserSubscriptionWhereInput
   ) => UserSubscriptionPayloadSubscription;
@@ -620,6 +659,20 @@ export type MessageOrderByInput =
   | "id_DESC"
   | "text_ASC"
   | "text_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type ScheduleOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "date_ASC"
+  | "date_DESC"
+  | "todo_ASC"
+  | "todo_DESC"
+  | "tag_ASC"
+  | "tag_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -800,6 +853,9 @@ export interface UserWhereInput {
   rooms_every?: Maybe<RoomWhereInput>;
   rooms_some?: Maybe<RoomWhereInput>;
   rooms_none?: Maybe<RoomWhereInput>;
+  schedules_every?: Maybe<ScheduleWhereInput>;
+  schedules_some?: Maybe<ScheduleWhereInput>;
+  schedules_none?: Maybe<ScheduleWhereInput>;
   loginSecret?: Maybe<String>;
   loginSecret_not?: Maybe<String>;
   loginSecret_in?: Maybe<String[] | String>;
@@ -1407,6 +1463,85 @@ export interface MessageWhereInput {
   NOT?: Maybe<MessageWhereInput[] | MessageWhereInput>;
 }
 
+export interface ScheduleWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  user?: Maybe<UserWhereInput>;
+  date?: Maybe<String>;
+  date_not?: Maybe<String>;
+  date_in?: Maybe<String[] | String>;
+  date_not_in?: Maybe<String[] | String>;
+  date_lt?: Maybe<String>;
+  date_lte?: Maybe<String>;
+  date_gt?: Maybe<String>;
+  date_gte?: Maybe<String>;
+  date_contains?: Maybe<String>;
+  date_not_contains?: Maybe<String>;
+  date_starts_with?: Maybe<String>;
+  date_not_starts_with?: Maybe<String>;
+  date_ends_with?: Maybe<String>;
+  date_not_ends_with?: Maybe<String>;
+  todo?: Maybe<String>;
+  todo_not?: Maybe<String>;
+  todo_in?: Maybe<String[] | String>;
+  todo_not_in?: Maybe<String[] | String>;
+  todo_lt?: Maybe<String>;
+  todo_lte?: Maybe<String>;
+  todo_gt?: Maybe<String>;
+  todo_gte?: Maybe<String>;
+  todo_contains?: Maybe<String>;
+  todo_not_contains?: Maybe<String>;
+  todo_starts_with?: Maybe<String>;
+  todo_not_starts_with?: Maybe<String>;
+  todo_ends_with?: Maybe<String>;
+  todo_not_ends_with?: Maybe<String>;
+  tag?: Maybe<String>;
+  tag_not?: Maybe<String>;
+  tag_in?: Maybe<String[] | String>;
+  tag_not_in?: Maybe<String[] | String>;
+  tag_lt?: Maybe<String>;
+  tag_lte?: Maybe<String>;
+  tag_gt?: Maybe<String>;
+  tag_gte?: Maybe<String>;
+  tag_contains?: Maybe<String>;
+  tag_not_contains?: Maybe<String>;
+  tag_starts_with?: Maybe<String>;
+  tag_not_starts_with?: Maybe<String>;
+  tag_ends_with?: Maybe<String>;
+  tag_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<ScheduleWhereInput[] | ScheduleWhereInput>;
+  OR?: Maybe<ScheduleWhereInput[] | ScheduleWhereInput>;
+  NOT?: Maybe<ScheduleWhereInput[] | ScheduleWhereInput>;
+}
+
 export interface NoticeWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
@@ -1511,6 +1646,10 @@ export type RoomWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
+export type ScheduleWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
 export type UserWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
   email?: Maybe<String>;
@@ -1545,6 +1684,7 @@ export interface UserCreateWithoutBoardsInput {
   comments?: Maybe<CommentCreateManyWithoutUserInput>;
   meets?: Maybe<MeetCreateManyWithoutParticipantsInput>;
   rooms?: Maybe<RoomCreateManyWithoutParticipantsInput>;
+  schedules?: Maybe<ScheduleCreateManyWithoutUserInput>;
   loginSecret?: Maybe<String>;
 }
 
@@ -1594,6 +1734,7 @@ export interface UserCreateInput {
   comments?: Maybe<CommentCreateManyWithoutUserInput>;
   meets?: Maybe<MeetCreateManyWithoutParticipantsInput>;
   rooms?: Maybe<RoomCreateManyWithoutParticipantsInput>;
+  schedules?: Maybe<ScheduleCreateManyWithoutUserInput>;
   loginSecret?: Maybe<String>;
 }
 
@@ -1644,6 +1785,7 @@ export interface UserCreateWithoutCommentsInput {
   rents?: Maybe<RentCreateManyWithoutUserInput>;
   meets?: Maybe<MeetCreateManyWithoutParticipantsInput>;
   rooms?: Maybe<RoomCreateManyWithoutParticipantsInput>;
+  schedules?: Maybe<ScheduleCreateManyWithoutUserInput>;
   loginSecret?: Maybe<String>;
 }
 
@@ -1720,6 +1862,7 @@ export interface UserCreateWithoutRentsInput {
   comments?: Maybe<CommentCreateManyWithoutUserInput>;
   meets?: Maybe<MeetCreateManyWithoutParticipantsInput>;
   rooms?: Maybe<RoomCreateManyWithoutParticipantsInput>;
+  schedules?: Maybe<ScheduleCreateManyWithoutUserInput>;
   loginSecret?: Maybe<String>;
 }
 
@@ -1770,6 +1913,7 @@ export interface UserCreateWithoutMarketsInput {
   comments?: Maybe<CommentCreateManyWithoutUserInput>;
   meets?: Maybe<MeetCreateManyWithoutParticipantsInput>;
   rooms?: Maybe<RoomCreateManyWithoutParticipantsInput>;
+  schedules?: Maybe<ScheduleCreateManyWithoutUserInput>;
   loginSecret?: Maybe<String>;
 }
 
@@ -1855,6 +1999,20 @@ export interface MessageCreateWithoutRoomInput {
   to: UserCreateOneInput;
 }
 
+export interface ScheduleCreateManyWithoutUserInput {
+  create?: Maybe<
+    ScheduleCreateWithoutUserInput[] | ScheduleCreateWithoutUserInput
+  >;
+  connect?: Maybe<ScheduleWhereUniqueInput[] | ScheduleWhereUniqueInput>;
+}
+
+export interface ScheduleCreateWithoutUserInput {
+  id?: Maybe<ID_Input>;
+  date: String;
+  todo: String;
+  tag?: Maybe<String>;
+}
+
 export interface CommentCreateManyInput {
   create?: Maybe<CommentCreateInput[] | CommentCreateInput>;
   connect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
@@ -1930,6 +2088,7 @@ export interface UserUpdateWithoutBoardsDataInput {
   comments?: Maybe<CommentUpdateManyWithoutUserInput>;
   meets?: Maybe<MeetUpdateManyWithoutParticipantsInput>;
   rooms?: Maybe<RoomUpdateManyWithoutParticipantsInput>;
+  schedules?: Maybe<ScheduleUpdateManyWithoutUserInput>;
   loginSecret?: Maybe<String>;
 }
 
@@ -2016,6 +2175,7 @@ export interface UserUpdateDataInput {
   comments?: Maybe<CommentUpdateManyWithoutUserInput>;
   meets?: Maybe<MeetUpdateManyWithoutParticipantsInput>;
   rooms?: Maybe<RoomUpdateManyWithoutParticipantsInput>;
+  schedules?: Maybe<ScheduleUpdateManyWithoutUserInput>;
   loginSecret?: Maybe<String>;
 }
 
@@ -2108,6 +2268,7 @@ export interface UserUpdateWithoutCommentsDataInput {
   rents?: Maybe<RentUpdateManyWithoutUserInput>;
   meets?: Maybe<MeetUpdateManyWithoutParticipantsInput>;
   rooms?: Maybe<RoomUpdateManyWithoutParticipantsInput>;
+  schedules?: Maybe<ScheduleUpdateManyWithoutUserInput>;
   loginSecret?: Maybe<String>;
 }
 
@@ -2236,6 +2397,7 @@ export interface UserUpdateWithoutRentsDataInput {
   comments?: Maybe<CommentUpdateManyWithoutUserInput>;
   meets?: Maybe<MeetUpdateManyWithoutParticipantsInput>;
   rooms?: Maybe<RoomUpdateManyWithoutParticipantsInput>;
+  schedules?: Maybe<ScheduleUpdateManyWithoutUserInput>;
   loginSecret?: Maybe<String>;
 }
 
@@ -2310,6 +2472,7 @@ export interface UserUpdateWithoutMarketsDataInput {
   comments?: Maybe<CommentUpdateManyWithoutUserInput>;
   meets?: Maybe<MeetUpdateManyWithoutParticipantsInput>;
   rooms?: Maybe<RoomUpdateManyWithoutParticipantsInput>;
+  schedules?: Maybe<ScheduleUpdateManyWithoutUserInput>;
   loginSecret?: Maybe<String>;
 }
 
@@ -2980,6 +3143,135 @@ export interface RoomScalarWhereInput {
   NOT?: Maybe<RoomScalarWhereInput[] | RoomScalarWhereInput>;
 }
 
+export interface ScheduleUpdateManyWithoutUserInput {
+  create?: Maybe<
+    ScheduleCreateWithoutUserInput[] | ScheduleCreateWithoutUserInput
+  >;
+  delete?: Maybe<ScheduleWhereUniqueInput[] | ScheduleWhereUniqueInput>;
+  connect?: Maybe<ScheduleWhereUniqueInput[] | ScheduleWhereUniqueInput>;
+  set?: Maybe<ScheduleWhereUniqueInput[] | ScheduleWhereUniqueInput>;
+  disconnect?: Maybe<ScheduleWhereUniqueInput[] | ScheduleWhereUniqueInput>;
+  update?: Maybe<
+    | ScheduleUpdateWithWhereUniqueWithoutUserInput[]
+    | ScheduleUpdateWithWhereUniqueWithoutUserInput
+  >;
+  upsert?: Maybe<
+    | ScheduleUpsertWithWhereUniqueWithoutUserInput[]
+    | ScheduleUpsertWithWhereUniqueWithoutUserInput
+  >;
+  deleteMany?: Maybe<ScheduleScalarWhereInput[] | ScheduleScalarWhereInput>;
+  updateMany?: Maybe<
+    | ScheduleUpdateManyWithWhereNestedInput[]
+    | ScheduleUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface ScheduleUpdateWithWhereUniqueWithoutUserInput {
+  where: ScheduleWhereUniqueInput;
+  data: ScheduleUpdateWithoutUserDataInput;
+}
+
+export interface ScheduleUpdateWithoutUserDataInput {
+  date?: Maybe<String>;
+  todo?: Maybe<String>;
+  tag?: Maybe<String>;
+}
+
+export interface ScheduleUpsertWithWhereUniqueWithoutUserInput {
+  where: ScheduleWhereUniqueInput;
+  update: ScheduleUpdateWithoutUserDataInput;
+  create: ScheduleCreateWithoutUserInput;
+}
+
+export interface ScheduleScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  date?: Maybe<String>;
+  date_not?: Maybe<String>;
+  date_in?: Maybe<String[] | String>;
+  date_not_in?: Maybe<String[] | String>;
+  date_lt?: Maybe<String>;
+  date_lte?: Maybe<String>;
+  date_gt?: Maybe<String>;
+  date_gte?: Maybe<String>;
+  date_contains?: Maybe<String>;
+  date_not_contains?: Maybe<String>;
+  date_starts_with?: Maybe<String>;
+  date_not_starts_with?: Maybe<String>;
+  date_ends_with?: Maybe<String>;
+  date_not_ends_with?: Maybe<String>;
+  todo?: Maybe<String>;
+  todo_not?: Maybe<String>;
+  todo_in?: Maybe<String[] | String>;
+  todo_not_in?: Maybe<String[] | String>;
+  todo_lt?: Maybe<String>;
+  todo_lte?: Maybe<String>;
+  todo_gt?: Maybe<String>;
+  todo_gte?: Maybe<String>;
+  todo_contains?: Maybe<String>;
+  todo_not_contains?: Maybe<String>;
+  todo_starts_with?: Maybe<String>;
+  todo_not_starts_with?: Maybe<String>;
+  todo_ends_with?: Maybe<String>;
+  todo_not_ends_with?: Maybe<String>;
+  tag?: Maybe<String>;
+  tag_not?: Maybe<String>;
+  tag_in?: Maybe<String[] | String>;
+  tag_not_in?: Maybe<String[] | String>;
+  tag_lt?: Maybe<String>;
+  tag_lte?: Maybe<String>;
+  tag_gt?: Maybe<String>;
+  tag_gte?: Maybe<String>;
+  tag_contains?: Maybe<String>;
+  tag_not_contains?: Maybe<String>;
+  tag_starts_with?: Maybe<String>;
+  tag_not_starts_with?: Maybe<String>;
+  tag_ends_with?: Maybe<String>;
+  tag_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<ScheduleScalarWhereInput[] | ScheduleScalarWhereInput>;
+  OR?: Maybe<ScheduleScalarWhereInput[] | ScheduleScalarWhereInput>;
+  NOT?: Maybe<ScheduleScalarWhereInput[] | ScheduleScalarWhereInput>;
+}
+
+export interface ScheduleUpdateManyWithWhereNestedInput {
+  where: ScheduleScalarWhereInput;
+  data: ScheduleUpdateManyDataInput;
+}
+
+export interface ScheduleUpdateManyDataInput {
+  date?: Maybe<String>;
+  todo?: Maybe<String>;
+  tag?: Maybe<String>;
+}
+
 export interface UserUpsertWithoutMarketsInput {
   update: UserUpdateWithoutMarketsDataInput;
   create: UserCreateWithoutMarketsInput;
@@ -3562,6 +3854,7 @@ export interface UserCreateWithoutMeetsInput {
   rents?: Maybe<RentCreateManyWithoutUserInput>;
   comments?: Maybe<CommentCreateManyWithoutUserInput>;
   rooms?: Maybe<RoomCreateManyWithoutParticipantsInput>;
+  schedules?: Maybe<ScheduleCreateManyWithoutUserInput>;
   loginSecret?: Maybe<String>;
 }
 
@@ -3627,6 +3920,7 @@ export interface UserUpdateWithoutMeetsDataInput {
   rents?: Maybe<RentUpdateManyWithoutUserInput>;
   comments?: Maybe<CommentUpdateManyWithoutUserInput>;
   rooms?: Maybe<RoomUpdateManyWithoutParticipantsInput>;
+  schedules?: Maybe<ScheduleUpdateManyWithoutUserInput>;
   loginSecret?: Maybe<String>;
 }
 
@@ -3877,6 +4171,7 @@ export interface UserCreateWithoutRoomsInput {
   rents?: Maybe<RentCreateManyWithoutUserInput>;
   comments?: Maybe<CommentCreateManyWithoutUserInput>;
   meets?: Maybe<MeetCreateManyWithoutParticipantsInput>;
+  schedules?: Maybe<ScheduleCreateManyWithoutUserInput>;
   loginSecret?: Maybe<String>;
 }
 
@@ -3936,6 +4231,7 @@ export interface UserUpdateWithoutRoomsDataInput {
   rents?: Maybe<RentUpdateManyWithoutUserInput>;
   comments?: Maybe<CommentUpdateManyWithoutUserInput>;
   meets?: Maybe<MeetUpdateManyWithoutParticipantsInput>;
+  schedules?: Maybe<ScheduleUpdateManyWithoutUserInput>;
   loginSecret?: Maybe<String>;
 }
 
@@ -3994,6 +4290,7 @@ export interface UserCreateWithoutPostsInput {
   comments?: Maybe<CommentCreateManyWithoutUserInput>;
   meets?: Maybe<MeetCreateManyWithoutParticipantsInput>;
   rooms?: Maybe<RoomCreateManyWithoutParticipantsInput>;
+  schedules?: Maybe<ScheduleCreateManyWithoutUserInput>;
   loginSecret?: Maybe<String>;
 }
 
@@ -4025,6 +4322,7 @@ export interface UserUpdateWithoutPostsDataInput {
   comments?: Maybe<CommentUpdateManyWithoutUserInput>;
   meets?: Maybe<MeetUpdateManyWithoutParticipantsInput>;
   rooms?: Maybe<RoomUpdateManyWithoutParticipantsInput>;
+  schedules?: Maybe<ScheduleUpdateManyWithoutUserInput>;
   loginSecret?: Maybe<String>;
 }
 
@@ -4058,6 +4356,79 @@ export interface RoomUpdateInput {
   messages?: Maybe<MessageUpdateManyWithoutRoomInput>;
 }
 
+export interface ScheduleCreateInput {
+  id?: Maybe<ID_Input>;
+  user: UserCreateOneWithoutSchedulesInput;
+  date: String;
+  todo: String;
+  tag?: Maybe<String>;
+}
+
+export interface UserCreateOneWithoutSchedulesInput {
+  create?: Maybe<UserCreateWithoutSchedulesInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserCreateWithoutSchedulesInput {
+  id?: Maybe<ID_Input>;
+  avatar?: Maybe<String>;
+  email: String;
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  username: String;
+  intro?: Maybe<String>;
+  posts?: Maybe<PostCreateManyWithoutUserInput>;
+  boards?: Maybe<BoardCreateManyWithoutUserInput>;
+  markets?: Maybe<MarketCreateManyWithoutUserInput>;
+  rents?: Maybe<RentCreateManyWithoutUserInput>;
+  comments?: Maybe<CommentCreateManyWithoutUserInput>;
+  meets?: Maybe<MeetCreateManyWithoutParticipantsInput>;
+  rooms?: Maybe<RoomCreateManyWithoutParticipantsInput>;
+  loginSecret?: Maybe<String>;
+}
+
+export interface ScheduleUpdateInput {
+  user?: Maybe<UserUpdateOneRequiredWithoutSchedulesInput>;
+  date?: Maybe<String>;
+  todo?: Maybe<String>;
+  tag?: Maybe<String>;
+}
+
+export interface UserUpdateOneRequiredWithoutSchedulesInput {
+  create?: Maybe<UserCreateWithoutSchedulesInput>;
+  update?: Maybe<UserUpdateWithoutSchedulesDataInput>;
+  upsert?: Maybe<UserUpsertWithoutSchedulesInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpdateWithoutSchedulesDataInput {
+  avatar?: Maybe<String>;
+  email?: Maybe<String>;
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  username?: Maybe<String>;
+  intro?: Maybe<String>;
+  posts?: Maybe<PostUpdateManyWithoutUserInput>;
+  boards?: Maybe<BoardUpdateManyWithoutUserInput>;
+  markets?: Maybe<MarketUpdateManyWithoutUserInput>;
+  rents?: Maybe<RentUpdateManyWithoutUserInput>;
+  comments?: Maybe<CommentUpdateManyWithoutUserInput>;
+  meets?: Maybe<MeetUpdateManyWithoutParticipantsInput>;
+  rooms?: Maybe<RoomUpdateManyWithoutParticipantsInput>;
+  loginSecret?: Maybe<String>;
+}
+
+export interface UserUpsertWithoutSchedulesInput {
+  update: UserUpdateWithoutSchedulesDataInput;
+  create: UserCreateWithoutSchedulesInput;
+}
+
+export interface ScheduleUpdateManyMutationInput {
+  date?: Maybe<String>;
+  todo?: Maybe<String>;
+  tag?: Maybe<String>;
+}
+
 export interface UserUpdateInput {
   avatar?: Maybe<String>;
   email?: Maybe<String>;
@@ -4072,6 +4443,7 @@ export interface UserUpdateInput {
   comments?: Maybe<CommentUpdateManyWithoutUserInput>;
   meets?: Maybe<MeetUpdateManyWithoutParticipantsInput>;
   rooms?: Maybe<RoomUpdateManyWithoutParticipantsInput>;
+  schedules?: Maybe<ScheduleUpdateManyWithoutUserInput>;
   loginSecret?: Maybe<String>;
 }
 
@@ -4193,6 +4565,21 @@ export interface RoomSubscriptionWhereInput {
   AND?: Maybe<RoomSubscriptionWhereInput[] | RoomSubscriptionWhereInput>;
   OR?: Maybe<RoomSubscriptionWhereInput[] | RoomSubscriptionWhereInput>;
   NOT?: Maybe<RoomSubscriptionWhereInput[] | RoomSubscriptionWhereInput>;
+}
+
+export interface ScheduleSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<ScheduleWhereInput>;
+  AND?: Maybe<
+    ScheduleSubscriptionWhereInput[] | ScheduleSubscriptionWhereInput
+  >;
+  OR?: Maybe<ScheduleSubscriptionWhereInput[] | ScheduleSubscriptionWhereInput>;
+  NOT?: Maybe<
+    ScheduleSubscriptionWhereInput[] | ScheduleSubscriptionWhereInput
+  >;
 }
 
 export interface UserSubscriptionWhereInput {
@@ -4364,6 +4751,15 @@ export interface UserPromise extends Promise<User>, Fragmentable {
     first?: Int;
     last?: Int;
   }) => T;
+  schedules: <T = FragmentableArray<Schedule>>(args?: {
+    where?: ScheduleWhereInput;
+    orderBy?: ScheduleOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
   loginSecret: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
@@ -4442,6 +4838,15 @@ export interface UserSubscription
     first?: Int;
     last?: Int;
   }) => T;
+  schedules: <T = Promise<AsyncIterator<ScheduleSubscription>>>(args?: {
+    where?: ScheduleWhereInput;
+    orderBy?: ScheduleOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
   loginSecret: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
@@ -4514,6 +4919,15 @@ export interface UserNullablePromise
   rooms: <T = FragmentableArray<Room>>(args?: {
     where?: RoomWhereInput;
     orderBy?: RoomOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  schedules: <T = FragmentableArray<Schedule>>(args?: {
+    where?: ScheduleWhereInput;
+    orderBy?: ScheduleOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -5178,6 +5592,49 @@ export interface MessageNullablePromise
   updatedAt: () => Promise<DateTimeOutput>;
 }
 
+export interface Schedule {
+  id: ID_Output;
+  date: String;
+  todo: String;
+  tag?: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface SchedulePromise extends Promise<Schedule>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  user: <T = UserPromise>() => T;
+  date: () => Promise<String>;
+  todo: () => Promise<String>;
+  tag: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface ScheduleSubscription
+  extends Promise<AsyncIterator<Schedule>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  user: <T = UserSubscription>() => T;
+  date: () => Promise<AsyncIterator<String>>;
+  todo: () => Promise<AsyncIterator<String>>;
+  tag: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface ScheduleNullablePromise
+  extends Promise<Schedule | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  user: <T = UserPromise>() => T;
+  date: () => Promise<String>;
+  todo: () => Promise<String>;
+  tag: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
 export interface BoardConnection {
   pageInfo: PageInfo;
   edges: BoardEdge[];
@@ -5737,6 +6194,62 @@ export interface AggregateRoomPromise
 
 export interface AggregateRoomSubscription
   extends Promise<AsyncIterator<AggregateRoom>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface ScheduleConnection {
+  pageInfo: PageInfo;
+  edges: ScheduleEdge[];
+}
+
+export interface ScheduleConnectionPromise
+  extends Promise<ScheduleConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<ScheduleEdge>>() => T;
+  aggregate: <T = AggregateSchedulePromise>() => T;
+}
+
+export interface ScheduleConnectionSubscription
+  extends Promise<AsyncIterator<ScheduleConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<ScheduleEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateScheduleSubscription>() => T;
+}
+
+export interface ScheduleEdge {
+  node: Schedule;
+  cursor: String;
+}
+
+export interface ScheduleEdgePromise
+  extends Promise<ScheduleEdge>,
+    Fragmentable {
+  node: <T = SchedulePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface ScheduleEdgeSubscription
+  extends Promise<AsyncIterator<ScheduleEdge>>,
+    Fragmentable {
+  node: <T = ScheduleSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateSchedule {
+  count: Int;
+}
+
+export interface AggregateSchedulePromise
+  extends Promise<AggregateSchedule>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateScheduleSubscription
+  extends Promise<AsyncIterator<AggregateSchedule>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
@@ -6341,6 +6854,62 @@ export interface RoomPreviousValuesSubscription
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
+export interface ScheduleSubscriptionPayload {
+  mutation: MutationType;
+  node: Schedule;
+  updatedFields: String[];
+  previousValues: SchedulePreviousValues;
+}
+
+export interface ScheduleSubscriptionPayloadPromise
+  extends Promise<ScheduleSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = SchedulePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = SchedulePreviousValuesPromise>() => T;
+}
+
+export interface ScheduleSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ScheduleSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = ScheduleSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = SchedulePreviousValuesSubscription>() => T;
+}
+
+export interface SchedulePreviousValues {
+  id: ID_Output;
+  date: String;
+  todo: String;
+  tag?: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface SchedulePreviousValuesPromise
+  extends Promise<SchedulePreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  date: () => Promise<String>;
+  todo: () => Promise<String>;
+  tag: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface SchedulePreviousValuesSubscription
+  extends Promise<AsyncIterator<SchedulePreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  date: () => Promise<AsyncIterator<String>>;
+  todo: () => Promise<AsyncIterator<String>>;
+  tag: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
 export interface UserSubscriptionPayload {
   mutation: MutationType;
   node: User;
@@ -6489,6 +7058,10 @@ export const models: Model[] = [
   },
   {
     name: "Meet",
+    embedded: false
+  },
+  {
+    name: "Schedule",
     embedded: false
   }
 ];

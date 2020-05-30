@@ -12,6 +12,7 @@ type User {
   rents: [Rent!]!
   rooms: [Room!]
   meets: [Meet!]!
+  schedules: [Schedule!]
   loginSecret: String!
   createdAt: String
   updatedAt: String
@@ -124,6 +125,16 @@ type Meet {
   participants: [User!]!
   tag: String!
   images: [Image!]
+  createdAt: String
+  updatedAt: String
+}
+
+type Schedule {
+  id: ID!
+  todo: String!
+  user: User!
+  date: String!
+  tag: String
   createdAt: String
   updatedAt: String
 }

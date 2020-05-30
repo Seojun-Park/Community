@@ -43,6 +43,10 @@ type AggregateRoom {
   count: Int!
 }
 
+type AggregateSchedule {
+  count: Int!
+}
+
 type AggregateUser {
   count: Int!
 }
@@ -2183,6 +2187,12 @@ type Mutation {
   upsertRoom(where: RoomWhereUniqueInput!, create: RoomCreateInput!, update: RoomUpdateInput!): Room!
   deleteRoom(where: RoomWhereUniqueInput!): Room
   deleteManyRooms(where: RoomWhereInput): BatchPayload!
+  createSchedule(data: ScheduleCreateInput!): Schedule!
+  updateSchedule(data: ScheduleUpdateInput!, where: ScheduleWhereUniqueInput!): Schedule
+  updateManySchedules(data: ScheduleUpdateManyMutationInput!, where: ScheduleWhereInput): BatchPayload!
+  upsertSchedule(where: ScheduleWhereUniqueInput!, create: ScheduleCreateInput!, update: ScheduleUpdateInput!): Schedule!
+  deleteSchedule(where: ScheduleWhereUniqueInput!): Schedule
+  deleteManySchedules(where: ScheduleWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -2703,6 +2713,9 @@ type Query {
   room(where: RoomWhereUniqueInput!): Room
   rooms(where: RoomWhereInput, orderBy: RoomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Room]!
   roomsConnection(where: RoomWhereInput, orderBy: RoomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RoomConnection!
+  schedule(where: ScheduleWhereUniqueInput!): Schedule
+  schedules(where: ScheduleWhereInput, orderBy: ScheduleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Schedule]!
+  schedulesConnection(where: ScheduleWhereInput, orderBy: ScheduleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ScheduleConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
@@ -3291,6 +3304,303 @@ input RoomWhereUniqueInput {
   id: ID
 }
 
+type Schedule {
+  id: ID!
+  user: User!
+  date: String!
+  todo: String!
+  tag: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type ScheduleConnection {
+  pageInfo: PageInfo!
+  edges: [ScheduleEdge]!
+  aggregate: AggregateSchedule!
+}
+
+input ScheduleCreateInput {
+  id: ID
+  user: UserCreateOneWithoutSchedulesInput!
+  date: String!
+  todo: String!
+  tag: String
+}
+
+input ScheduleCreateManyWithoutUserInput {
+  create: [ScheduleCreateWithoutUserInput!]
+  connect: [ScheduleWhereUniqueInput!]
+}
+
+input ScheduleCreateWithoutUserInput {
+  id: ID
+  date: String!
+  todo: String!
+  tag: String
+}
+
+type ScheduleEdge {
+  node: Schedule!
+  cursor: String!
+}
+
+enum ScheduleOrderByInput {
+  id_ASC
+  id_DESC
+  date_ASC
+  date_DESC
+  todo_ASC
+  todo_DESC
+  tag_ASC
+  tag_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type SchedulePreviousValues {
+  id: ID!
+  date: String!
+  todo: String!
+  tag: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input ScheduleScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  date: String
+  date_not: String
+  date_in: [String!]
+  date_not_in: [String!]
+  date_lt: String
+  date_lte: String
+  date_gt: String
+  date_gte: String
+  date_contains: String
+  date_not_contains: String
+  date_starts_with: String
+  date_not_starts_with: String
+  date_ends_with: String
+  date_not_ends_with: String
+  todo: String
+  todo_not: String
+  todo_in: [String!]
+  todo_not_in: [String!]
+  todo_lt: String
+  todo_lte: String
+  todo_gt: String
+  todo_gte: String
+  todo_contains: String
+  todo_not_contains: String
+  todo_starts_with: String
+  todo_not_starts_with: String
+  todo_ends_with: String
+  todo_not_ends_with: String
+  tag: String
+  tag_not: String
+  tag_in: [String!]
+  tag_not_in: [String!]
+  tag_lt: String
+  tag_lte: String
+  tag_gt: String
+  tag_gte: String
+  tag_contains: String
+  tag_not_contains: String
+  tag_starts_with: String
+  tag_not_starts_with: String
+  tag_ends_with: String
+  tag_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [ScheduleScalarWhereInput!]
+  OR: [ScheduleScalarWhereInput!]
+  NOT: [ScheduleScalarWhereInput!]
+}
+
+type ScheduleSubscriptionPayload {
+  mutation: MutationType!
+  node: Schedule
+  updatedFields: [String!]
+  previousValues: SchedulePreviousValues
+}
+
+input ScheduleSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ScheduleWhereInput
+  AND: [ScheduleSubscriptionWhereInput!]
+  OR: [ScheduleSubscriptionWhereInput!]
+  NOT: [ScheduleSubscriptionWhereInput!]
+}
+
+input ScheduleUpdateInput {
+  user: UserUpdateOneRequiredWithoutSchedulesInput
+  date: String
+  todo: String
+  tag: String
+}
+
+input ScheduleUpdateManyDataInput {
+  date: String
+  todo: String
+  tag: String
+}
+
+input ScheduleUpdateManyMutationInput {
+  date: String
+  todo: String
+  tag: String
+}
+
+input ScheduleUpdateManyWithoutUserInput {
+  create: [ScheduleCreateWithoutUserInput!]
+  delete: [ScheduleWhereUniqueInput!]
+  connect: [ScheduleWhereUniqueInput!]
+  set: [ScheduleWhereUniqueInput!]
+  disconnect: [ScheduleWhereUniqueInput!]
+  update: [ScheduleUpdateWithWhereUniqueWithoutUserInput!]
+  upsert: [ScheduleUpsertWithWhereUniqueWithoutUserInput!]
+  deleteMany: [ScheduleScalarWhereInput!]
+  updateMany: [ScheduleUpdateManyWithWhereNestedInput!]
+}
+
+input ScheduleUpdateManyWithWhereNestedInput {
+  where: ScheduleScalarWhereInput!
+  data: ScheduleUpdateManyDataInput!
+}
+
+input ScheduleUpdateWithoutUserDataInput {
+  date: String
+  todo: String
+  tag: String
+}
+
+input ScheduleUpdateWithWhereUniqueWithoutUserInput {
+  where: ScheduleWhereUniqueInput!
+  data: ScheduleUpdateWithoutUserDataInput!
+}
+
+input ScheduleUpsertWithWhereUniqueWithoutUserInput {
+  where: ScheduleWhereUniqueInput!
+  update: ScheduleUpdateWithoutUserDataInput!
+  create: ScheduleCreateWithoutUserInput!
+}
+
+input ScheduleWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  user: UserWhereInput
+  date: String
+  date_not: String
+  date_in: [String!]
+  date_not_in: [String!]
+  date_lt: String
+  date_lte: String
+  date_gt: String
+  date_gte: String
+  date_contains: String
+  date_not_contains: String
+  date_starts_with: String
+  date_not_starts_with: String
+  date_ends_with: String
+  date_not_ends_with: String
+  todo: String
+  todo_not: String
+  todo_in: [String!]
+  todo_not_in: [String!]
+  todo_lt: String
+  todo_lte: String
+  todo_gt: String
+  todo_gte: String
+  todo_contains: String
+  todo_not_contains: String
+  todo_starts_with: String
+  todo_not_starts_with: String
+  todo_ends_with: String
+  todo_not_ends_with: String
+  tag: String
+  tag_not: String
+  tag_in: [String!]
+  tag_not_in: [String!]
+  tag_lt: String
+  tag_lte: String
+  tag_gt: String
+  tag_gte: String
+  tag_contains: String
+  tag_not_contains: String
+  tag_starts_with: String
+  tag_not_starts_with: String
+  tag_ends_with: String
+  tag_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [ScheduleWhereInput!]
+  OR: [ScheduleWhereInput!]
+  NOT: [ScheduleWhereInput!]
+}
+
+input ScheduleWhereUniqueInput {
+  id: ID
+}
+
 type Subscription {
   board(where: BoardSubscriptionWhereInput): BoardSubscriptionPayload
   comment(where: CommentSubscriptionWhereInput): CommentSubscriptionPayload
@@ -3302,6 +3612,7 @@ type Subscription {
   post(where: PostSubscriptionWhereInput): PostSubscriptionPayload
   rent(where: RentSubscriptionWhereInput): RentSubscriptionPayload
   room(where: RoomSubscriptionWhereInput): RoomSubscriptionPayload
+  schedule(where: ScheduleSubscriptionWhereInput): ScheduleSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
@@ -3320,6 +3631,7 @@ type User {
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
   meets(where: MeetWhereInput, orderBy: MeetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Meet!]
   rooms(where: RoomWhereInput, orderBy: RoomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Room!]
+  schedules(where: ScheduleWhereInput, orderBy: ScheduleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Schedule!]
   loginSecret: String
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -3346,6 +3658,7 @@ input UserCreateInput {
   comments: CommentCreateManyWithoutUserInput
   meets: MeetCreateManyWithoutParticipantsInput
   rooms: RoomCreateManyWithoutParticipantsInput
+  schedules: ScheduleCreateManyWithoutUserInput
   loginSecret: String
 }
 
@@ -3389,6 +3702,11 @@ input UserCreateOneWithoutRentsInput {
   connect: UserWhereUniqueInput
 }
 
+input UserCreateOneWithoutSchedulesInput {
+  create: UserCreateWithoutSchedulesInput
+  connect: UserWhereUniqueInput
+}
+
 input UserCreateWithoutBoardsInput {
   id: ID
   avatar: String
@@ -3403,6 +3721,7 @@ input UserCreateWithoutBoardsInput {
   comments: CommentCreateManyWithoutUserInput
   meets: MeetCreateManyWithoutParticipantsInput
   rooms: RoomCreateManyWithoutParticipantsInput
+  schedules: ScheduleCreateManyWithoutUserInput
   loginSecret: String
 }
 
@@ -3420,6 +3739,7 @@ input UserCreateWithoutCommentsInput {
   rents: RentCreateManyWithoutUserInput
   meets: MeetCreateManyWithoutParticipantsInput
   rooms: RoomCreateManyWithoutParticipantsInput
+  schedules: ScheduleCreateManyWithoutUserInput
   loginSecret: String
 }
 
@@ -3437,6 +3757,7 @@ input UserCreateWithoutMarketsInput {
   comments: CommentCreateManyWithoutUserInput
   meets: MeetCreateManyWithoutParticipantsInput
   rooms: RoomCreateManyWithoutParticipantsInput
+  schedules: ScheduleCreateManyWithoutUserInput
   loginSecret: String
 }
 
@@ -3454,6 +3775,7 @@ input UserCreateWithoutMeetsInput {
   rents: RentCreateManyWithoutUserInput
   comments: CommentCreateManyWithoutUserInput
   rooms: RoomCreateManyWithoutParticipantsInput
+  schedules: ScheduleCreateManyWithoutUserInput
   loginSecret: String
 }
 
@@ -3471,6 +3793,7 @@ input UserCreateWithoutPostsInput {
   comments: CommentCreateManyWithoutUserInput
   meets: MeetCreateManyWithoutParticipantsInput
   rooms: RoomCreateManyWithoutParticipantsInput
+  schedules: ScheduleCreateManyWithoutUserInput
   loginSecret: String
 }
 
@@ -3488,6 +3811,7 @@ input UserCreateWithoutRentsInput {
   comments: CommentCreateManyWithoutUserInput
   meets: MeetCreateManyWithoutParticipantsInput
   rooms: RoomCreateManyWithoutParticipantsInput
+  schedules: ScheduleCreateManyWithoutUserInput
   loginSecret: String
 }
 
@@ -3505,6 +3829,25 @@ input UserCreateWithoutRoomsInput {
   rents: RentCreateManyWithoutUserInput
   comments: CommentCreateManyWithoutUserInput
   meets: MeetCreateManyWithoutParticipantsInput
+  schedules: ScheduleCreateManyWithoutUserInput
+  loginSecret: String
+}
+
+input UserCreateWithoutSchedulesInput {
+  id: ID
+  avatar: String
+  email: String!
+  firstName: String
+  lastName: String
+  username: String!
+  intro: String
+  posts: PostCreateManyWithoutUserInput
+  boards: BoardCreateManyWithoutUserInput
+  markets: MarketCreateManyWithoutUserInput
+  rents: RentCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
+  meets: MeetCreateManyWithoutParticipantsInput
+  rooms: RoomCreateManyWithoutParticipantsInput
   loginSecret: String
 }
 
@@ -3715,6 +4058,7 @@ input UserUpdateDataInput {
   comments: CommentUpdateManyWithoutUserInput
   meets: MeetUpdateManyWithoutParticipantsInput
   rooms: RoomUpdateManyWithoutParticipantsInput
+  schedules: ScheduleUpdateManyWithoutUserInput
   loginSecret: String
 }
 
@@ -3732,6 +4076,7 @@ input UserUpdateInput {
   comments: CommentUpdateManyWithoutUserInput
   meets: MeetUpdateManyWithoutParticipantsInput
   rooms: RoomUpdateManyWithoutParticipantsInput
+  schedules: ScheduleUpdateManyWithoutUserInput
   loginSecret: String
 }
 
@@ -3819,6 +4164,13 @@ input UserUpdateOneRequiredWithoutRentsInput {
   connect: UserWhereUniqueInput
 }
 
+input UserUpdateOneRequiredWithoutSchedulesInput {
+  create: UserCreateWithoutSchedulesInput
+  update: UserUpdateWithoutSchedulesDataInput
+  upsert: UserUpsertWithoutSchedulesInput
+  connect: UserWhereUniqueInput
+}
+
 input UserUpdateOneWithoutCommentsInput {
   create: UserCreateWithoutCommentsInput
   update: UserUpdateWithoutCommentsDataInput
@@ -3841,6 +4193,7 @@ input UserUpdateWithoutBoardsDataInput {
   comments: CommentUpdateManyWithoutUserInput
   meets: MeetUpdateManyWithoutParticipantsInput
   rooms: RoomUpdateManyWithoutParticipantsInput
+  schedules: ScheduleUpdateManyWithoutUserInput
   loginSecret: String
 }
 
@@ -3857,6 +4210,7 @@ input UserUpdateWithoutCommentsDataInput {
   rents: RentUpdateManyWithoutUserInput
   meets: MeetUpdateManyWithoutParticipantsInput
   rooms: RoomUpdateManyWithoutParticipantsInput
+  schedules: ScheduleUpdateManyWithoutUserInput
   loginSecret: String
 }
 
@@ -3873,6 +4227,7 @@ input UserUpdateWithoutMarketsDataInput {
   comments: CommentUpdateManyWithoutUserInput
   meets: MeetUpdateManyWithoutParticipantsInput
   rooms: RoomUpdateManyWithoutParticipantsInput
+  schedules: ScheduleUpdateManyWithoutUserInput
   loginSecret: String
 }
 
@@ -3889,6 +4244,7 @@ input UserUpdateWithoutMeetsDataInput {
   rents: RentUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
   rooms: RoomUpdateManyWithoutParticipantsInput
+  schedules: ScheduleUpdateManyWithoutUserInput
   loginSecret: String
 }
 
@@ -3905,6 +4261,7 @@ input UserUpdateWithoutPostsDataInput {
   comments: CommentUpdateManyWithoutUserInput
   meets: MeetUpdateManyWithoutParticipantsInput
   rooms: RoomUpdateManyWithoutParticipantsInput
+  schedules: ScheduleUpdateManyWithoutUserInput
   loginSecret: String
 }
 
@@ -3921,6 +4278,7 @@ input UserUpdateWithoutRentsDataInput {
   comments: CommentUpdateManyWithoutUserInput
   meets: MeetUpdateManyWithoutParticipantsInput
   rooms: RoomUpdateManyWithoutParticipantsInput
+  schedules: ScheduleUpdateManyWithoutUserInput
   loginSecret: String
 }
 
@@ -3937,6 +4295,24 @@ input UserUpdateWithoutRoomsDataInput {
   rents: RentUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
   meets: MeetUpdateManyWithoutParticipantsInput
+  schedules: ScheduleUpdateManyWithoutUserInput
+  loginSecret: String
+}
+
+input UserUpdateWithoutSchedulesDataInput {
+  avatar: String
+  email: String
+  firstName: String
+  lastName: String
+  username: String
+  intro: String
+  posts: PostUpdateManyWithoutUserInput
+  boards: BoardUpdateManyWithoutUserInput
+  markets: MarketUpdateManyWithoutUserInput
+  rents: RentUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
+  meets: MeetUpdateManyWithoutParticipantsInput
+  rooms: RoomUpdateManyWithoutParticipantsInput
   loginSecret: String
 }
 
@@ -3978,6 +4354,11 @@ input UserUpsertWithoutPostsInput {
 input UserUpsertWithoutRentsInput {
   update: UserUpdateWithoutRentsDataInput!
   create: UserCreateWithoutRentsInput!
+}
+
+input UserUpsertWithoutSchedulesInput {
+  update: UserUpdateWithoutSchedulesDataInput!
+  create: UserCreateWithoutSchedulesInput!
 }
 
 input UserUpsertWithWhereUniqueWithoutMeetsInput {
@@ -4112,6 +4493,9 @@ input UserWhereInput {
   rooms_every: RoomWhereInput
   rooms_some: RoomWhereInput
   rooms_none: RoomWhereInput
+  schedules_every: ScheduleWhereInput
+  schedules_some: ScheduleWhereInput
+  schedules_none: ScheduleWhereInput
   loginSecret: String
   loginSecret_not: String
   loginSecret_in: [String!]
