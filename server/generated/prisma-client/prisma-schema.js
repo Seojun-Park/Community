@@ -3310,6 +3310,7 @@ type Schedule {
   date: String!
   todo: String!
   tag: String
+  isOn: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -3326,6 +3327,7 @@ input ScheduleCreateInput {
   date: String!
   todo: String!
   tag: String
+  isOn: Boolean!
 }
 
 input ScheduleCreateManyWithoutUserInput {
@@ -3338,6 +3340,7 @@ input ScheduleCreateWithoutUserInput {
   date: String!
   todo: String!
   tag: String
+  isOn: Boolean!
 }
 
 type ScheduleEdge {
@@ -3354,6 +3357,8 @@ enum ScheduleOrderByInput {
   todo_DESC
   tag_ASC
   tag_DESC
+  isOn_ASC
+  isOn_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -3365,6 +3370,7 @@ type SchedulePreviousValues {
   date: String!
   todo: String!
   tag: String
+  isOn: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -3426,6 +3432,8 @@ input ScheduleScalarWhereInput {
   tag_not_starts_with: String
   tag_ends_with: String
   tag_not_ends_with: String
+  isOn: Boolean
+  isOn_not: Boolean
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -3470,18 +3478,21 @@ input ScheduleUpdateInput {
   date: String
   todo: String
   tag: String
+  isOn: Boolean
 }
 
 input ScheduleUpdateManyDataInput {
   date: String
   todo: String
   tag: String
+  isOn: Boolean
 }
 
 input ScheduleUpdateManyMutationInput {
   date: String
   todo: String
   tag: String
+  isOn: Boolean
 }
 
 input ScheduleUpdateManyWithoutUserInput {
@@ -3505,6 +3516,7 @@ input ScheduleUpdateWithoutUserDataInput {
   date: String
   todo: String
   tag: String
+  isOn: Boolean
 }
 
 input ScheduleUpdateWithWhereUniqueWithoutUserInput {
@@ -3576,6 +3588,8 @@ input ScheduleWhereInput {
   tag_not_starts_with: String
   tag_ends_with: String
   tag_not_ends_with: String
+  isOn: Boolean
+  isOn_not: Boolean
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]

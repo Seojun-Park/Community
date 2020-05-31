@@ -135,6 +135,7 @@ type Schedule {
   user: User!
   date: String!
   tag: String
+  isOn: Boolean!
   createdAt: String
   updatedAt: String
 }

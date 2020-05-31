@@ -673,6 +673,8 @@ export type ScheduleOrderByInput =
   | "todo_DESC"
   | "tag_ASC"
   | "tag_DESC"
+  | "isOn_ASC"
+  | "isOn_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -1521,6 +1523,8 @@ export interface ScheduleWhereInput {
   tag_not_starts_with?: Maybe<String>;
   tag_ends_with?: Maybe<String>;
   tag_not_ends_with?: Maybe<String>;
+  isOn?: Maybe<Boolean>;
+  isOn_not?: Maybe<Boolean>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -2011,6 +2015,7 @@ export interface ScheduleCreateWithoutUserInput {
   date: String;
   todo: String;
   tag?: Maybe<String>;
+  isOn: Boolean;
 }
 
 export interface CommentCreateManyInput {
@@ -3175,6 +3180,7 @@ export interface ScheduleUpdateWithoutUserDataInput {
   date?: Maybe<String>;
   todo?: Maybe<String>;
   tag?: Maybe<String>;
+  isOn?: Maybe<Boolean>;
 }
 
 export interface ScheduleUpsertWithWhereUniqueWithoutUserInput {
@@ -3240,6 +3246,8 @@ export interface ScheduleScalarWhereInput {
   tag_not_starts_with?: Maybe<String>;
   tag_ends_with?: Maybe<String>;
   tag_not_ends_with?: Maybe<String>;
+  isOn?: Maybe<Boolean>;
+  isOn_not?: Maybe<Boolean>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -3270,6 +3278,7 @@ export interface ScheduleUpdateManyDataInput {
   date?: Maybe<String>;
   todo?: Maybe<String>;
   tag?: Maybe<String>;
+  isOn?: Maybe<Boolean>;
 }
 
 export interface UserUpsertWithoutMarketsInput {
@@ -4362,6 +4371,7 @@ export interface ScheduleCreateInput {
   date: String;
   todo: String;
   tag?: Maybe<String>;
+  isOn: Boolean;
 }
 
 export interface UserCreateOneWithoutSchedulesInput {
@@ -4392,6 +4402,7 @@ export interface ScheduleUpdateInput {
   date?: Maybe<String>;
   todo?: Maybe<String>;
   tag?: Maybe<String>;
+  isOn?: Maybe<Boolean>;
 }
 
 export interface UserUpdateOneRequiredWithoutSchedulesInput {
@@ -4427,6 +4438,7 @@ export interface ScheduleUpdateManyMutationInput {
   date?: Maybe<String>;
   todo?: Maybe<String>;
   tag?: Maybe<String>;
+  isOn?: Maybe<Boolean>;
 }
 
 export interface UserUpdateInput {
@@ -5597,6 +5609,7 @@ export interface Schedule {
   date: String;
   todo: String;
   tag?: String;
+  isOn: Boolean;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -5607,6 +5620,7 @@ export interface SchedulePromise extends Promise<Schedule>, Fragmentable {
   date: () => Promise<String>;
   todo: () => Promise<String>;
   tag: () => Promise<String>;
+  isOn: () => Promise<Boolean>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -5619,6 +5633,7 @@ export interface ScheduleSubscription
   date: () => Promise<AsyncIterator<String>>;
   todo: () => Promise<AsyncIterator<String>>;
   tag: () => Promise<AsyncIterator<String>>;
+  isOn: () => Promise<AsyncIterator<Boolean>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -5631,6 +5646,7 @@ export interface ScheduleNullablePromise
   date: () => Promise<String>;
   todo: () => Promise<String>;
   tag: () => Promise<String>;
+  isOn: () => Promise<Boolean>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -6884,6 +6900,7 @@ export interface SchedulePreviousValues {
   date: String;
   todo: String;
   tag?: String;
+  isOn: Boolean;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -6895,6 +6912,7 @@ export interface SchedulePreviousValuesPromise
   date: () => Promise<String>;
   todo: () => Promise<String>;
   tag: () => Promise<String>;
+  isOn: () => Promise<Boolean>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -6906,6 +6924,7 @@ export interface SchedulePreviousValuesSubscription
   date: () => Promise<AsyncIterator<String>>;
   todo: () => Promise<AsyncIterator<String>>;
   tag: () => Promise<AsyncIterator<String>>;
+  isOn: () => Promise<AsyncIterator<Boolean>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -7000,14 +7019,14 @@ DateTime scalar output type, which is always a string
 export type DateTimeOutput = string;
 
 /*
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
-*/
-export type Int = number;
-
-/*
 The `Boolean` scalar type represents `true` or `false`.
 */
 export type Boolean = boolean;
+
+/*
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
+*/
+export type Int = number;
 
 export type Long = string;
 

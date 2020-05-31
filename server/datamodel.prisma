@@ -130,6 +130,7 @@ type Schedule{
   date: String!
   todo: String!
   tag: String
+  isOn: Boolean!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
