@@ -1,0 +1,3 @@
+type Mutation {
+  applyMeet(meetId: String!, id: String!): Boolean!
+}
