@@ -5,27 +5,10 @@ export default {
     createMeet: async (_, args, { request, isAuthenticated }) => {
       isAuthenticated(request);
       const { user } = request;
-      const { tag, intro, title, creator, images, isPublic } = args;
+      const { tags, intro, title, creator, images, isPublic } = args;
       let newTag;
-      const exist = await prisma.$exists.tag({ where: { title: tag } });
+      const exist = await prisma.$exists.tag({ where: { title: tags } });
       console.log(exist);
-      // return await prisma.createMeet({
-      //   intro,
-      //   title,
-      //   creator,
-      //   isPublic,
-      //   images,
-      //   participants: {
-      //     connect: {
-      //       id: user.id
-      //     }
-      //   },
-      //   tags: {
-      //     connect: {
-      //       id: exist.id
-      //     }
-      //   }
-      // });
       if (exist) {
         return await prisma.createMeet({
           intro,
@@ -38,7 +21,7 @@ export default {
               id: user.id
             }
           },
-          tag: {
+          tags: {
             connect: {
               id: exist.id
             }
@@ -57,7 +40,7 @@ export default {
               id: user.id
             }
           },
-          tag
+          tags
         });
         newTag = await prisma.createTag({
           meets: {
@@ -69,16 +52,6 @@ export default {
         });
         return meetup;
       }
-      // await prisma.updateMeet({
-      //   where: {
-      //     id: meetup.id
-      //   },
-      //   tags: {
-      //     connect: {
-      //       id: newTag.id
-      //     }
-      //   }
-      // });
     }
   }
 };
