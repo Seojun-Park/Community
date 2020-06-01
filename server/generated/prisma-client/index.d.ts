@@ -646,6 +646,8 @@ export type MeetOrderByInput =
   | "location_DESC"
   | "date_ASC"
   | "date_DESC"
+  | "isPublic_ASC"
+  | "isPublic_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -1325,6 +1327,8 @@ export interface MeetWhereInput {
   date_not_starts_with?: Maybe<String>;
   date_ends_with?: Maybe<String>;
   date_not_ends_with?: Maybe<String>;
+  isPublic?: Maybe<Boolean>;
+  isPublic_not?: Maybe<Boolean>;
   participants_every?: Maybe<UserWhereInput>;
   participants_some?: Maybe<UserWhereInput>;
   participants_none?: Maybe<UserWhereInput>;
@@ -2056,6 +2060,7 @@ export interface MeetCreateWithoutParticipantsInput {
   creator?: Maybe<String>;
   location?: Maybe<String>;
   date?: Maybe<String>;
+  isPublic: Boolean;
   images?: Maybe<ImageCreateManyWithoutMeetInput>;
   tags?: Maybe<TagCreateManyWithoutMeetsInput>;
 }
@@ -2844,6 +2849,7 @@ export interface MeetUpdateWithoutParticipantsDataInput {
   creator?: Maybe<String>;
   location?: Maybe<String>;
   date?: Maybe<String>;
+  isPublic?: Maybe<Boolean>;
   images?: Maybe<ImageUpdateManyWithoutMeetInput>;
   tags?: Maybe<TagUpdateManyWithoutMeetsInput>;
 }
@@ -3127,6 +3133,8 @@ export interface MeetScalarWhereInput {
   date_not_starts_with?: Maybe<String>;
   date_ends_with?: Maybe<String>;
   date_not_ends_with?: Maybe<String>;
+  isPublic?: Maybe<Boolean>;
+  isPublic_not?: Maybe<Boolean>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -3159,6 +3167,7 @@ export interface MeetUpdateManyDataInput {
   creator?: Maybe<String>;
   location?: Maybe<String>;
   date?: Maybe<String>;
+  isPublic?: Maybe<Boolean>;
 }
 
 export interface RoomUpdateManyWithoutParticipantsInput {
@@ -4022,6 +4031,7 @@ export interface MeetCreateWithoutImagesInput {
   creator?: Maybe<String>;
   location?: Maybe<String>;
   date?: Maybe<String>;
+  isPublic: Boolean;
   participants?: Maybe<UserCreateManyWithoutMeetsInput>;
   tags?: Maybe<TagCreateManyWithoutMeetsInput>;
 }
@@ -4069,6 +4079,7 @@ export interface MeetUpdateWithoutImagesDataInput {
   creator?: Maybe<String>;
   location?: Maybe<String>;
   date?: Maybe<String>;
+  isPublic?: Maybe<Boolean>;
   participants?: Maybe<UserUpdateManyWithoutMeetsInput>;
   tags?: Maybe<TagUpdateManyWithoutMeetsInput>;
 }
@@ -4300,6 +4311,7 @@ export interface MeetCreateInput {
   creator?: Maybe<String>;
   location?: Maybe<String>;
   date?: Maybe<String>;
+  isPublic: Boolean;
   participants?: Maybe<UserCreateManyWithoutMeetsInput>;
   images?: Maybe<ImageCreateManyWithoutMeetInput>;
   tags?: Maybe<TagCreateManyWithoutMeetsInput>;
@@ -4311,6 +4323,7 @@ export interface MeetUpdateInput {
   creator?: Maybe<String>;
   location?: Maybe<String>;
   date?: Maybe<String>;
+  isPublic?: Maybe<Boolean>;
   participants?: Maybe<UserUpdateManyWithoutMeetsInput>;
   images?: Maybe<ImageUpdateManyWithoutMeetInput>;
   tags?: Maybe<TagUpdateManyWithoutMeetsInput>;
@@ -4322,6 +4335,7 @@ export interface MeetUpdateManyMutationInput {
   creator?: Maybe<String>;
   location?: Maybe<String>;
   date?: Maybe<String>;
+  isPublic?: Maybe<Boolean>;
 }
 
 export interface MessageCreateInput {
@@ -4640,6 +4654,7 @@ export interface MeetCreateWithoutTagsInput {
   creator?: Maybe<String>;
   location?: Maybe<String>;
   date?: Maybe<String>;
+  isPublic: Boolean;
   participants?: Maybe<UserCreateManyWithoutMeetsInput>;
   images?: Maybe<ImageCreateManyWithoutMeetInput>;
 }
@@ -4680,6 +4695,7 @@ export interface MeetUpdateWithoutTagsDataInput {
   creator?: Maybe<String>;
   location?: Maybe<String>;
   date?: Maybe<String>;
+  isPublic?: Maybe<Boolean>;
   participants?: Maybe<UserUpdateManyWithoutMeetsInput>;
   images?: Maybe<ImageUpdateManyWithoutMeetInput>;
 }
@@ -5611,6 +5627,7 @@ export interface Meet {
   creator?: String;
   location?: String;
   date?: String;
+  isPublic: Boolean;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -5622,6 +5639,7 @@ export interface MeetPromise extends Promise<Meet>, Fragmentable {
   creator: () => Promise<String>;
   location: () => Promise<String>;
   date: () => Promise<String>;
+  isPublic: () => Promise<Boolean>;
   participants: <T = FragmentableArray<User>>(args?: {
     where?: UserWhereInput;
     orderBy?: UserOrderByInput;
@@ -5662,6 +5680,7 @@ export interface MeetSubscription
   creator: () => Promise<AsyncIterator<String>>;
   location: () => Promise<AsyncIterator<String>>;
   date: () => Promise<AsyncIterator<String>>;
+  isPublic: () => Promise<AsyncIterator<Boolean>>;
   participants: <T = Promise<AsyncIterator<UserSubscription>>>(args?: {
     where?: UserWhereInput;
     orderBy?: UserOrderByInput;
@@ -5702,6 +5721,7 @@ export interface MeetNullablePromise
   creator: () => Promise<String>;
   location: () => Promise<String>;
   date: () => Promise<String>;
+  isPublic: () => Promise<Boolean>;
   participants: <T = FragmentableArray<User>>(args?: {
     where?: UserWhereInput;
     orderBy?: UserOrderByInput;
@@ -6982,6 +7002,7 @@ export interface MeetPreviousValues {
   creator?: String;
   location?: String;
   date?: String;
+  isPublic: Boolean;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -6995,6 +7016,7 @@ export interface MeetPreviousValuesPromise
   creator: () => Promise<String>;
   location: () => Promise<String>;
   date: () => Promise<String>;
+  isPublic: () => Promise<Boolean>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -7008,6 +7030,7 @@ export interface MeetPreviousValuesSubscription
   creator: () => Promise<AsyncIterator<String>>;
   location: () => Promise<AsyncIterator<String>>;
   date: () => Promise<AsyncIterator<String>>;
+  isPublic: () => Promise<AsyncIterator<Boolean>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }

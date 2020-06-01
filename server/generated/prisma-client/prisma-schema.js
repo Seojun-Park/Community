@@ -1445,6 +1445,7 @@ type Meet {
   creator: String
   location: String
   date: String
+  isPublic: Boolean!
   participants(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
   images(where: ImageWhereInput, orderBy: ImageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Image!]
   tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag!]
@@ -1465,6 +1466,7 @@ input MeetCreateInput {
   creator: String
   location: String
   date: String
+  isPublic: Boolean!
   participants: UserCreateManyWithoutMeetsInput
   images: ImageCreateManyWithoutMeetInput
   tags: TagCreateManyWithoutMeetsInput
@@ -1492,6 +1494,7 @@ input MeetCreateWithoutImagesInput {
   creator: String
   location: String
   date: String
+  isPublic: Boolean!
   participants: UserCreateManyWithoutMeetsInput
   tags: TagCreateManyWithoutMeetsInput
 }
@@ -1503,6 +1506,7 @@ input MeetCreateWithoutParticipantsInput {
   creator: String
   location: String
   date: String
+  isPublic: Boolean!
   images: ImageCreateManyWithoutMeetInput
   tags: TagCreateManyWithoutMeetsInput
 }
@@ -1514,6 +1518,7 @@ input MeetCreateWithoutTagsInput {
   creator: String
   location: String
   date: String
+  isPublic: Boolean!
   participants: UserCreateManyWithoutMeetsInput
   images: ImageCreateManyWithoutMeetInput
 }
@@ -1536,6 +1541,8 @@ enum MeetOrderByInput {
   location_DESC
   date_ASC
   date_DESC
+  isPublic_ASC
+  isPublic_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -1549,6 +1556,7 @@ type MeetPreviousValues {
   creator: String
   location: String
   date: String
+  isPublic: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -1638,6 +1646,8 @@ input MeetScalarWhereInput {
   date_not_starts_with: String
   date_ends_with: String
   date_not_ends_with: String
+  isPublic: Boolean
+  isPublic_not: Boolean
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -1683,6 +1693,7 @@ input MeetUpdateInput {
   creator: String
   location: String
   date: String
+  isPublic: Boolean
   participants: UserUpdateManyWithoutMeetsInput
   images: ImageUpdateManyWithoutMeetInput
   tags: TagUpdateManyWithoutMeetsInput
@@ -1694,6 +1705,7 @@ input MeetUpdateManyDataInput {
   creator: String
   location: String
   date: String
+  isPublic: Boolean
 }
 
 input MeetUpdateManyMutationInput {
@@ -1702,6 +1714,7 @@ input MeetUpdateManyMutationInput {
   creator: String
   location: String
   date: String
+  isPublic: Boolean
 }
 
 input MeetUpdateManyWithoutParticipantsInput {
@@ -1748,6 +1761,7 @@ input MeetUpdateWithoutImagesDataInput {
   creator: String
   location: String
   date: String
+  isPublic: Boolean
   participants: UserUpdateManyWithoutMeetsInput
   tags: TagUpdateManyWithoutMeetsInput
 }
@@ -1758,6 +1772,7 @@ input MeetUpdateWithoutParticipantsDataInput {
   creator: String
   location: String
   date: String
+  isPublic: Boolean
   images: ImageUpdateManyWithoutMeetInput
   tags: TagUpdateManyWithoutMeetsInput
 }
@@ -1768,6 +1783,7 @@ input MeetUpdateWithoutTagsDataInput {
   creator: String
   location: String
   date: String
+  isPublic: Boolean
   participants: UserUpdateManyWithoutMeetsInput
   images: ImageUpdateManyWithoutMeetInput
 }
@@ -1884,6 +1900,8 @@ input MeetWhereInput {
   date_not_starts_with: String
   date_ends_with: String
   date_not_ends_with: String
+  isPublic: Boolean
+  isPublic_not: Boolean
   participants_every: UserWhereInput
   participants_some: UserWhereInput
   participants_none: UserWhereInput

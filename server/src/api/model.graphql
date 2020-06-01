@@ -122,8 +122,9 @@ type Meet {
   creator: String
   location: String
   date: String
+  isPublic: Boolean!
   participants: [User!]!
-  tags: [Tag!]!
+  tags: [Tag!]
   images: [Image!]
   createdAt: String
   updatedAt: String
