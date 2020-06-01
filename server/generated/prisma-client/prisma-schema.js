@@ -47,6 +47,10 @@ type AggregateSchedule {
   count: Int!
 }
 
+type AggregateTag {
+  count: Int!
+}
+
 type AggregateUser {
   count: Int!
 }
@@ -1443,7 +1447,7 @@ type Meet {
   date: String
   participants(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
   images(where: ImageWhereInput, orderBy: ImageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Image!]
-  tag: String!
+  tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag!]
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -1463,11 +1467,16 @@ input MeetCreateInput {
   date: String
   participants: UserCreateManyWithoutMeetsInput
   images: ImageCreateManyWithoutMeetInput
-  tag: String!
+  tags: TagCreateManyWithoutMeetsInput
 }
 
 input MeetCreateManyWithoutParticipantsInput {
   create: [MeetCreateWithoutParticipantsInput!]
+  connect: [MeetWhereUniqueInput!]
+}
+
+input MeetCreateManyWithoutTagsInput {
+  create: [MeetCreateWithoutTagsInput!]
   connect: [MeetWhereUniqueInput!]
 }
 
@@ -1484,7 +1493,7 @@ input MeetCreateWithoutImagesInput {
   location: String
   date: String
   participants: UserCreateManyWithoutMeetsInput
-  tag: String!
+  tags: TagCreateManyWithoutMeetsInput
 }
 
 input MeetCreateWithoutParticipantsInput {
@@ -1495,7 +1504,18 @@ input MeetCreateWithoutParticipantsInput {
   location: String
   date: String
   images: ImageCreateManyWithoutMeetInput
-  tag: String!
+  tags: TagCreateManyWithoutMeetsInput
+}
+
+input MeetCreateWithoutTagsInput {
+  id: ID
+  intro: String!
+  title: String!
+  creator: String
+  location: String
+  date: String
+  participants: UserCreateManyWithoutMeetsInput
+  images: ImageCreateManyWithoutMeetInput
 }
 
 type MeetEdge {
@@ -1516,8 +1536,6 @@ enum MeetOrderByInput {
   location_DESC
   date_ASC
   date_DESC
-  tag_ASC
-  tag_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -1531,7 +1549,6 @@ type MeetPreviousValues {
   creator: String
   location: String
   date: String
-  tag: String!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -1621,20 +1638,6 @@ input MeetScalarWhereInput {
   date_not_starts_with: String
   date_ends_with: String
   date_not_ends_with: String
-  tag: String
-  tag_not: String
-  tag_in: [String!]
-  tag_not_in: [String!]
-  tag_lt: String
-  tag_lte: String
-  tag_gt: String
-  tag_gte: String
-  tag_contains: String
-  tag_not_contains: String
-  tag_starts_with: String
-  tag_not_starts_with: String
-  tag_ends_with: String
-  tag_not_ends_with: String
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -1682,7 +1685,7 @@ input MeetUpdateInput {
   date: String
   participants: UserUpdateManyWithoutMeetsInput
   images: ImageUpdateManyWithoutMeetInput
-  tag: String
+  tags: TagUpdateManyWithoutMeetsInput
 }
 
 input MeetUpdateManyDataInput {
@@ -1691,7 +1694,6 @@ input MeetUpdateManyDataInput {
   creator: String
   location: String
   date: String
-  tag: String
 }
 
 input MeetUpdateManyMutationInput {
@@ -1700,7 +1702,6 @@ input MeetUpdateManyMutationInput {
   creator: String
   location: String
   date: String
-  tag: String
 }
 
 input MeetUpdateManyWithoutParticipantsInput {
@@ -1711,6 +1712,18 @@ input MeetUpdateManyWithoutParticipantsInput {
   disconnect: [MeetWhereUniqueInput!]
   update: [MeetUpdateWithWhereUniqueWithoutParticipantsInput!]
   upsert: [MeetUpsertWithWhereUniqueWithoutParticipantsInput!]
+  deleteMany: [MeetScalarWhereInput!]
+  updateMany: [MeetUpdateManyWithWhereNestedInput!]
+}
+
+input MeetUpdateManyWithoutTagsInput {
+  create: [MeetCreateWithoutTagsInput!]
+  delete: [MeetWhereUniqueInput!]
+  connect: [MeetWhereUniqueInput!]
+  set: [MeetWhereUniqueInput!]
+  disconnect: [MeetWhereUniqueInput!]
+  update: [MeetUpdateWithWhereUniqueWithoutTagsInput!]
+  upsert: [MeetUpsertWithWhereUniqueWithoutTagsInput!]
   deleteMany: [MeetScalarWhereInput!]
   updateMany: [MeetUpdateManyWithWhereNestedInput!]
 }
@@ -1736,7 +1749,7 @@ input MeetUpdateWithoutImagesDataInput {
   location: String
   date: String
   participants: UserUpdateManyWithoutMeetsInput
-  tag: String
+  tags: TagUpdateManyWithoutMeetsInput
 }
 
 input MeetUpdateWithoutParticipantsDataInput {
@@ -1746,12 +1759,27 @@ input MeetUpdateWithoutParticipantsDataInput {
   location: String
   date: String
   images: ImageUpdateManyWithoutMeetInput
-  tag: String
+  tags: TagUpdateManyWithoutMeetsInput
+}
+
+input MeetUpdateWithoutTagsDataInput {
+  intro: String
+  title: String
+  creator: String
+  location: String
+  date: String
+  participants: UserUpdateManyWithoutMeetsInput
+  images: ImageUpdateManyWithoutMeetInput
 }
 
 input MeetUpdateWithWhereUniqueWithoutParticipantsInput {
   where: MeetWhereUniqueInput!
   data: MeetUpdateWithoutParticipantsDataInput!
+}
+
+input MeetUpdateWithWhereUniqueWithoutTagsInput {
+  where: MeetWhereUniqueInput!
+  data: MeetUpdateWithoutTagsDataInput!
 }
 
 input MeetUpsertWithoutImagesInput {
@@ -1763,6 +1791,12 @@ input MeetUpsertWithWhereUniqueWithoutParticipantsInput {
   where: MeetWhereUniqueInput!
   update: MeetUpdateWithoutParticipantsDataInput!
   create: MeetCreateWithoutParticipantsInput!
+}
+
+input MeetUpsertWithWhereUniqueWithoutTagsInput {
+  where: MeetWhereUniqueInput!
+  update: MeetUpdateWithoutTagsDataInput!
+  create: MeetCreateWithoutTagsInput!
 }
 
 input MeetWhereInput {
@@ -1856,20 +1890,9 @@ input MeetWhereInput {
   images_every: ImageWhereInput
   images_some: ImageWhereInput
   images_none: ImageWhereInput
-  tag: String
-  tag_not: String
-  tag_in: [String!]
-  tag_not_in: [String!]
-  tag_lt: String
-  tag_lte: String
-  tag_gt: String
-  tag_gte: String
-  tag_contains: String
-  tag_not_contains: String
-  tag_starts_with: String
-  tag_not_starts_with: String
-  tag_ends_with: String
-  tag_not_ends_with: String
+  tags_every: TagWhereInput
+  tags_some: TagWhereInput
+  tags_none: TagWhereInput
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -2193,6 +2216,12 @@ type Mutation {
   upsertSchedule(where: ScheduleWhereUniqueInput!, create: ScheduleCreateInput!, update: ScheduleUpdateInput!): Schedule!
   deleteSchedule(where: ScheduleWhereUniqueInput!): Schedule
   deleteManySchedules(where: ScheduleWhereInput): BatchPayload!
+  createTag(data: TagCreateInput!): Tag!
+  updateTag(data: TagUpdateInput!, where: TagWhereUniqueInput!): Tag
+  updateManyTags(data: TagUpdateManyMutationInput!, where: TagWhereInput): BatchPayload!
+  upsertTag(where: TagWhereUniqueInput!, create: TagCreateInput!, update: TagUpdateInput!): Tag!
+  deleteTag(where: TagWhereUniqueInput!): Tag
+  deleteManyTags(where: TagWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -2716,6 +2745,9 @@ type Query {
   schedule(where: ScheduleWhereUniqueInput!): Schedule
   schedules(where: ScheduleWhereInput, orderBy: ScheduleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Schedule]!
   schedulesConnection(where: ScheduleWhereInput, orderBy: ScheduleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ScheduleConnection!
+  tag(where: TagWhereUniqueInput!): Tag
+  tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag]!
+  tagsConnection(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TagConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
@@ -3627,7 +3659,231 @@ type Subscription {
   rent(where: RentSubscriptionWhereInput): RentSubscriptionPayload
   room(where: RoomSubscriptionWhereInput): RoomSubscriptionPayload
   schedule(where: ScheduleSubscriptionWhereInput): ScheduleSubscriptionPayload
+  tag(where: TagSubscriptionWhereInput): TagSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+}
+
+type Tag {
+  id: ID!
+  title: String!
+  meets(where: MeetWhereInput, orderBy: MeetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Meet!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type TagConnection {
+  pageInfo: PageInfo!
+  edges: [TagEdge]!
+  aggregate: AggregateTag!
+}
+
+input TagCreateInput {
+  id: ID
+  title: String!
+  meets: MeetCreateManyWithoutTagsInput
+}
+
+input TagCreateManyWithoutMeetsInput {
+  create: [TagCreateWithoutMeetsInput!]
+  connect: [TagWhereUniqueInput!]
+}
+
+input TagCreateWithoutMeetsInput {
+  id: ID
+  title: String!
+}
+
+type TagEdge {
+  node: Tag!
+  cursor: String!
+}
+
+enum TagOrderByInput {
+  id_ASC
+  id_DESC
+  title_ASC
+  title_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type TagPreviousValues {
+  id: ID!
+  title: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input TagScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [TagScalarWhereInput!]
+  OR: [TagScalarWhereInput!]
+  NOT: [TagScalarWhereInput!]
+}
+
+type TagSubscriptionPayload {
+  mutation: MutationType!
+  node: Tag
+  updatedFields: [String!]
+  previousValues: TagPreviousValues
+}
+
+input TagSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: TagWhereInput
+  AND: [TagSubscriptionWhereInput!]
+  OR: [TagSubscriptionWhereInput!]
+  NOT: [TagSubscriptionWhereInput!]
+}
+
+input TagUpdateInput {
+  title: String
+  meets: MeetUpdateManyWithoutTagsInput
+}
+
+input TagUpdateManyDataInput {
+  title: String
+}
+
+input TagUpdateManyMutationInput {
+  title: String
+}
+
+input TagUpdateManyWithoutMeetsInput {
+  create: [TagCreateWithoutMeetsInput!]
+  delete: [TagWhereUniqueInput!]
+  connect: [TagWhereUniqueInput!]
+  set: [TagWhereUniqueInput!]
+  disconnect: [TagWhereUniqueInput!]
+  update: [TagUpdateWithWhereUniqueWithoutMeetsInput!]
+  upsert: [TagUpsertWithWhereUniqueWithoutMeetsInput!]
+  deleteMany: [TagScalarWhereInput!]
+  updateMany: [TagUpdateManyWithWhereNestedInput!]
+}
+
+input TagUpdateManyWithWhereNestedInput {
+  where: TagScalarWhereInput!
+  data: TagUpdateManyDataInput!
+}
+
+input TagUpdateWithoutMeetsDataInput {
+  title: String
+}
+
+input TagUpdateWithWhereUniqueWithoutMeetsInput {
+  where: TagWhereUniqueInput!
+  data: TagUpdateWithoutMeetsDataInput!
+}
+
+input TagUpsertWithWhereUniqueWithoutMeetsInput {
+  where: TagWhereUniqueInput!
+  update: TagUpdateWithoutMeetsDataInput!
+  create: TagCreateWithoutMeetsInput!
+}
+
+input TagWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  meets_every: MeetWhereInput
+  meets_some: MeetWhereInput
+  meets_none: MeetWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [TagWhereInput!]
+  OR: [TagWhereInput!]
+  NOT: [TagWhereInput!]
+}
+
+input TagWhereUniqueInput {
+  id: ID
 }
 
 type User {

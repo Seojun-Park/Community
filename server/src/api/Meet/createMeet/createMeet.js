@@ -6,21 +6,25 @@ export default {
       isAuthenticated(request);
       const { user } = request;
       const { tag, intro, title, creator, images, isPublic } = args;
-      console.log(user);
-      const meetup = await prisma.createMeet({
-        tag,
-        intro,
-        title,
-        creator,
-        images,
-        isPublic,
-        participants: {
-          connect: {
-            id: user.id
-          }
-        }
+      const exist = prisma.$exists.tag({
+        OR: [{ tag }]
       });
-      return meetup;
+
+      // console.log(user);
+      // const meetup = await prisma.createMeet({
+      //   tag,
+      //   intro,
+      //   title,
+      //   creator,
+      //   images,
+      //   isPublic,
+      //   participants: {
+      //     connect: {
+      //       id: user.id
+      //     }
+      //   }
+      // });
+      // return meetup;
     }
   }
 };

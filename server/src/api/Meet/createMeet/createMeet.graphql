@@ -6,5 +6,6 @@ type Mutation {
     creator: String
     images: [String!]
     isPublic: Boolean!
+    tag: String!
   ): Meet!
 }

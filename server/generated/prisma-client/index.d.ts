@@ -27,6 +27,7 @@ export interface Exists {
   rent: (where?: RentWhereInput) => Promise<boolean>;
   room: (where?: RoomWhereInput) => Promise<boolean>;
   schedule: (where?: ScheduleWhereInput) => Promise<boolean>;
+  tag: (where?: TagWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
 }
 
@@ -258,6 +259,25 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => ScheduleConnectionPromise;
+  tag: (where: TagWhereUniqueInput) => TagNullablePromise;
+  tags: (args?: {
+    where?: TagWhereInput;
+    orderBy?: TagOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Tag>;
+  tagsConnection: (args?: {
+    where?: TagWhereInput;
+    orderBy?: TagOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => TagConnectionPromise;
   user: (where: UserWhereUniqueInput) => UserNullablePromise;
   users: (args?: {
     where?: UserWhereInput;
@@ -451,6 +471,22 @@ export interface Prisma {
   }) => SchedulePromise;
   deleteSchedule: (where: ScheduleWhereUniqueInput) => SchedulePromise;
   deleteManySchedules: (where?: ScheduleWhereInput) => BatchPayloadPromise;
+  createTag: (data: TagCreateInput) => TagPromise;
+  updateTag: (args: {
+    data: TagUpdateInput;
+    where: TagWhereUniqueInput;
+  }) => TagPromise;
+  updateManyTags: (args: {
+    data: TagUpdateManyMutationInput;
+    where?: TagWhereInput;
+  }) => BatchPayloadPromise;
+  upsertTag: (args: {
+    where: TagWhereUniqueInput;
+    create: TagCreateInput;
+    update: TagUpdateInput;
+  }) => TagPromise;
+  deleteTag: (where: TagWhereUniqueInput) => TagPromise;
+  deleteManyTags: (where?: TagWhereInput) => BatchPayloadPromise;
   createUser: (data: UserCreateInput) => UserPromise;
   updateUser: (args: {
     data: UserUpdateInput;
@@ -509,6 +545,9 @@ export interface Subscription {
   schedule: (
     where?: ScheduleSubscriptionWhereInput
   ) => ScheduleSubscriptionPayloadSubscription;
+  tag: (
+    where?: TagSubscriptionWhereInput
+  ) => TagSubscriptionPayloadSubscription;
   user: (
     where?: UserSubscriptionWhereInput
   ) => UserSubscriptionPayloadSubscription;
@@ -607,8 +646,6 @@ export type MeetOrderByInput =
   | "location_DESC"
   | "date_ASC"
   | "date_DESC"
-  | "tag_ASC"
-  | "tag_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -641,6 +678,16 @@ export type ImageOrderByInput =
   | "id_DESC"
   | "url_ASC"
   | "url_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type TagOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "title_ASC"
+  | "title_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -1284,20 +1331,9 @@ export interface MeetWhereInput {
   images_every?: Maybe<ImageWhereInput>;
   images_some?: Maybe<ImageWhereInput>;
   images_none?: Maybe<ImageWhereInput>;
-  tag?: Maybe<String>;
-  tag_not?: Maybe<String>;
-  tag_in?: Maybe<String[] | String>;
-  tag_not_in?: Maybe<String[] | String>;
-  tag_lt?: Maybe<String>;
-  tag_lte?: Maybe<String>;
-  tag_gt?: Maybe<String>;
-  tag_gte?: Maybe<String>;
-  tag_contains?: Maybe<String>;
-  tag_not_contains?: Maybe<String>;
-  tag_starts_with?: Maybe<String>;
-  tag_not_starts_with?: Maybe<String>;
-  tag_ends_with?: Maybe<String>;
-  tag_not_ends_with?: Maybe<String>;
+  tags_every?: Maybe<TagWhereInput>;
+  tags_some?: Maybe<TagWhereInput>;
+  tags_none?: Maybe<TagWhereInput>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -1368,6 +1404,59 @@ export interface ImageWhereInput {
   AND?: Maybe<ImageWhereInput[] | ImageWhereInput>;
   OR?: Maybe<ImageWhereInput[] | ImageWhereInput>;
   NOT?: Maybe<ImageWhereInput[] | ImageWhereInput>;
+}
+
+export interface TagWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  title?: Maybe<String>;
+  title_not?: Maybe<String>;
+  title_in?: Maybe<String[] | String>;
+  title_not_in?: Maybe<String[] | String>;
+  title_lt?: Maybe<String>;
+  title_lte?: Maybe<String>;
+  title_gt?: Maybe<String>;
+  title_gte?: Maybe<String>;
+  title_contains?: Maybe<String>;
+  title_not_contains?: Maybe<String>;
+  title_starts_with?: Maybe<String>;
+  title_not_starts_with?: Maybe<String>;
+  title_ends_with?: Maybe<String>;
+  title_not_ends_with?: Maybe<String>;
+  meets_every?: Maybe<MeetWhereInput>;
+  meets_some?: Maybe<MeetWhereInput>;
+  meets_none?: Maybe<MeetWhereInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<TagWhereInput[] | TagWhereInput>;
+  OR?: Maybe<TagWhereInput[] | TagWhereInput>;
+  NOT?: Maybe<TagWhereInput[] | TagWhereInput>;
 }
 
 export interface RoomWhereInput {
@@ -1651,6 +1740,10 @@ export type RoomWhereUniqueInput = AtLeastOne<{
 }>;
 
 export type ScheduleWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export type TagWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
@@ -1964,7 +2057,7 @@ export interface MeetCreateWithoutParticipantsInput {
   location?: Maybe<String>;
   date?: Maybe<String>;
   images?: Maybe<ImageCreateManyWithoutMeetInput>;
-  tag: String;
+  tags?: Maybe<TagCreateManyWithoutMeetsInput>;
 }
 
 export interface ImageCreateManyWithoutMeetInput {
@@ -1975,6 +2068,16 @@ export interface ImageCreateManyWithoutMeetInput {
 export interface ImageCreateWithoutMeetInput {
   id?: Maybe<ID_Input>;
   url: String;
+}
+
+export interface TagCreateManyWithoutMeetsInput {
+  create?: Maybe<TagCreateWithoutMeetsInput[] | TagCreateWithoutMeetsInput>;
+  connect?: Maybe<TagWhereUniqueInput[] | TagWhereUniqueInput>;
+}
+
+export interface TagCreateWithoutMeetsInput {
+  id?: Maybe<ID_Input>;
+  title: String;
 }
 
 export interface RoomCreateManyWithoutParticipantsInput {
@@ -2742,7 +2845,7 @@ export interface MeetUpdateWithoutParticipantsDataInput {
   location?: Maybe<String>;
   date?: Maybe<String>;
   images?: Maybe<ImageUpdateManyWithoutMeetInput>;
-  tag?: Maybe<String>;
+  tags?: Maybe<TagUpdateManyWithoutMeetsInput>;
 }
 
 export interface ImageUpdateManyWithoutMeetInput {
@@ -2839,6 +2942,100 @@ export interface ImageUpdateManyDataInput {
   url?: Maybe<String>;
 }
 
+export interface TagUpdateManyWithoutMeetsInput {
+  create?: Maybe<TagCreateWithoutMeetsInput[] | TagCreateWithoutMeetsInput>;
+  delete?: Maybe<TagWhereUniqueInput[] | TagWhereUniqueInput>;
+  connect?: Maybe<TagWhereUniqueInput[] | TagWhereUniqueInput>;
+  set?: Maybe<TagWhereUniqueInput[] | TagWhereUniqueInput>;
+  disconnect?: Maybe<TagWhereUniqueInput[] | TagWhereUniqueInput>;
+  update?: Maybe<
+    | TagUpdateWithWhereUniqueWithoutMeetsInput[]
+    | TagUpdateWithWhereUniqueWithoutMeetsInput
+  >;
+  upsert?: Maybe<
+    | TagUpsertWithWhereUniqueWithoutMeetsInput[]
+    | TagUpsertWithWhereUniqueWithoutMeetsInput
+  >;
+  deleteMany?: Maybe<TagScalarWhereInput[] | TagScalarWhereInput>;
+  updateMany?: Maybe<
+    TagUpdateManyWithWhereNestedInput[] | TagUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface TagUpdateWithWhereUniqueWithoutMeetsInput {
+  where: TagWhereUniqueInput;
+  data: TagUpdateWithoutMeetsDataInput;
+}
+
+export interface TagUpdateWithoutMeetsDataInput {
+  title?: Maybe<String>;
+}
+
+export interface TagUpsertWithWhereUniqueWithoutMeetsInput {
+  where: TagWhereUniqueInput;
+  update: TagUpdateWithoutMeetsDataInput;
+  create: TagCreateWithoutMeetsInput;
+}
+
+export interface TagScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  title?: Maybe<String>;
+  title_not?: Maybe<String>;
+  title_in?: Maybe<String[] | String>;
+  title_not_in?: Maybe<String[] | String>;
+  title_lt?: Maybe<String>;
+  title_lte?: Maybe<String>;
+  title_gt?: Maybe<String>;
+  title_gte?: Maybe<String>;
+  title_contains?: Maybe<String>;
+  title_not_contains?: Maybe<String>;
+  title_starts_with?: Maybe<String>;
+  title_not_starts_with?: Maybe<String>;
+  title_ends_with?: Maybe<String>;
+  title_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<TagScalarWhereInput[] | TagScalarWhereInput>;
+  OR?: Maybe<TagScalarWhereInput[] | TagScalarWhereInput>;
+  NOT?: Maybe<TagScalarWhereInput[] | TagScalarWhereInput>;
+}
+
+export interface TagUpdateManyWithWhereNestedInput {
+  where: TagScalarWhereInput;
+  data: TagUpdateManyDataInput;
+}
+
+export interface TagUpdateManyDataInput {
+  title?: Maybe<String>;
+}
+
 export interface MeetUpsertWithWhereUniqueWithoutParticipantsInput {
   where: MeetWhereUniqueInput;
   update: MeetUpdateWithoutParticipantsDataInput;
@@ -2930,20 +3127,6 @@ export interface MeetScalarWhereInput {
   date_not_starts_with?: Maybe<String>;
   date_ends_with?: Maybe<String>;
   date_not_ends_with?: Maybe<String>;
-  tag?: Maybe<String>;
-  tag_not?: Maybe<String>;
-  tag_in?: Maybe<String[] | String>;
-  tag_not_in?: Maybe<String[] | String>;
-  tag_lt?: Maybe<String>;
-  tag_lte?: Maybe<String>;
-  tag_gt?: Maybe<String>;
-  tag_gte?: Maybe<String>;
-  tag_contains?: Maybe<String>;
-  tag_not_contains?: Maybe<String>;
-  tag_starts_with?: Maybe<String>;
-  tag_not_starts_with?: Maybe<String>;
-  tag_ends_with?: Maybe<String>;
-  tag_not_ends_with?: Maybe<String>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -2976,7 +3159,6 @@ export interface MeetUpdateManyDataInput {
   creator?: Maybe<String>;
   location?: Maybe<String>;
   date?: Maybe<String>;
-  tag?: Maybe<String>;
 }
 
 export interface RoomUpdateManyWithoutParticipantsInput {
@@ -3841,7 +4023,7 @@ export interface MeetCreateWithoutImagesInput {
   location?: Maybe<String>;
   date?: Maybe<String>;
   participants?: Maybe<UserCreateManyWithoutMeetsInput>;
-  tag: String;
+  tags?: Maybe<TagCreateManyWithoutMeetsInput>;
 }
 
 export interface UserCreateManyWithoutMeetsInput {
@@ -3888,7 +4070,7 @@ export interface MeetUpdateWithoutImagesDataInput {
   location?: Maybe<String>;
   date?: Maybe<String>;
   participants?: Maybe<UserUpdateManyWithoutMeetsInput>;
-  tag?: Maybe<String>;
+  tags?: Maybe<TagUpdateManyWithoutMeetsInput>;
 }
 
 export interface UserUpdateManyWithoutMeetsInput {
@@ -4120,7 +4302,7 @@ export interface MeetCreateInput {
   date?: Maybe<String>;
   participants?: Maybe<UserCreateManyWithoutMeetsInput>;
   images?: Maybe<ImageCreateManyWithoutMeetInput>;
-  tag: String;
+  tags?: Maybe<TagCreateManyWithoutMeetsInput>;
 }
 
 export interface MeetUpdateInput {
@@ -4131,7 +4313,7 @@ export interface MeetUpdateInput {
   date?: Maybe<String>;
   participants?: Maybe<UserUpdateManyWithoutMeetsInput>;
   images?: Maybe<ImageUpdateManyWithoutMeetInput>;
-  tag?: Maybe<String>;
+  tags?: Maybe<TagUpdateManyWithoutMeetsInput>;
 }
 
 export interface MeetUpdateManyMutationInput {
@@ -4140,7 +4322,6 @@ export interface MeetUpdateManyMutationInput {
   creator?: Maybe<String>;
   location?: Maybe<String>;
   date?: Maybe<String>;
-  tag?: Maybe<String>;
 }
 
 export interface MessageCreateInput {
@@ -4441,6 +4622,78 @@ export interface ScheduleUpdateManyMutationInput {
   isOn?: Maybe<Boolean>;
 }
 
+export interface TagCreateInput {
+  id?: Maybe<ID_Input>;
+  title: String;
+  meets?: Maybe<MeetCreateManyWithoutTagsInput>;
+}
+
+export interface MeetCreateManyWithoutTagsInput {
+  create?: Maybe<MeetCreateWithoutTagsInput[] | MeetCreateWithoutTagsInput>;
+  connect?: Maybe<MeetWhereUniqueInput[] | MeetWhereUniqueInput>;
+}
+
+export interface MeetCreateWithoutTagsInput {
+  id?: Maybe<ID_Input>;
+  intro: String;
+  title: String;
+  creator?: Maybe<String>;
+  location?: Maybe<String>;
+  date?: Maybe<String>;
+  participants?: Maybe<UserCreateManyWithoutMeetsInput>;
+  images?: Maybe<ImageCreateManyWithoutMeetInput>;
+}
+
+export interface TagUpdateInput {
+  title?: Maybe<String>;
+  meets?: Maybe<MeetUpdateManyWithoutTagsInput>;
+}
+
+export interface MeetUpdateManyWithoutTagsInput {
+  create?: Maybe<MeetCreateWithoutTagsInput[] | MeetCreateWithoutTagsInput>;
+  delete?: Maybe<MeetWhereUniqueInput[] | MeetWhereUniqueInput>;
+  connect?: Maybe<MeetWhereUniqueInput[] | MeetWhereUniqueInput>;
+  set?: Maybe<MeetWhereUniqueInput[] | MeetWhereUniqueInput>;
+  disconnect?: Maybe<MeetWhereUniqueInput[] | MeetWhereUniqueInput>;
+  update?: Maybe<
+    | MeetUpdateWithWhereUniqueWithoutTagsInput[]
+    | MeetUpdateWithWhereUniqueWithoutTagsInput
+  >;
+  upsert?: Maybe<
+    | MeetUpsertWithWhereUniqueWithoutTagsInput[]
+    | MeetUpsertWithWhereUniqueWithoutTagsInput
+  >;
+  deleteMany?: Maybe<MeetScalarWhereInput[] | MeetScalarWhereInput>;
+  updateMany?: Maybe<
+    MeetUpdateManyWithWhereNestedInput[] | MeetUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface MeetUpdateWithWhereUniqueWithoutTagsInput {
+  where: MeetWhereUniqueInput;
+  data: MeetUpdateWithoutTagsDataInput;
+}
+
+export interface MeetUpdateWithoutTagsDataInput {
+  intro?: Maybe<String>;
+  title?: Maybe<String>;
+  creator?: Maybe<String>;
+  location?: Maybe<String>;
+  date?: Maybe<String>;
+  participants?: Maybe<UserUpdateManyWithoutMeetsInput>;
+  images?: Maybe<ImageUpdateManyWithoutMeetInput>;
+}
+
+export interface MeetUpsertWithWhereUniqueWithoutTagsInput {
+  where: MeetWhereUniqueInput;
+  update: MeetUpdateWithoutTagsDataInput;
+  create: MeetCreateWithoutTagsInput;
+}
+
+export interface TagUpdateManyMutationInput {
+  title?: Maybe<String>;
+}
+
 export interface UserUpdateInput {
   avatar?: Maybe<String>;
   email?: Maybe<String>;
@@ -4592,6 +4845,17 @@ export interface ScheduleSubscriptionWhereInput {
   NOT?: Maybe<
     ScheduleSubscriptionWhereInput[] | ScheduleSubscriptionWhereInput
   >;
+}
+
+export interface TagSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<TagWhereInput>;
+  AND?: Maybe<TagSubscriptionWhereInput[] | TagSubscriptionWhereInput>;
+  OR?: Maybe<TagSubscriptionWhereInput[] | TagSubscriptionWhereInput>;
+  NOT?: Maybe<TagSubscriptionWhereInput[] | TagSubscriptionWhereInput>;
 }
 
 export interface UserSubscriptionWhereInput {
@@ -5347,7 +5611,6 @@ export interface Meet {
   creator?: String;
   location?: String;
   date?: String;
-  tag: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -5377,7 +5640,15 @@ export interface MeetPromise extends Promise<Meet>, Fragmentable {
     first?: Int;
     last?: Int;
   }) => T;
-  tag: () => Promise<String>;
+  tags: <T = FragmentableArray<Tag>>(args?: {
+    where?: TagWhereInput;
+    orderBy?: TagOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -5409,7 +5680,15 @@ export interface MeetSubscription
     first?: Int;
     last?: Int;
   }) => T;
-  tag: () => Promise<AsyncIterator<String>>;
+  tags: <T = Promise<AsyncIterator<TagSubscription>>>(args?: {
+    where?: TagWhereInput;
+    orderBy?: TagOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -5441,7 +5720,15 @@ export interface MeetNullablePromise
     first?: Int;
     last?: Int;
   }) => T;
-  tag: () => Promise<String>;
+  tags: <T = FragmentableArray<Tag>>(args?: {
+    where?: TagWhereInput;
+    orderBy?: TagOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -5477,6 +5764,63 @@ export interface ImageNullablePromise
   id: () => Promise<ID_Output>;
   url: () => Promise<String>;
   meet: <T = MeetPromise>() => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface Tag {
+  id: ID_Output;
+  title: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface TagPromise extends Promise<Tag>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  title: () => Promise<String>;
+  meets: <T = FragmentableArray<Meet>>(args?: {
+    where?: MeetWhereInput;
+    orderBy?: MeetOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface TagSubscription
+  extends Promise<AsyncIterator<Tag>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  title: () => Promise<AsyncIterator<String>>;
+  meets: <T = Promise<AsyncIterator<MeetSubscription>>>(args?: {
+    where?: MeetWhereInput;
+    orderBy?: MeetOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface TagNullablePromise extends Promise<Tag | null>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  title: () => Promise<String>;
+  meets: <T = FragmentableArray<Meet>>(args?: {
+    where?: MeetWhereInput;
+    orderBy?: MeetOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -6270,6 +6614,60 @@ export interface AggregateScheduleSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
+export interface TagConnection {
+  pageInfo: PageInfo;
+  edges: TagEdge[];
+}
+
+export interface TagConnectionPromise
+  extends Promise<TagConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<TagEdge>>() => T;
+  aggregate: <T = AggregateTagPromise>() => T;
+}
+
+export interface TagConnectionSubscription
+  extends Promise<AsyncIterator<TagConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<TagEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateTagSubscription>() => T;
+}
+
+export interface TagEdge {
+  node: Tag;
+  cursor: String;
+}
+
+export interface TagEdgePromise extends Promise<TagEdge>, Fragmentable {
+  node: <T = TagPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface TagEdgeSubscription
+  extends Promise<AsyncIterator<TagEdge>>,
+    Fragmentable {
+  node: <T = TagSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateTag {
+  count: Int;
+}
+
+export interface AggregateTagPromise
+  extends Promise<AggregateTag>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateTagSubscription
+  extends Promise<AsyncIterator<AggregateTag>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
 export interface UserConnection {
   pageInfo: PageInfo;
   edges: UserEdge[];
@@ -6584,7 +6982,6 @@ export interface MeetPreviousValues {
   creator?: String;
   location?: String;
   date?: String;
-  tag: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -6598,7 +6995,6 @@ export interface MeetPreviousValuesPromise
   creator: () => Promise<String>;
   location: () => Promise<String>;
   date: () => Promise<String>;
-  tag: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -6612,7 +7008,6 @@ export interface MeetPreviousValuesSubscription
   creator: () => Promise<AsyncIterator<String>>;
   location: () => Promise<AsyncIterator<String>>;
   date: () => Promise<AsyncIterator<String>>;
-  tag: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -6929,6 +7324,56 @@ export interface SchedulePreviousValuesSubscription
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
+export interface TagSubscriptionPayload {
+  mutation: MutationType;
+  node: Tag;
+  updatedFields: String[];
+  previousValues: TagPreviousValues;
+}
+
+export interface TagSubscriptionPayloadPromise
+  extends Promise<TagSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = TagPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = TagPreviousValuesPromise>() => T;
+}
+
+export interface TagSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<TagSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = TagSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = TagPreviousValuesSubscription>() => T;
+}
+
+export interface TagPreviousValues {
+  id: ID_Output;
+  title: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface TagPreviousValuesPromise
+  extends Promise<TagPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  title: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface TagPreviousValuesSubscription
+  extends Promise<AsyncIterator<TagPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  title: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
 export interface UserSubscriptionPayload {
   mutation: MutationType;
   node: User;
@@ -7077,6 +7522,10 @@ export const models: Model[] = [
   },
   {
     name: "Meet",
+    embedded: false
+  },
+  {
+    name: "Tag",
     embedded: false
   },
   {

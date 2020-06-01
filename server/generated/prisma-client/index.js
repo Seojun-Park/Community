@@ -49,6 +49,10 @@ var models = [
     embedded: false
   },
   {
+    name: "Tag",
+    embedded: false
+  },
+  {
     name: "Schedule",
     embedded: false
   }

@@ -123,8 +123,16 @@ type Meet {
   location: String
   date: String
   participants: [User!]!
-  tag: String!
+  tags: [Tag!]!
   images: [Image!]
+  createdAt: String
+  updatedAt: String
+}
+
+type Tag{
+  id: ID!
+  title: String!
+  meets: [Meet!]!
   createdAt: String
   updatedAt: String
 }
