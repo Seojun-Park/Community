@@ -26,3 +26,4 @@
 - [ ] naver login
 - [ ] log out
 - [ ] upload board image
+- [ ] real time chatting room type of boards?
