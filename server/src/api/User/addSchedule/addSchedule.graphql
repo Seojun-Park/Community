@@ -3,6 +3,6 @@ type Mutation {
     todo: String!
     date: String!
     tag: String
-    inOn: Boolean!
+    isOn: Boolean!
   ): Schedule!
 }
