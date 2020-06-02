@@ -1,6 +1,5 @@
 type Mutation {
   createMeet(
-    tag: String!
     intro: String!
     title: String!
     creator: String

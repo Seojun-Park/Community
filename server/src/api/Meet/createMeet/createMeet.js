@@ -7,9 +7,13 @@ export default {
       const { user } = request;
       const { tags, intro, title, creator, images, isPublic } = args;
       let newTag;
-      const exist = await prisma.$exists.tag({ where: { title: tags } });
-      console.log(exist);
-      if (exist) {
+      const existedTag = await prisma.$exists.tag({ title: tags });
+      const checkTag = await prisma.tags({
+        where: {
+          title: tags
+        }
+      });
+      if (existedTag === true) {
         return await prisma.createMeet({
           intro,
           title,
@@ -22,13 +26,10 @@ export default {
             }
           },
           tags: {
-            connect: {
-              id: exist.id
-            }
+            connect: { id: checkTag[0].id }
           }
         });
       } else {
-        console.log("here??");
         const meetup = await prisma.createMeet({
           intro,
           title,
@@ -39,8 +40,7 @@ export default {
             connect: {
               id: user.id
             }
-          },
-          tags
+          }
         });
         newTag = await prisma.createTag({
           meets: {
