@@ -18,6 +18,7 @@
 - [x] edit profile
 - [x] weather based on current position
 - [ ] create Meet content
+- [ ] tag relation for Meets
 - [ ] delete Meet content
 - [ ] edit Meet content
 - [ ] message(realtime? || non - realtime)
@@ -25,5 +26,4 @@
 - [ ] edit content(board, meet, market...)
 - [ ] naver login
 - [ ] log out
-- [ ] upload board image
-- [ ] real time chatting room type of boards?
+- [ ] upload board images
