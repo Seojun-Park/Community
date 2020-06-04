@@ -650,6 +650,14 @@ export type MeetOrderByInput =
   | "isPublic_DESC"
   | "maxparticipant_ASC"
   | "maxparticipant_DESC"
+  | "month_ASC"
+  | "month_DESC"
+  | "day_ASC"
+  | "day_DESC"
+  | "hour_ASC"
+  | "hour_DESC"
+  | "year_ASC"
+  | "year_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -1339,6 +1347,56 @@ export interface MeetWhereInput {
   maxparticipant_lte?: Maybe<Int>;
   maxparticipant_gt?: Maybe<Int>;
   maxparticipant_gte?: Maybe<Int>;
+  month?: Maybe<String>;
+  month_not?: Maybe<String>;
+  month_in?: Maybe<String[] | String>;
+  month_not_in?: Maybe<String[] | String>;
+  month_lt?: Maybe<String>;
+  month_lte?: Maybe<String>;
+  month_gt?: Maybe<String>;
+  month_gte?: Maybe<String>;
+  month_contains?: Maybe<String>;
+  month_not_contains?: Maybe<String>;
+  month_starts_with?: Maybe<String>;
+  month_not_starts_with?: Maybe<String>;
+  month_ends_with?: Maybe<String>;
+  month_not_ends_with?: Maybe<String>;
+  day?: Maybe<String>;
+  day_not?: Maybe<String>;
+  day_in?: Maybe<String[] | String>;
+  day_not_in?: Maybe<String[] | String>;
+  day_lt?: Maybe<String>;
+  day_lte?: Maybe<String>;
+  day_gt?: Maybe<String>;
+  day_gte?: Maybe<String>;
+  day_contains?: Maybe<String>;
+  day_not_contains?: Maybe<String>;
+  day_starts_with?: Maybe<String>;
+  day_not_starts_with?: Maybe<String>;
+  day_ends_with?: Maybe<String>;
+  day_not_ends_with?: Maybe<String>;
+  hour?: Maybe<Int>;
+  hour_not?: Maybe<Int>;
+  hour_in?: Maybe<Int[] | Int>;
+  hour_not_in?: Maybe<Int[] | Int>;
+  hour_lt?: Maybe<Int>;
+  hour_lte?: Maybe<Int>;
+  hour_gt?: Maybe<Int>;
+  hour_gte?: Maybe<Int>;
+  year?: Maybe<String>;
+  year_not?: Maybe<String>;
+  year_in?: Maybe<String[] | String>;
+  year_not_in?: Maybe<String[] | String>;
+  year_lt?: Maybe<String>;
+  year_lte?: Maybe<String>;
+  year_gt?: Maybe<String>;
+  year_gte?: Maybe<String>;
+  year_contains?: Maybe<String>;
+  year_not_contains?: Maybe<String>;
+  year_starts_with?: Maybe<String>;
+  year_not_starts_with?: Maybe<String>;
+  year_ends_with?: Maybe<String>;
+  year_not_ends_with?: Maybe<String>;
   participants_every?: Maybe<UserWhereInput>;
   participants_some?: Maybe<UserWhereInput>;
   participants_none?: Maybe<UserWhereInput>;
@@ -2072,6 +2130,10 @@ export interface MeetCreateWithoutParticipantsInput {
   date?: Maybe<String>;
   isPublic: Boolean;
   maxparticipant?: Maybe<Int>;
+  month: String;
+  day: String;
+  hour?: Maybe<Int>;
+  year: String;
   images?: Maybe<ImageCreateManyWithoutMeetInput>;
   tags?: Maybe<TagCreateManyWithoutMeetsInput>;
 }
@@ -2862,6 +2924,10 @@ export interface MeetUpdateWithoutParticipantsDataInput {
   date?: Maybe<String>;
   isPublic?: Maybe<Boolean>;
   maxparticipant?: Maybe<Int>;
+  month?: Maybe<String>;
+  day?: Maybe<String>;
+  hour?: Maybe<Int>;
+  year?: Maybe<String>;
   images?: Maybe<ImageUpdateManyWithoutMeetInput>;
   tags?: Maybe<TagUpdateManyWithoutMeetsInput>;
 }
@@ -3155,6 +3221,56 @@ export interface MeetScalarWhereInput {
   maxparticipant_lte?: Maybe<Int>;
   maxparticipant_gt?: Maybe<Int>;
   maxparticipant_gte?: Maybe<Int>;
+  month?: Maybe<String>;
+  month_not?: Maybe<String>;
+  month_in?: Maybe<String[] | String>;
+  month_not_in?: Maybe<String[] | String>;
+  month_lt?: Maybe<String>;
+  month_lte?: Maybe<String>;
+  month_gt?: Maybe<String>;
+  month_gte?: Maybe<String>;
+  month_contains?: Maybe<String>;
+  month_not_contains?: Maybe<String>;
+  month_starts_with?: Maybe<String>;
+  month_not_starts_with?: Maybe<String>;
+  month_ends_with?: Maybe<String>;
+  month_not_ends_with?: Maybe<String>;
+  day?: Maybe<String>;
+  day_not?: Maybe<String>;
+  day_in?: Maybe<String[] | String>;
+  day_not_in?: Maybe<String[] | String>;
+  day_lt?: Maybe<String>;
+  day_lte?: Maybe<String>;
+  day_gt?: Maybe<String>;
+  day_gte?: Maybe<String>;
+  day_contains?: Maybe<String>;
+  day_not_contains?: Maybe<String>;
+  day_starts_with?: Maybe<String>;
+  day_not_starts_with?: Maybe<String>;
+  day_ends_with?: Maybe<String>;
+  day_not_ends_with?: Maybe<String>;
+  hour?: Maybe<Int>;
+  hour_not?: Maybe<Int>;
+  hour_in?: Maybe<Int[] | Int>;
+  hour_not_in?: Maybe<Int[] | Int>;
+  hour_lt?: Maybe<Int>;
+  hour_lte?: Maybe<Int>;
+  hour_gt?: Maybe<Int>;
+  hour_gte?: Maybe<Int>;
+  year?: Maybe<String>;
+  year_not?: Maybe<String>;
+  year_in?: Maybe<String[] | String>;
+  year_not_in?: Maybe<String[] | String>;
+  year_lt?: Maybe<String>;
+  year_lte?: Maybe<String>;
+  year_gt?: Maybe<String>;
+  year_gte?: Maybe<String>;
+  year_contains?: Maybe<String>;
+  year_not_contains?: Maybe<String>;
+  year_starts_with?: Maybe<String>;
+  year_not_starts_with?: Maybe<String>;
+  year_ends_with?: Maybe<String>;
+  year_not_ends_with?: Maybe<String>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -3189,6 +3305,10 @@ export interface MeetUpdateManyDataInput {
   date?: Maybe<String>;
   isPublic?: Maybe<Boolean>;
   maxparticipant?: Maybe<Int>;
+  month?: Maybe<String>;
+  day?: Maybe<String>;
+  hour?: Maybe<Int>;
+  year?: Maybe<String>;
 }
 
 export interface RoomUpdateManyWithoutParticipantsInput {
@@ -4054,6 +4174,10 @@ export interface MeetCreateWithoutImagesInput {
   date?: Maybe<String>;
   isPublic: Boolean;
   maxparticipant?: Maybe<Int>;
+  month: String;
+  day: String;
+  hour?: Maybe<Int>;
+  year: String;
   participants?: Maybe<UserCreateManyWithoutMeetsInput>;
   tags?: Maybe<TagCreateManyWithoutMeetsInput>;
 }
@@ -4103,6 +4227,10 @@ export interface MeetUpdateWithoutImagesDataInput {
   date?: Maybe<String>;
   isPublic?: Maybe<Boolean>;
   maxparticipant?: Maybe<Int>;
+  month?: Maybe<String>;
+  day?: Maybe<String>;
+  hour?: Maybe<Int>;
+  year?: Maybe<String>;
   participants?: Maybe<UserUpdateManyWithoutMeetsInput>;
   tags?: Maybe<TagUpdateManyWithoutMeetsInput>;
 }
@@ -4336,6 +4464,10 @@ export interface MeetCreateInput {
   date?: Maybe<String>;
   isPublic: Boolean;
   maxparticipant?: Maybe<Int>;
+  month: String;
+  day: String;
+  hour?: Maybe<Int>;
+  year: String;
   participants?: Maybe<UserCreateManyWithoutMeetsInput>;
   images?: Maybe<ImageCreateManyWithoutMeetInput>;
   tags?: Maybe<TagCreateManyWithoutMeetsInput>;
@@ -4349,6 +4481,10 @@ export interface MeetUpdateInput {
   date?: Maybe<String>;
   isPublic?: Maybe<Boolean>;
   maxparticipant?: Maybe<Int>;
+  month?: Maybe<String>;
+  day?: Maybe<String>;
+  hour?: Maybe<Int>;
+  year?: Maybe<String>;
   participants?: Maybe<UserUpdateManyWithoutMeetsInput>;
   images?: Maybe<ImageUpdateManyWithoutMeetInput>;
   tags?: Maybe<TagUpdateManyWithoutMeetsInput>;
@@ -4362,6 +4498,10 @@ export interface MeetUpdateManyMutationInput {
   date?: Maybe<String>;
   isPublic?: Maybe<Boolean>;
   maxparticipant?: Maybe<Int>;
+  month?: Maybe<String>;
+  day?: Maybe<String>;
+  hour?: Maybe<Int>;
+  year?: Maybe<String>;
 }
 
 export interface MessageCreateInput {
@@ -4682,6 +4822,10 @@ export interface MeetCreateWithoutTagsInput {
   date?: Maybe<String>;
   isPublic: Boolean;
   maxparticipant?: Maybe<Int>;
+  month: String;
+  day: String;
+  hour?: Maybe<Int>;
+  year: String;
   participants?: Maybe<UserCreateManyWithoutMeetsInput>;
   images?: Maybe<ImageCreateManyWithoutMeetInput>;
 }
@@ -4724,6 +4868,10 @@ export interface MeetUpdateWithoutTagsDataInput {
   date?: Maybe<String>;
   isPublic?: Maybe<Boolean>;
   maxparticipant?: Maybe<Int>;
+  month?: Maybe<String>;
+  day?: Maybe<String>;
+  hour?: Maybe<Int>;
+  year?: Maybe<String>;
   participants?: Maybe<UserUpdateManyWithoutMeetsInput>;
   images?: Maybe<ImageUpdateManyWithoutMeetInput>;
 }
@@ -5657,6 +5805,10 @@ export interface Meet {
   date?: String;
   isPublic: Boolean;
   maxparticipant?: Int;
+  month: String;
+  day: String;
+  hour?: Int;
+  year: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -5670,6 +5822,10 @@ export interface MeetPromise extends Promise<Meet>, Fragmentable {
   date: () => Promise<String>;
   isPublic: () => Promise<Boolean>;
   maxparticipant: () => Promise<Int>;
+  month: () => Promise<String>;
+  day: () => Promise<String>;
+  hour: () => Promise<Int>;
+  year: () => Promise<String>;
   participants: <T = FragmentableArray<User>>(args?: {
     where?: UserWhereInput;
     orderBy?: UserOrderByInput;
@@ -5712,6 +5868,10 @@ export interface MeetSubscription
   date: () => Promise<AsyncIterator<String>>;
   isPublic: () => Promise<AsyncIterator<Boolean>>;
   maxparticipant: () => Promise<AsyncIterator<Int>>;
+  month: () => Promise<AsyncIterator<String>>;
+  day: () => Promise<AsyncIterator<String>>;
+  hour: () => Promise<AsyncIterator<Int>>;
+  year: () => Promise<AsyncIterator<String>>;
   participants: <T = Promise<AsyncIterator<UserSubscription>>>(args?: {
     where?: UserWhereInput;
     orderBy?: UserOrderByInput;
@@ -5754,6 +5914,10 @@ export interface MeetNullablePromise
   date: () => Promise<String>;
   isPublic: () => Promise<Boolean>;
   maxparticipant: () => Promise<Int>;
+  month: () => Promise<String>;
+  day: () => Promise<String>;
+  hour: () => Promise<Int>;
+  year: () => Promise<String>;
   participants: <T = FragmentableArray<User>>(args?: {
     where?: UserWhereInput;
     orderBy?: UserOrderByInput;
@@ -7036,6 +7200,10 @@ export interface MeetPreviousValues {
   date?: String;
   isPublic: Boolean;
   maxparticipant?: Int;
+  month: String;
+  day: String;
+  hour?: Int;
+  year: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -7051,6 +7219,10 @@ export interface MeetPreviousValuesPromise
   date: () => Promise<String>;
   isPublic: () => Promise<Boolean>;
   maxparticipant: () => Promise<Int>;
+  month: () => Promise<String>;
+  day: () => Promise<String>;
+  hour: () => Promise<Int>;
+  year: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -7066,6 +7238,10 @@ export interface MeetPreviousValuesSubscription
   date: () => Promise<AsyncIterator<String>>;
   isPublic: () => Promise<AsyncIterator<Boolean>>;
   maxparticipant: () => Promise<AsyncIterator<Int>>;
+  month: () => Promise<AsyncIterator<String>>;
+  day: () => Promise<AsyncIterator<String>>;
+  hour: () => Promise<AsyncIterator<Int>>;
+  year: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }

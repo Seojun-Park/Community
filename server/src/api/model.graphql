@@ -126,6 +126,10 @@ type Meet {
   maxparticipant: Int
   participants: [User!]!
   tags: [Tag!]
+  month: String!
+  day: String!
+  hour: Int
+  year: String!
   images: [Image!]
   createdAt: String
   updatedAt: String

@@ -5,7 +5,19 @@ export default {
     createMeet: async (_, args, { request, isAuthenticated }) => {
       isAuthenticated(request);
       const { user } = request;
-      const { tags, intro, title, creator, images, isPublic } = args;
+      const {
+        tags,
+        intro,
+        title,
+        creator,
+        images,
+        isPublic,
+        location,
+        day,
+        hour,
+        month,
+        year
+      } = args;
       let newTag;
       let checkTag;
       let existedTag;
@@ -34,6 +46,11 @@ export default {
           creator,
           isPublic,
           images,
+          location,
+          day,
+          hour,
+          month,
+          year,
           participants: {
             connect: {
               id: user.id
@@ -50,6 +67,11 @@ export default {
           creator,
           isPublic,
           images,
+          location,
+          day,
+          hour,
+          month,
+          year,
           participants: {
             connect: {
               id: user.id
