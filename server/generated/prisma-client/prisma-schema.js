@@ -1446,6 +1446,7 @@ type Meet {
   location: String
   date: String
   isPublic: Boolean!
+  maxparticipant: Int
   participants(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
   images(where: ImageWhereInput, orderBy: ImageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Image!]
   tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag!]
@@ -1467,6 +1468,7 @@ input MeetCreateInput {
   location: String
   date: String
   isPublic: Boolean!
+  maxparticipant: Int
   participants: UserCreateManyWithoutMeetsInput
   images: ImageCreateManyWithoutMeetInput
   tags: TagCreateManyWithoutMeetsInput
@@ -1495,6 +1497,7 @@ input MeetCreateWithoutImagesInput {
   location: String
   date: String
   isPublic: Boolean!
+  maxparticipant: Int
   participants: UserCreateManyWithoutMeetsInput
   tags: TagCreateManyWithoutMeetsInput
 }
@@ -1507,6 +1510,7 @@ input MeetCreateWithoutParticipantsInput {
   location: String
   date: String
   isPublic: Boolean!
+  maxparticipant: Int
   images: ImageCreateManyWithoutMeetInput
   tags: TagCreateManyWithoutMeetsInput
 }
@@ -1519,6 +1523,7 @@ input MeetCreateWithoutTagsInput {
   location: String
   date: String
   isPublic: Boolean!
+  maxparticipant: Int
   participants: UserCreateManyWithoutMeetsInput
   images: ImageCreateManyWithoutMeetInput
 }
@@ -1543,6 +1548,8 @@ enum MeetOrderByInput {
   date_DESC
   isPublic_ASC
   isPublic_DESC
+  maxparticipant_ASC
+  maxparticipant_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -1557,6 +1564,7 @@ type MeetPreviousValues {
   location: String
   date: String
   isPublic: Boolean!
+  maxparticipant: Int
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -1648,6 +1656,14 @@ input MeetScalarWhereInput {
   date_not_ends_with: String
   isPublic: Boolean
   isPublic_not: Boolean
+  maxparticipant: Int
+  maxparticipant_not: Int
+  maxparticipant_in: [Int!]
+  maxparticipant_not_in: [Int!]
+  maxparticipant_lt: Int
+  maxparticipant_lte: Int
+  maxparticipant_gt: Int
+  maxparticipant_gte: Int
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -1694,6 +1710,7 @@ input MeetUpdateInput {
   location: String
   date: String
   isPublic: Boolean
+  maxparticipant: Int
   participants: UserUpdateManyWithoutMeetsInput
   images: ImageUpdateManyWithoutMeetInput
   tags: TagUpdateManyWithoutMeetsInput
@@ -1706,6 +1723,7 @@ input MeetUpdateManyDataInput {
   location: String
   date: String
   isPublic: Boolean
+  maxparticipant: Int
 }
 
 input MeetUpdateManyMutationInput {
@@ -1715,6 +1733,7 @@ input MeetUpdateManyMutationInput {
   location: String
   date: String
   isPublic: Boolean
+  maxparticipant: Int
 }
 
 input MeetUpdateManyWithoutParticipantsInput {
@@ -1762,6 +1781,7 @@ input MeetUpdateWithoutImagesDataInput {
   location: String
   date: String
   isPublic: Boolean
+  maxparticipant: Int
   participants: UserUpdateManyWithoutMeetsInput
   tags: TagUpdateManyWithoutMeetsInput
 }
@@ -1773,6 +1793,7 @@ input MeetUpdateWithoutParticipantsDataInput {
   location: String
   date: String
   isPublic: Boolean
+  maxparticipant: Int
   images: ImageUpdateManyWithoutMeetInput
   tags: TagUpdateManyWithoutMeetsInput
 }
@@ -1784,6 +1805,7 @@ input MeetUpdateWithoutTagsDataInput {
   location: String
   date: String
   isPublic: Boolean
+  maxparticipant: Int
   participants: UserUpdateManyWithoutMeetsInput
   images: ImageUpdateManyWithoutMeetInput
 }
@@ -1902,6 +1924,14 @@ input MeetWhereInput {
   date_not_ends_with: String
   isPublic: Boolean
   isPublic_not: Boolean
+  maxparticipant: Int
+  maxparticipant_not: Int
+  maxparticipant_in: [Int!]
+  maxparticipant_not_in: [Int!]
+  maxparticipant_lt: Int
+  maxparticipant_lte: Int
+  maxparticipant_gt: Int
+  maxparticipant_gte: Int
   participants_every: UserWhereInput
   participants_some: UserWhereInput
   participants_none: UserWhereInput

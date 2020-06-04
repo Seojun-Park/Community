@@ -123,6 +123,7 @@ type Meet {
   location: String
   date: String
   isPublic: Boolean!
+  maxparticipant: Int
   participants: [User!]!
   tags: [Tag!]
   images: [Image!]
@@ -130,7 +131,7 @@ type Meet {
   updatedAt: String
 }
 
-type Tag{
+type Tag {
   id: ID!
   title: String!
   meets: [Meet!]!
