@@ -21,6 +21,11 @@ export default {
       let newTag;
       let checkTag;
       let existedTag;
+      const existedTitle = await prisma.$exists.meet({ title });
+      if (existedTitle === true) {
+        console.log("title is already existed");
+        return false;
+      }
       if (tags === undefined) {
         newTag = title;
         checkTag = await prisma.tags({
