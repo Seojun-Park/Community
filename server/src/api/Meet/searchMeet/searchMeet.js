@@ -5,7 +5,10 @@ export default {
     searchMeet: async (_, args) =>
       await prisma.meets({
         where: {
-          OR: [{ tag_contains: args.term }, { title_contains: args.term }]
+          OR: [
+            { title_contains: args.term },
+            { tags_some: { title_contains: args.term } }
+          ]
         }
       })
   }

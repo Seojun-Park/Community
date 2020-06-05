@@ -2,7 +2,6 @@ type Mutation {
   addSchedule(
     todo: String!
     date: String!
-    tag: String
     isOn: Boolean!
-  ): Schedule!
+  ): [Schedule!]
 }
