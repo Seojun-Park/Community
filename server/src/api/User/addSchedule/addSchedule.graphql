@@ -3,5 +3,5 @@ type Mutation {
     todo: String!
     date: String!
     isOn: Boolean!
-  ): [Schedule!]
+  ): Schedule!
 }
