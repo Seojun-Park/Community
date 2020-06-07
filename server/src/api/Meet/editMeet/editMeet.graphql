@@ -2,7 +2,10 @@ type Mutation {
     editMeet(
         id: String!
         intro: String
-        creator: String!
+        date: String
+        isPublic: Boolean
+        creator: String
         location: String
+        maxparticipants: Int
     ): Meet!
 }

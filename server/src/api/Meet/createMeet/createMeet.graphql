@@ -5,7 +5,7 @@ type Mutation {
     creator: String
     images: [String!]
     isPublic: Boolean!
-    tags: [String!]
+    tags: [String]
     month: String!
     day: String!
     hour: Int
