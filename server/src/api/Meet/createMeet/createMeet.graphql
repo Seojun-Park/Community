@@ -2,14 +2,12 @@ type Mutation {
   createMeet(
     intro: String!
     title: String!
+    location: String!
     creator: String
     images: [String!]
     isPublic: Boolean!
     tags: [String]
-    month: String!
-    day: String!
-    hour: Int
-    year: String!
-    location: String
+    date: String!
+    time: String!
   ): Meet!
 }

@@ -116,13 +116,10 @@ type Meet {
   title: String!
   creator: String
   location: String
-  date: String
+  date: String!
+  time: String!
   isPublic: Boolean!
   maxparticipant: Int
-  month: String!
-  day: String!
-  hour: Int
-  year: String!
   participants: [User!]! @relation(name:"MeetsOfUser")
   images: [Image!] @relation(name: "ImagesOfMeet", onDelete:CASCADE)
   tags: [Tag!] @relation(link: TABLE)

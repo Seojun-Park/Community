@@ -1444,13 +1444,10 @@ type Meet {
   title: String!
   creator: String
   location: String
-  date: String
+  date: String!
+  time: String!
   isPublic: Boolean!
   maxparticipant: Int
-  month: String!
-  day: String!
-  hour: Int
-  year: String!
   participants(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
   images(where: ImageWhereInput, orderBy: ImageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Image!]
   tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag!]
@@ -1470,13 +1467,10 @@ input MeetCreateInput {
   title: String!
   creator: String
   location: String
-  date: String
+  date: String!
+  time: String!
   isPublic: Boolean!
   maxparticipant: Int
-  month: String!
-  day: String!
-  hour: Int
-  year: String!
   participants: UserCreateManyWithoutMeetsInput
   images: ImageCreateManyWithoutMeetInput
   tags: TagCreateManyWithoutMeetsInput
@@ -1503,13 +1497,10 @@ input MeetCreateWithoutImagesInput {
   title: String!
   creator: String
   location: String
-  date: String
+  date: String!
+  time: String!
   isPublic: Boolean!
   maxparticipant: Int
-  month: String!
-  day: String!
-  hour: Int
-  year: String!
   participants: UserCreateManyWithoutMeetsInput
   tags: TagCreateManyWithoutMeetsInput
 }
@@ -1520,13 +1511,10 @@ input MeetCreateWithoutParticipantsInput {
   title: String!
   creator: String
   location: String
-  date: String
+  date: String!
+  time: String!
   isPublic: Boolean!
   maxparticipant: Int
-  month: String!
-  day: String!
-  hour: Int
-  year: String!
   images: ImageCreateManyWithoutMeetInput
   tags: TagCreateManyWithoutMeetsInput
 }
@@ -1537,13 +1525,10 @@ input MeetCreateWithoutTagsInput {
   title: String!
   creator: String
   location: String
-  date: String
+  date: String!
+  time: String!
   isPublic: Boolean!
   maxparticipant: Int
-  month: String!
-  day: String!
-  hour: Int
-  year: String!
   participants: UserCreateManyWithoutMeetsInput
   images: ImageCreateManyWithoutMeetInput
 }
@@ -1566,18 +1551,12 @@ enum MeetOrderByInput {
   location_DESC
   date_ASC
   date_DESC
+  time_ASC
+  time_DESC
   isPublic_ASC
   isPublic_DESC
   maxparticipant_ASC
   maxparticipant_DESC
-  month_ASC
-  month_DESC
-  day_ASC
-  day_DESC
-  hour_ASC
-  hour_DESC
-  year_ASC
-  year_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -1590,13 +1569,10 @@ type MeetPreviousValues {
   title: String!
   creator: String
   location: String
-  date: String
+  date: String!
+  time: String!
   isPublic: Boolean!
   maxparticipant: Int
-  month: String!
-  day: String!
-  hour: Int
-  year: String!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -1686,6 +1662,20 @@ input MeetScalarWhereInput {
   date_not_starts_with: String
   date_ends_with: String
   date_not_ends_with: String
+  time: String
+  time_not: String
+  time_in: [String!]
+  time_not_in: [String!]
+  time_lt: String
+  time_lte: String
+  time_gt: String
+  time_gte: String
+  time_contains: String
+  time_not_contains: String
+  time_starts_with: String
+  time_not_starts_with: String
+  time_ends_with: String
+  time_not_ends_with: String
   isPublic: Boolean
   isPublic_not: Boolean
   maxparticipant: Int
@@ -1696,56 +1686,6 @@ input MeetScalarWhereInput {
   maxparticipant_lte: Int
   maxparticipant_gt: Int
   maxparticipant_gte: Int
-  month: String
-  month_not: String
-  month_in: [String!]
-  month_not_in: [String!]
-  month_lt: String
-  month_lte: String
-  month_gt: String
-  month_gte: String
-  month_contains: String
-  month_not_contains: String
-  month_starts_with: String
-  month_not_starts_with: String
-  month_ends_with: String
-  month_not_ends_with: String
-  day: String
-  day_not: String
-  day_in: [String!]
-  day_not_in: [String!]
-  day_lt: String
-  day_lte: String
-  day_gt: String
-  day_gte: String
-  day_contains: String
-  day_not_contains: String
-  day_starts_with: String
-  day_not_starts_with: String
-  day_ends_with: String
-  day_not_ends_with: String
-  hour: Int
-  hour_not: Int
-  hour_in: [Int!]
-  hour_not_in: [Int!]
-  hour_lt: Int
-  hour_lte: Int
-  hour_gt: Int
-  hour_gte: Int
-  year: String
-  year_not: String
-  year_in: [String!]
-  year_not_in: [String!]
-  year_lt: String
-  year_lte: String
-  year_gt: String
-  year_gte: String
-  year_contains: String
-  year_not_contains: String
-  year_starts_with: String
-  year_not_starts_with: String
-  year_ends_with: String
-  year_not_ends_with: String
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -1791,12 +1731,9 @@ input MeetUpdateInput {
   creator: String
   location: String
   date: String
+  time: String
   isPublic: Boolean
   maxparticipant: Int
-  month: String
-  day: String
-  hour: Int
-  year: String
   participants: UserUpdateManyWithoutMeetsInput
   images: ImageUpdateManyWithoutMeetInput
   tags: TagUpdateManyWithoutMeetsInput
@@ -1808,12 +1745,9 @@ input MeetUpdateManyDataInput {
   creator: String
   location: String
   date: String
+  time: String
   isPublic: Boolean
   maxparticipant: Int
-  month: String
-  day: String
-  hour: Int
-  year: String
 }
 
 input MeetUpdateManyMutationInput {
@@ -1822,12 +1756,9 @@ input MeetUpdateManyMutationInput {
   creator: String
   location: String
   date: String
+  time: String
   isPublic: Boolean
   maxparticipant: Int
-  month: String
-  day: String
-  hour: Int
-  year: String
 }
 
 input MeetUpdateManyWithoutParticipantsInput {
@@ -1874,12 +1805,9 @@ input MeetUpdateWithoutImagesDataInput {
   creator: String
   location: String
   date: String
+  time: String
   isPublic: Boolean
   maxparticipant: Int
-  month: String
-  day: String
-  hour: Int
-  year: String
   participants: UserUpdateManyWithoutMeetsInput
   tags: TagUpdateManyWithoutMeetsInput
 }
@@ -1890,12 +1818,9 @@ input MeetUpdateWithoutParticipantsDataInput {
   creator: String
   location: String
   date: String
+  time: String
   isPublic: Boolean
   maxparticipant: Int
-  month: String
-  day: String
-  hour: Int
-  year: String
   images: ImageUpdateManyWithoutMeetInput
   tags: TagUpdateManyWithoutMeetsInput
 }
@@ -1906,12 +1831,9 @@ input MeetUpdateWithoutTagsDataInput {
   creator: String
   location: String
   date: String
+  time: String
   isPublic: Boolean
   maxparticipant: Int
-  month: String
-  day: String
-  hour: Int
-  year: String
   participants: UserUpdateManyWithoutMeetsInput
   images: ImageUpdateManyWithoutMeetInput
 }
@@ -2028,6 +1950,20 @@ input MeetWhereInput {
   date_not_starts_with: String
   date_ends_with: String
   date_not_ends_with: String
+  time: String
+  time_not: String
+  time_in: [String!]
+  time_not_in: [String!]
+  time_lt: String
+  time_lte: String
+  time_gt: String
+  time_gte: String
+  time_contains: String
+  time_not_contains: String
+  time_starts_with: String
+  time_not_starts_with: String
+  time_ends_with: String
+  time_not_ends_with: String
   isPublic: Boolean
   isPublic_not: Boolean
   maxparticipant: Int
@@ -2038,56 +1974,6 @@ input MeetWhereInput {
   maxparticipant_lte: Int
   maxparticipant_gt: Int
   maxparticipant_gte: Int
-  month: String
-  month_not: String
-  month_in: [String!]
-  month_not_in: [String!]
-  month_lt: String
-  month_lte: String
-  month_gt: String
-  month_gte: String
-  month_contains: String
-  month_not_contains: String
-  month_starts_with: String
-  month_not_starts_with: String
-  month_ends_with: String
-  month_not_ends_with: String
-  day: String
-  day_not: String
-  day_in: [String!]
-  day_not_in: [String!]
-  day_lt: String
-  day_lte: String
-  day_gt: String
-  day_gte: String
-  day_contains: String
-  day_not_contains: String
-  day_starts_with: String
-  day_not_starts_with: String
-  day_ends_with: String
-  day_not_ends_with: String
-  hour: Int
-  hour_not: Int
-  hour_in: [Int!]
-  hour_not_in: [Int!]
-  hour_lt: Int
-  hour_lte: Int
-  hour_gt: Int
-  hour_gte: Int
-  year: String
-  year_not: String
-  year_in: [String!]
-  year_not_in: [String!]
-  year_lt: String
-  year_lte: String
-  year_gt: String
-  year_gte: String
-  year_contains: String
-  year_not_contains: String
-  year_starts_with: String
-  year_not_starts_with: String
-  year_ends_with: String
-  year_not_ends_with: String
   participants_every: UserWhereInput
   participants_some: UserWhereInput
   participants_none: UserWhereInput
