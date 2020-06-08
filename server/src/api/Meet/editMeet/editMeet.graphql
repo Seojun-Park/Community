@@ -3,8 +3,8 @@ type Mutation {
         id: String!
         intro: String
         date: String
+        time: String
         isPublic: Boolean
-        creator: String
         location: String
         maxparticipants: Int
     ): Meet!

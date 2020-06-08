@@ -8,9 +8,9 @@ export default {
         id,
         intro,
         location,
-        creator,
         date,
         isPublic,
+        time,
         maxparticipants
       } = args;
       const { user } = reuqest;
@@ -26,6 +26,7 @@ export default {
             intro,
             location,
             date,
+            time,
             isPublic,
             maxparticipants
           }
