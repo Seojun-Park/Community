@@ -8,7 +8,7 @@ export default {
           orderBy: "createdAt_DESC"
         });
       } catch (e) {
-        console.log("show Error")
+        console.log("show Error");
         console.log(e.message);
       }
     }
