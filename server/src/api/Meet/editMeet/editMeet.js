@@ -13,25 +13,20 @@ export default {
         time,
         maxparticipants
       } = args;
-      const { user } = reuqest;
-      if (creator !== user.id) {
-        console.log("You are not Master of this meeting");
-        return null;
-      } else {
-        return prisma.updateMeet({
-          where: {
-            id
-          },
-          data: {
-            intro,
-            location,
-            date,
-            time,
-            isPublic,
-            maxparticipants
-          }
-        });
-      }
+      const { user } = request;
+      return prisma.updateMeet({
+        where: {
+          id
+        },
+        data: {
+          intro,
+          location,
+          date,
+          time,
+          isPublic,
+          maxparticipants
+        }
+      });
     }
   }
 };
