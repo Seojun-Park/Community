@@ -14,6 +14,7 @@ export default {
         isPublic,
         location,
         date,
+        thumnail,
         member,
         theme,
         time
@@ -64,6 +65,7 @@ export default {
           isPublic,
           images,
           location,
+          thumnail,
           date,
           member,
           theme,
@@ -89,6 +91,7 @@ export default {
           images,
           member,
           theme,
+          thumnail,
           location,
           date,
           time,

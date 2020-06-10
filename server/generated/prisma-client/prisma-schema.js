@@ -844,6 +844,7 @@ type Image {
   id: ID!
   url: String!
   meet: Meet
+  market: Market
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -858,6 +859,12 @@ input ImageCreateInput {
   id: ID
   url: String!
   meet: MeetCreateOneWithoutImagesInput
+  market: MarketCreateOneWithoutImagesInput
+}
+
+input ImageCreateManyWithoutMarketInput {
+  create: [ImageCreateWithoutMarketInput!]
+  connect: [ImageWhereUniqueInput!]
 }
 
 input ImageCreateManyWithoutMeetInput {
@@ -865,9 +872,16 @@ input ImageCreateManyWithoutMeetInput {
   connect: [ImageWhereUniqueInput!]
 }
 
+input ImageCreateWithoutMarketInput {
+  id: ID
+  url: String!
+  meet: MeetCreateOneWithoutImagesInput
+}
+
 input ImageCreateWithoutMeetInput {
   id: ID
   url: String!
+  market: MarketCreateOneWithoutImagesInput
 }
 
 type ImageEdge {
@@ -964,6 +978,7 @@ input ImageSubscriptionWhereInput {
 input ImageUpdateInput {
   url: String
   meet: MeetUpdateOneWithoutImagesInput
+  market: MarketUpdateOneWithoutImagesInput
 }
 
 input ImageUpdateManyDataInput {
@@ -972,6 +987,18 @@ input ImageUpdateManyDataInput {
 
 input ImageUpdateManyMutationInput {
   url: String
+}
+
+input ImageUpdateManyWithoutMarketInput {
+  create: [ImageCreateWithoutMarketInput!]
+  delete: [ImageWhereUniqueInput!]
+  connect: [ImageWhereUniqueInput!]
+  set: [ImageWhereUniqueInput!]
+  disconnect: [ImageWhereUniqueInput!]
+  update: [ImageUpdateWithWhereUniqueWithoutMarketInput!]
+  upsert: [ImageUpsertWithWhereUniqueWithoutMarketInput!]
+  deleteMany: [ImageScalarWhereInput!]
+  updateMany: [ImageUpdateManyWithWhereNestedInput!]
 }
 
 input ImageUpdateManyWithoutMeetInput {
@@ -991,13 +1018,30 @@ input ImageUpdateManyWithWhereNestedInput {
   data: ImageUpdateManyDataInput!
 }
 
+input ImageUpdateWithoutMarketDataInput {
+  url: String
+  meet: MeetUpdateOneWithoutImagesInput
+}
+
 input ImageUpdateWithoutMeetDataInput {
   url: String
+  market: MarketUpdateOneWithoutImagesInput
+}
+
+input ImageUpdateWithWhereUniqueWithoutMarketInput {
+  where: ImageWhereUniqueInput!
+  data: ImageUpdateWithoutMarketDataInput!
 }
 
 input ImageUpdateWithWhereUniqueWithoutMeetInput {
   where: ImageWhereUniqueInput!
   data: ImageUpdateWithoutMeetDataInput!
+}
+
+input ImageUpsertWithWhereUniqueWithoutMarketInput {
+  where: ImageWhereUniqueInput!
+  update: ImageUpdateWithoutMarketDataInput!
+  create: ImageCreateWithoutMarketInput!
 }
 
 input ImageUpsertWithWhereUniqueWithoutMeetInput {
@@ -1036,6 +1080,7 @@ input ImageWhereInput {
   url_ends_with: String
   url_not_ends_with: String
   meet: MeetWhereInput
+  market: MarketWhereInput
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -1069,6 +1114,7 @@ type Market {
   title: String!
   caption: String!
   status: String!
+  images(where: ImageWhereInput, orderBy: ImageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Image!]
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -1086,6 +1132,7 @@ input MarketCreateInput {
   title: String!
   caption: String!
   status: String!
+  images: ImageCreateManyWithoutMarketInput
   comments: CommentCreateManyWithoutMarketInput
 }
 
@@ -1104,12 +1151,27 @@ input MarketCreateOneWithoutCommentsInput {
   connect: MarketWhereUniqueInput
 }
 
+input MarketCreateOneWithoutImagesInput {
+  create: MarketCreateWithoutImagesInput
+  connect: MarketWhereUniqueInput
+}
+
 input MarketCreateWithoutCommentsInput {
   id: ID
   user: UserCreateOneWithoutMarketsInput!
   title: String!
   caption: String!
   status: String!
+  images: ImageCreateManyWithoutMarketInput
+}
+
+input MarketCreateWithoutImagesInput {
+  id: ID
+  user: UserCreateOneWithoutMarketsInput!
+  title: String!
+  caption: String!
+  status: String!
+  comments: CommentCreateManyWithoutMarketInput
 }
 
 input MarketCreateWithoutUserInput {
@@ -1117,6 +1179,7 @@ input MarketCreateWithoutUserInput {
   title: String!
   caption: String!
   status: String!
+  images: ImageCreateManyWithoutMarketInput
   comments: CommentCreateManyWithoutMarketInput
 }
 
@@ -1250,6 +1313,7 @@ input MarketUpdateDataInput {
   title: String
   caption: String
   status: String
+  images: ImageUpdateManyWithoutMarketInput
   comments: CommentUpdateManyWithoutMarketInput
 }
 
@@ -1258,6 +1322,7 @@ input MarketUpdateInput {
   title: String
   caption: String
   status: String
+  images: ImageUpdateManyWithoutMarketInput
   comments: CommentUpdateManyWithoutMarketInput
 }
 
@@ -1311,17 +1376,36 @@ input MarketUpdateOneWithoutCommentsInput {
   connect: MarketWhereUniqueInput
 }
 
+input MarketUpdateOneWithoutImagesInput {
+  create: MarketCreateWithoutImagesInput
+  update: MarketUpdateWithoutImagesDataInput
+  upsert: MarketUpsertWithoutImagesInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: MarketWhereUniqueInput
+}
+
 input MarketUpdateWithoutCommentsDataInput {
   user: UserUpdateOneRequiredWithoutMarketsInput
   title: String
   caption: String
   status: String
+  images: ImageUpdateManyWithoutMarketInput
+}
+
+input MarketUpdateWithoutImagesDataInput {
+  user: UserUpdateOneRequiredWithoutMarketsInput
+  title: String
+  caption: String
+  status: String
+  comments: CommentUpdateManyWithoutMarketInput
 }
 
 input MarketUpdateWithoutUserDataInput {
   title: String
   caption: String
   status: String
+  images: ImageUpdateManyWithoutMarketInput
   comments: CommentUpdateManyWithoutMarketInput
 }
 
@@ -1338,6 +1422,11 @@ input MarketUpdateWithWhereUniqueWithoutUserInput {
 input MarketUpsertWithoutCommentsInput {
   update: MarketUpdateWithoutCommentsDataInput!
   create: MarketCreateWithoutCommentsInput!
+}
+
+input MarketUpsertWithoutImagesInput {
+  update: MarketUpdateWithoutImagesDataInput!
+  create: MarketCreateWithoutImagesInput!
 }
 
 input MarketUpsertWithWhereUniqueNestedInput {
@@ -1410,6 +1499,9 @@ input MarketWhereInput {
   status_not_starts_with: String
   status_ends_with: String
   status_not_ends_with: String
+  images_every: ImageWhereInput
+  images_some: ImageWhereInput
+  images_none: ImageWhereInput
   comments_every: CommentWhereInput
   comments_some: CommentWhereInput
   comments_none: CommentWhereInput

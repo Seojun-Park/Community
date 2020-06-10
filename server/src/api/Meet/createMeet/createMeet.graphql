@@ -6,6 +6,7 @@ type Mutation {
     creator: String
     images: [String!]
     isPublic: Boolean!
+    thumnail: String
     member: Int
     theme: String!
     tags: [String]

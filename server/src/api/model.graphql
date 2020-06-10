@@ -51,6 +51,7 @@ type Market {
   caption: String!
   hit: Int
   status: String!
+  images: [Image!]
   comments: [Comment!]
   createdAt: String
   updatedAt: String
@@ -84,6 +85,7 @@ type Image {
   id: ID!
   url: String!
   meet: Meet
+  market: Market
   createdAt: String
   updatedAt: String
 }
