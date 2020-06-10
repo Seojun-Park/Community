@@ -1114,6 +1114,8 @@ type Market {
   title: String!
   caption: String!
   status: String!
+  price: String!
+  thumbnail: String
   images(where: ImageWhereInput, orderBy: ImageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Image!]
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
   createdAt: DateTime!
@@ -1132,6 +1134,8 @@ input MarketCreateInput {
   title: String!
   caption: String!
   status: String!
+  price: String!
+  thumbnail: String
   images: ImageCreateManyWithoutMarketInput
   comments: CommentCreateManyWithoutMarketInput
 }
@@ -1162,6 +1166,8 @@ input MarketCreateWithoutCommentsInput {
   title: String!
   caption: String!
   status: String!
+  price: String!
+  thumbnail: String
   images: ImageCreateManyWithoutMarketInput
 }
 
@@ -1171,6 +1177,8 @@ input MarketCreateWithoutImagesInput {
   title: String!
   caption: String!
   status: String!
+  price: String!
+  thumbnail: String
   comments: CommentCreateManyWithoutMarketInput
 }
 
@@ -1179,6 +1187,8 @@ input MarketCreateWithoutUserInput {
   title: String!
   caption: String!
   status: String!
+  price: String!
+  thumbnail: String
   images: ImageCreateManyWithoutMarketInput
   comments: CommentCreateManyWithoutMarketInput
 }
@@ -1197,6 +1207,10 @@ enum MarketOrderByInput {
   caption_DESC
   status_ASC
   status_DESC
+  price_ASC
+  price_DESC
+  thumbnail_ASC
+  thumbnail_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -1208,6 +1222,8 @@ type MarketPreviousValues {
   title: String!
   caption: String!
   status: String!
+  price: String!
+  thumbnail: String
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -1269,6 +1285,34 @@ input MarketScalarWhereInput {
   status_not_starts_with: String
   status_ends_with: String
   status_not_ends_with: String
+  price: String
+  price_not: String
+  price_in: [String!]
+  price_not_in: [String!]
+  price_lt: String
+  price_lte: String
+  price_gt: String
+  price_gte: String
+  price_contains: String
+  price_not_contains: String
+  price_starts_with: String
+  price_not_starts_with: String
+  price_ends_with: String
+  price_not_ends_with: String
+  thumbnail: String
+  thumbnail_not: String
+  thumbnail_in: [String!]
+  thumbnail_not_in: [String!]
+  thumbnail_lt: String
+  thumbnail_lte: String
+  thumbnail_gt: String
+  thumbnail_gte: String
+  thumbnail_contains: String
+  thumbnail_not_contains: String
+  thumbnail_starts_with: String
+  thumbnail_not_starts_with: String
+  thumbnail_ends_with: String
+  thumbnail_not_ends_with: String
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -1313,6 +1357,8 @@ input MarketUpdateDataInput {
   title: String
   caption: String
   status: String
+  price: String
+  thumbnail: String
   images: ImageUpdateManyWithoutMarketInput
   comments: CommentUpdateManyWithoutMarketInput
 }
@@ -1322,6 +1368,8 @@ input MarketUpdateInput {
   title: String
   caption: String
   status: String
+  price: String
+  thumbnail: String
   images: ImageUpdateManyWithoutMarketInput
   comments: CommentUpdateManyWithoutMarketInput
 }
@@ -1330,6 +1378,8 @@ input MarketUpdateManyDataInput {
   title: String
   caption: String
   status: String
+  price: String
+  thumbnail: String
 }
 
 input MarketUpdateManyInput {
@@ -1348,6 +1398,8 @@ input MarketUpdateManyMutationInput {
   title: String
   caption: String
   status: String
+  price: String
+  thumbnail: String
 }
 
 input MarketUpdateManyWithoutUserInput {
@@ -1390,6 +1442,8 @@ input MarketUpdateWithoutCommentsDataInput {
   title: String
   caption: String
   status: String
+  price: String
+  thumbnail: String
   images: ImageUpdateManyWithoutMarketInput
 }
 
@@ -1398,6 +1452,8 @@ input MarketUpdateWithoutImagesDataInput {
   title: String
   caption: String
   status: String
+  price: String
+  thumbnail: String
   comments: CommentUpdateManyWithoutMarketInput
 }
 
@@ -1405,6 +1461,8 @@ input MarketUpdateWithoutUserDataInput {
   title: String
   caption: String
   status: String
+  price: String
+  thumbnail: String
   images: ImageUpdateManyWithoutMarketInput
   comments: CommentUpdateManyWithoutMarketInput
 }
@@ -1499,6 +1557,34 @@ input MarketWhereInput {
   status_not_starts_with: String
   status_ends_with: String
   status_not_ends_with: String
+  price: String
+  price_not: String
+  price_in: [String!]
+  price_not_in: [String!]
+  price_lt: String
+  price_lte: String
+  price_gt: String
+  price_gte: String
+  price_contains: String
+  price_not_contains: String
+  price_starts_with: String
+  price_not_starts_with: String
+  price_ends_with: String
+  price_not_ends_with: String
+  thumbnail: String
+  thumbnail_not: String
+  thumbnail_in: [String!]
+  thumbnail_not_in: [String!]
+  thumbnail_lt: String
+  thumbnail_lte: String
+  thumbnail_gt: String
+  thumbnail_gte: String
+  thumbnail_contains: String
+  thumbnail_not_contains: String
+  thumbnail_starts_with: String
+  thumbnail_not_starts_with: String
+  thumbnail_ends_with: String
+  thumbnail_not_ends_with: String
   images_every: ImageWhereInput
   images_some: ImageWhereInput
   images_none: ImageWhereInput
@@ -1540,7 +1626,7 @@ type Meet {
   time: String!
   isPublic: Boolean!
   member: Int
-  thumnail: String
+  thumbnail: String
   theme: String!
   participants(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
   images(where: ImageWhereInput, orderBy: ImageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Image!]
@@ -1565,7 +1651,7 @@ input MeetCreateInput {
   time: String!
   isPublic: Boolean!
   member: Int
-  thumnail: String
+  thumbnail: String
   theme: String!
   participants: UserCreateManyWithoutMeetsInput
   images: ImageCreateManyWithoutMeetInput
@@ -1597,7 +1683,7 @@ input MeetCreateWithoutImagesInput {
   time: String!
   isPublic: Boolean!
   member: Int
-  thumnail: String
+  thumbnail: String
   theme: String!
   participants: UserCreateManyWithoutMeetsInput
   tags: TagCreateManyWithoutMeetsInput
@@ -1613,7 +1699,7 @@ input MeetCreateWithoutParticipantsInput {
   time: String!
   isPublic: Boolean!
   member: Int
-  thumnail: String
+  thumbnail: String
   theme: String!
   images: ImageCreateManyWithoutMeetInput
   tags: TagCreateManyWithoutMeetsInput
@@ -1629,7 +1715,7 @@ input MeetCreateWithoutTagsInput {
   time: String!
   isPublic: Boolean!
   member: Int
-  thumnail: String
+  thumbnail: String
   theme: String!
   participants: UserCreateManyWithoutMeetsInput
   images: ImageCreateManyWithoutMeetInput
@@ -1659,8 +1745,8 @@ enum MeetOrderByInput {
   isPublic_DESC
   member_ASC
   member_DESC
-  thumnail_ASC
-  thumnail_DESC
+  thumbnail_ASC
+  thumbnail_DESC
   theme_ASC
   theme_DESC
   createdAt_ASC
@@ -1679,7 +1765,7 @@ type MeetPreviousValues {
   time: String!
   isPublic: Boolean!
   member: Int
-  thumnail: String
+  thumbnail: String
   theme: String!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -1794,20 +1880,20 @@ input MeetScalarWhereInput {
   member_lte: Int
   member_gt: Int
   member_gte: Int
-  thumnail: String
-  thumnail_not: String
-  thumnail_in: [String!]
-  thumnail_not_in: [String!]
-  thumnail_lt: String
-  thumnail_lte: String
-  thumnail_gt: String
-  thumnail_gte: String
-  thumnail_contains: String
-  thumnail_not_contains: String
-  thumnail_starts_with: String
-  thumnail_not_starts_with: String
-  thumnail_ends_with: String
-  thumnail_not_ends_with: String
+  thumbnail: String
+  thumbnail_not: String
+  thumbnail_in: [String!]
+  thumbnail_not_in: [String!]
+  thumbnail_lt: String
+  thumbnail_lte: String
+  thumbnail_gt: String
+  thumbnail_gte: String
+  thumbnail_contains: String
+  thumbnail_not_contains: String
+  thumbnail_starts_with: String
+  thumbnail_not_starts_with: String
+  thumbnail_ends_with: String
+  thumbnail_not_ends_with: String
   theme: String
   theme_not: String
   theme_in: [String!]
@@ -1870,7 +1956,7 @@ input MeetUpdateInput {
   time: String
   isPublic: Boolean
   member: Int
-  thumnail: String
+  thumbnail: String
   theme: String
   participants: UserUpdateManyWithoutMeetsInput
   images: ImageUpdateManyWithoutMeetInput
@@ -1886,7 +1972,7 @@ input MeetUpdateManyDataInput {
   time: String
   isPublic: Boolean
   member: Int
-  thumnail: String
+  thumbnail: String
   theme: String
 }
 
@@ -1899,7 +1985,7 @@ input MeetUpdateManyMutationInput {
   time: String
   isPublic: Boolean
   member: Int
-  thumnail: String
+  thumbnail: String
   theme: String
 }
 
@@ -1950,7 +2036,7 @@ input MeetUpdateWithoutImagesDataInput {
   time: String
   isPublic: Boolean
   member: Int
-  thumnail: String
+  thumbnail: String
   theme: String
   participants: UserUpdateManyWithoutMeetsInput
   tags: TagUpdateManyWithoutMeetsInput
@@ -1965,7 +2051,7 @@ input MeetUpdateWithoutParticipantsDataInput {
   time: String
   isPublic: Boolean
   member: Int
-  thumnail: String
+  thumbnail: String
   theme: String
   images: ImageUpdateManyWithoutMeetInput
   tags: TagUpdateManyWithoutMeetsInput
@@ -1980,7 +2066,7 @@ input MeetUpdateWithoutTagsDataInput {
   time: String
   isPublic: Boolean
   member: Int
-  thumnail: String
+  thumbnail: String
   theme: String
   participants: UserUpdateManyWithoutMeetsInput
   images: ImageUpdateManyWithoutMeetInput
@@ -2122,20 +2208,20 @@ input MeetWhereInput {
   member_lte: Int
   member_gt: Int
   member_gte: Int
-  thumnail: String
-  thumnail_not: String
-  thumnail_in: [String!]
-  thumnail_not_in: [String!]
-  thumnail_lt: String
-  thumnail_lte: String
-  thumnail_gt: String
-  thumnail_gte: String
-  thumnail_contains: String
-  thumnail_not_contains: String
-  thumnail_starts_with: String
-  thumnail_not_starts_with: String
-  thumnail_ends_with: String
-  thumnail_not_ends_with: String
+  thumbnail: String
+  thumbnail_not: String
+  thumbnail_in: [String!]
+  thumbnail_not_in: [String!]
+  thumbnail_lt: String
+  thumbnail_lte: String
+  thumbnail_gt: String
+  thumbnail_gte: String
+  thumbnail_contains: String
+  thumbnail_not_contains: String
+  thumbnail_starts_with: String
+  thumbnail_not_starts_with: String
+  thumbnail_ends_with: String
+  thumbnail_not_ends_with: String
   theme: String
   theme_not: String
   theme_in: [String!]

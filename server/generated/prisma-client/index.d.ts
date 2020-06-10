@@ -652,8 +652,8 @@ export type MeetOrderByInput =
   | "isPublic_DESC"
   | "member_ASC"
   | "member_DESC"
-  | "thumnail_ASC"
-  | "thumnail_DESC"
+  | "thumbnail_ASC"
+  | "thumbnail_DESC"
   | "theme_ASC"
   | "theme_DESC"
   | "createdAt_ASC"
@@ -670,6 +670,10 @@ export type MarketOrderByInput =
   | "caption_DESC"
   | "status_ASC"
   | "status_DESC"
+  | "price_ASC"
+  | "price_DESC"
+  | "thumbnail_ASC"
+  | "thumbnail_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -1150,6 +1154,34 @@ export interface MarketWhereInput {
   status_not_starts_with?: Maybe<String>;
   status_ends_with?: Maybe<String>;
   status_not_ends_with?: Maybe<String>;
+  price?: Maybe<String>;
+  price_not?: Maybe<String>;
+  price_in?: Maybe<String[] | String>;
+  price_not_in?: Maybe<String[] | String>;
+  price_lt?: Maybe<String>;
+  price_lte?: Maybe<String>;
+  price_gt?: Maybe<String>;
+  price_gte?: Maybe<String>;
+  price_contains?: Maybe<String>;
+  price_not_contains?: Maybe<String>;
+  price_starts_with?: Maybe<String>;
+  price_not_starts_with?: Maybe<String>;
+  price_ends_with?: Maybe<String>;
+  price_not_ends_with?: Maybe<String>;
+  thumbnail?: Maybe<String>;
+  thumbnail_not?: Maybe<String>;
+  thumbnail_in?: Maybe<String[] | String>;
+  thumbnail_not_in?: Maybe<String[] | String>;
+  thumbnail_lt?: Maybe<String>;
+  thumbnail_lte?: Maybe<String>;
+  thumbnail_gt?: Maybe<String>;
+  thumbnail_gte?: Maybe<String>;
+  thumbnail_contains?: Maybe<String>;
+  thumbnail_not_contains?: Maybe<String>;
+  thumbnail_starts_with?: Maybe<String>;
+  thumbnail_not_starts_with?: Maybe<String>;
+  thumbnail_ends_with?: Maybe<String>;
+  thumbnail_not_ends_with?: Maybe<String>;
   images_every?: Maybe<ImageWhereInput>;
   images_some?: Maybe<ImageWhereInput>;
   images_none?: Maybe<ImageWhereInput>;
@@ -1338,20 +1370,20 @@ export interface MeetWhereInput {
   member_lte?: Maybe<Int>;
   member_gt?: Maybe<Int>;
   member_gte?: Maybe<Int>;
-  thumnail?: Maybe<String>;
-  thumnail_not?: Maybe<String>;
-  thumnail_in?: Maybe<String[] | String>;
-  thumnail_not_in?: Maybe<String[] | String>;
-  thumnail_lt?: Maybe<String>;
-  thumnail_lte?: Maybe<String>;
-  thumnail_gt?: Maybe<String>;
-  thumnail_gte?: Maybe<String>;
-  thumnail_contains?: Maybe<String>;
-  thumnail_not_contains?: Maybe<String>;
-  thumnail_starts_with?: Maybe<String>;
-  thumnail_not_starts_with?: Maybe<String>;
-  thumnail_ends_with?: Maybe<String>;
-  thumnail_not_ends_with?: Maybe<String>;
+  thumbnail?: Maybe<String>;
+  thumbnail_not?: Maybe<String>;
+  thumbnail_in?: Maybe<String[] | String>;
+  thumbnail_not_in?: Maybe<String[] | String>;
+  thumbnail_lt?: Maybe<String>;
+  thumbnail_lte?: Maybe<String>;
+  thumbnail_gt?: Maybe<String>;
+  thumbnail_gte?: Maybe<String>;
+  thumbnail_contains?: Maybe<String>;
+  thumbnail_not_contains?: Maybe<String>;
+  thumbnail_starts_with?: Maybe<String>;
+  thumbnail_not_starts_with?: Maybe<String>;
+  thumbnail_ends_with?: Maybe<String>;
+  thumbnail_not_ends_with?: Maybe<String>;
   theme?: Maybe<String>;
   theme_not?: Maybe<String>;
   theme_in?: Maybe<String[] | String>;
@@ -1974,6 +2006,8 @@ export interface MarketCreateWithoutUserInput {
   title: String;
   caption: String;
   status: String;
+  price: String;
+  thumbnail?: Maybe<String>;
   images?: Maybe<ImageCreateManyWithoutMarketInput>;
   comments?: Maybe<CommentCreateManyWithoutMarketInput>;
 }
@@ -2006,7 +2040,7 @@ export interface MeetCreateWithoutImagesInput {
   time: String;
   isPublic: Boolean;
   member?: Maybe<Int>;
-  thumnail?: Maybe<String>;
+  thumbnail?: Maybe<String>;
   theme: String;
   participants?: Maybe<UserCreateManyWithoutMeetsInput>;
   tags?: Maybe<TagCreateManyWithoutMeetsInput>;
@@ -2089,6 +2123,8 @@ export interface MarketCreateWithoutCommentsInput {
   title: String;
   caption: String;
   status: String;
+  price: String;
+  thumbnail?: Maybe<String>;
   images?: Maybe<ImageCreateManyWithoutMarketInput>;
 }
 
@@ -2187,7 +2223,7 @@ export interface MeetCreateWithoutParticipantsInput {
   time: String;
   isPublic: Boolean;
   member?: Maybe<Int>;
-  thumnail?: Maybe<String>;
+  thumbnail?: Maybe<String>;
   theme: String;
   images?: Maybe<ImageCreateManyWithoutMeetInput>;
   tags?: Maybe<TagCreateManyWithoutMeetsInput>;
@@ -2215,6 +2251,8 @@ export interface MarketCreateWithoutImagesInput {
   title: String;
   caption: String;
   status: String;
+  price: String;
+  thumbnail?: Maybe<String>;
   comments?: Maybe<CommentCreateManyWithoutMarketInput>;
 }
 
@@ -2363,6 +2401,8 @@ export interface MarketCreateInput {
   title: String;
   caption: String;
   status: String;
+  price: String;
+  thumbnail?: Maybe<String>;
   images?: Maybe<ImageCreateManyWithoutMarketInput>;
   comments?: Maybe<CommentCreateManyWithoutMarketInput>;
 }
@@ -2634,6 +2674,8 @@ export interface MarketUpdateWithoutUserDataInput {
   title?: Maybe<String>;
   caption?: Maybe<String>;
   status?: Maybe<String>;
+  price?: Maybe<String>;
+  thumbnail?: Maybe<String>;
   images?: Maybe<ImageUpdateManyWithoutMarketInput>;
   comments?: Maybe<CommentUpdateManyWithoutMarketInput>;
 }
@@ -2688,7 +2730,7 @@ export interface MeetUpdateWithoutImagesDataInput {
   time?: Maybe<String>;
   isPublic?: Maybe<Boolean>;
   member?: Maybe<Int>;
-  thumnail?: Maybe<String>;
+  thumbnail?: Maybe<String>;
   theme?: Maybe<String>;
   participants?: Maybe<UserUpdateManyWithoutMeetsInput>;
   tags?: Maybe<TagUpdateManyWithoutMeetsInput>;
@@ -2840,6 +2882,8 @@ export interface MarketUpdateWithoutCommentsDataInput {
   title?: Maybe<String>;
   caption?: Maybe<String>;
   status?: Maybe<String>;
+  price?: Maybe<String>;
+  thumbnail?: Maybe<String>;
   images?: Maybe<ImageUpdateManyWithoutMarketInput>;
 }
 
@@ -2982,7 +3026,7 @@ export interface MeetUpdateWithoutParticipantsDataInput {
   time?: Maybe<String>;
   isPublic?: Maybe<Boolean>;
   member?: Maybe<Int>;
-  thumnail?: Maybe<String>;
+  thumbnail?: Maybe<String>;
   theme?: Maybe<String>;
   images?: Maybe<ImageUpdateManyWithoutMeetInput>;
   tags?: Maybe<TagUpdateManyWithoutMeetsInput>;
@@ -3032,6 +3076,8 @@ export interface MarketUpdateWithoutImagesDataInput {
   title?: Maybe<String>;
   caption?: Maybe<String>;
   status?: Maybe<String>;
+  price?: Maybe<String>;
+  thumbnail?: Maybe<String>;
   comments?: Maybe<CommentUpdateManyWithoutMarketInput>;
 }
 
@@ -3414,20 +3460,20 @@ export interface MeetScalarWhereInput {
   member_lte?: Maybe<Int>;
   member_gt?: Maybe<Int>;
   member_gte?: Maybe<Int>;
-  thumnail?: Maybe<String>;
-  thumnail_not?: Maybe<String>;
-  thumnail_in?: Maybe<String[] | String>;
-  thumnail_not_in?: Maybe<String[] | String>;
-  thumnail_lt?: Maybe<String>;
-  thumnail_lte?: Maybe<String>;
-  thumnail_gt?: Maybe<String>;
-  thumnail_gte?: Maybe<String>;
-  thumnail_contains?: Maybe<String>;
-  thumnail_not_contains?: Maybe<String>;
-  thumnail_starts_with?: Maybe<String>;
-  thumnail_not_starts_with?: Maybe<String>;
-  thumnail_ends_with?: Maybe<String>;
-  thumnail_not_ends_with?: Maybe<String>;
+  thumbnail?: Maybe<String>;
+  thumbnail_not?: Maybe<String>;
+  thumbnail_in?: Maybe<String[] | String>;
+  thumbnail_not_in?: Maybe<String[] | String>;
+  thumbnail_lt?: Maybe<String>;
+  thumbnail_lte?: Maybe<String>;
+  thumbnail_gt?: Maybe<String>;
+  thumbnail_gte?: Maybe<String>;
+  thumbnail_contains?: Maybe<String>;
+  thumbnail_not_contains?: Maybe<String>;
+  thumbnail_starts_with?: Maybe<String>;
+  thumbnail_not_starts_with?: Maybe<String>;
+  thumbnail_ends_with?: Maybe<String>;
+  thumbnail_not_ends_with?: Maybe<String>;
   theme?: Maybe<String>;
   theme_not?: Maybe<String>;
   theme_in?: Maybe<String[] | String>;
@@ -3477,7 +3523,7 @@ export interface MeetUpdateManyDataInput {
   time?: Maybe<String>;
   isPublic?: Maybe<Boolean>;
   member?: Maybe<Int>;
-  thumnail?: Maybe<String>;
+  thumbnail?: Maybe<String>;
   theme?: Maybe<String>;
 }
 
@@ -4243,6 +4289,34 @@ export interface MarketScalarWhereInput {
   status_not_starts_with?: Maybe<String>;
   status_ends_with?: Maybe<String>;
   status_not_ends_with?: Maybe<String>;
+  price?: Maybe<String>;
+  price_not?: Maybe<String>;
+  price_in?: Maybe<String[] | String>;
+  price_not_in?: Maybe<String[] | String>;
+  price_lt?: Maybe<String>;
+  price_lte?: Maybe<String>;
+  price_gt?: Maybe<String>;
+  price_gte?: Maybe<String>;
+  price_contains?: Maybe<String>;
+  price_not_contains?: Maybe<String>;
+  price_starts_with?: Maybe<String>;
+  price_not_starts_with?: Maybe<String>;
+  price_ends_with?: Maybe<String>;
+  price_not_ends_with?: Maybe<String>;
+  thumbnail?: Maybe<String>;
+  thumbnail_not?: Maybe<String>;
+  thumbnail_in?: Maybe<String[] | String>;
+  thumbnail_not_in?: Maybe<String[] | String>;
+  thumbnail_lt?: Maybe<String>;
+  thumbnail_lte?: Maybe<String>;
+  thumbnail_gt?: Maybe<String>;
+  thumbnail_gte?: Maybe<String>;
+  thumbnail_contains?: Maybe<String>;
+  thumbnail_not_contains?: Maybe<String>;
+  thumbnail_starts_with?: Maybe<String>;
+  thumbnail_not_starts_with?: Maybe<String>;
+  thumbnail_ends_with?: Maybe<String>;
+  thumbnail_not_ends_with?: Maybe<String>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -4273,6 +4347,8 @@ export interface MarketUpdateManyDataInput {
   title?: Maybe<String>;
   caption?: Maybe<String>;
   status?: Maybe<String>;
+  price?: Maybe<String>;
+  thumbnail?: Maybe<String>;
 }
 
 export interface UserUpsertWithoutCommentsInput {
@@ -4537,6 +4613,8 @@ export interface MarketUpdateDataInput {
   title?: Maybe<String>;
   caption?: Maybe<String>;
   status?: Maybe<String>;
+  price?: Maybe<String>;
+  thumbnail?: Maybe<String>;
   images?: Maybe<ImageUpdateManyWithoutMarketInput>;
   comments?: Maybe<CommentUpdateManyWithoutMarketInput>;
 }
@@ -4712,6 +4790,8 @@ export interface MarketUpdateInput {
   title?: Maybe<String>;
   caption?: Maybe<String>;
   status?: Maybe<String>;
+  price?: Maybe<String>;
+  thumbnail?: Maybe<String>;
   images?: Maybe<ImageUpdateManyWithoutMarketInput>;
   comments?: Maybe<CommentUpdateManyWithoutMarketInput>;
 }
@@ -4720,6 +4800,8 @@ export interface MarketUpdateManyMutationInput {
   title?: Maybe<String>;
   caption?: Maybe<String>;
   status?: Maybe<String>;
+  price?: Maybe<String>;
+  thumbnail?: Maybe<String>;
 }
 
 export interface MeetCreateInput {
@@ -4732,7 +4814,7 @@ export interface MeetCreateInput {
   time: String;
   isPublic: Boolean;
   member?: Maybe<Int>;
-  thumnail?: Maybe<String>;
+  thumbnail?: Maybe<String>;
   theme: String;
   participants?: Maybe<UserCreateManyWithoutMeetsInput>;
   images?: Maybe<ImageCreateManyWithoutMeetInput>;
@@ -4748,7 +4830,7 @@ export interface MeetUpdateInput {
   time?: Maybe<String>;
   isPublic?: Maybe<Boolean>;
   member?: Maybe<Int>;
-  thumnail?: Maybe<String>;
+  thumbnail?: Maybe<String>;
   theme?: Maybe<String>;
   participants?: Maybe<UserUpdateManyWithoutMeetsInput>;
   images?: Maybe<ImageUpdateManyWithoutMeetInput>;
@@ -4764,7 +4846,7 @@ export interface MeetUpdateManyMutationInput {
   time?: Maybe<String>;
   isPublic?: Maybe<Boolean>;
   member?: Maybe<Int>;
-  thumnail?: Maybe<String>;
+  thumbnail?: Maybe<String>;
   theme?: Maybe<String>;
 }
 
@@ -5099,7 +5181,7 @@ export interface MeetCreateWithoutTagsInput {
   time: String;
   isPublic: Boolean;
   member?: Maybe<Int>;
-  thumnail?: Maybe<String>;
+  thumbnail?: Maybe<String>;
   theme: String;
   participants?: Maybe<UserCreateManyWithoutMeetsInput>;
   images?: Maybe<ImageCreateManyWithoutMeetInput>;
@@ -5144,7 +5226,7 @@ export interface MeetUpdateWithoutTagsDataInput {
   time?: Maybe<String>;
   isPublic?: Maybe<Boolean>;
   member?: Maybe<Int>;
-  thumnail?: Maybe<String>;
+  thumbnail?: Maybe<String>;
   theme?: Maybe<String>;
   participants?: Maybe<UserUpdateManyWithoutMeetsInput>;
   images?: Maybe<ImageUpdateManyWithoutMeetInput>;
@@ -5991,6 +6073,8 @@ export interface Market {
   title: String;
   caption: String;
   status: String;
+  price: String;
+  thumbnail?: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -6001,6 +6085,8 @@ export interface MarketPromise extends Promise<Market>, Fragmentable {
   title: () => Promise<String>;
   caption: () => Promise<String>;
   status: () => Promise<String>;
+  price: () => Promise<String>;
+  thumbnail: () => Promise<String>;
   images: <T = FragmentableArray<Image>>(args?: {
     where?: ImageWhereInput;
     orderBy?: ImageOrderByInput;
@@ -6031,6 +6117,8 @@ export interface MarketSubscription
   title: () => Promise<AsyncIterator<String>>;
   caption: () => Promise<AsyncIterator<String>>;
   status: () => Promise<AsyncIterator<String>>;
+  price: () => Promise<AsyncIterator<String>>;
+  thumbnail: () => Promise<AsyncIterator<String>>;
   images: <T = Promise<AsyncIterator<ImageSubscription>>>(args?: {
     where?: ImageWhereInput;
     orderBy?: ImageOrderByInput;
@@ -6061,6 +6149,8 @@ export interface MarketNullablePromise
   title: () => Promise<String>;
   caption: () => Promise<String>;
   status: () => Promise<String>;
+  price: () => Promise<String>;
+  thumbnail: () => Promise<String>;
   images: <T = FragmentableArray<Image>>(args?: {
     where?: ImageWhereInput;
     orderBy?: ImageOrderByInput;
@@ -6131,7 +6221,7 @@ export interface Meet {
   time: String;
   isPublic: Boolean;
   member?: Int;
-  thumnail?: String;
+  thumbnail?: String;
   theme: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
@@ -6147,7 +6237,7 @@ export interface MeetPromise extends Promise<Meet>, Fragmentable {
   time: () => Promise<String>;
   isPublic: () => Promise<Boolean>;
   member: () => Promise<Int>;
-  thumnail: () => Promise<String>;
+  thumbnail: () => Promise<String>;
   theme: () => Promise<String>;
   participants: <T = FragmentableArray<User>>(args?: {
     where?: UserWhereInput;
@@ -6192,7 +6282,7 @@ export interface MeetSubscription
   time: () => Promise<AsyncIterator<String>>;
   isPublic: () => Promise<AsyncIterator<Boolean>>;
   member: () => Promise<AsyncIterator<Int>>;
-  thumnail: () => Promise<AsyncIterator<String>>;
+  thumbnail: () => Promise<AsyncIterator<String>>;
   theme: () => Promise<AsyncIterator<String>>;
   participants: <T = Promise<AsyncIterator<UserSubscription>>>(args?: {
     where?: UserWhereInput;
@@ -6237,7 +6327,7 @@ export interface MeetNullablePromise
   time: () => Promise<String>;
   isPublic: () => Promise<Boolean>;
   member: () => Promise<Int>;
-  thumnail: () => Promise<String>;
+  thumbnail: () => Promise<String>;
   theme: () => Promise<String>;
   participants: <T = FragmentableArray<User>>(args?: {
     where?: UserWhereInput;
@@ -7496,6 +7586,8 @@ export interface MarketPreviousValues {
   title: String;
   caption: String;
   status: String;
+  price: String;
+  thumbnail?: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -7507,6 +7599,8 @@ export interface MarketPreviousValuesPromise
   title: () => Promise<String>;
   caption: () => Promise<String>;
   status: () => Promise<String>;
+  price: () => Promise<String>;
+  thumbnail: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -7518,6 +7612,8 @@ export interface MarketPreviousValuesSubscription
   title: () => Promise<AsyncIterator<String>>;
   caption: () => Promise<AsyncIterator<String>>;
   status: () => Promise<AsyncIterator<String>>;
+  price: () => Promise<AsyncIterator<String>>;
+  thumbnail: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -7557,7 +7653,7 @@ export interface MeetPreviousValues {
   time: String;
   isPublic: Boolean;
   member?: Int;
-  thumnail?: String;
+  thumbnail?: String;
   theme: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
@@ -7575,7 +7671,7 @@ export interface MeetPreviousValuesPromise
   time: () => Promise<String>;
   isPublic: () => Promise<Boolean>;
   member: () => Promise<Int>;
-  thumnail: () => Promise<String>;
+  thumbnail: () => Promise<String>;
   theme: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
@@ -7593,7 +7689,7 @@ export interface MeetPreviousValuesSubscription
   time: () => Promise<AsyncIterator<String>>;
   isPublic: () => Promise<AsyncIterator<Boolean>>;
   member: () => Promise<AsyncIterator<Int>>;
-  thumnail: () => Promise<AsyncIterator<String>>;
+  thumbnail: () => Promise<AsyncIterator<String>>;
   theme: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;

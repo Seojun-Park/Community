@@ -4,28 +4,31 @@ export default {
   Mutation: {
     uploadMarket: async (_, args, { request }) => {
       const { user } = request;
-      const { title, caption, status, images } = args;
+      const { title, caption, status, images, price } = args;
       const market = await prisma.createMarket({
         caption,
         title,
         status,
+        price,
         user: {
           connect: {
             id: user.id
           }
         }
       });
-      images.forEach(
-        async image =>
-          await prisma.createImage({
-            url: image,
-            market: {
-              connect: {
-                id: market.id
+      if (images !== undefined) {
+        images.forEach(
+          async image =>
+            await prisma.createImage({
+              url: image,
+              market: {
+                connect: {
+                  id: market.id
+                }
               }
-            }
-          })
-      );
+            })
+        );
+      }
       return market;
     }
   }

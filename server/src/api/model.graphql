@@ -52,6 +52,8 @@ type Market {
   hit: Int
   status: String!
   images: [Image!]
+  thumbnail: String
+  price: String
   comments: [Comment!]
   createdAt: String
   updatedAt: String
@@ -128,7 +130,7 @@ type Meet {
   isPublic: Boolean!
   member: Int
   participants: [User!]!
-  thumnail: String
+  thumbnail: String
   tags: [Tag!]
   date: String!
   time: String!

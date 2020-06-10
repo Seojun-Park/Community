@@ -48,6 +48,8 @@ type Market {
   title: String!
   caption: String!
   status: String!
+  price: String!
+  thumbnail: String @default(value:"https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=802&q=80")
   images: [Image!] @relation(name: "ImagesOfMarket", onDelete: CASCADE)
   comments: [Comment!] @relation(name:"CommentsOfMarket", onDelete: CASCADE)
   createdAt: DateTime! @createdAt
@@ -78,7 +80,7 @@ type Board {
 
 type Image{
   id: ID! @id
-  url: String! @default(value:"https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=802&q=80")
+  url: String! 
   meet: Meet @relation(name: "ImagesOfMeet")
   market: Market @relation(name: "ImagesOfMarket")
   createdAt: DateTime! @createdAt
@@ -124,7 +126,7 @@ type Meet {
   time: String!
   isPublic: Boolean!
   member: Int
-  thumnail: String @default(value:"https://images.unsplash.com/photo-1568992688065-536aad8a12f6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80")
+  thumbnail: String @default(value:"https://images.unsplash.com/photo-1568992688065-536aad8a12f6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80")
   theme: String!
   participants: [User!]! @relation(name:"MeetsOfUser")
   images: [Image!] @relation(name: "ImagesOfMeet", onDelete:CASCADE)

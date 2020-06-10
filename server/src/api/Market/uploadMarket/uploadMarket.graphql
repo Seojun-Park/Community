@@ -3,6 +3,7 @@ type Mutation {
         title: String!
         caption: String!
         status: String
+        price: String!
         images: [String!]
         username: String
     ): Market!
