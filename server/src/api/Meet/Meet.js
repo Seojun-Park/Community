@@ -5,5 +5,8 @@ export default {
     participants: ({ id }) => prisma.meet({ id }).participants(),
     images: ({ id }) => prisma.meet({ id }).images(),
     tags: ({ id }) => prisma.meet({ id }).tags()
+  },
+  Tag: {
+    meets: ({ id }) => prisma.tag({ id }).meets()
   }
 };

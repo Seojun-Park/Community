@@ -1447,7 +1447,9 @@ type Meet {
   date: String!
   time: String!
   isPublic: Boolean!
-  maxparticipant: Int
+  member: Int
+  thumnail: String
+  theme: String!
   participants(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
   images(where: ImageWhereInput, orderBy: ImageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Image!]
   tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag!]
@@ -1470,7 +1472,9 @@ input MeetCreateInput {
   date: String!
   time: String!
   isPublic: Boolean!
-  maxparticipant: Int
+  member: Int
+  thumnail: String
+  theme: String!
   participants: UserCreateManyWithoutMeetsInput
   images: ImageCreateManyWithoutMeetInput
   tags: TagCreateManyWithoutMeetsInput
@@ -1500,7 +1504,9 @@ input MeetCreateWithoutImagesInput {
   date: String!
   time: String!
   isPublic: Boolean!
-  maxparticipant: Int
+  member: Int
+  thumnail: String
+  theme: String!
   participants: UserCreateManyWithoutMeetsInput
   tags: TagCreateManyWithoutMeetsInput
 }
@@ -1514,7 +1520,9 @@ input MeetCreateWithoutParticipantsInput {
   date: String!
   time: String!
   isPublic: Boolean!
-  maxparticipant: Int
+  member: Int
+  thumnail: String
+  theme: String!
   images: ImageCreateManyWithoutMeetInput
   tags: TagCreateManyWithoutMeetsInput
 }
@@ -1528,7 +1536,9 @@ input MeetCreateWithoutTagsInput {
   date: String!
   time: String!
   isPublic: Boolean!
-  maxparticipant: Int
+  member: Int
+  thumnail: String
+  theme: String!
   participants: UserCreateManyWithoutMeetsInput
   images: ImageCreateManyWithoutMeetInput
 }
@@ -1555,8 +1565,12 @@ enum MeetOrderByInput {
   time_DESC
   isPublic_ASC
   isPublic_DESC
-  maxparticipant_ASC
-  maxparticipant_DESC
+  member_ASC
+  member_DESC
+  thumnail_ASC
+  thumnail_DESC
+  theme_ASC
+  theme_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -1572,7 +1586,9 @@ type MeetPreviousValues {
   date: String!
   time: String!
   isPublic: Boolean!
-  maxparticipant: Int
+  member: Int
+  thumnail: String
+  theme: String!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -1678,14 +1694,42 @@ input MeetScalarWhereInput {
   time_not_ends_with: String
   isPublic: Boolean
   isPublic_not: Boolean
-  maxparticipant: Int
-  maxparticipant_not: Int
-  maxparticipant_in: [Int!]
-  maxparticipant_not_in: [Int!]
-  maxparticipant_lt: Int
-  maxparticipant_lte: Int
-  maxparticipant_gt: Int
-  maxparticipant_gte: Int
+  member: Int
+  member_not: Int
+  member_in: [Int!]
+  member_not_in: [Int!]
+  member_lt: Int
+  member_lte: Int
+  member_gt: Int
+  member_gte: Int
+  thumnail: String
+  thumnail_not: String
+  thumnail_in: [String!]
+  thumnail_not_in: [String!]
+  thumnail_lt: String
+  thumnail_lte: String
+  thumnail_gt: String
+  thumnail_gte: String
+  thumnail_contains: String
+  thumnail_not_contains: String
+  thumnail_starts_with: String
+  thumnail_not_starts_with: String
+  thumnail_ends_with: String
+  thumnail_not_ends_with: String
+  theme: String
+  theme_not: String
+  theme_in: [String!]
+  theme_not_in: [String!]
+  theme_lt: String
+  theme_lte: String
+  theme_gt: String
+  theme_gte: String
+  theme_contains: String
+  theme_not_contains: String
+  theme_starts_with: String
+  theme_not_starts_with: String
+  theme_ends_with: String
+  theme_not_ends_with: String
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -1733,7 +1777,9 @@ input MeetUpdateInput {
   date: String
   time: String
   isPublic: Boolean
-  maxparticipant: Int
+  member: Int
+  thumnail: String
+  theme: String
   participants: UserUpdateManyWithoutMeetsInput
   images: ImageUpdateManyWithoutMeetInput
   tags: TagUpdateManyWithoutMeetsInput
@@ -1747,7 +1793,9 @@ input MeetUpdateManyDataInput {
   date: String
   time: String
   isPublic: Boolean
-  maxparticipant: Int
+  member: Int
+  thumnail: String
+  theme: String
 }
 
 input MeetUpdateManyMutationInput {
@@ -1758,7 +1806,9 @@ input MeetUpdateManyMutationInput {
   date: String
   time: String
   isPublic: Boolean
-  maxparticipant: Int
+  member: Int
+  thumnail: String
+  theme: String
 }
 
 input MeetUpdateManyWithoutParticipantsInput {
@@ -1807,7 +1857,9 @@ input MeetUpdateWithoutImagesDataInput {
   date: String
   time: String
   isPublic: Boolean
-  maxparticipant: Int
+  member: Int
+  thumnail: String
+  theme: String
   participants: UserUpdateManyWithoutMeetsInput
   tags: TagUpdateManyWithoutMeetsInput
 }
@@ -1820,7 +1872,9 @@ input MeetUpdateWithoutParticipantsDataInput {
   date: String
   time: String
   isPublic: Boolean
-  maxparticipant: Int
+  member: Int
+  thumnail: String
+  theme: String
   images: ImageUpdateManyWithoutMeetInput
   tags: TagUpdateManyWithoutMeetsInput
 }
@@ -1833,7 +1887,9 @@ input MeetUpdateWithoutTagsDataInput {
   date: String
   time: String
   isPublic: Boolean
-  maxparticipant: Int
+  member: Int
+  thumnail: String
+  theme: String
   participants: UserUpdateManyWithoutMeetsInput
   images: ImageUpdateManyWithoutMeetInput
 }
@@ -1966,14 +2022,42 @@ input MeetWhereInput {
   time_not_ends_with: String
   isPublic: Boolean
   isPublic_not: Boolean
-  maxparticipant: Int
-  maxparticipant_not: Int
-  maxparticipant_in: [Int!]
-  maxparticipant_not_in: [Int!]
-  maxparticipant_lt: Int
-  maxparticipant_lte: Int
-  maxparticipant_gt: Int
-  maxparticipant_gte: Int
+  member: Int
+  member_not: Int
+  member_in: [Int!]
+  member_not_in: [Int!]
+  member_lt: Int
+  member_lte: Int
+  member_gt: Int
+  member_gte: Int
+  thumnail: String
+  thumnail_not: String
+  thumnail_in: [String!]
+  thumnail_not_in: [String!]
+  thumnail_lt: String
+  thumnail_lte: String
+  thumnail_gt: String
+  thumnail_gte: String
+  thumnail_contains: String
+  thumnail_not_contains: String
+  thumnail_starts_with: String
+  thumnail_not_starts_with: String
+  thumnail_ends_with: String
+  thumnail_not_ends_with: String
+  theme: String
+  theme_not: String
+  theme_in: [String!]
+  theme_not_in: [String!]
+  theme_lt: String
+  theme_lte: String
+  theme_gt: String
+  theme_gte: String
+  theme_contains: String
+  theme_not_contains: String
+  theme_starts_with: String
+  theme_not_starts_with: String
+  theme_ends_with: String
+  theme_not_ends_with: String
   participants_every: UserWhereInput
   participants_some: UserWhereInput
   participants_none: UserWhereInput
@@ -3990,6 +4074,8 @@ type User {
   rents(where: RentWhereInput, orderBy: RentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Rent!]
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
   meets(where: MeetWhereInput, orderBy: MeetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Meet!]
+  following(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  followers(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
   rooms(where: RoomWhereInput, orderBy: RoomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Room!]
   schedules(where: ScheduleWhereInput, orderBy: ScheduleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Schedule!]
   loginSecret: String
@@ -4017,9 +4103,21 @@ input UserCreateInput {
   rents: RentCreateManyWithoutUserInput
   comments: CommentCreateManyWithoutUserInput
   meets: MeetCreateManyWithoutParticipantsInput
+  following: UserCreateManyWithoutFollowersInput
+  followers: UserCreateManyWithoutFollowingInput
   rooms: RoomCreateManyWithoutParticipantsInput
   schedules: ScheduleCreateManyWithoutUserInput
   loginSecret: String
+}
+
+input UserCreateManyWithoutFollowersInput {
+  create: [UserCreateWithoutFollowersInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateManyWithoutFollowingInput {
+  create: [UserCreateWithoutFollowingInput!]
+  connect: [UserWhereUniqueInput!]
 }
 
 input UserCreateManyWithoutMeetsInput {
@@ -4080,6 +4178,8 @@ input UserCreateWithoutBoardsInput {
   rents: RentCreateManyWithoutUserInput
   comments: CommentCreateManyWithoutUserInput
   meets: MeetCreateManyWithoutParticipantsInput
+  following: UserCreateManyWithoutFollowersInput
+  followers: UserCreateManyWithoutFollowingInput
   rooms: RoomCreateManyWithoutParticipantsInput
   schedules: ScheduleCreateManyWithoutUserInput
   loginSecret: String
@@ -4098,6 +4198,48 @@ input UserCreateWithoutCommentsInput {
   markets: MarketCreateManyWithoutUserInput
   rents: RentCreateManyWithoutUserInput
   meets: MeetCreateManyWithoutParticipantsInput
+  following: UserCreateManyWithoutFollowersInput
+  followers: UserCreateManyWithoutFollowingInput
+  rooms: RoomCreateManyWithoutParticipantsInput
+  schedules: ScheduleCreateManyWithoutUserInput
+  loginSecret: String
+}
+
+input UserCreateWithoutFollowersInput {
+  id: ID
+  avatar: String
+  email: String!
+  firstName: String
+  lastName: String
+  username: String!
+  intro: String
+  posts: PostCreateManyWithoutUserInput
+  boards: BoardCreateManyWithoutUserInput
+  markets: MarketCreateManyWithoutUserInput
+  rents: RentCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
+  meets: MeetCreateManyWithoutParticipantsInput
+  following: UserCreateManyWithoutFollowersInput
+  rooms: RoomCreateManyWithoutParticipantsInput
+  schedules: ScheduleCreateManyWithoutUserInput
+  loginSecret: String
+}
+
+input UserCreateWithoutFollowingInput {
+  id: ID
+  avatar: String
+  email: String!
+  firstName: String
+  lastName: String
+  username: String!
+  intro: String
+  posts: PostCreateManyWithoutUserInput
+  boards: BoardCreateManyWithoutUserInput
+  markets: MarketCreateManyWithoutUserInput
+  rents: RentCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
+  meets: MeetCreateManyWithoutParticipantsInput
+  followers: UserCreateManyWithoutFollowingInput
   rooms: RoomCreateManyWithoutParticipantsInput
   schedules: ScheduleCreateManyWithoutUserInput
   loginSecret: String
@@ -4116,6 +4258,8 @@ input UserCreateWithoutMarketsInput {
   rents: RentCreateManyWithoutUserInput
   comments: CommentCreateManyWithoutUserInput
   meets: MeetCreateManyWithoutParticipantsInput
+  following: UserCreateManyWithoutFollowersInput
+  followers: UserCreateManyWithoutFollowingInput
   rooms: RoomCreateManyWithoutParticipantsInput
   schedules: ScheduleCreateManyWithoutUserInput
   loginSecret: String
@@ -4134,6 +4278,8 @@ input UserCreateWithoutMeetsInput {
   markets: MarketCreateManyWithoutUserInput
   rents: RentCreateManyWithoutUserInput
   comments: CommentCreateManyWithoutUserInput
+  following: UserCreateManyWithoutFollowersInput
+  followers: UserCreateManyWithoutFollowingInput
   rooms: RoomCreateManyWithoutParticipantsInput
   schedules: ScheduleCreateManyWithoutUserInput
   loginSecret: String
@@ -4152,6 +4298,8 @@ input UserCreateWithoutPostsInput {
   rents: RentCreateManyWithoutUserInput
   comments: CommentCreateManyWithoutUserInput
   meets: MeetCreateManyWithoutParticipantsInput
+  following: UserCreateManyWithoutFollowersInput
+  followers: UserCreateManyWithoutFollowingInput
   rooms: RoomCreateManyWithoutParticipantsInput
   schedules: ScheduleCreateManyWithoutUserInput
   loginSecret: String
@@ -4170,6 +4318,8 @@ input UserCreateWithoutRentsInput {
   markets: MarketCreateManyWithoutUserInput
   comments: CommentCreateManyWithoutUserInput
   meets: MeetCreateManyWithoutParticipantsInput
+  following: UserCreateManyWithoutFollowersInput
+  followers: UserCreateManyWithoutFollowingInput
   rooms: RoomCreateManyWithoutParticipantsInput
   schedules: ScheduleCreateManyWithoutUserInput
   loginSecret: String
@@ -4189,6 +4339,8 @@ input UserCreateWithoutRoomsInput {
   rents: RentCreateManyWithoutUserInput
   comments: CommentCreateManyWithoutUserInput
   meets: MeetCreateManyWithoutParticipantsInput
+  following: UserCreateManyWithoutFollowersInput
+  followers: UserCreateManyWithoutFollowingInput
   schedules: ScheduleCreateManyWithoutUserInput
   loginSecret: String
 }
@@ -4207,6 +4359,8 @@ input UserCreateWithoutSchedulesInput {
   rents: RentCreateManyWithoutUserInput
   comments: CommentCreateManyWithoutUserInput
   meets: MeetCreateManyWithoutParticipantsInput
+  following: UserCreateManyWithoutFollowersInput
+  followers: UserCreateManyWithoutFollowingInput
   rooms: RoomCreateManyWithoutParticipantsInput
   loginSecret: String
 }
@@ -4417,6 +4571,8 @@ input UserUpdateDataInput {
   rents: RentUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
   meets: MeetUpdateManyWithoutParticipantsInput
+  following: UserUpdateManyWithoutFollowersInput
+  followers: UserUpdateManyWithoutFollowingInput
   rooms: RoomUpdateManyWithoutParticipantsInput
   schedules: ScheduleUpdateManyWithoutUserInput
   loginSecret: String
@@ -4435,6 +4591,8 @@ input UserUpdateInput {
   rents: RentUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
   meets: MeetUpdateManyWithoutParticipantsInput
+  following: UserUpdateManyWithoutFollowersInput
+  followers: UserUpdateManyWithoutFollowingInput
   rooms: RoomUpdateManyWithoutParticipantsInput
   schedules: ScheduleUpdateManyWithoutUserInput
   loginSecret: String
@@ -4458,6 +4616,30 @@ input UserUpdateManyMutationInput {
   username: String
   intro: String
   loginSecret: String
+}
+
+input UserUpdateManyWithoutFollowersInput {
+  create: [UserCreateWithoutFollowersInput!]
+  delete: [UserWhereUniqueInput!]
+  connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutFollowersInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutFollowersInput!]
+  deleteMany: [UserScalarWhereInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+}
+
+input UserUpdateManyWithoutFollowingInput {
+  create: [UserCreateWithoutFollowingInput!]
+  delete: [UserWhereUniqueInput!]
+  connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutFollowingInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutFollowingInput!]
+  deleteMany: [UserScalarWhereInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
 }
 
 input UserUpdateManyWithoutMeetsInput {
@@ -4552,6 +4734,8 @@ input UserUpdateWithoutBoardsDataInput {
   rents: RentUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
   meets: MeetUpdateManyWithoutParticipantsInput
+  following: UserUpdateManyWithoutFollowersInput
+  followers: UserUpdateManyWithoutFollowingInput
   rooms: RoomUpdateManyWithoutParticipantsInput
   schedules: ScheduleUpdateManyWithoutUserInput
   loginSecret: String
@@ -4569,6 +4753,46 @@ input UserUpdateWithoutCommentsDataInput {
   markets: MarketUpdateManyWithoutUserInput
   rents: RentUpdateManyWithoutUserInput
   meets: MeetUpdateManyWithoutParticipantsInput
+  following: UserUpdateManyWithoutFollowersInput
+  followers: UserUpdateManyWithoutFollowingInput
+  rooms: RoomUpdateManyWithoutParticipantsInput
+  schedules: ScheduleUpdateManyWithoutUserInput
+  loginSecret: String
+}
+
+input UserUpdateWithoutFollowersDataInput {
+  avatar: String
+  email: String
+  firstName: String
+  lastName: String
+  username: String
+  intro: String
+  posts: PostUpdateManyWithoutUserInput
+  boards: BoardUpdateManyWithoutUserInput
+  markets: MarketUpdateManyWithoutUserInput
+  rents: RentUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
+  meets: MeetUpdateManyWithoutParticipantsInput
+  following: UserUpdateManyWithoutFollowersInput
+  rooms: RoomUpdateManyWithoutParticipantsInput
+  schedules: ScheduleUpdateManyWithoutUserInput
+  loginSecret: String
+}
+
+input UserUpdateWithoutFollowingDataInput {
+  avatar: String
+  email: String
+  firstName: String
+  lastName: String
+  username: String
+  intro: String
+  posts: PostUpdateManyWithoutUserInput
+  boards: BoardUpdateManyWithoutUserInput
+  markets: MarketUpdateManyWithoutUserInput
+  rents: RentUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
+  meets: MeetUpdateManyWithoutParticipantsInput
+  followers: UserUpdateManyWithoutFollowingInput
   rooms: RoomUpdateManyWithoutParticipantsInput
   schedules: ScheduleUpdateManyWithoutUserInput
   loginSecret: String
@@ -4586,6 +4810,8 @@ input UserUpdateWithoutMarketsDataInput {
   rents: RentUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
   meets: MeetUpdateManyWithoutParticipantsInput
+  following: UserUpdateManyWithoutFollowersInput
+  followers: UserUpdateManyWithoutFollowingInput
   rooms: RoomUpdateManyWithoutParticipantsInput
   schedules: ScheduleUpdateManyWithoutUserInput
   loginSecret: String
@@ -4603,6 +4829,8 @@ input UserUpdateWithoutMeetsDataInput {
   markets: MarketUpdateManyWithoutUserInput
   rents: RentUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
+  following: UserUpdateManyWithoutFollowersInput
+  followers: UserUpdateManyWithoutFollowingInput
   rooms: RoomUpdateManyWithoutParticipantsInput
   schedules: ScheduleUpdateManyWithoutUserInput
   loginSecret: String
@@ -4620,6 +4848,8 @@ input UserUpdateWithoutPostsDataInput {
   rents: RentUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
   meets: MeetUpdateManyWithoutParticipantsInput
+  following: UserUpdateManyWithoutFollowersInput
+  followers: UserUpdateManyWithoutFollowingInput
   rooms: RoomUpdateManyWithoutParticipantsInput
   schedules: ScheduleUpdateManyWithoutUserInput
   loginSecret: String
@@ -4637,6 +4867,8 @@ input UserUpdateWithoutRentsDataInput {
   markets: MarketUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
   meets: MeetUpdateManyWithoutParticipantsInput
+  following: UserUpdateManyWithoutFollowersInput
+  followers: UserUpdateManyWithoutFollowingInput
   rooms: RoomUpdateManyWithoutParticipantsInput
   schedules: ScheduleUpdateManyWithoutUserInput
   loginSecret: String
@@ -4655,6 +4887,8 @@ input UserUpdateWithoutRoomsDataInput {
   rents: RentUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
   meets: MeetUpdateManyWithoutParticipantsInput
+  following: UserUpdateManyWithoutFollowersInput
+  followers: UserUpdateManyWithoutFollowingInput
   schedules: ScheduleUpdateManyWithoutUserInput
   loginSecret: String
 }
@@ -4672,8 +4906,20 @@ input UserUpdateWithoutSchedulesDataInput {
   rents: RentUpdateManyWithoutUserInput
   comments: CommentUpdateManyWithoutUserInput
   meets: MeetUpdateManyWithoutParticipantsInput
+  following: UserUpdateManyWithoutFollowersInput
+  followers: UserUpdateManyWithoutFollowingInput
   rooms: RoomUpdateManyWithoutParticipantsInput
   loginSecret: String
+}
+
+input UserUpdateWithWhereUniqueWithoutFollowersInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutFollowersDataInput!
+}
+
+input UserUpdateWithWhereUniqueWithoutFollowingInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutFollowingDataInput!
 }
 
 input UserUpdateWithWhereUniqueWithoutMeetsInput {
@@ -4719,6 +4965,18 @@ input UserUpsertWithoutRentsInput {
 input UserUpsertWithoutSchedulesInput {
   update: UserUpdateWithoutSchedulesDataInput!
   create: UserCreateWithoutSchedulesInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutFollowersInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutFollowersDataInput!
+  create: UserCreateWithoutFollowersInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutFollowingInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutFollowingDataInput!
+  create: UserCreateWithoutFollowingInput!
 }
 
 input UserUpsertWithWhereUniqueWithoutMeetsInput {
@@ -4850,6 +5108,12 @@ input UserWhereInput {
   meets_every: MeetWhereInput
   meets_some: MeetWhereInput
   meets_none: MeetWhereInput
+  following_every: UserWhereInput
+  following_some: UserWhereInput
+  following_none: UserWhereInput
+  followers_every: UserWhereInput
+  followers_some: UserWhereInput
+  followers_none: UserWhereInput
   rooms_every: RoomWhereInput
   rooms_some: RoomWhereInput
   rooms_none: RoomWhereInput

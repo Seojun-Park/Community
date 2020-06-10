@@ -12,6 +12,8 @@ type User {
   rents:[Rent!]! @relation(name:"RentsOfUser", onDelete: CASCADE)
   comments: [Comment!]! @relation(name:"CommentsOfUser", onDelete: CASCADE)
   meets:[Meet!]! @relation(name:"MeetsOfUser", onDelete: CASCADE)
+  following: [User!]! @relation(name: "FollowRelation")
+  followers: [User!]! @relation(name: "FollowRelation")
   rooms: [Room!]!
   schedules: [Schedule!] @relation(name: "SchedulesOfUser", onDelete:CASCADE)
   loginSecret: String
@@ -119,7 +121,9 @@ type Meet {
   date: String!
   time: String!
   isPublic: Boolean!
-  maxparticipant: Int
+  member: Int
+  thumnail: String
+  theme: String!
   participants: [User!]! @relation(name:"MeetsOfUser")
   images: [Image!] @relation(name: "ImagesOfMeet", onDelete:CASCADE)
   tags: [Tag!] @relation(link: TABLE)

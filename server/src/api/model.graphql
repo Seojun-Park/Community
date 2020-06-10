@@ -12,6 +12,8 @@ type User {
   rents: [Rent!]!
   rooms: [Room!]
   meets: [Meet!]!
+  following: [User!]!
+  followers: [User!]!
   schedules: [Schedule!]
   loginSecret: String!
   createdAt: String
@@ -122,11 +124,13 @@ type Meet {
   creator: String
   location: String
   isPublic: Boolean!
-  maxparticipant: Int
+  member: Int
   participants: [User!]!
+  thumnail: String
   tags: [Tag!]
   date: String!
   time: String!
+  theme: String!
   images: [Image!]
   createdAt: String
   updatedAt: String
