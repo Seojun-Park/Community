@@ -12,8 +12,9 @@ type User {
   rents: [Rent!]!
   rooms: [Room!]
   meets: [Meet!]!
-  following: [User!]!
-  followers: [User!]!
+  following: [User!]
+  followers: [User!]
+  isFollowing: Boolean
   schedules: [Schedule!]
   loginSecret: String!
   createdAt: String
