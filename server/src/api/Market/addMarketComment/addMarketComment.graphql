@@ -1,6 +1,0 @@
-type Mutation {
-    addMarketComment(
-        text: String!
-        marketId: String!
-    ): Comment!
-}

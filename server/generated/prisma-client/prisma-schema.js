@@ -439,8 +439,6 @@ type Comment {
   text: String!
   user: User
   board: Board
-  market: Market
-  rent: Rent
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -456,8 +454,6 @@ input CommentCreateInput {
   text: String!
   user: UserCreateOneWithoutCommentsInput
   board: BoardCreateOneWithoutCommentsInput
-  market: MarketCreateOneWithoutCommentsInput
-  rent: RentCreateOneWithoutCommentsInput
 }
 
 input CommentCreateManyInput {
@@ -470,16 +466,6 @@ input CommentCreateManyWithoutBoardInput {
   connect: [CommentWhereUniqueInput!]
 }
 
-input CommentCreateManyWithoutMarketInput {
-  create: [CommentCreateWithoutMarketInput!]
-  connect: [CommentWhereUniqueInput!]
-}
-
-input CommentCreateManyWithoutRentInput {
-  create: [CommentCreateWithoutRentInput!]
-  connect: [CommentWhereUniqueInput!]
-}
-
 input CommentCreateManyWithoutUserInput {
   create: [CommentCreateWithoutUserInput!]
   connect: [CommentWhereUniqueInput!]
@@ -489,32 +475,12 @@ input CommentCreateWithoutBoardInput {
   id: ID
   text: String!
   user: UserCreateOneWithoutCommentsInput
-  market: MarketCreateOneWithoutCommentsInput
-  rent: RentCreateOneWithoutCommentsInput
-}
-
-input CommentCreateWithoutMarketInput {
-  id: ID
-  text: String!
-  user: UserCreateOneWithoutCommentsInput
-  board: BoardCreateOneWithoutCommentsInput
-  rent: RentCreateOneWithoutCommentsInput
-}
-
-input CommentCreateWithoutRentInput {
-  id: ID
-  text: String!
-  user: UserCreateOneWithoutCommentsInput
-  board: BoardCreateOneWithoutCommentsInput
-  market: MarketCreateOneWithoutCommentsInput
 }
 
 input CommentCreateWithoutUserInput {
   id: ID
   text: String!
   board: BoardCreateOneWithoutCommentsInput
-  market: MarketCreateOneWithoutCommentsInput
-  rent: RentCreateOneWithoutCommentsInput
 }
 
 type CommentEdge {
@@ -612,16 +578,12 @@ input CommentUpdateDataInput {
   text: String
   user: UserUpdateOneWithoutCommentsInput
   board: BoardUpdateOneWithoutCommentsInput
-  market: MarketUpdateOneWithoutCommentsInput
-  rent: RentUpdateOneWithoutCommentsInput
 }
 
 input CommentUpdateInput {
   text: String
   user: UserUpdateOneWithoutCommentsInput
   board: BoardUpdateOneWithoutCommentsInput
-  market: MarketUpdateOneWithoutCommentsInput
-  rent: RentUpdateOneWithoutCommentsInput
 }
 
 input CommentUpdateManyDataInput {
@@ -656,30 +618,6 @@ input CommentUpdateManyWithoutBoardInput {
   updateMany: [CommentUpdateManyWithWhereNestedInput!]
 }
 
-input CommentUpdateManyWithoutMarketInput {
-  create: [CommentCreateWithoutMarketInput!]
-  delete: [CommentWhereUniqueInput!]
-  connect: [CommentWhereUniqueInput!]
-  set: [CommentWhereUniqueInput!]
-  disconnect: [CommentWhereUniqueInput!]
-  update: [CommentUpdateWithWhereUniqueWithoutMarketInput!]
-  upsert: [CommentUpsertWithWhereUniqueWithoutMarketInput!]
-  deleteMany: [CommentScalarWhereInput!]
-  updateMany: [CommentUpdateManyWithWhereNestedInput!]
-}
-
-input CommentUpdateManyWithoutRentInput {
-  create: [CommentCreateWithoutRentInput!]
-  delete: [CommentWhereUniqueInput!]
-  connect: [CommentWhereUniqueInput!]
-  set: [CommentWhereUniqueInput!]
-  disconnect: [CommentWhereUniqueInput!]
-  update: [CommentUpdateWithWhereUniqueWithoutRentInput!]
-  upsert: [CommentUpsertWithWhereUniqueWithoutRentInput!]
-  deleteMany: [CommentScalarWhereInput!]
-  updateMany: [CommentUpdateManyWithWhereNestedInput!]
-}
-
 input CommentUpdateManyWithoutUserInput {
   create: [CommentCreateWithoutUserInput!]
   delete: [CommentWhereUniqueInput!]
@@ -700,29 +638,11 @@ input CommentUpdateManyWithWhereNestedInput {
 input CommentUpdateWithoutBoardDataInput {
   text: String
   user: UserUpdateOneWithoutCommentsInput
-  market: MarketUpdateOneWithoutCommentsInput
-  rent: RentUpdateOneWithoutCommentsInput
-}
-
-input CommentUpdateWithoutMarketDataInput {
-  text: String
-  user: UserUpdateOneWithoutCommentsInput
-  board: BoardUpdateOneWithoutCommentsInput
-  rent: RentUpdateOneWithoutCommentsInput
-}
-
-input CommentUpdateWithoutRentDataInput {
-  text: String
-  user: UserUpdateOneWithoutCommentsInput
-  board: BoardUpdateOneWithoutCommentsInput
-  market: MarketUpdateOneWithoutCommentsInput
 }
 
 input CommentUpdateWithoutUserDataInput {
   text: String
   board: BoardUpdateOneWithoutCommentsInput
-  market: MarketUpdateOneWithoutCommentsInput
-  rent: RentUpdateOneWithoutCommentsInput
 }
 
 input CommentUpdateWithWhereUniqueNestedInput {
@@ -733,16 +653,6 @@ input CommentUpdateWithWhereUniqueNestedInput {
 input CommentUpdateWithWhereUniqueWithoutBoardInput {
   where: CommentWhereUniqueInput!
   data: CommentUpdateWithoutBoardDataInput!
-}
-
-input CommentUpdateWithWhereUniqueWithoutMarketInput {
-  where: CommentWhereUniqueInput!
-  data: CommentUpdateWithoutMarketDataInput!
-}
-
-input CommentUpdateWithWhereUniqueWithoutRentInput {
-  where: CommentWhereUniqueInput!
-  data: CommentUpdateWithoutRentDataInput!
 }
 
 input CommentUpdateWithWhereUniqueWithoutUserInput {
@@ -760,18 +670,6 @@ input CommentUpsertWithWhereUniqueWithoutBoardInput {
   where: CommentWhereUniqueInput!
   update: CommentUpdateWithoutBoardDataInput!
   create: CommentCreateWithoutBoardInput!
-}
-
-input CommentUpsertWithWhereUniqueWithoutMarketInput {
-  where: CommentWhereUniqueInput!
-  update: CommentUpdateWithoutMarketDataInput!
-  create: CommentCreateWithoutMarketInput!
-}
-
-input CommentUpsertWithWhereUniqueWithoutRentInput {
-  where: CommentWhereUniqueInput!
-  update: CommentUpdateWithoutRentDataInput!
-  create: CommentCreateWithoutRentInput!
 }
 
 input CommentUpsertWithWhereUniqueWithoutUserInput {
@@ -811,8 +709,6 @@ input CommentWhereInput {
   text_not_ends_with: String
   user: UserWhereInput
   board: BoardWhereInput
-  market: MarketWhereInput
-  rent: RentWhereInput
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -1117,7 +1013,6 @@ type Market {
   price: String!
   thumbnail: String
   images(where: ImageWhereInput, orderBy: ImageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Image!]
-  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -1137,7 +1032,6 @@ input MarketCreateInput {
   price: String!
   thumbnail: String
   images: ImageCreateManyWithoutMarketInput
-  comments: CommentCreateManyWithoutMarketInput
 }
 
 input MarketCreateManyInput {
@@ -1150,25 +1044,9 @@ input MarketCreateManyWithoutUserInput {
   connect: [MarketWhereUniqueInput!]
 }
 
-input MarketCreateOneWithoutCommentsInput {
-  create: MarketCreateWithoutCommentsInput
-  connect: MarketWhereUniqueInput
-}
-
 input MarketCreateOneWithoutImagesInput {
   create: MarketCreateWithoutImagesInput
   connect: MarketWhereUniqueInput
-}
-
-input MarketCreateWithoutCommentsInput {
-  id: ID
-  user: UserCreateOneWithoutMarketsInput!
-  title: String!
-  caption: String!
-  status: String!
-  price: String!
-  thumbnail: String
-  images: ImageCreateManyWithoutMarketInput
 }
 
 input MarketCreateWithoutImagesInput {
@@ -1179,7 +1057,6 @@ input MarketCreateWithoutImagesInput {
   status: String!
   price: String!
   thumbnail: String
-  comments: CommentCreateManyWithoutMarketInput
 }
 
 input MarketCreateWithoutUserInput {
@@ -1190,7 +1067,6 @@ input MarketCreateWithoutUserInput {
   price: String!
   thumbnail: String
   images: ImageCreateManyWithoutMarketInput
-  comments: CommentCreateManyWithoutMarketInput
 }
 
 type MarketEdge {
@@ -1360,7 +1236,6 @@ input MarketUpdateDataInput {
   price: String
   thumbnail: String
   images: ImageUpdateManyWithoutMarketInput
-  comments: CommentUpdateManyWithoutMarketInput
 }
 
 input MarketUpdateInput {
@@ -1371,7 +1246,6 @@ input MarketUpdateInput {
   price: String
   thumbnail: String
   images: ImageUpdateManyWithoutMarketInput
-  comments: CommentUpdateManyWithoutMarketInput
 }
 
 input MarketUpdateManyDataInput {
@@ -1419,15 +1293,6 @@ input MarketUpdateManyWithWhereNestedInput {
   data: MarketUpdateManyDataInput!
 }
 
-input MarketUpdateOneWithoutCommentsInput {
-  create: MarketCreateWithoutCommentsInput
-  update: MarketUpdateWithoutCommentsDataInput
-  upsert: MarketUpsertWithoutCommentsInput
-  delete: Boolean
-  disconnect: Boolean
-  connect: MarketWhereUniqueInput
-}
-
 input MarketUpdateOneWithoutImagesInput {
   create: MarketCreateWithoutImagesInput
   update: MarketUpdateWithoutImagesDataInput
@@ -1437,16 +1302,6 @@ input MarketUpdateOneWithoutImagesInput {
   connect: MarketWhereUniqueInput
 }
 
-input MarketUpdateWithoutCommentsDataInput {
-  user: UserUpdateOneRequiredWithoutMarketsInput
-  title: String
-  caption: String
-  status: String
-  price: String
-  thumbnail: String
-  images: ImageUpdateManyWithoutMarketInput
-}
-
 input MarketUpdateWithoutImagesDataInput {
   user: UserUpdateOneRequiredWithoutMarketsInput
   title: String
@@ -1454,7 +1309,6 @@ input MarketUpdateWithoutImagesDataInput {
   status: String
   price: String
   thumbnail: String
-  comments: CommentUpdateManyWithoutMarketInput
 }
 
 input MarketUpdateWithoutUserDataInput {
@@ -1464,7 +1318,6 @@ input MarketUpdateWithoutUserDataInput {
   price: String
   thumbnail: String
   images: ImageUpdateManyWithoutMarketInput
-  comments: CommentUpdateManyWithoutMarketInput
 }
 
 input MarketUpdateWithWhereUniqueNestedInput {
@@ -1475,11 +1328,6 @@ input MarketUpdateWithWhereUniqueNestedInput {
 input MarketUpdateWithWhereUniqueWithoutUserInput {
   where: MarketWhereUniqueInput!
   data: MarketUpdateWithoutUserDataInput!
-}
-
-input MarketUpsertWithoutCommentsInput {
-  update: MarketUpdateWithoutCommentsDataInput!
-  create: MarketCreateWithoutCommentsInput!
 }
 
 input MarketUpsertWithoutImagesInput {
@@ -1588,9 +1436,6 @@ input MarketWhereInput {
   images_every: ImageWhereInput
   images_some: ImageWhereInput
   images_none: ImageWhereInput
-  comments_every: CommentWhereInput
-  comments_some: CommentWhereInput
-  comments_none: CommentWhereInput
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -3112,7 +2957,6 @@ type Rent {
   title: String!
   caption: String!
   status: String!
-  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -3129,7 +2973,6 @@ input RentCreateInput {
   title: String!
   caption: String!
   status: String!
-  comments: CommentCreateManyWithoutRentInput
 }
 
 input RentCreateManyInput {
@@ -3142,25 +2985,11 @@ input RentCreateManyWithoutUserInput {
   connect: [RentWhereUniqueInput!]
 }
 
-input RentCreateOneWithoutCommentsInput {
-  create: RentCreateWithoutCommentsInput
-  connect: RentWhereUniqueInput
-}
-
-input RentCreateWithoutCommentsInput {
-  id: ID
-  user: UserCreateOneWithoutRentsInput!
-  title: String!
-  caption: String!
-  status: String!
-}
-
 input RentCreateWithoutUserInput {
   id: ID
   title: String!
   caption: String!
   status: String!
-  comments: CommentCreateManyWithoutRentInput
 }
 
 type RentEdge {
@@ -3293,7 +3122,6 @@ input RentUpdateDataInput {
   title: String
   caption: String
   status: String
-  comments: CommentUpdateManyWithoutRentInput
 }
 
 input RentUpdateInput {
@@ -3301,7 +3129,6 @@ input RentUpdateInput {
   title: String
   caption: String
   status: String
-  comments: CommentUpdateManyWithoutRentInput
 }
 
 input RentUpdateManyDataInput {
@@ -3345,27 +3172,10 @@ input RentUpdateManyWithWhereNestedInput {
   data: RentUpdateManyDataInput!
 }
 
-input RentUpdateOneWithoutCommentsInput {
-  create: RentCreateWithoutCommentsInput
-  update: RentUpdateWithoutCommentsDataInput
-  upsert: RentUpsertWithoutCommentsInput
-  delete: Boolean
-  disconnect: Boolean
-  connect: RentWhereUniqueInput
-}
-
-input RentUpdateWithoutCommentsDataInput {
-  user: UserUpdateOneRequiredWithoutRentsInput
-  title: String
-  caption: String
-  status: String
-}
-
 input RentUpdateWithoutUserDataInput {
   title: String
   caption: String
   status: String
-  comments: CommentUpdateManyWithoutRentInput
 }
 
 input RentUpdateWithWhereUniqueNestedInput {
@@ -3376,11 +3186,6 @@ input RentUpdateWithWhereUniqueNestedInput {
 input RentUpdateWithWhereUniqueWithoutUserInput {
   where: RentWhereUniqueInput!
   data: RentUpdateWithoutUserDataInput!
-}
-
-input RentUpsertWithoutCommentsInput {
-  update: RentUpdateWithoutCommentsDataInput!
-  create: RentCreateWithoutCommentsInput!
 }
 
 input RentUpsertWithWhereUniqueNestedInput {
@@ -3453,9 +3258,6 @@ input RentWhereInput {
   status_not_starts_with: String
   status_ends_with: String
   status_not_ends_with: String
-  comments_every: CommentWhereInput
-  comments_some: CommentWhereInput
-  comments_none: CommentWhereInput
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]

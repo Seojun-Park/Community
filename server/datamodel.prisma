@@ -51,7 +51,6 @@ type Market {
   price: String!
   thumbnail: String @default(value:"https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=802&q=80")
   images: [Image!] @relation(name: "ImagesOfMarket", onDelete: CASCADE)
-  comments: [Comment!] @relation(name:"CommentsOfMarket", onDelete: CASCADE)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt 
 }
@@ -62,7 +61,6 @@ type Rent {
   title: String!
   caption: String!
   status: String!
-  comments: [Comment!] @relation(name:"CommentsOfRent", onDelete: CASCADE)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt 
 }
@@ -73,7 +71,7 @@ type Board {
   title: String!
   caption: String!
   category: String!
-  comments: [Comment!]! @relation(name:"CommentsOfBoard", onDelete: CASCADE)
+  comments: [Comment!]! @relation(name:"CommentOfBoard", onDelete: CASCADE)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt 
 }
@@ -91,9 +89,7 @@ type Comment {
   id: ID! @id
   text: String!
   user: User @relation(name:"CommentsOfUser")
-  board: Board @relation(name:"CommentsOfBoard")
-  market: Market @relation(name:"CommentsOfMarket")
-  rent: Rent @relation(name:"CommentsOfRent")
+  board: Board @relation(name:"CommentOfBoard")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
