@@ -78,7 +78,7 @@ type Board {
   title: String!
   caption: String!
   hit: Int
-  status: String!
+  category: String!
   comments: [Comment!]
   createdAt: String
   updatedAt: String
@@ -97,9 +97,9 @@ type Comment {
   id: ID!
   text: String!
   user: User!
-  board: Board!
-  market: Market!
-  rent: Rent!
+  board: Board
+  market: Market
+  rent: Rent
   createdAt: String
   updatedAt: String
 }

@@ -2,7 +2,6 @@ type Mutation {
   uploadBoard(
     title: String!
     caption: String!
-    status: String
-    username: String
+    category: String!
   ): Board!
 }

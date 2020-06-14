@@ -72,7 +72,7 @@ type Board {
   user: User! @relation(name:"BoardsOfUser")
   title: String!
   caption: String!
-  status: String!
+  category: String!
   comments: [Comment!]! @relation(name:"CommentsOfBoard", onDelete: CASCADE)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt 

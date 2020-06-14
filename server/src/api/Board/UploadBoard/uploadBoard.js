@@ -4,12 +4,11 @@ export default {
   Mutation: {
     uploadBoard: async (_, args, { request }) => {
       const { user } = request;
-      const { title, caption, status } = args;
-      console.log(status);
+      const { title, caption, category } = args;
       const board = await prisma.createBoard({
         caption,
         title,
-        status,
+        category,
         user: {
           connect: {
             id: user.id

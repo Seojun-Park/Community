@@ -686,8 +686,8 @@ export type BoardOrderByInput =
   | "title_DESC"
   | "caption_ASC"
   | "caption_DESC"
-  | "status_ASC"
-  | "status_DESC"
+  | "category_ASC"
+  | "category_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -1004,20 +1004,20 @@ export interface BoardWhereInput {
   caption_not_starts_with?: Maybe<String>;
   caption_ends_with?: Maybe<String>;
   caption_not_ends_with?: Maybe<String>;
-  status?: Maybe<String>;
-  status_not?: Maybe<String>;
-  status_in?: Maybe<String[] | String>;
-  status_not_in?: Maybe<String[] | String>;
-  status_lt?: Maybe<String>;
-  status_lte?: Maybe<String>;
-  status_gt?: Maybe<String>;
-  status_gte?: Maybe<String>;
-  status_contains?: Maybe<String>;
-  status_not_contains?: Maybe<String>;
-  status_starts_with?: Maybe<String>;
-  status_not_starts_with?: Maybe<String>;
-  status_ends_with?: Maybe<String>;
-  status_not_ends_with?: Maybe<String>;
+  category?: Maybe<String>;
+  category_not?: Maybe<String>;
+  category_in?: Maybe<String[] | String>;
+  category_not_in?: Maybe<String[] | String>;
+  category_lt?: Maybe<String>;
+  category_lte?: Maybe<String>;
+  category_gt?: Maybe<String>;
+  category_gte?: Maybe<String>;
+  category_contains?: Maybe<String>;
+  category_not_contains?: Maybe<String>;
+  category_starts_with?: Maybe<String>;
+  category_not_starts_with?: Maybe<String>;
+  category_ends_with?: Maybe<String>;
+  category_not_ends_with?: Maybe<String>;
   comments_every?: Maybe<CommentWhereInput>;
   comments_some?: Maybe<CommentWhereInput>;
   comments_none?: Maybe<CommentWhereInput>;
@@ -1862,7 +1862,7 @@ export interface BoardCreateInput {
   user: UserCreateOneWithoutBoardsInput;
   title: String;
   caption: String;
-  status: String;
+  category: String;
   comments?: Maybe<CommentCreateManyWithoutBoardInput>;
 }
 
@@ -1952,7 +1952,7 @@ export interface BoardCreateWithoutUserInput {
   id?: Maybe<ID_Input>;
   title: String;
   caption: String;
-  status: String;
+  category: String;
   comments?: Maybe<CommentCreateManyWithoutBoardInput>;
 }
 
@@ -2109,7 +2109,7 @@ export interface BoardCreateWithoutCommentsInput {
   user: UserCreateOneWithoutBoardsInput;
   title: String;
   caption: String;
-  status: String;
+  category: String;
 }
 
 export interface MarketCreateOneWithoutCommentsInput {
@@ -2430,7 +2430,7 @@ export interface BoardUpdateInput {
   user?: Maybe<UserUpdateOneRequiredWithoutBoardsInput>;
   title?: Maybe<String>;
   caption?: Maybe<String>;
-  status?: Maybe<String>;
+  category?: Maybe<String>;
   comments?: Maybe<CommentUpdateManyWithoutBoardInput>;
 }
 
@@ -2577,7 +2577,7 @@ export interface BoardUpdateWithWhereUniqueWithoutUserInput {
 export interface BoardUpdateWithoutUserDataInput {
   title?: Maybe<String>;
   caption?: Maybe<String>;
-  status?: Maybe<String>;
+  category?: Maybe<String>;
   comments?: Maybe<CommentUpdateManyWithoutBoardInput>;
 }
 
@@ -2860,7 +2860,7 @@ export interface BoardUpdateWithoutCommentsDataInput {
   user?: Maybe<UserUpdateOneRequiredWithoutBoardsInput>;
   title?: Maybe<String>;
   caption?: Maybe<String>;
-  status?: Maybe<String>;
+  category?: Maybe<String>;
 }
 
 export interface BoardUpsertWithoutCommentsInput {
@@ -4411,20 +4411,20 @@ export interface BoardScalarWhereInput {
   caption_not_starts_with?: Maybe<String>;
   caption_ends_with?: Maybe<String>;
   caption_not_ends_with?: Maybe<String>;
-  status?: Maybe<String>;
-  status_not?: Maybe<String>;
-  status_in?: Maybe<String[] | String>;
-  status_not_in?: Maybe<String[] | String>;
-  status_lt?: Maybe<String>;
-  status_lte?: Maybe<String>;
-  status_gt?: Maybe<String>;
-  status_gte?: Maybe<String>;
-  status_contains?: Maybe<String>;
-  status_not_contains?: Maybe<String>;
-  status_starts_with?: Maybe<String>;
-  status_not_starts_with?: Maybe<String>;
-  status_ends_with?: Maybe<String>;
-  status_not_ends_with?: Maybe<String>;
+  category?: Maybe<String>;
+  category_not?: Maybe<String>;
+  category_in?: Maybe<String[] | String>;
+  category_not_in?: Maybe<String[] | String>;
+  category_lt?: Maybe<String>;
+  category_lte?: Maybe<String>;
+  category_gt?: Maybe<String>;
+  category_gte?: Maybe<String>;
+  category_contains?: Maybe<String>;
+  category_not_contains?: Maybe<String>;
+  category_starts_with?: Maybe<String>;
+  category_not_starts_with?: Maybe<String>;
+  category_ends_with?: Maybe<String>;
+  category_not_ends_with?: Maybe<String>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -4454,7 +4454,7 @@ export interface BoardUpdateManyWithWhereNestedInput {
 export interface BoardUpdateManyDataInput {
   title?: Maybe<String>;
   caption?: Maybe<String>;
-  status?: Maybe<String>;
+  category?: Maybe<String>;
 }
 
 export interface UserUpsertNestedInput {
@@ -4654,7 +4654,7 @@ export interface BoardUpdateDataInput {
   user?: Maybe<UserUpdateOneRequiredWithoutBoardsInput>;
   title?: Maybe<String>;
   caption?: Maybe<String>;
-  status?: Maybe<String>;
+  category?: Maybe<String>;
   comments?: Maybe<CommentUpdateManyWithoutBoardInput>;
 }
 
@@ -4753,7 +4753,7 @@ export interface UserUpsertWithoutBoardsInput {
 export interface BoardUpdateManyMutationInput {
   title?: Maybe<String>;
   caption?: Maybe<String>;
-  status?: Maybe<String>;
+  category?: Maybe<String>;
 }
 
 export interface CommentUpdateInput {
@@ -5427,7 +5427,7 @@ export interface Board {
   id: ID_Output;
   title: String;
   caption: String;
-  status: String;
+  category: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -5437,7 +5437,7 @@ export interface BoardPromise extends Promise<Board>, Fragmentable {
   user: <T = UserPromise>() => T;
   title: () => Promise<String>;
   caption: () => Promise<String>;
-  status: () => Promise<String>;
+  category: () => Promise<String>;
   comments: <T = FragmentableArray<Comment>>(args?: {
     where?: CommentWhereInput;
     orderBy?: CommentOrderByInput;
@@ -5458,7 +5458,7 @@ export interface BoardSubscription
   user: <T = UserSubscription>() => T;
   title: () => Promise<AsyncIterator<String>>;
   caption: () => Promise<AsyncIterator<String>>;
-  status: () => Promise<AsyncIterator<String>>;
+  category: () => Promise<AsyncIterator<String>>;
   comments: <T = Promise<AsyncIterator<CommentSubscription>>>(args?: {
     where?: CommentWhereInput;
     orderBy?: CommentOrderByInput;
@@ -5479,7 +5479,7 @@ export interface BoardNullablePromise
   user: <T = UserPromise>() => T;
   title: () => Promise<String>;
   caption: () => Promise<String>;
-  status: () => Promise<String>;
+  category: () => Promise<String>;
   comments: <T = FragmentableArray<Comment>>(args?: {
     where?: CommentWhereInput;
     orderBy?: CommentOrderByInput;
@@ -7429,7 +7429,7 @@ export interface BoardPreviousValues {
   id: ID_Output;
   title: String;
   caption: String;
-  status: String;
+  category: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -7440,7 +7440,7 @@ export interface BoardPreviousValuesPromise
   id: () => Promise<ID_Output>;
   title: () => Promise<String>;
   caption: () => Promise<String>;
-  status: () => Promise<String>;
+  category: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -7451,7 +7451,7 @@ export interface BoardPreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   title: () => Promise<AsyncIterator<String>>;
   caption: () => Promise<AsyncIterator<String>>;
-  status: () => Promise<AsyncIterator<String>>;
+  category: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }

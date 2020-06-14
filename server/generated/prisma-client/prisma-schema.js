@@ -64,7 +64,7 @@ type Board {
   user: User!
   title: String!
   caption: String!
-  status: String!
+  category: String!
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -81,7 +81,7 @@ input BoardCreateInput {
   user: UserCreateOneWithoutBoardsInput!
   title: String!
   caption: String!
-  status: String!
+  category: String!
   comments: CommentCreateManyWithoutBoardInput
 }
 
@@ -105,14 +105,14 @@ input BoardCreateWithoutCommentsInput {
   user: UserCreateOneWithoutBoardsInput!
   title: String!
   caption: String!
-  status: String!
+  category: String!
 }
 
 input BoardCreateWithoutUserInput {
   id: ID
   title: String!
   caption: String!
-  status: String!
+  category: String!
   comments: CommentCreateManyWithoutBoardInput
 }
 
@@ -128,8 +128,8 @@ enum BoardOrderByInput {
   title_DESC
   caption_ASC
   caption_DESC
-  status_ASC
-  status_DESC
+  category_ASC
+  category_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -140,7 +140,7 @@ type BoardPreviousValues {
   id: ID!
   title: String!
   caption: String!
-  status: String!
+  category: String!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -188,20 +188,20 @@ input BoardScalarWhereInput {
   caption_not_starts_with: String
   caption_ends_with: String
   caption_not_ends_with: String
-  status: String
-  status_not: String
-  status_in: [String!]
-  status_not_in: [String!]
-  status_lt: String
-  status_lte: String
-  status_gt: String
-  status_gte: String
-  status_contains: String
-  status_not_contains: String
-  status_starts_with: String
-  status_not_starts_with: String
-  status_ends_with: String
-  status_not_ends_with: String
+  category: String
+  category_not: String
+  category_in: [String!]
+  category_not_in: [String!]
+  category_lt: String
+  category_lte: String
+  category_gt: String
+  category_gte: String
+  category_contains: String
+  category_not_contains: String
+  category_starts_with: String
+  category_not_starts_with: String
+  category_ends_with: String
+  category_not_ends_with: String
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -245,7 +245,7 @@ input BoardUpdateDataInput {
   user: UserUpdateOneRequiredWithoutBoardsInput
   title: String
   caption: String
-  status: String
+  category: String
   comments: CommentUpdateManyWithoutBoardInput
 }
 
@@ -253,14 +253,14 @@ input BoardUpdateInput {
   user: UserUpdateOneRequiredWithoutBoardsInput
   title: String
   caption: String
-  status: String
+  category: String
   comments: CommentUpdateManyWithoutBoardInput
 }
 
 input BoardUpdateManyDataInput {
   title: String
   caption: String
-  status: String
+  category: String
 }
 
 input BoardUpdateManyInput {
@@ -278,7 +278,7 @@ input BoardUpdateManyInput {
 input BoardUpdateManyMutationInput {
   title: String
   caption: String
-  status: String
+  category: String
 }
 
 input BoardUpdateManyWithoutUserInput {
@@ -311,13 +311,13 @@ input BoardUpdateWithoutCommentsDataInput {
   user: UserUpdateOneRequiredWithoutBoardsInput
   title: String
   caption: String
-  status: String
+  category: String
 }
 
 input BoardUpdateWithoutUserDataInput {
   title: String
   caption: String
-  status: String
+  category: String
   comments: CommentUpdateManyWithoutBoardInput
 }
 
@@ -392,20 +392,20 @@ input BoardWhereInput {
   caption_not_starts_with: String
   caption_ends_with: String
   caption_not_ends_with: String
-  status: String
-  status_not: String
-  status_in: [String!]
-  status_not_in: [String!]
-  status_lt: String
-  status_lte: String
-  status_gt: String
-  status_gte: String
-  status_contains: String
-  status_not_contains: String
-  status_starts_with: String
-  status_not_starts_with: String
-  status_ends_with: String
-  status_not_ends_with: String
+  category: String
+  category_not: String
+  category_in: [String!]
+  category_not_in: [String!]
+  category_lt: String
+  category_lte: String
+  category_gt: String
+  category_gte: String
+  category_contains: String
+  category_not_contains: String
+  category_starts_with: String
+  category_not_starts_with: String
+  category_ends_with: String
+  category_not_ends_with: String
   comments_every: CommentWhereInput
   comments_some: CommentWhereInput
   comments_none: CommentWhereInput
