@@ -67,12 +67,12 @@ type Rent {
   caption: String!
   hit: Int
   status: String!
-  comments: [Comment!]
   images: [Image!]
   size: String!
   address: String!
   type: String!
   price:String!
+  deposit: String!
   condition: String!
   zone: String!
   thumbnail: String

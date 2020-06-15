@@ -8,6 +8,7 @@ type Mutation {
     type: String!
     zone: String!
     price: String!
+    deposit: String!
     address: String!
     username: String
     condition: String!

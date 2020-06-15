@@ -65,6 +65,7 @@ type Rent {
   size: String!
   zone: String!
   price: String!
+  deposit: String!
   type: String!
   address: String!
   condition: String!

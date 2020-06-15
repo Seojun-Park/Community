@@ -708,6 +708,8 @@ export type RentOrderByInput =
   | "zone_DESC"
   | "price_ASC"
   | "price_DESC"
+  | "deposit_ASC"
+  | "deposit_DESC"
   | "type_ASC"
   | "type_DESC"
   | "address_ASC"
@@ -1594,6 +1596,20 @@ export interface RentWhereInput {
   price_not_starts_with?: Maybe<String>;
   price_ends_with?: Maybe<String>;
   price_not_ends_with?: Maybe<String>;
+  deposit?: Maybe<String>;
+  deposit_not?: Maybe<String>;
+  deposit_in?: Maybe<String[] | String>;
+  deposit_not_in?: Maybe<String[] | String>;
+  deposit_lt?: Maybe<String>;
+  deposit_lte?: Maybe<String>;
+  deposit_gt?: Maybe<String>;
+  deposit_gte?: Maybe<String>;
+  deposit_contains?: Maybe<String>;
+  deposit_not_contains?: Maybe<String>;
+  deposit_starts_with?: Maybe<String>;
+  deposit_not_starts_with?: Maybe<String>;
+  deposit_ends_with?: Maybe<String>;
+  deposit_not_ends_with?: Maybe<String>;
   type?: Maybe<String>;
   type_not?: Maybe<String>;
   type_in?: Maybe<String[] | String>;
@@ -2191,6 +2207,7 @@ export interface RentCreateWithoutUserInput {
   size: String;
   zone: String;
   price: String;
+  deposit: String;
   type: String;
   address: String;
   condition: String;
@@ -2324,6 +2341,7 @@ export interface RentCreateWithoutImagesInput {
   size: String;
   zone: String;
   price: String;
+  deposit: String;
   type: String;
   address: String;
   condition: String;
@@ -2508,6 +2526,7 @@ export interface RentCreateInput {
   size: String;
   zone: String;
   price: String;
+  deposit: String;
   type: String;
   address: String;
   condition: String;
@@ -2899,6 +2918,7 @@ export interface RentUpdateWithoutUserDataInput {
   size?: Maybe<String>;
   zone?: Maybe<String>;
   price?: Maybe<String>;
+  deposit?: Maybe<String>;
   type?: Maybe<String>;
   address?: Maybe<String>;
   condition?: Maybe<String>;
@@ -3189,6 +3209,7 @@ export interface RentUpdateWithoutImagesDataInput {
   size?: Maybe<String>;
   zone?: Maybe<String>;
   price?: Maybe<String>;
+  deposit?: Maybe<String>;
   type?: Maybe<String>;
   address?: Maybe<String>;
   condition?: Maybe<String>;
@@ -4248,6 +4269,20 @@ export interface RentScalarWhereInput {
   price_not_starts_with?: Maybe<String>;
   price_ends_with?: Maybe<String>;
   price_not_ends_with?: Maybe<String>;
+  deposit?: Maybe<String>;
+  deposit_not?: Maybe<String>;
+  deposit_in?: Maybe<String[] | String>;
+  deposit_not_in?: Maybe<String[] | String>;
+  deposit_lt?: Maybe<String>;
+  deposit_lte?: Maybe<String>;
+  deposit_gt?: Maybe<String>;
+  deposit_gte?: Maybe<String>;
+  deposit_contains?: Maybe<String>;
+  deposit_not_contains?: Maybe<String>;
+  deposit_starts_with?: Maybe<String>;
+  deposit_not_starts_with?: Maybe<String>;
+  deposit_ends_with?: Maybe<String>;
+  deposit_not_ends_with?: Maybe<String>;
   type?: Maybe<String>;
   type_not?: Maybe<String>;
   type_in?: Maybe<String[] | String>;
@@ -4337,6 +4372,7 @@ export interface RentUpdateManyDataInput {
   size?: Maybe<String>;
   zone?: Maybe<String>;
   price?: Maybe<String>;
+  deposit?: Maybe<String>;
   type?: Maybe<String>;
   address?: Maybe<String>;
   condition?: Maybe<String>;
@@ -4829,6 +4865,7 @@ export interface RentUpdateDataInput {
   size?: Maybe<String>;
   zone?: Maybe<String>;
   price?: Maybe<String>;
+  deposit?: Maybe<String>;
   type?: Maybe<String>;
   address?: Maybe<String>;
   condition?: Maybe<String>;
@@ -5201,6 +5238,7 @@ export interface RentUpdateInput {
   size?: Maybe<String>;
   zone?: Maybe<String>;
   price?: Maybe<String>;
+  deposit?: Maybe<String>;
   type?: Maybe<String>;
   address?: Maybe<String>;
   condition?: Maybe<String>;
@@ -5214,6 +5252,7 @@ export interface RentUpdateManyMutationInput {
   size?: Maybe<String>;
   zone?: Maybe<String>;
   price?: Maybe<String>;
+  deposit?: Maybe<String>;
   type?: Maybe<String>;
   address?: Maybe<String>;
   condition?: Maybe<String>;
@@ -6546,6 +6585,7 @@ export interface Rent {
   size: String;
   zone: String;
   price: String;
+  deposit: String;
   type: String;
   address: String;
   condition: String;
@@ -6572,6 +6612,7 @@ export interface RentPromise extends Promise<Rent>, Fragmentable {
   size: () => Promise<String>;
   zone: () => Promise<String>;
   price: () => Promise<String>;
+  deposit: () => Promise<String>;
   type: () => Promise<String>;
   address: () => Promise<String>;
   condition: () => Promise<String>;
@@ -6600,6 +6641,7 @@ export interface RentSubscription
   size: () => Promise<AsyncIterator<String>>;
   zone: () => Promise<AsyncIterator<String>>;
   price: () => Promise<AsyncIterator<String>>;
+  deposit: () => Promise<AsyncIterator<String>>;
   type: () => Promise<AsyncIterator<String>>;
   address: () => Promise<AsyncIterator<String>>;
   condition: () => Promise<AsyncIterator<String>>;
@@ -6628,6 +6670,7 @@ export interface RentNullablePromise
   size: () => Promise<String>;
   zone: () => Promise<String>;
   price: () => Promise<String>;
+  deposit: () => Promise<String>;
   type: () => Promise<String>;
   address: () => Promise<String>;
   condition: () => Promise<String>;
@@ -8027,6 +8070,7 @@ export interface RentPreviousValues {
   size: String;
   zone: String;
   price: String;
+  deposit: String;
   type: String;
   address: String;
   condition: String;
@@ -8045,6 +8089,7 @@ export interface RentPreviousValuesPromise
   size: () => Promise<String>;
   zone: () => Promise<String>;
   price: () => Promise<String>;
+  deposit: () => Promise<String>;
   type: () => Promise<String>;
   address: () => Promise<String>;
   condition: () => Promise<String>;
@@ -8063,6 +8108,7 @@ export interface RentPreviousValuesSubscription
   size: () => Promise<AsyncIterator<String>>;
   zone: () => Promise<AsyncIterator<String>>;
   price: () => Promise<AsyncIterator<String>>;
+  deposit: () => Promise<AsyncIterator<String>>;
   type: () => Promise<AsyncIterator<String>>;
   address: () => Promise<AsyncIterator<String>>;
   condition: () => Promise<AsyncIterator<String>>;

@@ -3010,6 +3010,7 @@ type Rent {
   size: String!
   zone: String!
   price: String!
+  deposit: String!
   type: String!
   address: String!
   condition: String!
@@ -3034,6 +3035,7 @@ input RentCreateInput {
   size: String!
   zone: String!
   price: String!
+  deposit: String!
   type: String!
   address: String!
   condition: String!
@@ -3064,6 +3066,7 @@ input RentCreateWithoutImagesInput {
   size: String!
   zone: String!
   price: String!
+  deposit: String!
   type: String!
   address: String!
   condition: String!
@@ -3079,6 +3082,7 @@ input RentCreateWithoutUserInput {
   size: String!
   zone: String!
   price: String!
+  deposit: String!
   type: String!
   address: String!
   condition: String!
@@ -3105,6 +3109,8 @@ enum RentOrderByInput {
   zone_DESC
   price_ASC
   price_DESC
+  deposit_ASC
+  deposit_DESC
   type_ASC
   type_DESC
   address_ASC
@@ -3127,6 +3133,7 @@ type RentPreviousValues {
   size: String!
   zone: String!
   price: String!
+  deposit: String!
   type: String!
   address: String!
   condition: String!
@@ -3234,6 +3241,20 @@ input RentScalarWhereInput {
   price_not_starts_with: String
   price_ends_with: String
   price_not_ends_with: String
+  deposit: String
+  deposit_not: String
+  deposit_in: [String!]
+  deposit_not_in: [String!]
+  deposit_lt: String
+  deposit_lte: String
+  deposit_gt: String
+  deposit_gte: String
+  deposit_contains: String
+  deposit_not_contains: String
+  deposit_starts_with: String
+  deposit_not_starts_with: String
+  deposit_ends_with: String
+  deposit_not_ends_with: String
   type: String
   type_not: String
   type_in: [String!]
@@ -3338,6 +3359,7 @@ input RentUpdateDataInput {
   size: String
   zone: String
   price: String
+  deposit: String
   type: String
   address: String
   condition: String
@@ -3353,6 +3375,7 @@ input RentUpdateInput {
   size: String
   zone: String
   price: String
+  deposit: String
   type: String
   address: String
   condition: String
@@ -3366,6 +3389,7 @@ input RentUpdateManyDataInput {
   size: String
   zone: String
   price: String
+  deposit: String
   type: String
   address: String
   condition: String
@@ -3391,6 +3415,7 @@ input RentUpdateManyMutationInput {
   size: String
   zone: String
   price: String
+  deposit: String
   type: String
   address: String
   condition: String
@@ -3431,6 +3456,7 @@ input RentUpdateWithoutImagesDataInput {
   size: String
   zone: String
   price: String
+  deposit: String
   type: String
   address: String
   condition: String
@@ -3445,6 +3471,7 @@ input RentUpdateWithoutUserDataInput {
   size: String
   zone: String
   price: String
+  deposit: String
   type: String
   address: String
   condition: String
@@ -3581,6 +3608,20 @@ input RentWhereInput {
   price_not_starts_with: String
   price_ends_with: String
   price_not_ends_with: String
+  deposit: String
+  deposit_not: String
+  deposit_in: [String!]
+  deposit_not_in: [String!]
+  deposit_lt: String
+  deposit_lte: String
+  deposit_gt: String
+  deposit_gte: String
+  deposit_contains: String
+  deposit_not_contains: String
+  deposit_starts_with: String
+  deposit_not_starts_with: String
+  deposit_ends_with: String
+  deposit_not_ends_with: String
   type: String
   type_not: String
   type_in: [String!]

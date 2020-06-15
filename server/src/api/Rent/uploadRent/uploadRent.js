@@ -2,7 +2,8 @@ import { prisma } from "../../../../generated/prisma-client";
 
 export default {
   Mutation: {
-    uploadRent: async (_, args, { request }) => {
+    uploadRent: async (_, args, { request, isAuthenticated }) => {
+      isAuthenticated(request);
       const { user } = request;
       const {
         title,
@@ -14,6 +15,7 @@ export default {
         type,
         zone,
         price,
+        deposit,
         condition
       } = args;
       const rent = await prisma.createRent({
@@ -25,6 +27,7 @@ export default {
         type,
         zone,
         price,
+        deposit,
         condition,
         user: {
           connect: {
