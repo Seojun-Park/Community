@@ -1235,6 +1235,7 @@ export interface ImageWhereInput {
   url_not_ends_with?: Maybe<String>;
   meet?: Maybe<MeetWhereInput>;
   market?: Maybe<MarketWhereInput>;
+  rent?: Maybe<RentWhereInput>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -1520,6 +1521,9 @@ export interface RentWhereInput {
   caption_not_starts_with?: Maybe<String>;
   caption_ends_with?: Maybe<String>;
   caption_not_ends_with?: Maybe<String>;
+  images_every?: Maybe<ImageWhereInput>;
+  images_some?: Maybe<ImageWhereInput>;
+  images_none?: Maybe<ImageWhereInput>;
   status?: Maybe<String>;
   status_not?: Maybe<String>;
   status_in?: Maybe<String[] | String>;
@@ -2012,6 +2016,7 @@ export interface ImageCreateWithoutMarketInput {
   id?: Maybe<ID_Input>;
   url: String;
   meet?: Maybe<MeetCreateOneWithoutImagesInput>;
+  rent?: Maybe<RentCreateOneWithoutImagesInput>;
 }
 
 export interface MeetCreateOneWithoutImagesInput {
@@ -2069,93 +2074,19 @@ export interface RentCreateWithoutUserInput {
   id?: Maybe<ID_Input>;
   title: String;
   caption: String;
+  images?: Maybe<ImageCreateManyWithoutRentInput>;
   status: String;
 }
 
-export interface CommentCreateManyWithoutUserInput {
-  create?: Maybe<
-    CommentCreateWithoutUserInput[] | CommentCreateWithoutUserInput
-  >;
-  connect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
-}
-
-export interface CommentCreateWithoutUserInput {
-  id?: Maybe<ID_Input>;
-  text: String;
-  board?: Maybe<BoardCreateOneWithoutCommentsInput>;
-}
-
-export interface BoardCreateOneWithoutCommentsInput {
-  create?: Maybe<BoardCreateWithoutCommentsInput>;
-  connect?: Maybe<BoardWhereUniqueInput>;
-}
-
-export interface BoardCreateWithoutCommentsInput {
-  id?: Maybe<ID_Input>;
-  user: UserCreateOneWithoutBoardsInput;
-  title: String;
-  caption: String;
-  category: String;
-}
-
-export interface UserCreateManyWithoutFollowersInput {
-  create?: Maybe<
-    UserCreateWithoutFollowersInput[] | UserCreateWithoutFollowersInput
-  >;
-  connect?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
-}
-
-export interface UserCreateWithoutFollowersInput {
-  id?: Maybe<ID_Input>;
-  avatar?: Maybe<String>;
-  email: String;
-  firstName?: Maybe<String>;
-  lastName?: Maybe<String>;
-  username: String;
-  intro?: Maybe<String>;
-  posts?: Maybe<PostCreateManyWithoutUserInput>;
-  boards?: Maybe<BoardCreateManyWithoutUserInput>;
-  markets?: Maybe<MarketCreateManyWithoutUserInput>;
-  rents?: Maybe<RentCreateManyWithoutUserInput>;
-  comments?: Maybe<CommentCreateManyWithoutUserInput>;
-  meets?: Maybe<MeetCreateManyWithoutParticipantsInput>;
-  following?: Maybe<UserCreateManyWithoutFollowersInput>;
-  rooms?: Maybe<RoomCreateManyWithoutParticipantsInput>;
-  schedules?: Maybe<ScheduleCreateManyWithoutUserInput>;
-  loginSecret?: Maybe<String>;
-}
-
-export interface MeetCreateManyWithoutParticipantsInput {
-  create?: Maybe<
-    MeetCreateWithoutParticipantsInput[] | MeetCreateWithoutParticipantsInput
-  >;
-  connect?: Maybe<MeetWhereUniqueInput[] | MeetWhereUniqueInput>;
-}
-
-export interface MeetCreateWithoutParticipantsInput {
-  id?: Maybe<ID_Input>;
-  intro: String;
-  title: String;
-  creator?: Maybe<String>;
-  location?: Maybe<String>;
-  date: String;
-  time: String;
-  isPublic: Boolean;
-  member?: Maybe<Int>;
-  thumbnail?: Maybe<String>;
-  theme: String;
-  images?: Maybe<ImageCreateManyWithoutMeetInput>;
-  tags?: Maybe<TagCreateManyWithoutMeetsInput>;
-}
-
-export interface ImageCreateManyWithoutMeetInput {
-  create?: Maybe<ImageCreateWithoutMeetInput[] | ImageCreateWithoutMeetInput>;
+export interface ImageCreateManyWithoutRentInput {
+  create?: Maybe<ImageCreateWithoutRentInput[] | ImageCreateWithoutRentInput>;
   connect?: Maybe<ImageWhereUniqueInput[] | ImageWhereUniqueInput>;
 }
 
-export interface ImageCreateWithoutMeetInput {
+export interface ImageCreateWithoutRentInput {
   id?: Maybe<ID_Input>;
   url: String;
+  meet?: Maybe<MeetCreateOneWithoutImagesInput>;
   market?: Maybe<MarketCreateOneWithoutImagesInput>;
 }
 
@@ -2199,14 +2130,113 @@ export interface UserCreateWithoutMarketsInput {
   loginSecret?: Maybe<String>;
 }
 
-export interface UserCreateManyWithoutFollowingInput {
+export interface CommentCreateManyWithoutUserInput {
   create?: Maybe<
-    UserCreateWithoutFollowingInput[] | UserCreateWithoutFollowingInput
+    CommentCreateWithoutUserInput[] | CommentCreateWithoutUserInput
+  >;
+  connect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
+}
+
+export interface CommentCreateWithoutUserInput {
+  id?: Maybe<ID_Input>;
+  text: String;
+  board?: Maybe<BoardCreateOneWithoutCommentsInput>;
+}
+
+export interface BoardCreateOneWithoutCommentsInput {
+  create?: Maybe<BoardCreateWithoutCommentsInput>;
+  connect?: Maybe<BoardWhereUniqueInput>;
+}
+
+export interface BoardCreateWithoutCommentsInput {
+  id?: Maybe<ID_Input>;
+  user: UserCreateOneWithoutBoardsInput;
+  title: String;
+  caption: String;
+  category: String;
+}
+
+export interface MeetCreateManyWithoutParticipantsInput {
+  create?: Maybe<
+    MeetCreateWithoutParticipantsInput[] | MeetCreateWithoutParticipantsInput
+  >;
+  connect?: Maybe<MeetWhereUniqueInput[] | MeetWhereUniqueInput>;
+}
+
+export interface MeetCreateWithoutParticipantsInput {
+  id?: Maybe<ID_Input>;
+  intro: String;
+  title: String;
+  creator?: Maybe<String>;
+  location?: Maybe<String>;
+  date: String;
+  time: String;
+  isPublic: Boolean;
+  member?: Maybe<Int>;
+  thumbnail?: Maybe<String>;
+  theme: String;
+  images?: Maybe<ImageCreateManyWithoutMeetInput>;
+  tags?: Maybe<TagCreateManyWithoutMeetsInput>;
+}
+
+export interface ImageCreateManyWithoutMeetInput {
+  create?: Maybe<ImageCreateWithoutMeetInput[] | ImageCreateWithoutMeetInput>;
+  connect?: Maybe<ImageWhereUniqueInput[] | ImageWhereUniqueInput>;
+}
+
+export interface ImageCreateWithoutMeetInput {
+  id?: Maybe<ID_Input>;
+  url: String;
+  market?: Maybe<MarketCreateOneWithoutImagesInput>;
+  rent?: Maybe<RentCreateOneWithoutImagesInput>;
+}
+
+export interface RentCreateOneWithoutImagesInput {
+  create?: Maybe<RentCreateWithoutImagesInput>;
+  connect?: Maybe<RentWhereUniqueInput>;
+}
+
+export interface RentCreateWithoutImagesInput {
+  id?: Maybe<ID_Input>;
+  user: UserCreateOneWithoutRentsInput;
+  title: String;
+  caption: String;
+  status: String;
+}
+
+export interface UserCreateOneWithoutRentsInput {
+  create?: Maybe<UserCreateWithoutRentsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserCreateWithoutRentsInput {
+  id?: Maybe<ID_Input>;
+  avatar?: Maybe<String>;
+  email: String;
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  username: String;
+  intro?: Maybe<String>;
+  posts?: Maybe<PostCreateManyWithoutUserInput>;
+  boards?: Maybe<BoardCreateManyWithoutUserInput>;
+  markets?: Maybe<MarketCreateManyWithoutUserInput>;
+  comments?: Maybe<CommentCreateManyWithoutUserInput>;
+  meets?: Maybe<MeetCreateManyWithoutParticipantsInput>;
+  following?: Maybe<UserCreateManyWithoutFollowersInput>;
+  followers?: Maybe<UserCreateManyWithoutFollowingInput>;
+  rooms?: Maybe<RoomCreateManyWithoutParticipantsInput>;
+  schedules?: Maybe<ScheduleCreateManyWithoutUserInput>;
+  loginSecret?: Maybe<String>;
+}
+
+export interface UserCreateManyWithoutFollowersInput {
+  create?: Maybe<
+    UserCreateWithoutFollowersInput[] | UserCreateWithoutFollowersInput
   >;
   connect?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
 }
 
-export interface UserCreateWithoutFollowingInput {
+export interface UserCreateWithoutFollowersInput {
   id?: Maybe<ID_Input>;
   avatar?: Maybe<String>;
   email: String;
@@ -2220,7 +2250,7 @@ export interface UserCreateWithoutFollowingInput {
   rents?: Maybe<RentCreateManyWithoutUserInput>;
   comments?: Maybe<CommentCreateManyWithoutUserInput>;
   meets?: Maybe<MeetCreateManyWithoutParticipantsInput>;
-  followers?: Maybe<UserCreateManyWithoutFollowingInput>;
+  following?: Maybe<UserCreateManyWithoutFollowersInput>;
   rooms?: Maybe<RoomCreateManyWithoutParticipantsInput>;
   schedules?: Maybe<ScheduleCreateManyWithoutUserInput>;
   loginSecret?: Maybe<String>;
@@ -2265,6 +2295,33 @@ export interface ScheduleCreateWithoutUserInput {
   todo: String;
   tag?: Maybe<String>;
   isOn: Boolean;
+}
+
+export interface UserCreateManyWithoutFollowingInput {
+  create?: Maybe<
+    UserCreateWithoutFollowingInput[] | UserCreateWithoutFollowingInput
+  >;
+  connect?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
+}
+
+export interface UserCreateWithoutFollowingInput {
+  id?: Maybe<ID_Input>;
+  avatar?: Maybe<String>;
+  email: String;
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  username: String;
+  intro?: Maybe<String>;
+  posts?: Maybe<PostCreateManyWithoutUserInput>;
+  boards?: Maybe<BoardCreateManyWithoutUserInput>;
+  markets?: Maybe<MarketCreateManyWithoutUserInput>;
+  rents?: Maybe<RentCreateManyWithoutUserInput>;
+  comments?: Maybe<CommentCreateManyWithoutUserInput>;
+  meets?: Maybe<MeetCreateManyWithoutParticipantsInput>;
+  followers?: Maybe<UserCreateManyWithoutFollowingInput>;
+  rooms?: Maybe<RoomCreateManyWithoutParticipantsInput>;
+  schedules?: Maybe<ScheduleCreateManyWithoutUserInput>;
+  loginSecret?: Maybe<String>;
 }
 
 export interface TagCreateManyWithoutMeetsInput {
@@ -2320,32 +2377,8 @@ export interface RentCreateInput {
   user: UserCreateOneWithoutRentsInput;
   title: String;
   caption: String;
+  images?: Maybe<ImageCreateManyWithoutRentInput>;
   status: String;
-}
-
-export interface UserCreateOneWithoutRentsInput {
-  create?: Maybe<UserCreateWithoutRentsInput>;
-  connect?: Maybe<UserWhereUniqueInput>;
-}
-
-export interface UserCreateWithoutRentsInput {
-  id?: Maybe<ID_Input>;
-  avatar?: Maybe<String>;
-  email: String;
-  firstName?: Maybe<String>;
-  lastName?: Maybe<String>;
-  username: String;
-  intro?: Maybe<String>;
-  posts?: Maybe<PostCreateManyWithoutUserInput>;
-  boards?: Maybe<BoardCreateManyWithoutUserInput>;
-  markets?: Maybe<MarketCreateManyWithoutUserInput>;
-  comments?: Maybe<CommentCreateManyWithoutUserInput>;
-  meets?: Maybe<MeetCreateManyWithoutParticipantsInput>;
-  following?: Maybe<UserCreateManyWithoutFollowersInput>;
-  followers?: Maybe<UserCreateManyWithoutFollowingInput>;
-  rooms?: Maybe<RoomCreateManyWithoutParticipantsInput>;
-  schedules?: Maybe<ScheduleCreateManyWithoutUserInput>;
-  loginSecret?: Maybe<String>;
 }
 
 export interface BoardUpdateInput {
@@ -2629,6 +2662,7 @@ export interface ImageUpdateWithWhereUniqueWithoutMarketInput {
 export interface ImageUpdateWithoutMarketDataInput {
   url?: Maybe<String>;
   meet?: Maybe<MeetUpdateOneWithoutImagesInput>;
+  rent?: Maybe<RentUpdateOneWithoutImagesInput>;
 }
 
 export interface MeetUpdateOneWithoutImagesInput {
@@ -2727,102 +2761,83 @@ export interface RentUpdateWithWhereUniqueWithoutUserInput {
 export interface RentUpdateWithoutUserDataInput {
   title?: Maybe<String>;
   caption?: Maybe<String>;
+  images?: Maybe<ImageUpdateManyWithoutRentInput>;
   status?: Maybe<String>;
 }
 
-export interface RentUpsertWithWhereUniqueWithoutUserInput {
-  where: RentWhereUniqueInput;
-  update: RentUpdateWithoutUserDataInput;
-  create: RentCreateWithoutUserInput;
+export interface ImageUpdateManyWithoutRentInput {
+  create?: Maybe<ImageCreateWithoutRentInput[] | ImageCreateWithoutRentInput>;
+  delete?: Maybe<ImageWhereUniqueInput[] | ImageWhereUniqueInput>;
+  connect?: Maybe<ImageWhereUniqueInput[] | ImageWhereUniqueInput>;
+  set?: Maybe<ImageWhereUniqueInput[] | ImageWhereUniqueInput>;
+  disconnect?: Maybe<ImageWhereUniqueInput[] | ImageWhereUniqueInput>;
+  update?: Maybe<
+    | ImageUpdateWithWhereUniqueWithoutRentInput[]
+    | ImageUpdateWithWhereUniqueWithoutRentInput
+  >;
+  upsert?: Maybe<
+    | ImageUpsertWithWhereUniqueWithoutRentInput[]
+    | ImageUpsertWithWhereUniqueWithoutRentInput
+  >;
+  deleteMany?: Maybe<ImageScalarWhereInput[] | ImageScalarWhereInput>;
+  updateMany?: Maybe<
+    ImageUpdateManyWithWhereNestedInput[] | ImageUpdateManyWithWhereNestedInput
+  >;
 }
 
-export interface RentScalarWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  title?: Maybe<String>;
-  title_not?: Maybe<String>;
-  title_in?: Maybe<String[] | String>;
-  title_not_in?: Maybe<String[] | String>;
-  title_lt?: Maybe<String>;
-  title_lte?: Maybe<String>;
-  title_gt?: Maybe<String>;
-  title_gte?: Maybe<String>;
-  title_contains?: Maybe<String>;
-  title_not_contains?: Maybe<String>;
-  title_starts_with?: Maybe<String>;
-  title_not_starts_with?: Maybe<String>;
-  title_ends_with?: Maybe<String>;
-  title_not_ends_with?: Maybe<String>;
-  caption?: Maybe<String>;
-  caption_not?: Maybe<String>;
-  caption_in?: Maybe<String[] | String>;
-  caption_not_in?: Maybe<String[] | String>;
-  caption_lt?: Maybe<String>;
-  caption_lte?: Maybe<String>;
-  caption_gt?: Maybe<String>;
-  caption_gte?: Maybe<String>;
-  caption_contains?: Maybe<String>;
-  caption_not_contains?: Maybe<String>;
-  caption_starts_with?: Maybe<String>;
-  caption_not_starts_with?: Maybe<String>;
-  caption_ends_with?: Maybe<String>;
-  caption_not_ends_with?: Maybe<String>;
-  status?: Maybe<String>;
-  status_not?: Maybe<String>;
-  status_in?: Maybe<String[] | String>;
-  status_not_in?: Maybe<String[] | String>;
-  status_lt?: Maybe<String>;
-  status_lte?: Maybe<String>;
-  status_gt?: Maybe<String>;
-  status_gte?: Maybe<String>;
-  status_contains?: Maybe<String>;
-  status_not_contains?: Maybe<String>;
-  status_starts_with?: Maybe<String>;
-  status_not_starts_with?: Maybe<String>;
-  status_ends_with?: Maybe<String>;
-  status_not_ends_with?: Maybe<String>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  AND?: Maybe<RentScalarWhereInput[] | RentScalarWhereInput>;
-  OR?: Maybe<RentScalarWhereInput[] | RentScalarWhereInput>;
-  NOT?: Maybe<RentScalarWhereInput[] | RentScalarWhereInput>;
+export interface ImageUpdateWithWhereUniqueWithoutRentInput {
+  where: ImageWhereUniqueInput;
+  data: ImageUpdateWithoutRentDataInput;
 }
 
-export interface RentUpdateManyWithWhereNestedInput {
-  where: RentScalarWhereInput;
-  data: RentUpdateManyDataInput;
+export interface ImageUpdateWithoutRentDataInput {
+  url?: Maybe<String>;
+  meet?: Maybe<MeetUpdateOneWithoutImagesInput>;
+  market?: Maybe<MarketUpdateOneWithoutImagesInput>;
 }
 
-export interface RentUpdateManyDataInput {
+export interface MarketUpdateOneWithoutImagesInput {
+  create?: Maybe<MarketCreateWithoutImagesInput>;
+  update?: Maybe<MarketUpdateWithoutImagesDataInput>;
+  upsert?: Maybe<MarketUpsertWithoutImagesInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<MarketWhereUniqueInput>;
+}
+
+export interface MarketUpdateWithoutImagesDataInput {
+  user?: Maybe<UserUpdateOneRequiredWithoutMarketsInput>;
   title?: Maybe<String>;
   caption?: Maybe<String>;
   status?: Maybe<String>;
+  price?: Maybe<String>;
+  thumbnail?: Maybe<String>;
+}
+
+export interface UserUpdateOneRequiredWithoutMarketsInput {
+  create?: Maybe<UserCreateWithoutMarketsInput>;
+  update?: Maybe<UserUpdateWithoutMarketsDataInput>;
+  upsert?: Maybe<UserUpsertWithoutMarketsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpdateWithoutMarketsDataInput {
+  avatar?: Maybe<String>;
+  email?: Maybe<String>;
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  username?: Maybe<String>;
+  intro?: Maybe<String>;
+  posts?: Maybe<PostUpdateManyWithoutUserInput>;
+  boards?: Maybe<BoardUpdateManyWithoutUserInput>;
+  rents?: Maybe<RentUpdateManyWithoutUserInput>;
+  comments?: Maybe<CommentUpdateManyWithoutUserInput>;
+  meets?: Maybe<MeetUpdateManyWithoutParticipantsInput>;
+  following?: Maybe<UserUpdateManyWithoutFollowersInput>;
+  followers?: Maybe<UserUpdateManyWithoutFollowingInput>;
+  rooms?: Maybe<RoomUpdateManyWithoutParticipantsInput>;
+  schedules?: Maybe<ScheduleUpdateManyWithoutUserInput>;
+  loginSecret?: Maybe<String>;
 }
 
 export interface CommentUpdateManyWithoutUserInput {
@@ -2944,52 +2959,6 @@ export interface CommentUpdateManyDataInput {
   text?: Maybe<String>;
 }
 
-export interface UserUpdateManyWithoutFollowersInput {
-  create?: Maybe<
-    UserCreateWithoutFollowersInput[] | UserCreateWithoutFollowersInput
-  >;
-  delete?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
-  connect?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
-  set?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
-  disconnect?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
-  update?: Maybe<
-    | UserUpdateWithWhereUniqueWithoutFollowersInput[]
-    | UserUpdateWithWhereUniqueWithoutFollowersInput
-  >;
-  upsert?: Maybe<
-    | UserUpsertWithWhereUniqueWithoutFollowersInput[]
-    | UserUpsertWithWhereUniqueWithoutFollowersInput
-  >;
-  deleteMany?: Maybe<UserScalarWhereInput[] | UserScalarWhereInput>;
-  updateMany?: Maybe<
-    UserUpdateManyWithWhereNestedInput[] | UserUpdateManyWithWhereNestedInput
-  >;
-}
-
-export interface UserUpdateWithWhereUniqueWithoutFollowersInput {
-  where: UserWhereUniqueInput;
-  data: UserUpdateWithoutFollowersDataInput;
-}
-
-export interface UserUpdateWithoutFollowersDataInput {
-  avatar?: Maybe<String>;
-  email?: Maybe<String>;
-  firstName?: Maybe<String>;
-  lastName?: Maybe<String>;
-  username?: Maybe<String>;
-  intro?: Maybe<String>;
-  posts?: Maybe<PostUpdateManyWithoutUserInput>;
-  boards?: Maybe<BoardUpdateManyWithoutUserInput>;
-  markets?: Maybe<MarketUpdateManyWithoutUserInput>;
-  rents?: Maybe<RentUpdateManyWithoutUserInput>;
-  comments?: Maybe<CommentUpdateManyWithoutUserInput>;
-  meets?: Maybe<MeetUpdateManyWithoutParticipantsInput>;
-  following?: Maybe<UserUpdateManyWithoutFollowersInput>;
-  rooms?: Maybe<RoomUpdateManyWithoutParticipantsInput>;
-  schedules?: Maybe<ScheduleUpdateManyWithoutUserInput>;
-  loginSecret?: Maybe<String>;
-}
-
 export interface MeetUpdateManyWithoutParticipantsInput {
   create?: Maybe<
     MeetCreateWithoutParticipantsInput[] | MeetCreateWithoutParticipantsInput
@@ -3060,34 +3029,33 @@ export interface ImageUpdateWithWhereUniqueWithoutMeetInput {
 export interface ImageUpdateWithoutMeetDataInput {
   url?: Maybe<String>;
   market?: Maybe<MarketUpdateOneWithoutImagesInput>;
+  rent?: Maybe<RentUpdateOneWithoutImagesInput>;
 }
 
-export interface MarketUpdateOneWithoutImagesInput {
-  create?: Maybe<MarketCreateWithoutImagesInput>;
-  update?: Maybe<MarketUpdateWithoutImagesDataInput>;
-  upsert?: Maybe<MarketUpsertWithoutImagesInput>;
+export interface RentUpdateOneWithoutImagesInput {
+  create?: Maybe<RentCreateWithoutImagesInput>;
+  update?: Maybe<RentUpdateWithoutImagesDataInput>;
+  upsert?: Maybe<RentUpsertWithoutImagesInput>;
   delete?: Maybe<Boolean>;
   disconnect?: Maybe<Boolean>;
-  connect?: Maybe<MarketWhereUniqueInput>;
+  connect?: Maybe<RentWhereUniqueInput>;
 }
 
-export interface MarketUpdateWithoutImagesDataInput {
-  user?: Maybe<UserUpdateOneRequiredWithoutMarketsInput>;
+export interface RentUpdateWithoutImagesDataInput {
+  user?: Maybe<UserUpdateOneRequiredWithoutRentsInput>;
   title?: Maybe<String>;
   caption?: Maybe<String>;
   status?: Maybe<String>;
-  price?: Maybe<String>;
-  thumbnail?: Maybe<String>;
 }
 
-export interface UserUpdateOneRequiredWithoutMarketsInput {
-  create?: Maybe<UserCreateWithoutMarketsInput>;
-  update?: Maybe<UserUpdateWithoutMarketsDataInput>;
-  upsert?: Maybe<UserUpsertWithoutMarketsInput>;
+export interface UserUpdateOneRequiredWithoutRentsInput {
+  create?: Maybe<UserCreateWithoutRentsInput>;
+  update?: Maybe<UserUpdateWithoutRentsDataInput>;
+  upsert?: Maybe<UserUpsertWithoutRentsInput>;
   connect?: Maybe<UserWhereUniqueInput>;
 }
 
-export interface UserUpdateWithoutMarketsDataInput {
+export interface UserUpdateWithoutRentsDataInput {
   avatar?: Maybe<String>;
   email?: Maybe<String>;
   firstName?: Maybe<String>;
@@ -3096,7 +3064,7 @@ export interface UserUpdateWithoutMarketsDataInput {
   intro?: Maybe<String>;
   posts?: Maybe<PostUpdateManyWithoutUserInput>;
   boards?: Maybe<BoardUpdateManyWithoutUserInput>;
-  rents?: Maybe<RentUpdateManyWithoutUserInput>;
+  markets?: Maybe<MarketUpdateManyWithoutUserInput>;
   comments?: Maybe<CommentUpdateManyWithoutUserInput>;
   meets?: Maybe<MeetUpdateManyWithoutParticipantsInput>;
   following?: Maybe<UserUpdateManyWithoutFollowersInput>;
@@ -3106,21 +3074,21 @@ export interface UserUpdateWithoutMarketsDataInput {
   loginSecret?: Maybe<String>;
 }
 
-export interface UserUpdateManyWithoutFollowingInput {
+export interface UserUpdateManyWithoutFollowersInput {
   create?: Maybe<
-    UserCreateWithoutFollowingInput[] | UserCreateWithoutFollowingInput
+    UserCreateWithoutFollowersInput[] | UserCreateWithoutFollowersInput
   >;
   delete?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
   connect?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
   set?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
   disconnect?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
   update?: Maybe<
-    | UserUpdateWithWhereUniqueWithoutFollowingInput[]
-    | UserUpdateWithWhereUniqueWithoutFollowingInput
+    | UserUpdateWithWhereUniqueWithoutFollowersInput[]
+    | UserUpdateWithWhereUniqueWithoutFollowersInput
   >;
   upsert?: Maybe<
-    | UserUpsertWithWhereUniqueWithoutFollowingInput[]
-    | UserUpsertWithWhereUniqueWithoutFollowingInput
+    | UserUpsertWithWhereUniqueWithoutFollowersInput[]
+    | UserUpsertWithWhereUniqueWithoutFollowersInput
   >;
   deleteMany?: Maybe<UserScalarWhereInput[] | UserScalarWhereInput>;
   updateMany?: Maybe<
@@ -3128,12 +3096,12 @@ export interface UserUpdateManyWithoutFollowingInput {
   >;
 }
 
-export interface UserUpdateWithWhereUniqueWithoutFollowingInput {
+export interface UserUpdateWithWhereUniqueWithoutFollowersInput {
   where: UserWhereUniqueInput;
-  data: UserUpdateWithoutFollowingDataInput;
+  data: UserUpdateWithoutFollowersDataInput;
 }
 
-export interface UserUpdateWithoutFollowingDataInput {
+export interface UserUpdateWithoutFollowersDataInput {
   avatar?: Maybe<String>;
   email?: Maybe<String>;
   firstName?: Maybe<String>;
@@ -3146,7 +3114,7 @@ export interface UserUpdateWithoutFollowingDataInput {
   rents?: Maybe<RentUpdateManyWithoutUserInput>;
   comments?: Maybe<CommentUpdateManyWithoutUserInput>;
   meets?: Maybe<MeetUpdateManyWithoutParticipantsInput>;
-  followers?: Maybe<UserUpdateManyWithoutFollowingInput>;
+  following?: Maybe<UserUpdateManyWithoutFollowersInput>;
   rooms?: Maybe<RoomUpdateManyWithoutParticipantsInput>;
   schedules?: Maybe<ScheduleUpdateManyWithoutUserInput>;
   loginSecret?: Maybe<String>;
@@ -3454,10 +3422,10 @@ export interface ScheduleUpdateManyDataInput {
   isOn?: Maybe<Boolean>;
 }
 
-export interface UserUpsertWithWhereUniqueWithoutFollowingInput {
+export interface UserUpsertWithWhereUniqueWithoutFollowersInput {
   where: UserWhereUniqueInput;
-  update: UserUpdateWithoutFollowingDataInput;
-  create: UserCreateWithoutFollowingInput;
+  update: UserUpdateWithoutFollowersDataInput;
+  create: UserCreateWithoutFollowersInput;
 }
 
 export interface UserScalarWhereInput {
@@ -3609,14 +3577,66 @@ export interface UserUpdateManyDataInput {
   loginSecret?: Maybe<String>;
 }
 
-export interface UserUpsertWithoutMarketsInput {
-  update: UserUpdateWithoutMarketsDataInput;
-  create: UserCreateWithoutMarketsInput;
+export interface UserUpdateManyWithoutFollowingInput {
+  create?: Maybe<
+    UserCreateWithoutFollowingInput[] | UserCreateWithoutFollowingInput
+  >;
+  delete?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
+  connect?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
+  set?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
+  disconnect?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
+  update?: Maybe<
+    | UserUpdateWithWhereUniqueWithoutFollowingInput[]
+    | UserUpdateWithWhereUniqueWithoutFollowingInput
+  >;
+  upsert?: Maybe<
+    | UserUpsertWithWhereUniqueWithoutFollowingInput[]
+    | UserUpsertWithWhereUniqueWithoutFollowingInput
+  >;
+  deleteMany?: Maybe<UserScalarWhereInput[] | UserScalarWhereInput>;
+  updateMany?: Maybe<
+    UserUpdateManyWithWhereNestedInput[] | UserUpdateManyWithWhereNestedInput
+  >;
 }
 
-export interface MarketUpsertWithoutImagesInput {
-  update: MarketUpdateWithoutImagesDataInput;
-  create: MarketCreateWithoutImagesInput;
+export interface UserUpdateWithWhereUniqueWithoutFollowingInput {
+  where: UserWhereUniqueInput;
+  data: UserUpdateWithoutFollowingDataInput;
+}
+
+export interface UserUpdateWithoutFollowingDataInput {
+  avatar?: Maybe<String>;
+  email?: Maybe<String>;
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  username?: Maybe<String>;
+  intro?: Maybe<String>;
+  posts?: Maybe<PostUpdateManyWithoutUserInput>;
+  boards?: Maybe<BoardUpdateManyWithoutUserInput>;
+  markets?: Maybe<MarketUpdateManyWithoutUserInput>;
+  rents?: Maybe<RentUpdateManyWithoutUserInput>;
+  comments?: Maybe<CommentUpdateManyWithoutUserInput>;
+  meets?: Maybe<MeetUpdateManyWithoutParticipantsInput>;
+  followers?: Maybe<UserUpdateManyWithoutFollowingInput>;
+  rooms?: Maybe<RoomUpdateManyWithoutParticipantsInput>;
+  schedules?: Maybe<ScheduleUpdateManyWithoutUserInput>;
+  loginSecret?: Maybe<String>;
+}
+
+export interface UserUpsertWithWhereUniqueWithoutFollowingInput {
+  where: UserWhereUniqueInput;
+  update: UserUpdateWithoutFollowingDataInput;
+  create: UserCreateWithoutFollowingInput;
+}
+
+export interface UserUpsertWithoutRentsInput {
+  update: UserUpdateWithoutRentsDataInput;
+  create: UserCreateWithoutRentsInput;
+}
+
+export interface RentUpsertWithoutImagesInput {
+  update: RentUpdateWithoutImagesDataInput;
+  create: RentCreateWithoutImagesInput;
 }
 
 export interface ImageUpsertWithWhereUniqueWithoutMeetInput {
@@ -3960,10 +3980,115 @@ export interface MeetUpdateManyDataInput {
   theme?: Maybe<String>;
 }
 
-export interface UserUpsertWithWhereUniqueWithoutFollowersInput {
-  where: UserWhereUniqueInput;
-  update: UserUpdateWithoutFollowersDataInput;
-  create: UserCreateWithoutFollowersInput;
+export interface UserUpsertWithoutMarketsInput {
+  update: UserUpdateWithoutMarketsDataInput;
+  create: UserCreateWithoutMarketsInput;
+}
+
+export interface MarketUpsertWithoutImagesInput {
+  update: MarketUpdateWithoutImagesDataInput;
+  create: MarketCreateWithoutImagesInput;
+}
+
+export interface ImageUpsertWithWhereUniqueWithoutRentInput {
+  where: ImageWhereUniqueInput;
+  update: ImageUpdateWithoutRentDataInput;
+  create: ImageCreateWithoutRentInput;
+}
+
+export interface RentUpsertWithWhereUniqueWithoutUserInput {
+  where: RentWhereUniqueInput;
+  update: RentUpdateWithoutUserDataInput;
+  create: RentCreateWithoutUserInput;
+}
+
+export interface RentScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  title?: Maybe<String>;
+  title_not?: Maybe<String>;
+  title_in?: Maybe<String[] | String>;
+  title_not_in?: Maybe<String[] | String>;
+  title_lt?: Maybe<String>;
+  title_lte?: Maybe<String>;
+  title_gt?: Maybe<String>;
+  title_gte?: Maybe<String>;
+  title_contains?: Maybe<String>;
+  title_not_contains?: Maybe<String>;
+  title_starts_with?: Maybe<String>;
+  title_not_starts_with?: Maybe<String>;
+  title_ends_with?: Maybe<String>;
+  title_not_ends_with?: Maybe<String>;
+  caption?: Maybe<String>;
+  caption_not?: Maybe<String>;
+  caption_in?: Maybe<String[] | String>;
+  caption_not_in?: Maybe<String[] | String>;
+  caption_lt?: Maybe<String>;
+  caption_lte?: Maybe<String>;
+  caption_gt?: Maybe<String>;
+  caption_gte?: Maybe<String>;
+  caption_contains?: Maybe<String>;
+  caption_not_contains?: Maybe<String>;
+  caption_starts_with?: Maybe<String>;
+  caption_not_starts_with?: Maybe<String>;
+  caption_ends_with?: Maybe<String>;
+  caption_not_ends_with?: Maybe<String>;
+  status?: Maybe<String>;
+  status_not?: Maybe<String>;
+  status_in?: Maybe<String[] | String>;
+  status_not_in?: Maybe<String[] | String>;
+  status_lt?: Maybe<String>;
+  status_lte?: Maybe<String>;
+  status_gt?: Maybe<String>;
+  status_gte?: Maybe<String>;
+  status_contains?: Maybe<String>;
+  status_not_contains?: Maybe<String>;
+  status_starts_with?: Maybe<String>;
+  status_not_starts_with?: Maybe<String>;
+  status_ends_with?: Maybe<String>;
+  status_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<RentScalarWhereInput[] | RentScalarWhereInput>;
+  OR?: Maybe<RentScalarWhereInput[] | RentScalarWhereInput>;
+  NOT?: Maybe<RentScalarWhereInput[] | RentScalarWhereInput>;
+}
+
+export interface RentUpdateManyWithWhereNestedInput {
+  where: RentScalarWhereInput;
+  data: RentUpdateManyDataInput;
+}
+
+export interface RentUpdateManyDataInput {
+  title?: Maybe<String>;
+  caption?: Maybe<String>;
+  status?: Maybe<String>;
 }
 
 export interface UserUpsertWithWhereUniqueWithoutMeetsInput {
@@ -4447,38 +4572,8 @@ export interface RentUpdateDataInput {
   user?: Maybe<UserUpdateOneRequiredWithoutRentsInput>;
   title?: Maybe<String>;
   caption?: Maybe<String>;
+  images?: Maybe<ImageUpdateManyWithoutRentInput>;
   status?: Maybe<String>;
-}
-
-export interface UserUpdateOneRequiredWithoutRentsInput {
-  create?: Maybe<UserCreateWithoutRentsInput>;
-  update?: Maybe<UserUpdateWithoutRentsDataInput>;
-  upsert?: Maybe<UserUpsertWithoutRentsInput>;
-  connect?: Maybe<UserWhereUniqueInput>;
-}
-
-export interface UserUpdateWithoutRentsDataInput {
-  avatar?: Maybe<String>;
-  email?: Maybe<String>;
-  firstName?: Maybe<String>;
-  lastName?: Maybe<String>;
-  username?: Maybe<String>;
-  intro?: Maybe<String>;
-  posts?: Maybe<PostUpdateManyWithoutUserInput>;
-  boards?: Maybe<BoardUpdateManyWithoutUserInput>;
-  markets?: Maybe<MarketUpdateManyWithoutUserInput>;
-  comments?: Maybe<CommentUpdateManyWithoutUserInput>;
-  meets?: Maybe<MeetUpdateManyWithoutParticipantsInput>;
-  following?: Maybe<UserUpdateManyWithoutFollowersInput>;
-  followers?: Maybe<UserUpdateManyWithoutFollowingInput>;
-  rooms?: Maybe<RoomUpdateManyWithoutParticipantsInput>;
-  schedules?: Maybe<ScheduleUpdateManyWithoutUserInput>;
-  loginSecret?: Maybe<String>;
-}
-
-export interface UserUpsertWithoutRentsInput {
-  update: UserUpdateWithoutRentsDataInput;
-  create: UserCreateWithoutRentsInput;
 }
 
 export interface RentUpsertWithWhereUniqueNestedInput {
@@ -4555,12 +4650,14 @@ export interface ImageCreateInput {
   url: String;
   meet?: Maybe<MeetCreateOneWithoutImagesInput>;
   market?: Maybe<MarketCreateOneWithoutImagesInput>;
+  rent?: Maybe<RentCreateOneWithoutImagesInput>;
 }
 
 export interface ImageUpdateInput {
   url?: Maybe<String>;
   meet?: Maybe<MeetUpdateOneWithoutImagesInput>;
   market?: Maybe<MarketUpdateOneWithoutImagesInput>;
+  rent?: Maybe<RentUpdateOneWithoutImagesInput>;
 }
 
 export interface ImageUpdateManyMutationInput {
@@ -4840,6 +4937,7 @@ export interface RentUpdateInput {
   user?: Maybe<UserUpdateOneRequiredWithoutRentsInput>;
   title?: Maybe<String>;
   caption?: Maybe<String>;
+  images?: Maybe<ImageUpdateManyWithoutRentInput>;
   status?: Maybe<String>;
 }
 
@@ -5932,6 +6030,7 @@ export interface ImagePromise extends Promise<Image>, Fragmentable {
   url: () => Promise<String>;
   meet: <T = MeetPromise>() => T;
   market: <T = MarketPromise>() => T;
+  rent: <T = RentPromise>() => T;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -5943,6 +6042,7 @@ export interface ImageSubscription
   url: () => Promise<AsyncIterator<String>>;
   meet: <T = MeetSubscription>() => T;
   market: <T = MarketSubscription>() => T;
+  rent: <T = RentSubscription>() => T;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -5954,6 +6054,7 @@ export interface ImageNullablePromise
   url: () => Promise<String>;
   meet: <T = MeetPromise>() => T;
   market: <T = MarketPromise>() => T;
+  rent: <T = RentPromise>() => T;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -6178,6 +6279,15 @@ export interface RentPromise extends Promise<Rent>, Fragmentable {
   user: <T = UserPromise>() => T;
   title: () => Promise<String>;
   caption: () => Promise<String>;
+  images: <T = FragmentableArray<Image>>(args?: {
+    where?: ImageWhereInput;
+    orderBy?: ImageOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
   status: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
@@ -6190,6 +6300,15 @@ export interface RentSubscription
   user: <T = UserSubscription>() => T;
   title: () => Promise<AsyncIterator<String>>;
   caption: () => Promise<AsyncIterator<String>>;
+  images: <T = Promise<AsyncIterator<ImageSubscription>>>(args?: {
+    where?: ImageWhereInput;
+    orderBy?: ImageOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
   status: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
@@ -6202,6 +6321,15 @@ export interface RentNullablePromise
   user: <T = UserPromise>() => T;
   title: () => Promise<String>;
   caption: () => Promise<String>;
+  images: <T = FragmentableArray<Image>>(args?: {
+    where?: ImageWhereInput;
+    orderBy?: ImageOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
   status: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;

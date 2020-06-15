@@ -741,6 +741,7 @@ type Image {
   url: String!
   meet: Meet
   market: Market
+  rent: Rent
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -756,6 +757,7 @@ input ImageCreateInput {
   url: String!
   meet: MeetCreateOneWithoutImagesInput
   market: MarketCreateOneWithoutImagesInput
+  rent: RentCreateOneWithoutImagesInput
 }
 
 input ImageCreateManyWithoutMarketInput {
@@ -768,15 +770,29 @@ input ImageCreateManyWithoutMeetInput {
   connect: [ImageWhereUniqueInput!]
 }
 
+input ImageCreateManyWithoutRentInput {
+  create: [ImageCreateWithoutRentInput!]
+  connect: [ImageWhereUniqueInput!]
+}
+
 input ImageCreateWithoutMarketInput {
   id: ID
   url: String!
   meet: MeetCreateOneWithoutImagesInput
+  rent: RentCreateOneWithoutImagesInput
 }
 
 input ImageCreateWithoutMeetInput {
   id: ID
   url: String!
+  market: MarketCreateOneWithoutImagesInput
+  rent: RentCreateOneWithoutImagesInput
+}
+
+input ImageCreateWithoutRentInput {
+  id: ID
+  url: String!
+  meet: MeetCreateOneWithoutImagesInput
   market: MarketCreateOneWithoutImagesInput
 }
 
@@ -875,6 +891,7 @@ input ImageUpdateInput {
   url: String
   meet: MeetUpdateOneWithoutImagesInput
   market: MarketUpdateOneWithoutImagesInput
+  rent: RentUpdateOneWithoutImagesInput
 }
 
 input ImageUpdateManyDataInput {
@@ -909,6 +926,18 @@ input ImageUpdateManyWithoutMeetInput {
   updateMany: [ImageUpdateManyWithWhereNestedInput!]
 }
 
+input ImageUpdateManyWithoutRentInput {
+  create: [ImageCreateWithoutRentInput!]
+  delete: [ImageWhereUniqueInput!]
+  connect: [ImageWhereUniqueInput!]
+  set: [ImageWhereUniqueInput!]
+  disconnect: [ImageWhereUniqueInput!]
+  update: [ImageUpdateWithWhereUniqueWithoutRentInput!]
+  upsert: [ImageUpsertWithWhereUniqueWithoutRentInput!]
+  deleteMany: [ImageScalarWhereInput!]
+  updateMany: [ImageUpdateManyWithWhereNestedInput!]
+}
+
 input ImageUpdateManyWithWhereNestedInput {
   where: ImageScalarWhereInput!
   data: ImageUpdateManyDataInput!
@@ -917,10 +946,18 @@ input ImageUpdateManyWithWhereNestedInput {
 input ImageUpdateWithoutMarketDataInput {
   url: String
   meet: MeetUpdateOneWithoutImagesInput
+  rent: RentUpdateOneWithoutImagesInput
 }
 
 input ImageUpdateWithoutMeetDataInput {
   url: String
+  market: MarketUpdateOneWithoutImagesInput
+  rent: RentUpdateOneWithoutImagesInput
+}
+
+input ImageUpdateWithoutRentDataInput {
+  url: String
+  meet: MeetUpdateOneWithoutImagesInput
   market: MarketUpdateOneWithoutImagesInput
 }
 
@@ -934,6 +971,11 @@ input ImageUpdateWithWhereUniqueWithoutMeetInput {
   data: ImageUpdateWithoutMeetDataInput!
 }
 
+input ImageUpdateWithWhereUniqueWithoutRentInput {
+  where: ImageWhereUniqueInput!
+  data: ImageUpdateWithoutRentDataInput!
+}
+
 input ImageUpsertWithWhereUniqueWithoutMarketInput {
   where: ImageWhereUniqueInput!
   update: ImageUpdateWithoutMarketDataInput!
@@ -944,6 +986,12 @@ input ImageUpsertWithWhereUniqueWithoutMeetInput {
   where: ImageWhereUniqueInput!
   update: ImageUpdateWithoutMeetDataInput!
   create: ImageCreateWithoutMeetInput!
+}
+
+input ImageUpsertWithWhereUniqueWithoutRentInput {
+  where: ImageWhereUniqueInput!
+  update: ImageUpdateWithoutRentDataInput!
+  create: ImageCreateWithoutRentInput!
 }
 
 input ImageWhereInput {
@@ -977,6 +1025,7 @@ input ImageWhereInput {
   url_not_ends_with: String
   meet: MeetWhereInput
   market: MarketWhereInput
+  rent: RentWhereInput
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -2956,6 +3005,7 @@ type Rent {
   user: User!
   title: String!
   caption: String!
+  images(where: ImageWhereInput, orderBy: ImageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Image!]
   status: String!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -2972,6 +3022,7 @@ input RentCreateInput {
   user: UserCreateOneWithoutRentsInput!
   title: String!
   caption: String!
+  images: ImageCreateManyWithoutRentInput
   status: String!
 }
 
@@ -2985,10 +3036,24 @@ input RentCreateManyWithoutUserInput {
   connect: [RentWhereUniqueInput!]
 }
 
+input RentCreateOneWithoutImagesInput {
+  create: RentCreateWithoutImagesInput
+  connect: RentWhereUniqueInput
+}
+
+input RentCreateWithoutImagesInput {
+  id: ID
+  user: UserCreateOneWithoutRentsInput!
+  title: String!
+  caption: String!
+  status: String!
+}
+
 input RentCreateWithoutUserInput {
   id: ID
   title: String!
   caption: String!
+  images: ImageCreateManyWithoutRentInput
   status: String!
 }
 
@@ -3121,6 +3186,7 @@ input RentUpdateDataInput {
   user: UserUpdateOneRequiredWithoutRentsInput
   title: String
   caption: String
+  images: ImageUpdateManyWithoutRentInput
   status: String
 }
 
@@ -3128,6 +3194,7 @@ input RentUpdateInput {
   user: UserUpdateOneRequiredWithoutRentsInput
   title: String
   caption: String
+  images: ImageUpdateManyWithoutRentInput
   status: String
 }
 
@@ -3172,9 +3239,26 @@ input RentUpdateManyWithWhereNestedInput {
   data: RentUpdateManyDataInput!
 }
 
+input RentUpdateOneWithoutImagesInput {
+  create: RentCreateWithoutImagesInput
+  update: RentUpdateWithoutImagesDataInput
+  upsert: RentUpsertWithoutImagesInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: RentWhereUniqueInput
+}
+
+input RentUpdateWithoutImagesDataInput {
+  user: UserUpdateOneRequiredWithoutRentsInput
+  title: String
+  caption: String
+  status: String
+}
+
 input RentUpdateWithoutUserDataInput {
   title: String
   caption: String
+  images: ImageUpdateManyWithoutRentInput
   status: String
 }
 
@@ -3186,6 +3270,11 @@ input RentUpdateWithWhereUniqueNestedInput {
 input RentUpdateWithWhereUniqueWithoutUserInput {
   where: RentWhereUniqueInput!
   data: RentUpdateWithoutUserDataInput!
+}
+
+input RentUpsertWithoutImagesInput {
+  update: RentUpdateWithoutImagesDataInput!
+  create: RentCreateWithoutImagesInput!
 }
 
 input RentUpsertWithWhereUniqueNestedInput {
@@ -3244,6 +3333,9 @@ input RentWhereInput {
   caption_not_starts_with: String
   caption_ends_with: String
   caption_not_ends_with: String
+  images_every: ImageWhereInput
+  images_some: ImageWhereInput
+  images_none: ImageWhereInput
   status: String
   status_not: String
   status_in: [String!]

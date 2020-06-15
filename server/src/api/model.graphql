@@ -68,6 +68,7 @@ type Rent {
   hit: Int
   status: String!
   comments: [Comment!]
+  images: [Image!]
   createdAt: String
   updatedAt: String
 }
@@ -89,6 +90,7 @@ type Image {
   url: String!
   meet: Meet
   market: Market
+  rent: Rent
   createdAt: String
   updatedAt: String
 }

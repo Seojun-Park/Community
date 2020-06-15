@@ -60,6 +60,7 @@ type Rent {
   user: User! @relation(name:"RentsOfUser")
   title: String!
   caption: String!
+  images: [Image!] @relation(name: "ImagesOfRent", onDelete: CASCADE)
   status: String!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt 
@@ -81,6 +82,7 @@ type Image{
   url: String! 
   meet: Meet @relation(name: "ImagesOfMeet")
   market: Market @relation(name: "ImagesOfMarket")
+  rent: Rent @relation(name:"ImagesOfRent")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
