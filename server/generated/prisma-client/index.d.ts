@@ -702,6 +702,20 @@ export type RentOrderByInput =
   | "caption_DESC"
   | "status_ASC"
   | "status_DESC"
+  | "size_ASC"
+  | "size_DESC"
+  | "zone_ASC"
+  | "zone_DESC"
+  | "price_ASC"
+  | "price_DESC"
+  | "type_ASC"
+  | "type_DESC"
+  | "address_ASC"
+  | "address_DESC"
+  | "condition_ASC"
+  | "condition_DESC"
+  | "thumbnail_ASC"
+  | "thumbnail_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -1538,6 +1552,104 @@ export interface RentWhereInput {
   status_not_starts_with?: Maybe<String>;
   status_ends_with?: Maybe<String>;
   status_not_ends_with?: Maybe<String>;
+  size?: Maybe<String>;
+  size_not?: Maybe<String>;
+  size_in?: Maybe<String[] | String>;
+  size_not_in?: Maybe<String[] | String>;
+  size_lt?: Maybe<String>;
+  size_lte?: Maybe<String>;
+  size_gt?: Maybe<String>;
+  size_gte?: Maybe<String>;
+  size_contains?: Maybe<String>;
+  size_not_contains?: Maybe<String>;
+  size_starts_with?: Maybe<String>;
+  size_not_starts_with?: Maybe<String>;
+  size_ends_with?: Maybe<String>;
+  size_not_ends_with?: Maybe<String>;
+  zone?: Maybe<String>;
+  zone_not?: Maybe<String>;
+  zone_in?: Maybe<String[] | String>;
+  zone_not_in?: Maybe<String[] | String>;
+  zone_lt?: Maybe<String>;
+  zone_lte?: Maybe<String>;
+  zone_gt?: Maybe<String>;
+  zone_gte?: Maybe<String>;
+  zone_contains?: Maybe<String>;
+  zone_not_contains?: Maybe<String>;
+  zone_starts_with?: Maybe<String>;
+  zone_not_starts_with?: Maybe<String>;
+  zone_ends_with?: Maybe<String>;
+  zone_not_ends_with?: Maybe<String>;
+  price?: Maybe<String>;
+  price_not?: Maybe<String>;
+  price_in?: Maybe<String[] | String>;
+  price_not_in?: Maybe<String[] | String>;
+  price_lt?: Maybe<String>;
+  price_lte?: Maybe<String>;
+  price_gt?: Maybe<String>;
+  price_gte?: Maybe<String>;
+  price_contains?: Maybe<String>;
+  price_not_contains?: Maybe<String>;
+  price_starts_with?: Maybe<String>;
+  price_not_starts_with?: Maybe<String>;
+  price_ends_with?: Maybe<String>;
+  price_not_ends_with?: Maybe<String>;
+  type?: Maybe<String>;
+  type_not?: Maybe<String>;
+  type_in?: Maybe<String[] | String>;
+  type_not_in?: Maybe<String[] | String>;
+  type_lt?: Maybe<String>;
+  type_lte?: Maybe<String>;
+  type_gt?: Maybe<String>;
+  type_gte?: Maybe<String>;
+  type_contains?: Maybe<String>;
+  type_not_contains?: Maybe<String>;
+  type_starts_with?: Maybe<String>;
+  type_not_starts_with?: Maybe<String>;
+  type_ends_with?: Maybe<String>;
+  type_not_ends_with?: Maybe<String>;
+  address?: Maybe<String>;
+  address_not?: Maybe<String>;
+  address_in?: Maybe<String[] | String>;
+  address_not_in?: Maybe<String[] | String>;
+  address_lt?: Maybe<String>;
+  address_lte?: Maybe<String>;
+  address_gt?: Maybe<String>;
+  address_gte?: Maybe<String>;
+  address_contains?: Maybe<String>;
+  address_not_contains?: Maybe<String>;
+  address_starts_with?: Maybe<String>;
+  address_not_starts_with?: Maybe<String>;
+  address_ends_with?: Maybe<String>;
+  address_not_ends_with?: Maybe<String>;
+  condition?: Maybe<String>;
+  condition_not?: Maybe<String>;
+  condition_in?: Maybe<String[] | String>;
+  condition_not_in?: Maybe<String[] | String>;
+  condition_lt?: Maybe<String>;
+  condition_lte?: Maybe<String>;
+  condition_gt?: Maybe<String>;
+  condition_gte?: Maybe<String>;
+  condition_contains?: Maybe<String>;
+  condition_not_contains?: Maybe<String>;
+  condition_starts_with?: Maybe<String>;
+  condition_not_starts_with?: Maybe<String>;
+  condition_ends_with?: Maybe<String>;
+  condition_not_ends_with?: Maybe<String>;
+  thumbnail?: Maybe<String>;
+  thumbnail_not?: Maybe<String>;
+  thumbnail_in?: Maybe<String[] | String>;
+  thumbnail_not_in?: Maybe<String[] | String>;
+  thumbnail_lt?: Maybe<String>;
+  thumbnail_lte?: Maybe<String>;
+  thumbnail_gt?: Maybe<String>;
+  thumbnail_gte?: Maybe<String>;
+  thumbnail_contains?: Maybe<String>;
+  thumbnail_not_contains?: Maybe<String>;
+  thumbnail_starts_with?: Maybe<String>;
+  thumbnail_not_starts_with?: Maybe<String>;
+  thumbnail_ends_with?: Maybe<String>;
+  thumbnail_not_ends_with?: Maybe<String>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -2076,6 +2188,13 @@ export interface RentCreateWithoutUserInput {
   caption: String;
   images?: Maybe<ImageCreateManyWithoutRentInput>;
   status: String;
+  size: String;
+  zone: String;
+  price: String;
+  type: String;
+  address: String;
+  condition: String;
+  thumbnail?: Maybe<String>;
 }
 
 export interface ImageCreateManyWithoutRentInput {
@@ -2202,6 +2321,13 @@ export interface RentCreateWithoutImagesInput {
   title: String;
   caption: String;
   status: String;
+  size: String;
+  zone: String;
+  price: String;
+  type: String;
+  address: String;
+  condition: String;
+  thumbnail?: Maybe<String>;
 }
 
 export interface UserCreateOneWithoutRentsInput {
@@ -2379,6 +2505,13 @@ export interface RentCreateInput {
   caption: String;
   images?: Maybe<ImageCreateManyWithoutRentInput>;
   status: String;
+  size: String;
+  zone: String;
+  price: String;
+  type: String;
+  address: String;
+  condition: String;
+  thumbnail?: Maybe<String>;
 }
 
 export interface BoardUpdateInput {
@@ -2763,6 +2896,13 @@ export interface RentUpdateWithoutUserDataInput {
   caption?: Maybe<String>;
   images?: Maybe<ImageUpdateManyWithoutRentInput>;
   status?: Maybe<String>;
+  size?: Maybe<String>;
+  zone?: Maybe<String>;
+  price?: Maybe<String>;
+  type?: Maybe<String>;
+  address?: Maybe<String>;
+  condition?: Maybe<String>;
+  thumbnail?: Maybe<String>;
 }
 
 export interface ImageUpdateManyWithoutRentInput {
@@ -3046,6 +3186,13 @@ export interface RentUpdateWithoutImagesDataInput {
   title?: Maybe<String>;
   caption?: Maybe<String>;
   status?: Maybe<String>;
+  size?: Maybe<String>;
+  zone?: Maybe<String>;
+  price?: Maybe<String>;
+  type?: Maybe<String>;
+  address?: Maybe<String>;
+  condition?: Maybe<String>;
+  thumbnail?: Maybe<String>;
 }
 
 export interface UserUpdateOneRequiredWithoutRentsInput {
@@ -4059,6 +4206,104 @@ export interface RentScalarWhereInput {
   status_not_starts_with?: Maybe<String>;
   status_ends_with?: Maybe<String>;
   status_not_ends_with?: Maybe<String>;
+  size?: Maybe<String>;
+  size_not?: Maybe<String>;
+  size_in?: Maybe<String[] | String>;
+  size_not_in?: Maybe<String[] | String>;
+  size_lt?: Maybe<String>;
+  size_lte?: Maybe<String>;
+  size_gt?: Maybe<String>;
+  size_gte?: Maybe<String>;
+  size_contains?: Maybe<String>;
+  size_not_contains?: Maybe<String>;
+  size_starts_with?: Maybe<String>;
+  size_not_starts_with?: Maybe<String>;
+  size_ends_with?: Maybe<String>;
+  size_not_ends_with?: Maybe<String>;
+  zone?: Maybe<String>;
+  zone_not?: Maybe<String>;
+  zone_in?: Maybe<String[] | String>;
+  zone_not_in?: Maybe<String[] | String>;
+  zone_lt?: Maybe<String>;
+  zone_lte?: Maybe<String>;
+  zone_gt?: Maybe<String>;
+  zone_gte?: Maybe<String>;
+  zone_contains?: Maybe<String>;
+  zone_not_contains?: Maybe<String>;
+  zone_starts_with?: Maybe<String>;
+  zone_not_starts_with?: Maybe<String>;
+  zone_ends_with?: Maybe<String>;
+  zone_not_ends_with?: Maybe<String>;
+  price?: Maybe<String>;
+  price_not?: Maybe<String>;
+  price_in?: Maybe<String[] | String>;
+  price_not_in?: Maybe<String[] | String>;
+  price_lt?: Maybe<String>;
+  price_lte?: Maybe<String>;
+  price_gt?: Maybe<String>;
+  price_gte?: Maybe<String>;
+  price_contains?: Maybe<String>;
+  price_not_contains?: Maybe<String>;
+  price_starts_with?: Maybe<String>;
+  price_not_starts_with?: Maybe<String>;
+  price_ends_with?: Maybe<String>;
+  price_not_ends_with?: Maybe<String>;
+  type?: Maybe<String>;
+  type_not?: Maybe<String>;
+  type_in?: Maybe<String[] | String>;
+  type_not_in?: Maybe<String[] | String>;
+  type_lt?: Maybe<String>;
+  type_lte?: Maybe<String>;
+  type_gt?: Maybe<String>;
+  type_gte?: Maybe<String>;
+  type_contains?: Maybe<String>;
+  type_not_contains?: Maybe<String>;
+  type_starts_with?: Maybe<String>;
+  type_not_starts_with?: Maybe<String>;
+  type_ends_with?: Maybe<String>;
+  type_not_ends_with?: Maybe<String>;
+  address?: Maybe<String>;
+  address_not?: Maybe<String>;
+  address_in?: Maybe<String[] | String>;
+  address_not_in?: Maybe<String[] | String>;
+  address_lt?: Maybe<String>;
+  address_lte?: Maybe<String>;
+  address_gt?: Maybe<String>;
+  address_gte?: Maybe<String>;
+  address_contains?: Maybe<String>;
+  address_not_contains?: Maybe<String>;
+  address_starts_with?: Maybe<String>;
+  address_not_starts_with?: Maybe<String>;
+  address_ends_with?: Maybe<String>;
+  address_not_ends_with?: Maybe<String>;
+  condition?: Maybe<String>;
+  condition_not?: Maybe<String>;
+  condition_in?: Maybe<String[] | String>;
+  condition_not_in?: Maybe<String[] | String>;
+  condition_lt?: Maybe<String>;
+  condition_lte?: Maybe<String>;
+  condition_gt?: Maybe<String>;
+  condition_gte?: Maybe<String>;
+  condition_contains?: Maybe<String>;
+  condition_not_contains?: Maybe<String>;
+  condition_starts_with?: Maybe<String>;
+  condition_not_starts_with?: Maybe<String>;
+  condition_ends_with?: Maybe<String>;
+  condition_not_ends_with?: Maybe<String>;
+  thumbnail?: Maybe<String>;
+  thumbnail_not?: Maybe<String>;
+  thumbnail_in?: Maybe<String[] | String>;
+  thumbnail_not_in?: Maybe<String[] | String>;
+  thumbnail_lt?: Maybe<String>;
+  thumbnail_lte?: Maybe<String>;
+  thumbnail_gt?: Maybe<String>;
+  thumbnail_gte?: Maybe<String>;
+  thumbnail_contains?: Maybe<String>;
+  thumbnail_not_contains?: Maybe<String>;
+  thumbnail_starts_with?: Maybe<String>;
+  thumbnail_not_starts_with?: Maybe<String>;
+  thumbnail_ends_with?: Maybe<String>;
+  thumbnail_not_ends_with?: Maybe<String>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -4089,6 +4334,13 @@ export interface RentUpdateManyDataInput {
   title?: Maybe<String>;
   caption?: Maybe<String>;
   status?: Maybe<String>;
+  size?: Maybe<String>;
+  zone?: Maybe<String>;
+  price?: Maybe<String>;
+  type?: Maybe<String>;
+  address?: Maybe<String>;
+  condition?: Maybe<String>;
+  thumbnail?: Maybe<String>;
 }
 
 export interface UserUpsertWithWhereUniqueWithoutMeetsInput {
@@ -4574,6 +4826,13 @@ export interface RentUpdateDataInput {
   caption?: Maybe<String>;
   images?: Maybe<ImageUpdateManyWithoutRentInput>;
   status?: Maybe<String>;
+  size?: Maybe<String>;
+  zone?: Maybe<String>;
+  price?: Maybe<String>;
+  type?: Maybe<String>;
+  address?: Maybe<String>;
+  condition?: Maybe<String>;
+  thumbnail?: Maybe<String>;
 }
 
 export interface RentUpsertWithWhereUniqueNestedInput {
@@ -4939,12 +5198,26 @@ export interface RentUpdateInput {
   caption?: Maybe<String>;
   images?: Maybe<ImageUpdateManyWithoutRentInput>;
   status?: Maybe<String>;
+  size?: Maybe<String>;
+  zone?: Maybe<String>;
+  price?: Maybe<String>;
+  type?: Maybe<String>;
+  address?: Maybe<String>;
+  condition?: Maybe<String>;
+  thumbnail?: Maybe<String>;
 }
 
 export interface RentUpdateManyMutationInput {
   title?: Maybe<String>;
   caption?: Maybe<String>;
   status?: Maybe<String>;
+  size?: Maybe<String>;
+  zone?: Maybe<String>;
+  price?: Maybe<String>;
+  type?: Maybe<String>;
+  address?: Maybe<String>;
+  condition?: Maybe<String>;
+  thumbnail?: Maybe<String>;
 }
 
 export interface RoomCreateInput {
@@ -6270,6 +6543,13 @@ export interface Rent {
   title: String;
   caption: String;
   status: String;
+  size: String;
+  zone: String;
+  price: String;
+  type: String;
+  address: String;
+  condition: String;
+  thumbnail?: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -6289,6 +6569,13 @@ export interface RentPromise extends Promise<Rent>, Fragmentable {
     last?: Int;
   }) => T;
   status: () => Promise<String>;
+  size: () => Promise<String>;
+  zone: () => Promise<String>;
+  price: () => Promise<String>;
+  type: () => Promise<String>;
+  address: () => Promise<String>;
+  condition: () => Promise<String>;
+  thumbnail: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -6310,6 +6597,13 @@ export interface RentSubscription
     last?: Int;
   }) => T;
   status: () => Promise<AsyncIterator<String>>;
+  size: () => Promise<AsyncIterator<String>>;
+  zone: () => Promise<AsyncIterator<String>>;
+  price: () => Promise<AsyncIterator<String>>;
+  type: () => Promise<AsyncIterator<String>>;
+  address: () => Promise<AsyncIterator<String>>;
+  condition: () => Promise<AsyncIterator<String>>;
+  thumbnail: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -6331,6 +6625,13 @@ export interface RentNullablePromise
     last?: Int;
   }) => T;
   status: () => Promise<String>;
+  size: () => Promise<String>;
+  zone: () => Promise<String>;
+  price: () => Promise<String>;
+  type: () => Promise<String>;
+  address: () => Promise<String>;
+  condition: () => Promise<String>;
+  thumbnail: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -7723,6 +8024,13 @@ export interface RentPreviousValues {
   title: String;
   caption: String;
   status: String;
+  size: String;
+  zone: String;
+  price: String;
+  type: String;
+  address: String;
+  condition: String;
+  thumbnail?: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -7734,6 +8042,13 @@ export interface RentPreviousValuesPromise
   title: () => Promise<String>;
   caption: () => Promise<String>;
   status: () => Promise<String>;
+  size: () => Promise<String>;
+  zone: () => Promise<String>;
+  price: () => Promise<String>;
+  type: () => Promise<String>;
+  address: () => Promise<String>;
+  condition: () => Promise<String>;
+  thumbnail: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -7745,6 +8060,13 @@ export interface RentPreviousValuesSubscription
   title: () => Promise<AsyncIterator<String>>;
   caption: () => Promise<AsyncIterator<String>>;
   status: () => Promise<AsyncIterator<String>>;
+  size: () => Promise<AsyncIterator<String>>;
+  zone: () => Promise<AsyncIterator<String>>;
+  price: () => Promise<AsyncIterator<String>>;
+  type: () => Promise<AsyncIterator<String>>;
+  address: () => Promise<AsyncIterator<String>>;
+  condition: () => Promise<AsyncIterator<String>>;
+  thumbnail: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }

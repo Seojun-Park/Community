@@ -4,11 +4,28 @@ export default {
   Mutation: {
     uploadRent: async (_, args, { request }) => {
       const { user } = request;
-      const { title, caption, status, images } = args;
+      const {
+        title,
+        caption,
+        status,
+        images,
+        address,
+        size,
+        type,
+        zone,
+        price,
+        condition
+      } = args;
       const rent = await prisma.createRent({
         caption,
         title,
         status,
+        address,
+        size,
+        type,
+        zone,
+        price,
+        condition,
         user: {
           connect: {
             id: user.id

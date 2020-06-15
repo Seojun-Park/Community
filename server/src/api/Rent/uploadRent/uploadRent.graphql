@@ -4,6 +4,12 @@ type Mutation {
     caption: String!
     status: String
     images: [String!]
+    size: String!
+    type: String!
+    zone: String!
+    price: String!
+    address: String!
     username: String
+    condition: String!
   ): Rent!
 }

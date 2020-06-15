@@ -3007,6 +3007,13 @@ type Rent {
   caption: String!
   images(where: ImageWhereInput, orderBy: ImageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Image!]
   status: String!
+  size: String!
+  zone: String!
+  price: String!
+  type: String!
+  address: String!
+  condition: String!
+  thumbnail: String
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -3024,6 +3031,13 @@ input RentCreateInput {
   caption: String!
   images: ImageCreateManyWithoutRentInput
   status: String!
+  size: String!
+  zone: String!
+  price: String!
+  type: String!
+  address: String!
+  condition: String!
+  thumbnail: String
 }
 
 input RentCreateManyInput {
@@ -3047,6 +3061,13 @@ input RentCreateWithoutImagesInput {
   title: String!
   caption: String!
   status: String!
+  size: String!
+  zone: String!
+  price: String!
+  type: String!
+  address: String!
+  condition: String!
+  thumbnail: String
 }
 
 input RentCreateWithoutUserInput {
@@ -3055,6 +3076,13 @@ input RentCreateWithoutUserInput {
   caption: String!
   images: ImageCreateManyWithoutRentInput
   status: String!
+  size: String!
+  zone: String!
+  price: String!
+  type: String!
+  address: String!
+  condition: String!
+  thumbnail: String
 }
 
 type RentEdge {
@@ -3071,6 +3099,20 @@ enum RentOrderByInput {
   caption_DESC
   status_ASC
   status_DESC
+  size_ASC
+  size_DESC
+  zone_ASC
+  zone_DESC
+  price_ASC
+  price_DESC
+  type_ASC
+  type_DESC
+  address_ASC
+  address_DESC
+  condition_ASC
+  condition_DESC
+  thumbnail_ASC
+  thumbnail_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -3082,6 +3124,13 @@ type RentPreviousValues {
   title: String!
   caption: String!
   status: String!
+  size: String!
+  zone: String!
+  price: String!
+  type: String!
+  address: String!
+  condition: String!
+  thumbnail: String
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -3143,6 +3192,104 @@ input RentScalarWhereInput {
   status_not_starts_with: String
   status_ends_with: String
   status_not_ends_with: String
+  size: String
+  size_not: String
+  size_in: [String!]
+  size_not_in: [String!]
+  size_lt: String
+  size_lte: String
+  size_gt: String
+  size_gte: String
+  size_contains: String
+  size_not_contains: String
+  size_starts_with: String
+  size_not_starts_with: String
+  size_ends_with: String
+  size_not_ends_with: String
+  zone: String
+  zone_not: String
+  zone_in: [String!]
+  zone_not_in: [String!]
+  zone_lt: String
+  zone_lte: String
+  zone_gt: String
+  zone_gte: String
+  zone_contains: String
+  zone_not_contains: String
+  zone_starts_with: String
+  zone_not_starts_with: String
+  zone_ends_with: String
+  zone_not_ends_with: String
+  price: String
+  price_not: String
+  price_in: [String!]
+  price_not_in: [String!]
+  price_lt: String
+  price_lte: String
+  price_gt: String
+  price_gte: String
+  price_contains: String
+  price_not_contains: String
+  price_starts_with: String
+  price_not_starts_with: String
+  price_ends_with: String
+  price_not_ends_with: String
+  type: String
+  type_not: String
+  type_in: [String!]
+  type_not_in: [String!]
+  type_lt: String
+  type_lte: String
+  type_gt: String
+  type_gte: String
+  type_contains: String
+  type_not_contains: String
+  type_starts_with: String
+  type_not_starts_with: String
+  type_ends_with: String
+  type_not_ends_with: String
+  address: String
+  address_not: String
+  address_in: [String!]
+  address_not_in: [String!]
+  address_lt: String
+  address_lte: String
+  address_gt: String
+  address_gte: String
+  address_contains: String
+  address_not_contains: String
+  address_starts_with: String
+  address_not_starts_with: String
+  address_ends_with: String
+  address_not_ends_with: String
+  condition: String
+  condition_not: String
+  condition_in: [String!]
+  condition_not_in: [String!]
+  condition_lt: String
+  condition_lte: String
+  condition_gt: String
+  condition_gte: String
+  condition_contains: String
+  condition_not_contains: String
+  condition_starts_with: String
+  condition_not_starts_with: String
+  condition_ends_with: String
+  condition_not_ends_with: String
+  thumbnail: String
+  thumbnail_not: String
+  thumbnail_in: [String!]
+  thumbnail_not_in: [String!]
+  thumbnail_lt: String
+  thumbnail_lte: String
+  thumbnail_gt: String
+  thumbnail_gte: String
+  thumbnail_contains: String
+  thumbnail_not_contains: String
+  thumbnail_starts_with: String
+  thumbnail_not_starts_with: String
+  thumbnail_ends_with: String
+  thumbnail_not_ends_with: String
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -3188,6 +3335,13 @@ input RentUpdateDataInput {
   caption: String
   images: ImageUpdateManyWithoutRentInput
   status: String
+  size: String
+  zone: String
+  price: String
+  type: String
+  address: String
+  condition: String
+  thumbnail: String
 }
 
 input RentUpdateInput {
@@ -3196,12 +3350,26 @@ input RentUpdateInput {
   caption: String
   images: ImageUpdateManyWithoutRentInput
   status: String
+  size: String
+  zone: String
+  price: String
+  type: String
+  address: String
+  condition: String
+  thumbnail: String
 }
 
 input RentUpdateManyDataInput {
   title: String
   caption: String
   status: String
+  size: String
+  zone: String
+  price: String
+  type: String
+  address: String
+  condition: String
+  thumbnail: String
 }
 
 input RentUpdateManyInput {
@@ -3220,6 +3388,13 @@ input RentUpdateManyMutationInput {
   title: String
   caption: String
   status: String
+  size: String
+  zone: String
+  price: String
+  type: String
+  address: String
+  condition: String
+  thumbnail: String
 }
 
 input RentUpdateManyWithoutUserInput {
@@ -3253,6 +3428,13 @@ input RentUpdateWithoutImagesDataInput {
   title: String
   caption: String
   status: String
+  size: String
+  zone: String
+  price: String
+  type: String
+  address: String
+  condition: String
+  thumbnail: String
 }
 
 input RentUpdateWithoutUserDataInput {
@@ -3260,6 +3442,13 @@ input RentUpdateWithoutUserDataInput {
   caption: String
   images: ImageUpdateManyWithoutRentInput
   status: String
+  size: String
+  zone: String
+  price: String
+  type: String
+  address: String
+  condition: String
+  thumbnail: String
 }
 
 input RentUpdateWithWhereUniqueNestedInput {
@@ -3350,6 +3539,104 @@ input RentWhereInput {
   status_not_starts_with: String
   status_ends_with: String
   status_not_ends_with: String
+  size: String
+  size_not: String
+  size_in: [String!]
+  size_not_in: [String!]
+  size_lt: String
+  size_lte: String
+  size_gt: String
+  size_gte: String
+  size_contains: String
+  size_not_contains: String
+  size_starts_with: String
+  size_not_starts_with: String
+  size_ends_with: String
+  size_not_ends_with: String
+  zone: String
+  zone_not: String
+  zone_in: [String!]
+  zone_not_in: [String!]
+  zone_lt: String
+  zone_lte: String
+  zone_gt: String
+  zone_gte: String
+  zone_contains: String
+  zone_not_contains: String
+  zone_starts_with: String
+  zone_not_starts_with: String
+  zone_ends_with: String
+  zone_not_ends_with: String
+  price: String
+  price_not: String
+  price_in: [String!]
+  price_not_in: [String!]
+  price_lt: String
+  price_lte: String
+  price_gt: String
+  price_gte: String
+  price_contains: String
+  price_not_contains: String
+  price_starts_with: String
+  price_not_starts_with: String
+  price_ends_with: String
+  price_not_ends_with: String
+  type: String
+  type_not: String
+  type_in: [String!]
+  type_not_in: [String!]
+  type_lt: String
+  type_lte: String
+  type_gt: String
+  type_gte: String
+  type_contains: String
+  type_not_contains: String
+  type_starts_with: String
+  type_not_starts_with: String
+  type_ends_with: String
+  type_not_ends_with: String
+  address: String
+  address_not: String
+  address_in: [String!]
+  address_not_in: [String!]
+  address_lt: String
+  address_lte: String
+  address_gt: String
+  address_gte: String
+  address_contains: String
+  address_not_contains: String
+  address_starts_with: String
+  address_not_starts_with: String
+  address_ends_with: String
+  address_not_ends_with: String
+  condition: String
+  condition_not: String
+  condition_in: [String!]
+  condition_not_in: [String!]
+  condition_lt: String
+  condition_lte: String
+  condition_gt: String
+  condition_gte: String
+  condition_contains: String
+  condition_not_contains: String
+  condition_starts_with: String
+  condition_not_starts_with: String
+  condition_ends_with: String
+  condition_not_ends_with: String
+  thumbnail: String
+  thumbnail_not: String
+  thumbnail_in: [String!]
+  thumbnail_not_in: [String!]
+  thumbnail_lt: String
+  thumbnail_lte: String
+  thumbnail_gt: String
+  thumbnail_gte: String
+  thumbnail_contains: String
+  thumbnail_not_contains: String
+  thumbnail_starts_with: String
+  thumbnail_not_starts_with: String
+  thumbnail_ends_with: String
+  thumbnail_not_ends_with: String
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]

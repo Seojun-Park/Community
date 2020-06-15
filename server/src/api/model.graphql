@@ -69,6 +69,13 @@ type Rent {
   status: String!
   comments: [Comment!]
   images: [Image!]
+  size: String!
+  address: String!
+  type: String!
+  price:String!
+  condition: String!
+  zone: String!
+  thumbnail: String
   createdAt: String
   updatedAt: String
 }

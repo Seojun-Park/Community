@@ -62,6 +62,13 @@ type Rent {
   caption: String!
   images: [Image!] @relation(name: "ImagesOfRent", onDelete: CASCADE)
   status: String!
+  size: String!
+  zone: String!
+  price: String!
+  type: String!
+  address: String!
+  condition: String!
+  thumbnail: String @default(value: "https://images.unsplash.com/photo-1460317442991-0ec209397118?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt 
 }
