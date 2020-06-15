@@ -91,6 +91,7 @@ type Image{
   meet: Meet @relation(name: "ImagesOfMeet")
   market: Market @relation(name: "ImagesOfMarket")
   rent: Rent @relation(name:"ImagesOfRent")
+  info: Info @relation(name:"ImagesOfInfo")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
@@ -156,6 +157,15 @@ type Schedule{
   todo: String!
   tag: String
   isOn: Boolean!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Info{
+  id: ID! @id
+  title: String!
+  text: String!
+  images: [Image!] @relation(name: "ImagesOfInfo" onDelete: CASCADE)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }

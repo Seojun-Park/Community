@@ -19,6 +19,7 @@ export interface Exists {
   board: (where?: BoardWhereInput) => Promise<boolean>;
   comment: (where?: CommentWhereInput) => Promise<boolean>;
   image: (where?: ImageWhereInput) => Promise<boolean>;
+  info: (where?: InfoWhereInput) => Promise<boolean>;
   market: (where?: MarketWhereInput) => Promise<boolean>;
   meet: (where?: MeetWhereInput) => Promise<boolean>;
   message: (where?: MessageWhereInput) => Promise<boolean>;
@@ -107,6 +108,25 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => ImageConnectionPromise;
+  info: (where: InfoWhereUniqueInput) => InfoNullablePromise;
+  infoes: (args?: {
+    where?: InfoWhereInput;
+    orderBy?: InfoOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Info>;
+  infoesConnection: (args?: {
+    where?: InfoWhereInput;
+    orderBy?: InfoOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => InfoConnectionPromise;
   market: (where: MarketWhereUniqueInput) => MarketNullablePromise;
   markets: (args?: {
     where?: MarketWhereInput;
@@ -351,6 +371,22 @@ export interface Prisma {
   }) => ImagePromise;
   deleteImage: (where: ImageWhereUniqueInput) => ImagePromise;
   deleteManyImages: (where?: ImageWhereInput) => BatchPayloadPromise;
+  createInfo: (data: InfoCreateInput) => InfoPromise;
+  updateInfo: (args: {
+    data: InfoUpdateInput;
+    where: InfoWhereUniqueInput;
+  }) => InfoPromise;
+  updateManyInfoes: (args: {
+    data: InfoUpdateManyMutationInput;
+    where?: InfoWhereInput;
+  }) => BatchPayloadPromise;
+  upsertInfo: (args: {
+    where: InfoWhereUniqueInput;
+    create: InfoCreateInput;
+    update: InfoUpdateInput;
+  }) => InfoPromise;
+  deleteInfo: (where: InfoWhereUniqueInput) => InfoPromise;
+  deleteManyInfoes: (where?: InfoWhereInput) => BatchPayloadPromise;
   createMarket: (data: MarketCreateInput) => MarketPromise;
   updateMarket: (args: {
     data: MarketUpdateInput;
@@ -521,6 +557,9 @@ export interface Subscription {
   image: (
     where?: ImageSubscriptionWhereInput
   ) => ImageSubscriptionPayloadSubscription;
+  info: (
+    where?: InfoSubscriptionWhereInput
+  ) => InfoSubscriptionPayloadSubscription;
   market: (
     where?: MarketSubscriptionWhereInput
   ) => MarketSubscriptionPayloadSubscription;
@@ -752,6 +791,18 @@ export type ScheduleOrderByInput =
   | "tag_DESC"
   | "isOn_ASC"
   | "isOn_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type InfoOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "title_ASC"
+  | "title_DESC"
+  | "text_ASC"
+  | "text_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -1252,6 +1303,7 @@ export interface ImageWhereInput {
   meet?: Maybe<MeetWhereInput>;
   market?: Maybe<MarketWhereInput>;
   rent?: Maybe<RentWhereInput>;
+  info?: Maybe<InfoWhereInput>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -1687,6 +1739,73 @@ export interface RentWhereInput {
   NOT?: Maybe<RentWhereInput[] | RentWhereInput>;
 }
 
+export interface InfoWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  title?: Maybe<String>;
+  title_not?: Maybe<String>;
+  title_in?: Maybe<String[] | String>;
+  title_not_in?: Maybe<String[] | String>;
+  title_lt?: Maybe<String>;
+  title_lte?: Maybe<String>;
+  title_gt?: Maybe<String>;
+  title_gte?: Maybe<String>;
+  title_contains?: Maybe<String>;
+  title_not_contains?: Maybe<String>;
+  title_starts_with?: Maybe<String>;
+  title_not_starts_with?: Maybe<String>;
+  title_ends_with?: Maybe<String>;
+  title_not_ends_with?: Maybe<String>;
+  text?: Maybe<String>;
+  text_not?: Maybe<String>;
+  text_in?: Maybe<String[] | String>;
+  text_not_in?: Maybe<String[] | String>;
+  text_lt?: Maybe<String>;
+  text_lte?: Maybe<String>;
+  text_gt?: Maybe<String>;
+  text_gte?: Maybe<String>;
+  text_contains?: Maybe<String>;
+  text_not_contains?: Maybe<String>;
+  text_starts_with?: Maybe<String>;
+  text_not_starts_with?: Maybe<String>;
+  text_ends_with?: Maybe<String>;
+  text_not_ends_with?: Maybe<String>;
+  images_every?: Maybe<ImageWhereInput>;
+  images_some?: Maybe<ImageWhereInput>;
+  images_none?: Maybe<ImageWhereInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<InfoWhereInput[] | InfoWhereInput>;
+  OR?: Maybe<InfoWhereInput[] | InfoWhereInput>;
+  NOT?: Maybe<InfoWhereInput[] | InfoWhereInput>;
+}
+
 export interface RoomWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
@@ -1939,6 +2058,10 @@ export type ImageWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
+export type InfoWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
 export type MarketWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
@@ -2145,6 +2268,7 @@ export interface ImageCreateWithoutMarketInput {
   url: String;
   meet?: Maybe<MeetCreateOneWithoutImagesInput>;
   rent?: Maybe<RentCreateOneWithoutImagesInput>;
+  info?: Maybe<InfoCreateOneWithoutImagesInput>;
 }
 
 export interface MeetCreateOneWithoutImagesInput {
@@ -2224,6 +2348,7 @@ export interface ImageCreateWithoutRentInput {
   url: String;
   meet?: Maybe<MeetCreateOneWithoutImagesInput>;
   market?: Maybe<MarketCreateOneWithoutImagesInput>;
+  info?: Maybe<InfoCreateOneWithoutImagesInput>;
 }
 
 export interface MarketCreateOneWithoutImagesInput {
@@ -2325,6 +2450,7 @@ export interface ImageCreateWithoutMeetInput {
   url: String;
   market?: Maybe<MarketCreateOneWithoutImagesInput>;
   rent?: Maybe<RentCreateOneWithoutImagesInput>;
+  info?: Maybe<InfoCreateOneWithoutImagesInput>;
 }
 
 export interface RentCreateOneWithoutImagesInput {
@@ -2466,6 +2592,17 @@ export interface UserCreateWithoutFollowingInput {
   rooms?: Maybe<RoomCreateManyWithoutParticipantsInput>;
   schedules?: Maybe<ScheduleCreateManyWithoutUserInput>;
   loginSecret?: Maybe<String>;
+}
+
+export interface InfoCreateOneWithoutImagesInput {
+  create?: Maybe<InfoCreateWithoutImagesInput>;
+  connect?: Maybe<InfoWhereUniqueInput>;
+}
+
+export interface InfoCreateWithoutImagesInput {
+  id?: Maybe<ID_Input>;
+  title: String;
+  text: String;
 }
 
 export interface TagCreateManyWithoutMeetsInput {
@@ -2815,6 +2952,7 @@ export interface ImageUpdateWithoutMarketDataInput {
   url?: Maybe<String>;
   meet?: Maybe<MeetUpdateOneWithoutImagesInput>;
   rent?: Maybe<RentUpdateOneWithoutImagesInput>;
+  info?: Maybe<InfoUpdateOneWithoutImagesInput>;
 }
 
 export interface MeetUpdateOneWithoutImagesInput {
@@ -2954,6 +3092,7 @@ export interface ImageUpdateWithoutRentDataInput {
   url?: Maybe<String>;
   meet?: Maybe<MeetUpdateOneWithoutImagesInput>;
   market?: Maybe<MarketUpdateOneWithoutImagesInput>;
+  info?: Maybe<InfoUpdateOneWithoutImagesInput>;
 }
 
 export interface MarketUpdateOneWithoutImagesInput {
@@ -3190,6 +3329,7 @@ export interface ImageUpdateWithoutMeetDataInput {
   url?: Maybe<String>;
   market?: Maybe<MarketUpdateOneWithoutImagesInput>;
   rent?: Maybe<RentUpdateOneWithoutImagesInput>;
+  info?: Maybe<InfoUpdateOneWithoutImagesInput>;
 }
 
 export interface RentUpdateOneWithoutImagesInput {
@@ -3805,6 +3945,25 @@ export interface UserUpsertWithoutRentsInput {
 export interface RentUpsertWithoutImagesInput {
   update: RentUpdateWithoutImagesDataInput;
   create: RentCreateWithoutImagesInput;
+}
+
+export interface InfoUpdateOneWithoutImagesInput {
+  create?: Maybe<InfoCreateWithoutImagesInput>;
+  update?: Maybe<InfoUpdateWithoutImagesDataInput>;
+  upsert?: Maybe<InfoUpsertWithoutImagesInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<InfoWhereUniqueInput>;
+}
+
+export interface InfoUpdateWithoutImagesDataInput {
+  title?: Maybe<String>;
+  text?: Maybe<String>;
+}
+
+export interface InfoUpsertWithoutImagesInput {
+  update: InfoUpdateWithoutImagesDataInput;
+  create: InfoCreateWithoutImagesInput;
 }
 
 export interface ImageUpsertWithWhereUniqueWithoutMeetInput {
@@ -4947,6 +5106,7 @@ export interface ImageCreateInput {
   meet?: Maybe<MeetCreateOneWithoutImagesInput>;
   market?: Maybe<MarketCreateOneWithoutImagesInput>;
   rent?: Maybe<RentCreateOneWithoutImagesInput>;
+  info?: Maybe<InfoCreateOneWithoutImagesInput>;
 }
 
 export interface ImageUpdateInput {
@@ -4954,10 +5114,80 @@ export interface ImageUpdateInput {
   meet?: Maybe<MeetUpdateOneWithoutImagesInput>;
   market?: Maybe<MarketUpdateOneWithoutImagesInput>;
   rent?: Maybe<RentUpdateOneWithoutImagesInput>;
+  info?: Maybe<InfoUpdateOneWithoutImagesInput>;
 }
 
 export interface ImageUpdateManyMutationInput {
   url?: Maybe<String>;
+}
+
+export interface InfoCreateInput {
+  id?: Maybe<ID_Input>;
+  title: String;
+  text: String;
+  images?: Maybe<ImageCreateManyWithoutInfoInput>;
+}
+
+export interface ImageCreateManyWithoutInfoInput {
+  create?: Maybe<ImageCreateWithoutInfoInput[] | ImageCreateWithoutInfoInput>;
+  connect?: Maybe<ImageWhereUniqueInput[] | ImageWhereUniqueInput>;
+}
+
+export interface ImageCreateWithoutInfoInput {
+  id?: Maybe<ID_Input>;
+  url: String;
+  meet?: Maybe<MeetCreateOneWithoutImagesInput>;
+  market?: Maybe<MarketCreateOneWithoutImagesInput>;
+  rent?: Maybe<RentCreateOneWithoutImagesInput>;
+}
+
+export interface InfoUpdateInput {
+  title?: Maybe<String>;
+  text?: Maybe<String>;
+  images?: Maybe<ImageUpdateManyWithoutInfoInput>;
+}
+
+export interface ImageUpdateManyWithoutInfoInput {
+  create?: Maybe<ImageCreateWithoutInfoInput[] | ImageCreateWithoutInfoInput>;
+  delete?: Maybe<ImageWhereUniqueInput[] | ImageWhereUniqueInput>;
+  connect?: Maybe<ImageWhereUniqueInput[] | ImageWhereUniqueInput>;
+  set?: Maybe<ImageWhereUniqueInput[] | ImageWhereUniqueInput>;
+  disconnect?: Maybe<ImageWhereUniqueInput[] | ImageWhereUniqueInput>;
+  update?: Maybe<
+    | ImageUpdateWithWhereUniqueWithoutInfoInput[]
+    | ImageUpdateWithWhereUniqueWithoutInfoInput
+  >;
+  upsert?: Maybe<
+    | ImageUpsertWithWhereUniqueWithoutInfoInput[]
+    | ImageUpsertWithWhereUniqueWithoutInfoInput
+  >;
+  deleteMany?: Maybe<ImageScalarWhereInput[] | ImageScalarWhereInput>;
+  updateMany?: Maybe<
+    ImageUpdateManyWithWhereNestedInput[] | ImageUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface ImageUpdateWithWhereUniqueWithoutInfoInput {
+  where: ImageWhereUniqueInput;
+  data: ImageUpdateWithoutInfoDataInput;
+}
+
+export interface ImageUpdateWithoutInfoDataInput {
+  url?: Maybe<String>;
+  meet?: Maybe<MeetUpdateOneWithoutImagesInput>;
+  market?: Maybe<MarketUpdateOneWithoutImagesInput>;
+  rent?: Maybe<RentUpdateOneWithoutImagesInput>;
+}
+
+export interface ImageUpsertWithWhereUniqueWithoutInfoInput {
+  where: ImageWhereUniqueInput;
+  update: ImageUpdateWithoutInfoDataInput;
+  create: ImageCreateWithoutInfoInput;
+}
+
+export interface InfoUpdateManyMutationInput {
+  title?: Maybe<String>;
+  text?: Maybe<String>;
 }
 
 export interface MarketUpdateInput {
@@ -5493,6 +5723,17 @@ export interface ImageSubscriptionWhereInput {
   AND?: Maybe<ImageSubscriptionWhereInput[] | ImageSubscriptionWhereInput>;
   OR?: Maybe<ImageSubscriptionWhereInput[] | ImageSubscriptionWhereInput>;
   NOT?: Maybe<ImageSubscriptionWhereInput[] | ImageSubscriptionWhereInput>;
+}
+
+export interface InfoSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<InfoWhereInput>;
+  AND?: Maybe<InfoSubscriptionWhereInput[] | InfoSubscriptionWhereInput>;
+  OR?: Maybe<InfoSubscriptionWhereInput[] | InfoSubscriptionWhereInput>;
+  NOT?: Maybe<InfoSubscriptionWhereInput[] | InfoSubscriptionWhereInput>;
 }
 
 export interface MarketSubscriptionWhereInput {
@@ -6343,6 +6584,7 @@ export interface ImagePromise extends Promise<Image>, Fragmentable {
   meet: <T = MeetPromise>() => T;
   market: <T = MarketPromise>() => T;
   rent: <T = RentPromise>() => T;
+  info: <T = InfoPromise>() => T;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -6355,6 +6597,7 @@ export interface ImageSubscription
   meet: <T = MeetSubscription>() => T;
   market: <T = MarketSubscription>() => T;
   rent: <T = RentSubscription>() => T;
+  info: <T = InfoSubscription>() => T;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -6367,6 +6610,7 @@ export interface ImageNullablePromise
   meet: <T = MeetPromise>() => T;
   market: <T = MarketPromise>() => T;
   rent: <T = RentPromise>() => T;
+  info: <T = InfoPromise>() => T;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -6675,6 +6919,69 @@ export interface RentNullablePromise
   address: () => Promise<String>;
   condition: () => Promise<String>;
   thumbnail: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface Info {
+  id: ID_Output;
+  title: String;
+  text: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface InfoPromise extends Promise<Info>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  title: () => Promise<String>;
+  text: () => Promise<String>;
+  images: <T = FragmentableArray<Image>>(args?: {
+    where?: ImageWhereInput;
+    orderBy?: ImageOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface InfoSubscription
+  extends Promise<AsyncIterator<Info>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  title: () => Promise<AsyncIterator<String>>;
+  text: () => Promise<AsyncIterator<String>>;
+  images: <T = Promise<AsyncIterator<ImageSubscription>>>(args?: {
+    where?: ImageWhereInput;
+    orderBy?: ImageOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface InfoNullablePromise
+  extends Promise<Info | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  title: () => Promise<String>;
+  text: () => Promise<String>;
+  images: <T = FragmentableArray<Image>>(args?: {
+    where?: ImageWhereInput;
+    orderBy?: ImageOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -7030,6 +7337,60 @@ export interface AggregateImagePromise
 
 export interface AggregateImageSubscription
   extends Promise<AsyncIterator<AggregateImage>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface InfoConnection {
+  pageInfo: PageInfo;
+  edges: InfoEdge[];
+}
+
+export interface InfoConnectionPromise
+  extends Promise<InfoConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<InfoEdge>>() => T;
+  aggregate: <T = AggregateInfoPromise>() => T;
+}
+
+export interface InfoConnectionSubscription
+  extends Promise<AsyncIterator<InfoConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<InfoEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateInfoSubscription>() => T;
+}
+
+export interface InfoEdge {
+  node: Info;
+  cursor: String;
+}
+
+export interface InfoEdgePromise extends Promise<InfoEdge>, Fragmentable {
+  node: <T = InfoPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface InfoEdgeSubscription
+  extends Promise<AsyncIterator<InfoEdge>>,
+    Fragmentable {
+  node: <T = InfoSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateInfo {
+  count: Int;
+}
+
+export interface AggregateInfoPromise
+  extends Promise<AggregateInfo>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateInfoSubscription
+  extends Promise<AsyncIterator<AggregateInfo>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
@@ -7748,6 +8109,59 @@ export interface ImagePreviousValuesSubscription
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
+export interface InfoSubscriptionPayload {
+  mutation: MutationType;
+  node: Info;
+  updatedFields: String[];
+  previousValues: InfoPreviousValues;
+}
+
+export interface InfoSubscriptionPayloadPromise
+  extends Promise<InfoSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = InfoPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = InfoPreviousValuesPromise>() => T;
+}
+
+export interface InfoSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<InfoSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = InfoSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = InfoPreviousValuesSubscription>() => T;
+}
+
+export interface InfoPreviousValues {
+  id: ID_Output;
+  title: String;
+  text: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface InfoPreviousValuesPromise
+  extends Promise<InfoPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  title: () => Promise<String>;
+  text: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface InfoPreviousValuesSubscription
+  extends Promise<AsyncIterator<InfoPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  title: () => Promise<AsyncIterator<String>>;
+  text: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
 export interface MarketSubscriptionPayload {
   mutation: MutationType;
   node: Market;
@@ -8429,6 +8843,10 @@ export const models: Model[] = [
   },
   {
     name: "Schedule",
+    embedded: false
+  },
+  {
+    name: "Info",
     embedded: false
   }
 ];

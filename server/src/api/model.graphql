@@ -98,6 +98,7 @@ type Image {
   meet: Meet
   market: Market
   rent: Rent
+  info: Info
   createdAt: String
   updatedAt: String
 }
@@ -163,6 +164,15 @@ type Schedule {
   date: String!
   tag: String
   isOn: Boolean!
+  createdAt: String
+  updatedAt: String
+}
+
+type Info{
+  id: ID!
+  title: String!
+  text: String!
+  images: [Image!]
   createdAt: String
   updatedAt: String
 }

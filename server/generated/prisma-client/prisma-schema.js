@@ -15,6 +15,10 @@ type AggregateImage {
   count: Int!
 }
 
+type AggregateInfo {
+  count: Int!
+}
+
 type AggregateMarket {
   count: Int!
 }
@@ -742,6 +746,7 @@ type Image {
   meet: Meet
   market: Market
   rent: Rent
+  info: Info
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -758,6 +763,12 @@ input ImageCreateInput {
   meet: MeetCreateOneWithoutImagesInput
   market: MarketCreateOneWithoutImagesInput
   rent: RentCreateOneWithoutImagesInput
+  info: InfoCreateOneWithoutImagesInput
+}
+
+input ImageCreateManyWithoutInfoInput {
+  create: [ImageCreateWithoutInfoInput!]
+  connect: [ImageWhereUniqueInput!]
 }
 
 input ImageCreateManyWithoutMarketInput {
@@ -775,11 +786,20 @@ input ImageCreateManyWithoutRentInput {
   connect: [ImageWhereUniqueInput!]
 }
 
+input ImageCreateWithoutInfoInput {
+  id: ID
+  url: String!
+  meet: MeetCreateOneWithoutImagesInput
+  market: MarketCreateOneWithoutImagesInput
+  rent: RentCreateOneWithoutImagesInput
+}
+
 input ImageCreateWithoutMarketInput {
   id: ID
   url: String!
   meet: MeetCreateOneWithoutImagesInput
   rent: RentCreateOneWithoutImagesInput
+  info: InfoCreateOneWithoutImagesInput
 }
 
 input ImageCreateWithoutMeetInput {
@@ -787,6 +807,7 @@ input ImageCreateWithoutMeetInput {
   url: String!
   market: MarketCreateOneWithoutImagesInput
   rent: RentCreateOneWithoutImagesInput
+  info: InfoCreateOneWithoutImagesInput
 }
 
 input ImageCreateWithoutRentInput {
@@ -794,6 +815,7 @@ input ImageCreateWithoutRentInput {
   url: String!
   meet: MeetCreateOneWithoutImagesInput
   market: MarketCreateOneWithoutImagesInput
+  info: InfoCreateOneWithoutImagesInput
 }
 
 type ImageEdge {
@@ -892,6 +914,7 @@ input ImageUpdateInput {
   meet: MeetUpdateOneWithoutImagesInput
   market: MarketUpdateOneWithoutImagesInput
   rent: RentUpdateOneWithoutImagesInput
+  info: InfoUpdateOneWithoutImagesInput
 }
 
 input ImageUpdateManyDataInput {
@@ -900,6 +923,18 @@ input ImageUpdateManyDataInput {
 
 input ImageUpdateManyMutationInput {
   url: String
+}
+
+input ImageUpdateManyWithoutInfoInput {
+  create: [ImageCreateWithoutInfoInput!]
+  delete: [ImageWhereUniqueInput!]
+  connect: [ImageWhereUniqueInput!]
+  set: [ImageWhereUniqueInput!]
+  disconnect: [ImageWhereUniqueInput!]
+  update: [ImageUpdateWithWhereUniqueWithoutInfoInput!]
+  upsert: [ImageUpsertWithWhereUniqueWithoutInfoInput!]
+  deleteMany: [ImageScalarWhereInput!]
+  updateMany: [ImageUpdateManyWithWhereNestedInput!]
 }
 
 input ImageUpdateManyWithoutMarketInput {
@@ -943,22 +978,37 @@ input ImageUpdateManyWithWhereNestedInput {
   data: ImageUpdateManyDataInput!
 }
 
+input ImageUpdateWithoutInfoDataInput {
+  url: String
+  meet: MeetUpdateOneWithoutImagesInput
+  market: MarketUpdateOneWithoutImagesInput
+  rent: RentUpdateOneWithoutImagesInput
+}
+
 input ImageUpdateWithoutMarketDataInput {
   url: String
   meet: MeetUpdateOneWithoutImagesInput
   rent: RentUpdateOneWithoutImagesInput
+  info: InfoUpdateOneWithoutImagesInput
 }
 
 input ImageUpdateWithoutMeetDataInput {
   url: String
   market: MarketUpdateOneWithoutImagesInput
   rent: RentUpdateOneWithoutImagesInput
+  info: InfoUpdateOneWithoutImagesInput
 }
 
 input ImageUpdateWithoutRentDataInput {
   url: String
   meet: MeetUpdateOneWithoutImagesInput
   market: MarketUpdateOneWithoutImagesInput
+  info: InfoUpdateOneWithoutImagesInput
+}
+
+input ImageUpdateWithWhereUniqueWithoutInfoInput {
+  where: ImageWhereUniqueInput!
+  data: ImageUpdateWithoutInfoDataInput!
 }
 
 input ImageUpdateWithWhereUniqueWithoutMarketInput {
@@ -974,6 +1024,12 @@ input ImageUpdateWithWhereUniqueWithoutMeetInput {
 input ImageUpdateWithWhereUniqueWithoutRentInput {
   where: ImageWhereUniqueInput!
   data: ImageUpdateWithoutRentDataInput!
+}
+
+input ImageUpsertWithWhereUniqueWithoutInfoInput {
+  where: ImageWhereUniqueInput!
+  update: ImageUpdateWithoutInfoDataInput!
+  create: ImageCreateWithoutInfoInput!
 }
 
 input ImageUpsertWithWhereUniqueWithoutMarketInput {
@@ -1026,6 +1082,7 @@ input ImageWhereInput {
   meet: MeetWhereInput
   market: MarketWhereInput
   rent: RentWhereInput
+  info: InfoWhereInput
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -1048,6 +1105,184 @@ input ImageWhereInput {
 }
 
 input ImageWhereUniqueInput {
+  id: ID
+}
+
+type Info {
+  id: ID!
+  title: String!
+  text: String!
+  images(where: ImageWhereInput, orderBy: ImageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Image!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type InfoConnection {
+  pageInfo: PageInfo!
+  edges: [InfoEdge]!
+  aggregate: AggregateInfo!
+}
+
+input InfoCreateInput {
+  id: ID
+  title: String!
+  text: String!
+  images: ImageCreateManyWithoutInfoInput
+}
+
+input InfoCreateOneWithoutImagesInput {
+  create: InfoCreateWithoutImagesInput
+  connect: InfoWhereUniqueInput
+}
+
+input InfoCreateWithoutImagesInput {
+  id: ID
+  title: String!
+  text: String!
+}
+
+type InfoEdge {
+  node: Info!
+  cursor: String!
+}
+
+enum InfoOrderByInput {
+  id_ASC
+  id_DESC
+  title_ASC
+  title_DESC
+  text_ASC
+  text_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type InfoPreviousValues {
+  id: ID!
+  title: String!
+  text: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type InfoSubscriptionPayload {
+  mutation: MutationType!
+  node: Info
+  updatedFields: [String!]
+  previousValues: InfoPreviousValues
+}
+
+input InfoSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: InfoWhereInput
+  AND: [InfoSubscriptionWhereInput!]
+  OR: [InfoSubscriptionWhereInput!]
+  NOT: [InfoSubscriptionWhereInput!]
+}
+
+input InfoUpdateInput {
+  title: String
+  text: String
+  images: ImageUpdateManyWithoutInfoInput
+}
+
+input InfoUpdateManyMutationInput {
+  title: String
+  text: String
+}
+
+input InfoUpdateOneWithoutImagesInput {
+  create: InfoCreateWithoutImagesInput
+  update: InfoUpdateWithoutImagesDataInput
+  upsert: InfoUpsertWithoutImagesInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: InfoWhereUniqueInput
+}
+
+input InfoUpdateWithoutImagesDataInput {
+  title: String
+  text: String
+}
+
+input InfoUpsertWithoutImagesInput {
+  update: InfoUpdateWithoutImagesDataInput!
+  create: InfoCreateWithoutImagesInput!
+}
+
+input InfoWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  text: String
+  text_not: String
+  text_in: [String!]
+  text_not_in: [String!]
+  text_lt: String
+  text_lte: String
+  text_gt: String
+  text_gte: String
+  text_contains: String
+  text_not_contains: String
+  text_starts_with: String
+  text_not_starts_with: String
+  text_ends_with: String
+  text_not_ends_with: String
+  images_every: ImageWhereInput
+  images_some: ImageWhereInput
+  images_none: ImageWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [InfoWhereInput!]
+  OR: [InfoWhereInput!]
+  NOT: [InfoWhereInput!]
+}
+
+input InfoWhereUniqueInput {
   id: ID
 }
 
@@ -2416,6 +2651,12 @@ type Mutation {
   upsertImage(where: ImageWhereUniqueInput!, create: ImageCreateInput!, update: ImageUpdateInput!): Image!
   deleteImage(where: ImageWhereUniqueInput!): Image
   deleteManyImages(where: ImageWhereInput): BatchPayload!
+  createInfo(data: InfoCreateInput!): Info!
+  updateInfo(data: InfoUpdateInput!, where: InfoWhereUniqueInput!): Info
+  updateManyInfoes(data: InfoUpdateManyMutationInput!, where: InfoWhereInput): BatchPayload!
+  upsertInfo(where: InfoWhereUniqueInput!, create: InfoCreateInput!, update: InfoUpdateInput!): Info!
+  deleteInfo(where: InfoWhereUniqueInput!): Info
+  deleteManyInfoes(where: InfoWhereInput): BatchPayload!
   createMarket(data: MarketCreateInput!): Market!
   updateMarket(data: MarketUpdateInput!, where: MarketWhereUniqueInput!): Market
   updateManyMarkets(data: MarketUpdateManyMutationInput!, where: MarketWhereInput): BatchPayload!
@@ -2967,6 +3208,9 @@ type Query {
   image(where: ImageWhereUniqueInput!): Image
   images(where: ImageWhereInput, orderBy: ImageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Image]!
   imagesConnection(where: ImageWhereInput, orderBy: ImageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ImageConnection!
+  info(where: InfoWhereUniqueInput!): Info
+  infoes(where: InfoWhereInput, orderBy: InfoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Info]!
+  infoesConnection(where: InfoWhereInput, orderBy: InfoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): InfoConnection!
   market(where: MarketWhereUniqueInput!): Market
   markets(where: MarketWhereInput, orderBy: MarketOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Market]!
   marketsConnection(where: MarketWhereInput, orderBy: MarketOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MarketConnection!
@@ -4225,6 +4469,7 @@ type Subscription {
   board(where: BoardSubscriptionWhereInput): BoardSubscriptionPayload
   comment(where: CommentSubscriptionWhereInput): CommentSubscriptionPayload
   image(where: ImageSubscriptionWhereInput): ImageSubscriptionPayload
+  info(where: InfoSubscriptionWhereInput): InfoSubscriptionPayload
   market(where: MarketSubscriptionWhereInput): MarketSubscriptionPayload
   meet(where: MeetSubscriptionWhereInput): MeetSubscriptionPayload
   message(where: MessageSubscriptionWhereInput): MessageSubscriptionPayload
