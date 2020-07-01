@@ -1,3 +1,5 @@
+/** @format */
+
 import { prisma } from "../../../../generated/prisma-client";
 
 export default {
@@ -8,6 +10,7 @@ export default {
           orderBy: "createdAt_DESC"
         });
       } catch (e) {
+        console.log(e.message);
         console.log(e.message);
       }
     }
