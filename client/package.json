@@ -54,7 +54,7 @@
     "google-maps-react": "^2.0.6",
     "graphql": "^15.0.0",
     "immutable": "^4.0.0-rc.12",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "lodash.throttle": "^4.1.1",
     "mapbox-gl": "^1.10.0",
     "mapbox-gl-geocoder": "^2.0.1",
